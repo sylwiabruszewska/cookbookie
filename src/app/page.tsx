@@ -11,16 +11,18 @@ export default function Home() {
         <Image
           src="/logo.svg"
           alt="CookBookie Logo"
-          className="dark:invert mb-10"
+          className="dark:invert lg:mb-10"
           width={68}
           height={68}
           priority
         />
 
-        <h1 className="text-3xl font-bold ">Welcome to the CookBookie App!</h1>
+        <h1 className="text-3xl font-bold text-center">
+          Welcome to the CookBookie App!
+        </h1>
 
         <p
-          className={`text-center text-regular mb-10 lg:w-1/2 ${poppins.className}`}
+          className={`text-center text-regular mb-10 w-3/4 lg:w-1/2 ${poppins.className}`}
         >
           This app offers more than just a collection of recipes - it is
           designed to be your very own digital cookbook. You can easily save and

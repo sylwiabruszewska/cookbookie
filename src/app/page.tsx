@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import HomepageLayout from "./ui/layouts/homepage";
 import { Button } from "./ui/button";
@@ -30,19 +31,23 @@ export default function Home() {
         </p>
 
         <div className="flex flex-col gap-4 lg:flex-row">
-          <Button className="group ">
-            Registration{" "}
-            <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </Button>
+          <Link href="/register">
+            <Button className="group ">
+              Registration{" "}
+              <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                -&gt;
+              </span>
+            </Button>
+          </Link>
 
-          <Button className="group ">
-            Sign in{" "}
-            <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </Button>
+          <Link href="/login">
+            <Button className="group ">
+              Sign in{" "}
+              <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                -&gt;
+              </span>
+            </Button>
+          </Link>
         </div>
       </div>
     </HomepageLayout>

@@ -1,8 +1,8 @@
 import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
-import { Button } from "../../button";
-import LabelIcon from "../../label-icon";
+import { Button } from "../button";
+import LabelIcon from "../label-icon";
 import Input from "./input";
 
 const RegistrationForm = () => {

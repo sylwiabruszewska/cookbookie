@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { inter } from "@/app/ui/fonts";
-import "./globals.css";
+import "./ui/styles/globals.css";
 
 export const metadata: Metadata = {
   title: "CookBookie",

@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <>
         <header className=" text-gray-800 py-4 w-full">
           <div className="container mx-auto flex items-center justify-between">
-            <Link href="/">
+            <Link href="/dashboard">
               <Image
                 src="/logo.svg"
                 alt="CookBookie Logo"
@@ -21,16 +21,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <nav className="flex flex-grow justify-center">
               <ul className="flex space-x-10">
                 <li>
-                  <Link href="/add-recipe">Add recipes</Link>
+                  <Link href="/dashboard/add-recipe">Add recipes</Link>
                 </li>
                 <li>
-                  <Link href="/my-recipes">My recipes</Link>
+                  <Link href="/dashboard/my-recipes">My recipes</Link>
                 </li>
                 <li>
-                  <Link href="/favorites">Favorites</Link>
+                  <Link href="/dashboard/favorites">Favorites</Link>
                 </li>
                 <li>
-                  <Link href="/shopping-list">Shopping list</Link>
+                  <Link href="/dashboard/shopping-list">Shopping list</Link>
                 </li>
               </ul>
             </nav>

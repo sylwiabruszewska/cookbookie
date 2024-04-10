@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </Link>
 
             <nav className="flex flex-grow justify-center">
-              <ul className="flex space-x-4">
+              <ul className="flex space-x-10">
                 <li>
                   <Link href="/add-recipe">Add recipes</Link>
                 </li>
@@ -37,7 +37,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             <div className="flex items-center">
               <div className="ml-4">Search</div>
-              <div className="ml-4">User</div>
+              <div className="ml-20">User</div>
             </div>
           </div>
         </header>

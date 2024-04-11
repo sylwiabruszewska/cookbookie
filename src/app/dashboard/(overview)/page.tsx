@@ -1,3 +1,9 @@
+import HeroSection from "@/app/ui/components/dashboard/hero/hero";
+
 export default function Page() {
-  return <p>Dashboard Page</p>;
+  return (
+    <>
+      <HeroSection />
+    </>
+  );
 }

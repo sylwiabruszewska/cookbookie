@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import MobileMenu from "../ui/components/dashboard/mobile-menu";
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -11,10 +13,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     setIsNavOpen(!isNavOpen);
   };
 
+  const closeMenu = () => {
+    setIsNavOpen(false);
+  };
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <>
-        <header className=" text-gray-800 py-4 w-full">
+        <header className="text-gray-800 py-4 w-full">
           <div className="container mx-auto flex items-center justify-between w-[343px] md:w-[704px] lg:w-[1240px]">
             <Link href="/dashboard">
               <Image
@@ -44,10 +50,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </ul>
             </nav>
 
+            {isNavOpen && <MobileMenu closeMenu={closeMenu} />}
+
             <div className="flex items-center">
               <div className="mr-6">User</div>
 
-              <button className="lg:hidden" onClick={toggleNav}>
+              <button
+                className="lg:hidden"
+                onClick={() => setIsNavOpen(!isNavOpen)}
+              >
                 {isNavOpen ? "Close" : "Menu"}
               </button>
             </div>

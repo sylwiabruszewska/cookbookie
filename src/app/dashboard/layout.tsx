@@ -1,12 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <>
         <header className=" text-gray-800 py-4 w-full">
-          <div className="container mx-auto flex items-center justify-between">
+          <div className="container mx-auto flex items-center justify-between w-[343px] md:w-[704px] lg:w-[1240px]">
             <Link href="/dashboard">
               <Image
                 src="/logo.svg"
@@ -18,7 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               />
             </Link>
 
-            <nav className="flex flex-grow justify-center">
+            <nav className="hidden lg:flex flex-grow justify-center">
               <ul className="flex space-x-10">
                 <li>
                   <Link href="/dashboard/add-recipe">Add recipes</Link>
@@ -36,18 +45,23 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </nav>
 
             <div className="flex items-center">
-              <div className="ml-4">Search</div>
-              <div className="ml-20">User</div>
+              <div className="mr-6">User</div>
+
+              <button className="lg:hidden" onClick={toggleNav}>
+                {isNavOpen ? "Close" : "Menu"}
+              </button>
             </div>
           </div>
         </header>
 
         <main className="flex-grow overflow-y-auto w-full">
-          <div className="container mx-auto">{children}</div>
+          <div className="container mx-auto w-[343px] md:w-[704px] lg:w-[1240px]">
+            {children}
+          </div>
         </main>
 
         <footer className="bg-gray-700 text-white py-4 w-full">
-          <div className="container mx-auto">
+          <div className="container mx-auto w-[343px] md:w-[704px] lg:w-[1240px]">
             <p className="text-xl">Footer</p>
           </div>
         </footer>

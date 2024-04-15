@@ -18,7 +18,7 @@ const SearchForm: React.FC = () => {
           type="text"
           id="search"
           placeholder="Search recipes"
-          className="block border border-[--gray] rounded-l rounded-r px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[--primary-color] focus:border-[--primary-color]"
+          className="border border-[--gray] rounded-l rounded-r px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[--primary-color] focus:border-[--primary-color]"
         />
         <button
           type="submit"

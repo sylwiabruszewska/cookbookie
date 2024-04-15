@@ -18,11 +18,11 @@ const SearchForm: React.FC = () => {
           type="text"
           id="search"
           placeholder="Search recipes"
-          className="block border border-slate-500 rounded-l rounded-r px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[--primary-color] focus:border-[--primary-color]"
+          className="block border border-[--gray] rounded-l rounded-r px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[--primary-color] focus:border-[--primary-color]"
         />
         <button
           type="submit"
-          className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full bg-slate-500 hover:bg-[--primary-color] text-white rounded-r px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[--primary-color]"
+          className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full bg-[--gray-dark] hover:bg-[--primary-color] text-white rounded-r px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[--primary-color]"
         >
           <svg
             className="w-4 h-4"

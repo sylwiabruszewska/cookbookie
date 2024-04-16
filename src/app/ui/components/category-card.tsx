@@ -6,7 +6,9 @@ export default function CategoryCard() {
     <li>
       <h3 className="text-xl font-semibold mb-4">Title</h3>
       <RecipeCard />
-      <Button className="ml-auto">See all</Button>
+      <Button variant="secondary" className="ml-auto">
+        See all
+      </Button>
     </li>
   );
 }

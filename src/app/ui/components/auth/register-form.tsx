@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Button } from "../button";
 import LabelIcon from "../label-icon";
-import Input from "./input";
+import Input from "../input";
 
 const RegistrationForm = () => {
   return (

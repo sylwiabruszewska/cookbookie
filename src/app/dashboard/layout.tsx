@@ -73,7 +73,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </main>
 
-        <footer className="bg-[--gray-dark] text-white py-4 w-full">
+        <footer className="bg-[--gray-dark] text-white py-12 w-full ">
           <div className="container mx-auto w-[343px] md:w-[704px] lg:w-[1240px]">
             <div className="flex flex-col items-center space-y-8">
               <div className="flex items-center space-x-4">

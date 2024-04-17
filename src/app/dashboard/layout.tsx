@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useState } from "react";
 
 import MobileMenu from "../ui/components/dashboard/mobile-menu";
+import { Button } from "../ui/components/button";
+import Input from "../ui/components/input";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -71,9 +73,51 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </main>
 
-        <footer className="bg-gray-700 text-white py-4 w-full">
+        <footer className="bg-[--gray-dark] text-white py-4 w-full">
           <div className="container mx-auto w-[343px] md:w-[704px] lg:w-[1240px]">
-            <p className="text-xl">Footer</p>
+            <div className="flex flex-col items-center space-y-8">
+              <div className="flex items-center space-x-4">
+                <Link href="/dashboard">
+                  <Image
+                    src="/logo-dark.svg"
+                    alt="CookBookie Logo"
+                    className="dark:invert"
+                    width={44}
+                    height={44}
+                    priority
+                  />
+                </Link>
+                <h3 className="text-xl">CookBookie</h3>
+              </div>
+              <div>
+                <ul className="flex flex-col items-center space-y-2">
+                  <li>
+                    <Link href="/dashboard/add-recipe">Add recipes</Link>
+                  </li>
+                  <li>
+                    <Link href="/dashboard/my-recipes">My recipes</Link>
+                  </li>
+                  <li>
+                    <Link href="/dashboard/favorites">Favorites</Link>
+                  </li>
+                  <li>
+                    <Link href="/dashboard/shopping-list">Shopping list</Link>
+                  </li>
+                </ul>
+              </div>
+              <div className="space-y-2">
+                <label className="sr-only ">Enter your email address</label>
+                <Input
+                  id="newsletter"
+                  name="newsletter"
+                  type="email"
+                  placeholder="Enter your email address"
+                  required
+                />
+
+                <Button className="w-60">Subscribe</Button>
+              </div>
+            </div>
           </div>
         </footer>
       </>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { inter } from "@/app/ui/fonts";
+import { poppins } from "@/app/ui/fonts";
 import "./ui/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={poppins.className}>{children}</body>
     </html>
   );
 }

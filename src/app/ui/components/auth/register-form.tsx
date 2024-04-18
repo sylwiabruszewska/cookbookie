@@ -47,7 +47,10 @@ const RegistrationForm = () => {
         </Button>
       </form>
 
-      <Link href="/login" className="mt-4  underline hover:text-orange-500">
+      <Link
+        href="/login"
+        className="mt-4  underline hover:text-[--primary-color]"
+      >
         Sign in
       </Link>
     </div>

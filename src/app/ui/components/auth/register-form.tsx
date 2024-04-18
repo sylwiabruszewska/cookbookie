@@ -2,7 +2,6 @@ import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
 import { Button } from "../button";
-import LabelIcon from "../label-icon";
 import Input from "../input";
 
 const RegistrationForm = () => {
@@ -11,38 +10,35 @@ const RegistrationForm = () => {
       <h2 className="text-2xl font-semibold mb-8">Registration</h2>
       <form className="w-full">
         <label className="mb-4 flex items-center w-full">
-          <LabelIcon icon={faUser} ariaLabel="Enter your name" />
-
           <Input
             id="text"
             name="name"
             type="text"
             placeholder="Name"
             required
+            iconID="icon-user"
           />
         </label>
 
         <label className="mb-4 flex items-center w-full">
-          <LabelIcon icon={faEnvelope} ariaLabel="Enter your email" />
-
           <Input
             id="email"
             name="email"
             type="email"
             placeholder="Email"
             required
+            iconID="icon-mail"
           />
         </label>
 
         <label className="mb-4 flex items-center w-full">
-          <LabelIcon icon={faLock} ariaLabel="Enter your password" />
-
           <Input
             id="password"
             name="password"
             type="password"
             placeholder="Password"
             required
+            iconID="icon-lock"
           />
         </label>
 

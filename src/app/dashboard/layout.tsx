@@ -114,6 +114,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     type="email"
                     placeholder="Enter your email address"
                     required
+                    iconID="icon-mail"
                   />
 
                   <Button type="submit" className="w-60">

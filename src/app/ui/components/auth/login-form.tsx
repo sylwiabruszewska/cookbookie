@@ -1,47 +1,102 @@
+"use client";
+
 import Link from "next/link";
+import { Formik, Form, FormikHelpers } from "formik";
+import * as Yup from "yup";
 
 import { Button } from "../button";
-import Input from "../input";
+import IconInput from "../icon-input";
+interface FormValues {
+  email: string;
+  password: string;
+}
 
 const LoginForm = () => {
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+
+  const passwordPattern =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=[\]{}'"\\|,.<>/?~])/;
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string()
+      .matches(
+        passwordPattern,
+        "The password should contain at least one: uppercase letter, special character and digit"
+      )
+      .required("Password is required")
+      .min(6, "Password should be at least 6 characters")
+      .max(20, "Password should be at most 20 characters"),
+  });
+
+  const handleSubmit = async (
+    values: FormValues,
+    { setSubmitting, resetForm }: FormikHelpers<FormValues>
+  ) => {
+    try {
+      const { email, password } = values;
+
+      console.log("log in");
+      resetForm();
+    } catch (error) {
+      console.error("Login fail:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
-    <div className="z-10 max-w-md mx-auto px-12 py-6 bg-white rounded-lg shadow-md flex flex-col items-center">
-      <h2 className="text-2xl font-semibold mb-8">Sign in</h2>
-      <form className="w-full">
-        <label className="mb-4 flex items-center w-full">
-          <Input
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {() => (
+        <Form
+          className="z-10 max-w-md w-[90vw] mx-auto p-6 bg-white rounded-lg shadow-md flex flex-col items-center"
+          autoComplete="off"
+        >
+          <h2 className="text-2xl font-semibold mb-8">Sign in</h2>
+          <IconInput
             id="email"
             name="email"
             type="email"
             placeholder="Email"
             required
-            iconID="icon-mail"
+            iconID="icon-user"
+            label="Email"
           />
-        </label>
 
-        <label className="mb-4 flex items-center w-full">
-          <Input
+          <IconInput
             id="password"
             name="password"
             type="password"
             placeholder="Password"
             required
             iconID="icon-lock"
+            label="Password"
           />
-        </label>
 
-        <Button type="submit" className="w-full mt-8" variant="secondary">
-          Sign in
-        </Button>
-      </form>
+          <Button
+            type="submit"
+            className="w-full mt-4 mb-4"
+            variant="secondary"
+          >
+            Sign in
+          </Button>
 
-      <Link
-        href="/register"
-        className="mt-4  underline hover:text-[--primary-color]"
-      >
-        Registration
-      </Link>
-    </div>
+          <Link
+            href="/register"
+            className="underline hover:text-[--primary-color]"
+          >
+            Registration
+          </Link>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

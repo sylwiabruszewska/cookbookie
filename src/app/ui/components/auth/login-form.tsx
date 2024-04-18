@@ -2,7 +2,6 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
 import { Button } from "../button";
-import LabelIcon from "../label-icon";
 import Input from "../input";
 
 const LoginForm = () => {
@@ -11,26 +10,24 @@ const LoginForm = () => {
       <h2 className="text-2xl font-semibold mb-8">Sign in</h2>
       <form className="w-full">
         <label className="mb-4 flex items-center w-full">
-          <LabelIcon icon={faEnvelope} ariaLabel="Enter your email" />
-
           <Input
             id="email"
             name="email"
             type="email"
             placeholder="Email"
             required
+            iconID="icon-mail"
           />
         </label>
 
         <label className="mb-4 flex items-center w-full">
-          <LabelIcon icon={faLock} ariaLabel="Enter your password" />
-
           <Input
             id="password"
             name="password"
             type="password"
             placeholder="Password"
             required
+            iconID="icon-lock"
           />
         </label>
 
@@ -39,7 +36,10 @@ const LoginForm = () => {
         </Button>
       </form>
 
-      <Link href="/register" className="mt-4  underline hover:text-orange-500">
+      <Link
+        href="/register"
+        className="mt-4  underline hover:text-[--primary-color]"
+      >
         Registration
       </Link>
     </div>

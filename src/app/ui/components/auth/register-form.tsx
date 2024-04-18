@@ -1,59 +1,122 @@
+"use client";
+
 import Link from "next/link";
+import { Formik, Form, FormikHelpers } from "formik";
+import * as Yup from "yup";
 
 import { Button } from "../button";
-import Input from "../input";
+import IconInput from "../icon-input";
+
+interface FormValues {
+  name: string;
+  email: string;
+  password: string;
+}
 
 const RegistrationForm = () => {
+  const initialValues = {
+    name: "",
+    email: "",
+    password: "",
+  };
+
+  const namePattern = /^[a-zA-ZąćęłńóśżźĄĆĘŁŃÓŚŻŹ]+$/;
+  const passwordPattern =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=[\]{}'"\\|,.<>/?~])/;
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .matches(namePattern, "The name should contain only letters")
+      .required("Name is required")
+      .min(3, "Name should be at least 3 characters")
+      .max(20, "Name should be at most 20 characters"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string()
+      .matches(
+        passwordPattern,
+        "The password should contain at least one: uppercase letter, special character and digit"
+      )
+      .required("Password is required")
+      .min(6, "Password should be at least 6 characters")
+      .max(20, "Password should be at most 20 characters"),
+  });
+
+  const handleSubmit = async (
+    values: FormValues,
+    { setSubmitting, resetForm }: FormikHelpers<FormValues>
+  ) => {
+    try {
+      const { name, email, password } = values;
+
+      console.log("log in");
+      resetForm();
+    } catch (error) {
+      console.error("Login fail:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
-    <div className="z-10 max-w-md mx-auto px-12 py-6 bg-white rounded-lg shadow-md flex flex-col items-center">
-      <h2 className="text-2xl font-semibold mb-8">Registration</h2>
-      <form className="w-full">
-        <label className="mb-4 flex items-center w-full">
-          <Input
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {() => (
+        <Form
+          className="z-10 max-w-md w-[90vw] mx-auto p-6 bg-white rounded-lg shadow-md flex flex-col items-center"
+          autoComplete="off"
+        >
+          <h2 className="text-2xl font-semibold mb-8">Registration</h2>
+
+          <IconInput
             id="text"
             name="name"
             type="text"
             placeholder="Name"
             required
             iconID="icon-user"
+            label="Name"
           />
-        </label>
 
-        <label className="mb-4 flex items-center w-full">
-          <Input
+          <IconInput
             id="email"
             name="email"
             type="email"
             placeholder="Email"
             required
             iconID="icon-mail"
+            label="Email"
           />
-        </label>
 
-        <label className="mb-4 flex items-center w-full">
-          <Input
+          <IconInput
             id="password"
             name="password"
             type="password"
             placeholder="Password"
             required
             iconID="icon-lock"
+            label="Password"
           />
-        </label>
 
-        <Button type="submit" className="w-full mt-8" variant="secondary">
-          Register
-        </Button>
-      </form>
+          <Button
+            type="submit"
+            className="w-full mt-4 mb-4"
+            variant="secondary"
+          >
+            Register
+          </Button>
 
-      <Link
-        href="/login"
-        className="mt-4  underline hover:text-[--primary-color]"
-      >
-        Sign in
-      </Link>
-    </div>
+          <Link
+            href="/login"
+            className="underline hover:text-[--primary-color]"
+          >
+            Sign in
+          </Link>
+        </Form>
+      )}
+    </Formik>
   );
 };
-
 export default RegistrationForm;

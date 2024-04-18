@@ -31,7 +31,7 @@ const LoginForm = () => {
           />
         </label>
 
-        <Button type="submit" className="w-full mt-8">
+        <Button type="submit" className="w-full mt-8" variant="secondary">
           Sign in
         </Button>
       </form>

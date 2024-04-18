@@ -46,7 +46,7 @@ const RegistrationForm = () => {
           />
         </label>
 
-        <Button type="submit" className="w-full mt-8">
+        <Button type="submit" className="w-full mt-8" variant="secondary">
           Register
         </Button>
       </form>

@@ -10,7 +10,7 @@ interface TextInputProps {
   label: string;
 }
 
-const Input: React.FC<TextInputProps> = ({
+const IconInput: React.FC<TextInputProps> = ({
   id,
   name,
   type,
@@ -57,4 +57,4 @@ const Input: React.FC<TextInputProps> = ({
   );
 };
 
-export default Input;
+export default IconInput;

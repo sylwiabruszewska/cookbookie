@@ -5,15 +5,10 @@ import Link from "next/link";
 import { useState } from "react";
 
 import MobileMenu from "../ui/components/dashboard/mobile-menu";
-import { Button } from "../ui/components/button";
-import Input from "../ui/components/input";
+import NewsletterForm from "../ui/components/newsletter-form";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
-
-  const toggleNav = () => {
-    setIsNavOpen(!isNavOpen);
-  };
 
   const closeMenu = () => {
     setIsNavOpen(false);
@@ -106,21 +101,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     </li>
                   </ul>
                 </div>
-                <div className="space-y-2">
-                  <label className="sr-only ">Enter your email address</label>
-                  <Input
-                    id="newsletter"
-                    name="newsletter"
-                    type="email"
-                    placeholder="Enter your email address"
-                    required
-                    iconID="icon-mail"
-                  />
-
-                  <Button type="submit" className="w-60">
-                    Subscribe
-                  </Button>
-                </div>
+                <NewsletterForm />
               </div>
             </div>
           </div>

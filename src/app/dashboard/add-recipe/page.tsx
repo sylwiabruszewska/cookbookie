@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 import { Input } from "@/app/ui/components/input";
 import { Button } from "@/app/ui/components/button";
@@ -6,6 +9,21 @@ import { Select } from "@/app/ui/components/input";
 import { TextArea } from "@/app/ui/components/input";
 
 export default function Page() {
+  const [steps, setSteps] = useState([""]);
+
+  const addStep = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setSteps([...steps, ""]);
+  };
+
+  const updateStep = (index: number, value: string) => {
+    setSteps((prevSteps) => {
+      const newSteps = [...prevSteps];
+      newSteps[index] = value;
+      return newSteps;
+    });
+  };
+
   return (
     <div>
       <h2 className="text-xl font-semibold mb-8">Add recipe</h2>
@@ -110,7 +128,19 @@ export default function Page() {
 
         <h3 className="text-l font-semibold">Recipe Preparation</h3>
 
-        <TextArea id="recipe" placeholder="Enter recipe" />
+        {steps.map((step, index) => (
+          <TextArea
+            key={index}
+            id={`step-${index}`}
+            placeholder={`Step ${index + 1}`}
+            value={step}
+            onChange={(e) => updateStep(index, e.target.value)}
+          />
+        ))}
+
+        <Button variant="secondary" onClick={addStep}>
+          +
+        </Button>
 
         <Button className="mx-auto" variant="secondary">
           Add

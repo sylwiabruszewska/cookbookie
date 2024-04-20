@@ -27,6 +27,8 @@ interface TextAreaProps {
   id: string;
   placeholder: string;
   className?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const baseClass =
@@ -89,12 +91,16 @@ export const TextArea: React.FC<TextAreaProps> = ({
   id,
   placeholder,
   className,
+  value,
+  onChange,
 }) => {
   return (
     <textarea
       id={id}
       className={clsx(baseClass, className)}
       placeholder={placeholder}
+      value={value}
+      onChange={onChange}
     ></textarea>
   );
 };

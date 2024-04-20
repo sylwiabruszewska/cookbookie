@@ -8,7 +8,7 @@ export default function RecipeCard() {
         <div className="relative h-323 rounded-lg">
           <Image
             src="/pancakes.png"
-            width={1000}
+            width={343}
             height={323}
             className="object-cover"
             alt="Description"

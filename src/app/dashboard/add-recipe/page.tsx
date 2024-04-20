@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Input } from "@/app/ui/components/input";
 import { Button } from "@/app/ui/components/button";
 import { Select } from "@/app/ui/components/input";
+import { TextArea } from "@/app/ui/components/input";
 
 export default function Page() {
   return (
@@ -109,10 +110,7 @@ export default function Page() {
 
         <h3 className="text-l font-semibold">Recipe Preparation</h3>
 
-        <textarea
-          className="w-full p-2 bg-[#D9D9D9] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray]"
-          placeholder="Enter recipe"
-        ></textarea>
+        <TextArea id="recipe" placeholder="Enter recipe" />
 
         <Button className="mx-auto" variant="secondary">
           Add

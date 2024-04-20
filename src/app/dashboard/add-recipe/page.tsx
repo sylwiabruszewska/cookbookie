@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import TextInput from "@/app/ui/components/input";
+import { Input } from "@/app/ui/components/input";
 import { Button } from "@/app/ui/components/button";
 
 export default function Page() {
@@ -17,7 +17,7 @@ export default function Page() {
           height={268}
         />
 
-        <TextInput
+        <Input
           id="title"
           name="title"
           type="text"
@@ -25,7 +25,7 @@ export default function Page() {
           placeholder="Enter item title"
         />
 
-        <TextInput
+        <Input
           id="about"
           name="about"
           type="text"
@@ -33,7 +33,7 @@ export default function Page() {
           placeholder="Enter about recipe"
         />
 
-        <TextInput
+        <Input
           id="category"
           name="category"
           type="text"
@@ -41,7 +41,7 @@ export default function Page() {
           placeholder="Category"
         />
 
-        <TextInput
+        <Input
           id="time"
           name="time"
           type="text"
@@ -62,9 +62,9 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="flex space-x-2 align-center">
-          <div className="w-2/3">
-            <TextInput
+        <div className="flex justify-between align-center">
+          <div>
+            <Input
               id="ingredientID"
               name="ingredient-name"
               type="text"
@@ -73,8 +73,8 @@ export default function Page() {
             />
           </div>
 
-          <div className="w-1/3">
-            <TextInput
+          <div className="w-1/4">
+            <Input
               id="measureID"
               name="measure-name"
               type="text"

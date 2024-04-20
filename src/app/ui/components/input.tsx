@@ -3,42 +3,36 @@ import clsx from "clsx";
 interface InputProps {
   id: string;
   name: string;
-  type: "text";
+  type: string;
   placeholder: string;
   required?: boolean;
   label: string;
   className?: string;
 }
 
-const TextInput: React.FC<InputProps> = ({
+const baseClass =
+  "w-full p-2 bg-[#efefef] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray-dark]";
+
+export const Input: React.FC<InputProps> = ({
   id,
   name,
-  type,
+  type = "text",
   placeholder,
   required = true,
   label,
   className,
 }) => {
-  const inputClass = clsx(
-    "w-full p-2 bg-[#D9D9D9] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray]",
-    className
-  );
-
   return (
     <label className="relative mb-6 flex items-center w-full">
       <span className="sr-only">{label}</span>
-      <div className="relative w-full">
-        <input
-          id={id}
-          name={name}
-          type={type}
-          className={inputClass}
-          placeholder={placeholder}
-          required={required}
-        />
-      </div>
+      <input
+        id={id}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        required={required}
+        className={clsx(baseClass, className)}
+      />
     </label>
   );
 };
-
-export default TextInput;

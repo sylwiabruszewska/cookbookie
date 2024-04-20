@@ -23,6 +23,12 @@ interface SelectProps {
   className?: string;
 }
 
+interface TextAreaProps {
+  id: string;
+  placeholder: string;
+  className?: string;
+}
+
 const baseClass =
   "w-full h-10 p-2 bg-[#efefef] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray-dark]";
 
@@ -76,5 +82,19 @@ export const Select: React.FC<SelectProps> = ({
         ))}
       </select>
     </label>
+  );
+};
+
+export const TextArea: React.FC<TextAreaProps> = ({
+  id,
+  placeholder,
+  className,
+}) => {
+  return (
+    <textarea
+      id={id}
+      className={clsx(baseClass, className)}
+      placeholder={placeholder}
+    ></textarea>
   );
 };

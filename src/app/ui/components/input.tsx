@@ -10,8 +10,21 @@ interface InputProps {
   className?: string;
 }
 
+interface SelectOption {
+  value: string;
+  label: string;
+}
+
+interface SelectProps {
+  id: string;
+  name: string;
+  options: SelectOption[];
+  label: string;
+  className?: string;
+}
+
 const baseClass =
-  "w-full p-2 bg-[#efefef] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray-dark]";
+  "w-full h-10 p-2 bg-[#efefef] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray-dark]";
 
 export const Input: React.FC<InputProps> = ({
   id,
@@ -23,7 +36,7 @@ export const Input: React.FC<InputProps> = ({
   className,
 }) => {
   return (
-    <label className="relative mb-6 flex items-center w-full">
+    <label className="mb-4 flex items-center w-full">
       <span className="sr-only">{label}</span>
       <input
         id={id}
@@ -33,6 +46,35 @@ export const Input: React.FC<InputProps> = ({
         required={required}
         className={clsx(baseClass, className)}
       />
+    </label>
+  );
+};
+
+export const Select: React.FC<SelectProps> = ({
+  id,
+  name,
+  options,
+  label,
+  className,
+}) => {
+  return (
+    <label className="mb-4 flex items-center w-full">
+      <span className="sr-only">{label}</span>
+      <select
+        id={id}
+        name={name}
+        className={clsx(baseClass, className)}
+        defaultValue=""
+      >
+        <option value="" disabled hidden>
+          {label}
+        </option>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
     </label>
   );
 };

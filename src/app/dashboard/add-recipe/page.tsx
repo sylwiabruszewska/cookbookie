@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { Input } from "@/app/ui/components/input";
 import { Button } from "@/app/ui/components/button";
+import { Select } from "@/app/ui/components/input";
 
 export default function Page() {
   return (
@@ -33,20 +34,26 @@ export default function Page() {
           placeholder="Enter about recipe"
         />
 
-        <Input
+        <Select
           id="category"
           name="category"
-          type="text"
           label="Category"
-          placeholder="Category"
+          options={[
+            { value: "breakfast", label: "Breakfast" },
+            { value: "lunch", label: "Lunch" },
+            { value: "dinner", label: "Dinner" },
+          ]}
         />
 
-        <Input
+        <Select
           id="time"
           name="time"
-          type="text"
           label="Cooking time"
-          placeholder="Cooking time"
+          options={[
+            { value: "15", label: "15 minutes" },
+            { value: "30", label: "30 minutes" },
+            { value: "60", label: "1 hour" },
+          ]}
         />
 
         <div className="flex justify-between items-center mb-4">
@@ -62,7 +69,7 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="flex justify-between align-center">
+        <div className="flex justify-between space-x-2 align-center">
           <div>
             <Input
               id="ingredientID"
@@ -73,13 +80,25 @@ export default function Page() {
             />
           </div>
 
-          <div className="w-1/4">
+          <div className="w-1/3 flex items-center space-x-2 ">
             <Input
-              id="measureID"
-              name="measure-name"
+              id="quantity"
+              name="quantity"
               type="text"
-              label="Measure"
-              placeholder="Measure"
+              label="Quantity"
+              placeholder="Quantity"
+            />
+            <Select
+              id="quantityUnit"
+              name="quantityUnit"
+              label="Unit"
+              options={[
+                { value: "tbs", label: "tbs" },
+                { value: "tsp", label: "tsp" },
+                { value: "kg", label: "kg" },
+                { value: "g", label: "g" },
+                { value: "piece", label: "piece" },
+              ]}
             />
           </div>
 
@@ -95,7 +114,9 @@ export default function Page() {
           placeholder="Enter recipe"
         ></textarea>
 
-        <Button variant="secondary">Add</Button>
+        <Button className="mx-auto" variant="secondary">
+          Add
+        </Button>
       </form>
     </div>
   );

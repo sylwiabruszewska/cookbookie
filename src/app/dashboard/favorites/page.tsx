@@ -1,3 +1,9 @@
+import FavoriteCard from "@/app/ui/components/favorite-card";
+
 export default function Page() {
-  return <p>Favorites</p>;
+  return (
+    <div>
+      <FavoriteCard />
+    </div>
+  );
 }

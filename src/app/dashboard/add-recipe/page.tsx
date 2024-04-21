@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import { Input } from "@/app/ui/components/input";
+import { Input } from "@/app/ui/components/recipe-form-components";
 import { Button } from "@/app/ui/components/button";
-import { Select } from "@/app/ui/components/input";
-import { TextArea } from "@/app/ui/components/input";
+import { Select } from "@/app/ui/components/recipe-form-components";
+import { TextArea } from "@/app/ui/components/recipe-form-components";
 
 export default function Page() {
   const [steps, setSteps] = useState([""]);

@@ -1,9 +1,11 @@
-import FavoriteCard from "@/app/ui/components/favorite-card";
+import RecipeCardMedium from "@/app/ui/components/recipe-card-medium";
 
 export default function Page() {
   return (
     <div>
-      <FavoriteCard />
+      <h2 className="text-xl font-semibold mb-8">Favorites</h2>
+
+      <RecipeCardMedium />
     </div>
   );
 }

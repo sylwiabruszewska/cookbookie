@@ -24,7 +24,7 @@ export default function FavoriteCard() {
             </p>
           </div>
           <div>
-            <Button variant="secondary" className="px-2 h-5 text-black">
+            <Button variant="secondary" className="px-1 h-5 text-black">
               X
             </Button>
           </div>

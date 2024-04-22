@@ -9,7 +9,7 @@ export default function RecipeCardMedium() {
         <Image
           src="/pancakes.png"
           fill={true}
-          objectFit="cover"
+          object-fit="cover"
           alt="Description"
           sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
         />

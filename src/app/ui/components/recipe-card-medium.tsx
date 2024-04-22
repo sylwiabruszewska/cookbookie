@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { Button } from "./button";
 
-export default function FavoriteCard() {
+export default function RecipeCardMedium() {
   return (
     <div className="flex p-2 justify-between space-x-4 h-30">
       <div className="flex-shrink-0 w-[124px] h-[124px] relative rounded-lg">

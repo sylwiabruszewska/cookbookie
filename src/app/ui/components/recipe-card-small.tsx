@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function RecipeCard() {
+export default function RecipeCardSmall() {
   return (
     <li className="mb-8">
       <Link href="/">

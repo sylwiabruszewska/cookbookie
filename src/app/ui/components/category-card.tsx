@@ -1,4 +1,4 @@
-import RecipeCard from "./recipe-card";
+import RecipeCardSmall from "./recipe-card-small";
 import { Button } from "./button";
 
 export default function CategoryCard() {
@@ -6,7 +6,7 @@ export default function CategoryCard() {
     <li>
       <h3 className="text-xl font-semibold mb-4">Title</h3>
       <ul>
-        <RecipeCard />
+        <RecipeCardSmall />
       </ul>
       <Button variant="secondary" className="ml-auto">
         See all

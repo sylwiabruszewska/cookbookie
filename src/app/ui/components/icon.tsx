@@ -14,8 +14,8 @@ const Icon: React.FC<IconProps> = ({
   icon,
   size = "4",
   color = "currentColor",
-  ariaLabel,
-  className,
+  ariaLabel = "",
+  className = "",
 }) => {
   const iconClass = `w-${size} h-${size}`;
 
@@ -28,12 +28,5 @@ const Icon: React.FC<IconProps> = ({
     />
   );
 };
-
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: false,
-  };
-}
 
 export default Icon;

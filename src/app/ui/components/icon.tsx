@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/fontawesome-common-types";
 
@@ -10,18 +10,21 @@ interface IconProps {
   className?: string;
 }
 
-const LabelIcon: React.FC<IconProps> = ({
+const Icon: React.FC<IconProps> = ({
   icon,
-  size = "5",
+  size = "4",
   color = "currentColor",
-  ariaLabel = "",
-  className = "mr-4",
+  ariaLabel,
+  className,
 }) => {
   return (
-    <div className={`w-${size} h-${size} ${className}`}>
-      <FontAwesomeIcon icon={icon} color={color} aria-label={ariaLabel} />
-    </div>
+    <FontAwesomeIcon
+      icon={icon}
+      color={color}
+      aria-label={ariaLabel}
+      className={`w-${size} h-${size} ${className}`}
+    />
   );
 };
 
-export default LabelIcon;
+export default Icon;

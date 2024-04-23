@@ -1,6 +1,8 @@
 import Image from "next/image";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "./button";
+import Icon from "./icon";
 
 export default function RecipeCardMedium() {
   return (
@@ -25,8 +27,8 @@ export default function RecipeCardMedium() {
             </p>
           </div>
           <div>
-            <Button variant="secondary" className="px-1 h-5 text-black">
-              X
+            <Button variant="secondary" className="h-6 w-6 px-0 text-black">
+              <Icon icon={faTrash} aria-label="Remove" />
             </Button>
           </div>
         </div>

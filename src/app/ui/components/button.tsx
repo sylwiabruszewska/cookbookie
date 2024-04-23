@@ -19,11 +19,11 @@ export function Button({
       {...rest}
       onClick={onClick}
       className={clsx(
-        "flex h-10 items-center justify-center rounded-lg px-6 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:bg-[--primary-color] aria-disabled:cursor-not-allowed aria-disabled:opacity-50",
+        "flex items-center justify-center rounded-lg text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:bg-[--primary-color] aria-disabled:cursor-not-allowed aria-disabled:opacity-50",
         {
-          "bg-[--primary-color] text-white border-2 border-[--primary-color] hover:bg-transparent hover:border-white":
+          "bg-[--primary-color] text-white border-2 border-[--primary-color] hover:bg-transparent hover:border-white px-2 h-10 ":
             variant === "primary",
-          "bg-[--primary-color] text-white hover:bg-[--gray-dark] hover:text-white":
+          "bg-[--primary-color] text-white hover:bg-[--gray-dark] hover:text-white px-2 h-10":
             variant === "secondary",
         },
         className

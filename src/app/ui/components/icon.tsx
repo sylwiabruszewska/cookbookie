@@ -29,4 +29,11 @@ const Icon: React.FC<IconProps> = ({
   );
 };
 
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: false,
+  };
+}
+
 export default Icon;

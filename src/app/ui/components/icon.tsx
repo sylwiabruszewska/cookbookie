@@ -17,12 +17,14 @@ const Icon: React.FC<IconProps> = ({
   ariaLabel,
   className,
 }) => {
+  const iconClass = `w-${size} h-${size}`;
+
   return (
     <FontAwesomeIcon
       icon={icon}
       color={color}
       aria-label={ariaLabel}
-      className={`w-${size} h-${size} ${className}`}
+      className={`${iconClass} ${className}`}
     />
   );
 };

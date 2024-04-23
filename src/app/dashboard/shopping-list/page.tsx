@@ -1,3 +1,7 @@
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
+import Icon from "@/app/ui/components/icon";
+
 export default function Page() {
   return (
     <div className="w-full flex flex-col">
@@ -12,7 +16,9 @@ export default function Page() {
         <li className="flex justify-between space-x-2 items-start pb-2 border-b border-gray-300">
           <div className="w-1/2">Milk</div>
           <div className="w-1/4 flex justify-center">1 liter</div>
-          <button className="w-1/4 flex justify-center">X</button>
+          <button className="w-1/4 flex justify-center">
+            <Icon icon={faTrash} aria-label="Remove" />
+          </button>
         </li>
       </ul>
     </div>

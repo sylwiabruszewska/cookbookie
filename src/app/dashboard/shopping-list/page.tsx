@@ -1,6 +1,7 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Icon from "@/app/ui/components/icon";
+// import Icon from "@/app/ui/components/icon";
 
 export default function Page() {
   return (
@@ -16,9 +17,11 @@ export default function Page() {
         <li className="flex justify-between space-x-2 items-start pb-2 border-b border-gray-300">
           <div className="w-1/2">Milk</div>
           <div className="w-1/4 flex justify-center">1 liter</div>
-          <button className="w-1/4 flex justify-center">
-            <Icon icon={faTrash} aria-label="Remove" />
-          </button>
+          <div className="w-1/4 flex justify-center">
+            <button className="w-4 h-4">
+              <FontAwesomeIcon icon={faTrash} aria-label="Remove" />
+            </button>
+          </div>
         </li>
       </ul>
     </div>

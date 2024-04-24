@@ -1,3 +1,5 @@
+"use client";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/fontawesome-common-types";
 import { faTrash, faSearch, faStar } from "@fortawesome/free-solid-svg-icons";

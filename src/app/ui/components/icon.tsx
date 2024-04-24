@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/fontawesome-common-types";
-import { faTrash, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faSearch, faStar } from "@fortawesome/free-solid-svg-icons";
 
-type IconName = "trash" | "search";
+type IconName = "trash" | "search" | "star";
 
 interface IconProps {
   icon: IconName;
@@ -15,10 +15,11 @@ interface IconProps {
 const iconMap: Record<IconName, IconDefinition> = {
   trash: faTrash,
   search: faSearch,
+  star: faStar,
 };
 
 const Icon: React.FC<IconProps> = ({
-  icon,
+  icon = "star",
   size = "4",
   color = "currentColor",
   ariaLabel = "",

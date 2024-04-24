@@ -1,9 +1,7 @@
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "./button";
-// import Icon from "./icon";
+import Icon from "./icon";
 
 export default function RecipeCardMedium() {
   return (
@@ -29,7 +27,7 @@ export default function RecipeCardMedium() {
           </div>
           <div>
             <Button variant="secondary" className="h-7 w-7 px-0 text-black">
-              <FontAwesomeIcon icon={faTrash} aria-label="Remove" />
+              <Icon icon="trash" ariaLabel="Remove" />
             </Button>
           </div>
         </div>

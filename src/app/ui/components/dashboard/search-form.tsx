@@ -1,4 +1,7 @@
-import Icon from "../icon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
+// import Icon from "../icon";
 
 const SearchForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,7 +27,7 @@ const SearchForm: React.FC = () => {
           type="submit"
           className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full bg-[--gray-dark] hover:bg-[--primary-color] text-white rounded-r px-4 focus:outline-none focus:ring-2 focus:ring-[--primary-color] "
         >
-          <Icon icon="search" ariaLabel="Search" />
+          <FontAwesomeIcon icon={faSearch} className="text-sm w-full h-full" />
         </button>
       </div>
     </form>

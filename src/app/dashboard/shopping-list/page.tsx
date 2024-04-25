@@ -1,4 +1,7 @@
-import Icon from "@/app/ui/components/icon";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// import Icon from "@/app/ui/components/icon";
 
 export default function Page() {
   return (
@@ -16,7 +19,7 @@ export default function Page() {
           <div className="w-1/4 flex justify-center">1 liter</div>
           <div className="w-1/4 flex justify-center">
             <button className="w-4 h-4">
-              <Icon icon="trash" ariaLabel="Remove" />
+              <FontAwesomeIcon icon={faTrash} aria-label="Remove" />
             </button>
           </div>
         </li>

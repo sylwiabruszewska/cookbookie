@@ -8,6 +8,9 @@ interface InputProps {
   required?: boolean;
   label: string;
   className?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  readOnly?: boolean;
 }
 
 interface SelectOption {
@@ -42,6 +45,9 @@ export const Input: React.FC<InputProps> = ({
   required = true,
   label,
   className,
+  value,
+  readOnly,
+  onChange,
 }) => {
   return (
     <label className="mb-4 flex items-center w-full">
@@ -53,6 +59,9 @@ export const Input: React.FC<InputProps> = ({
         placeholder={placeholder}
         required={required}
         className={clsx(baseClass, className)}
+        value={value}
+        readOnly={readOnly}
+        onChange={onChange}
       />
     </label>
   );
@@ -102,5 +111,86 @@ export const TextArea: React.FC<TextAreaProps> = ({
       value={value}
       onChange={onChange}
     ></textarea>
+  );
+};
+
+import { useState, useEffect } from "react";
+
+export const TimePicker = () => {
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [formattedTime, setFormattedTime] = useState("");
+  const handleIncrement = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const newMinutes = minutes + 5;
+
+    if (newMinutes >= 60) {
+      setHours((prevHours) => prevHours + 1);
+      setMinutes((prevMinutes) => newMinutes % 60);
+    } else {
+      setMinutes((prevMinutes) => prevMinutes + 5);
+    }
+  };
+
+  const handleDecrement = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const newMinutes = minutes - 5;
+
+    if (newMinutes < 0) {
+      if (hours > 0) {
+        setHours((prevHours) => prevHours - 1);
+        setMinutes((prevMinutes) => 60 + newMinutes);
+      }
+    } else {
+      setMinutes((prevMinutes) => prevMinutes - 5);
+    }
+  };
+
+  const formatTime = (hours: number, minutes: number) => {
+    const formattedHours = hours > 0 ? `${hours}h` : "";
+    const formattedMinutes = minutes > 0 ? `${minutes}min` : "";
+    setFormattedTime(`${formattedHours} ${formattedMinutes}`);
+  };
+
+  useEffect(() => {
+    if (hours !== 0 || minutes !== 0) {
+      formatTime(hours, minutes);
+    }
+  }, [hours, minutes]);
+
+  return (
+    <div className="flex space-x-2">
+      <Input
+        id="counter"
+        name="counter"
+        type="text"
+        label="Cooking time"
+        placeholder="Cooking time"
+        value={formattedTime}
+        onChange={() => {}}
+        readOnly
+      />
+      <div className="flex space-x-1">
+        <button
+          onClick={handleDecrement}
+          disabled={formattedTime === "" || (hours === 0 && minutes === 5)}
+          className={clsx(
+            "bg-[--primary-color] text-white hover:bg-[--gray-dark] px-4 h-10 rounded-l-lg",
+            {
+              "bg-gray-300 cursor-not-allowed hover:bg-gray-300":
+                formattedTime === "" || (hours === 0 && minutes === 5),
+            }
+          )}
+        >
+          -
+        </button>
+        <button
+          onClick={handleIncrement}
+          className="bg-[--primary-color] text-white hover:bg-[--gray-dark] px-4 h-10 rounded-r-lg"
+        >
+          +
+        </button>
+      </div>
+    </div>
   );
 };

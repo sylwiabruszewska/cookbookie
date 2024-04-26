@@ -7,6 +7,7 @@ import { Input } from "@/app/ui/components/recipe-form-components";
 import { Button } from "@/app/ui/components/button";
 import { Select } from "@/app/ui/components/recipe-form-components";
 import { TextArea } from "@/app/ui/components/recipe-form-components";
+import { TimePicker } from "@/app/ui/components/recipe-form-components";
 
 import { Category } from "@/app/lib/definitions";
 
@@ -71,16 +72,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
           />
         )}
 
-        <Select
-          id="time"
-          name="time"
-          label="Cooking time"
-          options={[
-            { value: "15", label: "15 minutes" },
-            { value: "30", label: "30 minutes" },
-            { value: "60", label: "1 hour" },
-          ]}
-        />
+        <TimePicker />
 
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-l font-semibold">Ingredients</h3>

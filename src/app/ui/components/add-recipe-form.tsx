@@ -8,7 +8,13 @@ import { Button } from "@/app/ui/components/button";
 import { Select } from "@/app/ui/components/recipe-form-components";
 import { TextArea } from "@/app/ui/components/recipe-form-components";
 
-export default function AddRecipeForm() {
+import { Category } from "@/app/lib/definitions";
+
+interface CategoriesProps {
+  categories: Category[];
+}
+
+export default function AddRecipeForm({ categories }: CategoriesProps) {
   const [steps, setSteps] = useState([""]);
 
   const addStep = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -53,16 +59,17 @@ export default function AddRecipeForm() {
           placeholder="Enter about recipe"
         />
 
-        <Select
-          id="category"
-          name="category"
-          label="Category"
-          options={[
-            { value: "breakfast", label: "Breakfast" },
-            { value: "lunch", label: "Lunch" },
-            { value: "dinner", label: "Dinner" },
-          ]}
-        />
+        {categories && (
+          <Select
+            id="category"
+            name="category"
+            label="Category"
+            options={categories.map((category: Category) => ({
+              value: category.name,
+              label: category.name,
+            }))}
+          />
+        )}
 
         <Select
           id="time"

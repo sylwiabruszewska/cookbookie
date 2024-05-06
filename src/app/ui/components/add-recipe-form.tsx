@@ -37,6 +37,12 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
     setIngredients(updatedIngredients);
   };
 
+  const handleRemoveStep = (index: number) => {
+    const updatedSteps = [...steps];
+    updatedSteps.splice(index, 1);
+    setSteps(updatedSteps);
+  };
+
   const addStep = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSteps([...steps, ""]);
@@ -195,14 +201,26 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
         <h3 className="text-l font-semibold mb-2">Recipe Preparation</h3>
 
         {steps.map((step, index) => (
-          <TextArea
+          <div
+            className="flex justify-between space-x-2 align-center"
             key={index}
-            id={`step-${index}`}
-            placeholder={`Step ${index + 1}`}
-            value={step}
-            onChange={(e) => updateStep(index, e.target.value)}
-            className="mb-2"
-          />
+          >
+            <TextArea
+              key={index}
+              id={`step-${index}`}
+              placeholder={`Step ${index + 1}`}
+              value={step}
+              onChange={(e) => updateStep(index, e.target.value)}
+              className="mb-2"
+            />
+            <button
+              className="h-10"
+              type="button"
+              onClick={() => handleRemoveStep(index)}
+            >
+              <FontAwesomeIcon icon={faTrash} aria-label="Remove" />
+            </button>
+          </div>
         ))}
 
         <Button

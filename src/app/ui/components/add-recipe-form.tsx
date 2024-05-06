@@ -180,6 +180,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
             placeholder={`Step ${index + 1}`}
             value={step}
             onChange={(e) => updateStep(index, e.target.value)}
+            className="mb-2"
           />
         ))}
 

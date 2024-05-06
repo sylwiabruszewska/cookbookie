@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Input } from "@/app/ui/components/recipe-form-components";
 import { Button } from "@/app/ui/components/button";
@@ -11,12 +11,22 @@ import { TimePicker } from "@/app/ui/components/recipe-form-components";
 
 import { Category } from "@/app/lib/definitions";
 
+import {
+  handleDecrement,
+  handleIncrement,
+  formatTime,
+} from "@/app/utils/timePickerHelpers";
+
 interface CategoriesProps {
   categories: Category[];
 }
 
 export default function AddRecipeForm({ categories }: CategoriesProps) {
   const [steps, setSteps] = useState([""]);
+
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [formattedTime, setFormattedTime] = useState("");
 
   const addStep = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -31,11 +41,21 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
     });
   };
 
+  useEffect(() => {
+    if (hours !== 0 || minutes !== 0) {
+      formatTime(hours, minutes, setFormattedTime);
+    }
+  }, [hours, minutes]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <div>
       <h2 className="text-xl font-semibold mb-8">Add recipe</h2>
 
-      <form className="mb-8 space-y-4">
+      <form onSubmit={handleSubmit} className="mb-8 space-y-4">
         <Image
           src="/add.png"
           alt="Add recipe"
@@ -72,7 +92,24 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
           />
         )}
 
-        <TimePicker />
+        <TimePicker
+          id="cookingTime"
+          name="cookingTime"
+          label="Cooking Time"
+          placeholder="Cooking Time"
+          value={formattedTime}
+          onChange={(e) => {}}
+          onDecrement={(mins, hrs, setHrs, setMins) =>
+            handleDecrement(mins, hrs, setHrs, setMins)
+          }
+          onIncrement={(mins, setHrs, setMins) =>
+            handleIncrement(mins, setHrs, setMins)
+          }
+          hours={hours}
+          minutes={minutes}
+          setHours={setHours}
+          setMinutes={setMinutes}
+        />
 
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-l font-semibold">Ingredients</h3>
@@ -141,7 +178,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
           +
         </Button>
 
-        <Button className="mx-auto" variant="secondary">
+        <Button className="mx-auto" variant="secondary" type="submit">
           Add
         </Button>
       </form>

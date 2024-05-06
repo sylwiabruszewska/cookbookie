@@ -1,5 +1,10 @@
 import clsx from "clsx";
 
+//////////   COMMON   //////////
+const baseClass =
+  "w-full h-10 p-2 bg-[#efefef] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray-dark]";
+
+//////////   INPUT   //////////
 interface InputProps {
   id: string;
   name: string;
@@ -12,30 +17,6 @@ interface InputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   readOnly?: boolean;
 }
-
-interface SelectOption {
-  value: string;
-  label: string;
-}
-
-interface SelectProps {
-  id: string;
-  name: string;
-  options: SelectOption[];
-  label: string;
-  className?: string;
-}
-
-interface TextAreaProps {
-  id: string;
-  placeholder: string;
-  className?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
-
-const baseClass =
-  "w-full h-10 p-2 bg-[#efefef] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray-dark]";
 
 export const Input: React.FC<InputProps> = ({
   id,
@@ -67,6 +48,20 @@ export const Input: React.FC<InputProps> = ({
   );
 };
 
+//////////   SELECT   //////////
+interface SelectOption {
+  value: string;
+  label: string;
+}
+
+interface SelectProps {
+  id: string;
+  name: string;
+  options: SelectOption[];
+  label: string;
+  className?: string;
+}
+
 export const Select: React.FC<SelectProps> = ({
   id,
   name,
@@ -96,6 +91,15 @@ export const Select: React.FC<SelectProps> = ({
   );
 };
 
+//////////   TEAXTAREA   //////////
+interface TextAreaProps {
+  id: string;
+  placeholder: string;
+  className?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
 export const TextArea: React.FC<TextAreaProps> = ({
   id,
   placeholder,
@@ -114,78 +118,78 @@ export const TextArea: React.FC<TextAreaProps> = ({
   );
 };
 
-import { useState, useEffect } from "react";
+//////////   TIME PICKER   //////////
+import {
+  SetHoursFunction,
+  SetMinutesFunction,
+} from "@/app/utils/timePickerHelpers";
 
-export const TimePicker = () => {
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [formattedTime, setFormattedTime] = useState("");
-  const handleIncrement = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const newMinutes = minutes + 5;
+interface TimePickerProps {
+  id: string;
+  name: string;
+  label: string;
+  placeholder: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onDecrement: (
+    minutes: number,
+    hours: number,
+    setHours: SetHoursFunction,
+    setMinutes: SetMinutesFunction
+  ) => void;
+  onIncrement: (
+    minutes: number,
+    setHours: SetHoursFunction,
+    setMinutes: SetMinutesFunction
+  ) => void;
+  hours: number;
+  minutes: number;
+  setHours: SetHoursFunction;
+  setMinutes: SetMinutesFunction;
+}
 
-    if (newMinutes >= 60) {
-      setHours((prevHours) => prevHours + 1);
-      setMinutes((prevMinutes) => newMinutes % 60);
-    } else {
-      setMinutes((prevMinutes) => prevMinutes + 5);
-    }
-  };
-
-  const handleDecrement = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const newMinutes = minutes - 5;
-
-    if (newMinutes < 0) {
-      if (hours > 0) {
-        setHours((prevHours) => prevHours - 1);
-        setMinutes((prevMinutes) => 60 + newMinutes);
-      }
-    } else {
-      setMinutes((prevMinutes) => prevMinutes - 5);
-    }
-  };
-
-  const formatTime = (hours: number, minutes: number) => {
-    const formattedHours = hours > 0 ? `${hours}h` : "";
-    const formattedMinutes = minutes > 0 ? `${minutes}min` : "";
-    setFormattedTime(`${formattedHours} ${formattedMinutes}`);
-  };
-
-  useEffect(() => {
-    if (hours !== 0 || minutes !== 0) {
-      formatTime(hours, minutes);
-    }
-  }, [hours, minutes]);
-
+export const TimePicker: React.FC<TimePickerProps> = ({
+  id,
+  name,
+  label,
+  placeholder,
+  value,
+  onChange,
+  onDecrement,
+  onIncrement,
+  hours,
+  minutes,
+  setHours,
+  setMinutes,
+}) => {
   return (
     <div className="flex space-x-2">
       <Input
-        id="counter"
-        name="counter"
+        id={id}
+        name={name}
         type="text"
-        label="Cooking time"
-        placeholder="Cooking time"
-        value={formattedTime}
-        onChange={() => {}}
+        label={label}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
         readOnly
       />
       <div className="flex space-x-1">
         <button
-          onClick={handleDecrement}
-          disabled={formattedTime === "" || (hours === 0 && minutes === 5)}
+          onClick={() => onDecrement(minutes, hours, setHours, setMinutes)}
+          disabled={value === "" || (hours === 0 && minutes === 5)}
           className={clsx(
             "bg-[--primary-color] text-white hover:bg-[--gray-dark] px-4 h-10 rounded-l-lg",
             {
               "bg-gray-300 cursor-not-allowed hover:bg-gray-300":
-                formattedTime === "" || (hours === 0 && minutes === 5),
+                value === "" || (hours === 0 && minutes === 5),
             }
           )}
         >
           -
         </button>
         <button
-          onClick={handleIncrement}
+          onClick={() => onIncrement(minutes, setHours, setMinutes)}
           className="bg-[--primary-color] text-white hover:bg-[--gray-dark] px-4 h-10 rounded-r-lg"
         >
           +

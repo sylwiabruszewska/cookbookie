@@ -146,7 +146,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
             className="flex justify-between space-x-2 align-center"
             key={index}
           >
-            <div>
+            <div className="flex-grow">
               <Input
                 id={`ingredient-${index}`}
                 name={`ingredient-name-${index}`}

@@ -29,6 +29,12 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
   const [minutes, setMinutes] = useState(0);
   const [formattedTime, setFormattedTime] = useState("");
 
+  const handleRemoveIngredient = (index: number) => {
+    const updatedIngredients = [...ingredients];
+    updatedIngredients.splice(index, 1);
+    setIngredients(updatedIngredients);
+  };
+
   const addStep = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSteps([...steps, ""]);
@@ -39,6 +45,14 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
       const newSteps = [...prevSteps];
       newSteps[index] = value;
       return newSteps;
+    });
+  };
+
+  const updateIngredient = (index: number, value: string) => {
+    setIngredients((prevIngredients) => {
+      const newIngredients = [...prevIngredients];
+      newIngredients[index] = value;
+      return newIngredients;
     });
   };
 
@@ -132,6 +146,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                 label="Ingredient"
                 placeholder="Ingredient"
                 value={ingredient}
+                onChange={(e) => updateIngredient(index, e.target.value)}
               />
             </div>
 
@@ -157,7 +172,11 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
               />
             </div>
 
-            <button className="h-10" type="button">
+            <button
+              className="h-10"
+              type="button"
+              onClick={() => handleRemoveIngredient(index)}
+            >
               X
             </button>
           </div>

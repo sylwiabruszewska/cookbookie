@@ -5,14 +5,12 @@ import { useState, useEffect } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Input } from "@/app/ui/components/recipe-form-components";
+import { Category } from "@/app/lib/definitions";
 import { Button } from "@/app/ui/components/button";
+import { Input } from "@/app/ui/components/recipe-form-components";
 import { Select } from "@/app/ui/components/recipe-form-components";
 import { TextArea } from "@/app/ui/components/recipe-form-components";
 import { TimePicker } from "@/app/ui/components/recipe-form-components";
-
-import { Category } from "@/app/lib/definitions";
-
 import {
   handleDecrement,
   handleIncrement,
@@ -26,42 +24,14 @@ interface CategoriesProps {
 export default function AddRecipeForm({ categories }: CategoriesProps) {
   const [steps, setSteps] = useState([""]);
   const [ingredients, setIngredients] = useState([""]);
-
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [formattedTime, setFormattedTime] = useState("");
 
-  const handleRemoveIngredient = (index: number) => {
-    const updatedIngredients = [...ingredients];
-    updatedIngredients.splice(index, 1);
-    setIngredients(updatedIngredients);
-  };
-
-  const handleRemoveStep = (index: number) => {
-    const updatedSteps = [...steps];
-    updatedSteps.splice(index, 1);
-    setSteps(updatedSteps);
-  };
-
+  // HANDLE ADD ITEM
   const addStep = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSteps([...steps, ""]);
-  };
-
-  const updateStep = (index: number, value: string) => {
-    setSteps((prevSteps) => {
-      const newSteps = [...prevSteps];
-      newSteps[index] = value;
-      return newSteps;
-    });
-  };
-
-  const updateIngredient = (index: number, value: string) => {
-    setIngredients((prevIngredients) => {
-      const newIngredients = [...prevIngredients];
-      newIngredients[index] = value;
-      return newIngredients;
-    });
   };
 
   const addIngredient = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -69,15 +39,60 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
     setIngredients([...ingredients, ""]);
   };
 
+  // HANDLE REMOVE ITEM
+  const handleRemoveItem = (
+    indexToRemove: number,
+    originalArray: string[],
+    setUpdatedArray: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
+    const copiedArray = [...originalArray];
+    copiedArray.splice(indexToRemove, 1);
+    setUpdatedArray(copiedArray);
+  };
+
+  const handleRemoveIngredient = (index: number) => {
+    handleRemoveItem(index, ingredients, setIngredients);
+  };
+
+  const handleRemoveStep = (index: number) => {
+    handleRemoveItem(index, steps, setSteps);
+  };
+
+  // HANDLE UPDATE ITEM
+  const handleUpdateItem = (
+    indexToUpdate: number,
+    newValue: string,
+    originalArray: string[],
+    setUpdatedArray: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
+    setUpdatedArray(() => {
+      const newArray = [...originalArray];
+      newArray[indexToUpdate] = newValue;
+      return newArray;
+    });
+  };
+
+  const updateIngredient = (index: number, value: string) => {
+    handleUpdateItem(index, value, ingredients, setIngredients);
+    console.log(ingredients);
+  };
+
+  const updateStep = (index: number, value: string) => {
+    handleUpdateItem(index, value, steps, setSteps);
+    console.log(steps);
+  };
+
+  // HANDLE SUBMIT
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
+  // FORMAT COOKING TIME
   useEffect(() => {
     if (hours !== 0 || minutes !== 0) {
       formatTime(hours, minutes, setFormattedTime);
     }
   }, [hours, minutes]);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
 
   return (
     <div>

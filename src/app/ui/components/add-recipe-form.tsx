@@ -23,6 +23,7 @@ interface CategoriesProps {
 
 export default function AddRecipeForm({ categories }: CategoriesProps) {
   const [steps, setSteps] = useState([""]);
+  const [ingredients, setIngredients] = useState([""]);
 
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
@@ -41,6 +42,11 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
     });
   };
 
+  const addIngredient = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIngredients([...ingredients, ""]);
+  };
+
   useEffect(() => {
     if (hours !== 0 || minutes !== 0) {
       formatTime(hours, minutes, setFormattedTime);
@@ -55,7 +61,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
     <div>
       <h2 className="text-xl font-semibold mb-8">Add recipe</h2>
 
-      <form onSubmit={handleSubmit} className="mb-8 space-y-4">
+      <form onSubmit={handleSubmit} className="mb-8">
         <Image
           src="/add.png"
           alt="Add recipe"
@@ -111,58 +117,61 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
           setMinutes={setMinutes}
         />
 
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-l font-semibold">Ingredients</h3>
-          <div className="flex items-center space-x-2 p-0 border border-[--gray] rounded-[30px]">
-            <button className="py-1 px-3" id="decrement" type="button">
-              -
+        <h3 className="text-l font-semibold mb-2">Ingredients</h3>
+
+        {ingredients.map((ingredient, index) => (
+          <div
+            className="flex justify-between space-x-2 align-center"
+            key={index}
+          >
+            <div>
+              <Input
+                id={`ingredient-${index}`}
+                name={`ingredient-name-${index}`}
+                type="text"
+                label="Ingredient"
+                placeholder="Ingredient"
+                value={ingredient}
+              />
+            </div>
+
+            <div className="w-1/3 flex items-center space-x-2">
+              <Input
+                id={`quantity-${index}`}
+                name={`quantity-${index}`}
+                type="text"
+                label="Quantity"
+                placeholder="Quantity"
+              />
+              <Select
+                id={`quantityUnit-${index}`}
+                name={`quantityUnit-${index}`}
+                label="Unit"
+                options={[
+                  { value: "tbs", label: "tbs" },
+                  { value: "tsp", label: "tsp" },
+                  { value: "kg", label: "kg" },
+                  { value: "g", label: "g" },
+                  { value: "piece", label: "piece" },
+                ]}
+              />
+            </div>
+
+            <button className="h-10" type="button">
+              X
             </button>
-            <span id="count">0</span>
-            <button className="py-1 px-3" id="increment" type="button">
-              +
-            </button>
           </div>
-        </div>
+        ))}
 
-        <div className="flex justify-between space-x-2 align-center">
-          <div>
-            <Input
-              id="ingredientID"
-              name="ingredient-name"
-              type="text"
-              label="Ingredient"
-              placeholder="Ingredient"
-            />
-          </div>
+        <Button
+          variant="secondary"
+          className="mb-4 ml-auto h-10 w-10"
+          onClick={addIngredient}
+        >
+          +
+        </Button>
 
-          <div className="w-1/3 flex items-center space-x-2 ">
-            <Input
-              id="quantity"
-              name="quantity"
-              type="text"
-              label="Quantity"
-              placeholder="Quantity"
-            />
-            <Select
-              id="quantityUnit"
-              name="quantityUnit"
-              label="Unit"
-              options={[
-                { value: "tbs", label: "tbs" },
-                { value: "tsp", label: "tsp" },
-                { value: "kg", label: "kg" },
-                { value: "g", label: "g" },
-                { value: "piece", label: "piece" },
-              ]}
-            />
-          </div>
-
-          <button className="mb-4" type="button">
-            X
-          </button>
-        </div>
-
-        <h3 className="text-l font-semibold">Recipe Preparation</h3>
+        <h3 className="text-l font-semibold mb-2">Recipe Preparation</h3>
 
         {steps.map((step, index) => (
           <TextArea
@@ -174,7 +183,11 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
           />
         ))}
 
-        <Button variant="secondary" onClick={addStep}>
+        <Button
+          variant="secondary"
+          className="mb-4 ml-auto h-10 w-10"
+          onClick={addStep}
+        >
           +
         </Button>
 

@@ -192,8 +192,8 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
           +
         </Button>
 
-        <Button className="mx-auto" variant="secondary" type="submit">
-          Add
+        <Button className="mx-auto px-4" variant="secondary" type="submit">
+          Add recipe
         </Button>
       </form>
     </div>

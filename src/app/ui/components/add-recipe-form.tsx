@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Input } from "@/app/ui/components/recipe-form-components";
 import { Button } from "@/app/ui/components/button";
@@ -177,7 +179,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
               type="button"
               onClick={() => handleRemoveIngredient(index)}
             >
-              X
+              <FontAwesomeIcon icon={faTrash} aria-label="Remove" />
             </button>
           </div>
         ))}

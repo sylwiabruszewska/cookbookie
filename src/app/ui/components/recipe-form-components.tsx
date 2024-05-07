@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { useField } from "formik";
 
 //////////   COMMON   //////////
 const baseClass =
@@ -13,8 +14,6 @@ interface InputProps {
   required?: boolean;
   label: string;
   className?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   readOnly?: boolean;
 }
 
@@ -23,27 +22,33 @@ export const Input: React.FC<InputProps> = ({
   name,
   type = "text",
   placeholder,
-  required = true,
   label,
   className,
-  value,
   readOnly,
-  onChange,
 }) => {
+  const [field, meta, helpers] = useField(name);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    helpers.setValue(e.target.value);
+  };
+
   return (
-    <label className="mb-4 flex items-center w-full">
+    <label className="relative mb-4 flex items-center w-full">
       <span className="sr-only">{label}</span>
       <input
         id={id}
-        name={name}
+        {...field}
         type={type}
         placeholder={placeholder}
-        required={required}
         className={clsx(baseClass, className)}
-        value={value}
         readOnly={readOnly}
-        onChange={onChange}
+        onChange={handleChange}
       />
+      {meta.touched && meta.error ? (
+        <div className="absolute top-10 left-0 text-xs text-[#E74A3B]">
+          {meta.error}
+        </div>
+      ) : null}
     </label>
   );
 };
@@ -69,16 +74,23 @@ export const Select: React.FC<SelectProps> = ({
   label,
   className,
 }) => {
+  const [field, meta, helpers] = useField(name);
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = event.target.value;
+    helpers.setValue(selectedValue);
+  };
+
   return (
-    <label className="mb-4 flex items-center w-full">
+    <label className="relative mb-4 flex items-center w-full">
       <span className="sr-only">{label}</span>
       <select
         id={id}
-        name={name}
         className={clsx(baseClass, className)}
-        defaultValue=""
+        value={field.value}
+        onChange={handleChange}
       >
-        <option value="" disabled hidden>
+        <option value="" disabled>
           {label}
         </option>
         {options.map((option) => (
@@ -87,6 +99,12 @@ export const Select: React.FC<SelectProps> = ({
           </option>
         ))}
       </select>
+
+      {meta.touched && meta.error ? (
+        <div className="absolute top-10 left-0 text-xs text-[#E74A3B]">
+          {meta.error}
+        </div>
+      ) : null}
     </label>
   );
 };
@@ -96,32 +114,46 @@ interface TextAreaProps {
   id: string;
   placeholder: string;
   className?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 export const TextArea: React.FC<TextAreaProps> = ({
   id,
   placeholder,
   className,
-  value,
-  onChange,
 }) => {
+  const [field, meta, helpers] = useField({ name: id });
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ): void => {
+    helpers.setValue(event.target.value);
+  };
+
   return (
-    <textarea
-      id={id}
-      className={clsx(baseClass, className)}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-    ></textarea>
+    <div className="relative w-full">
+      <textarea
+        id={id}
+        {...field}
+        className={clsx(baseClass, className, "relative")}
+        placeholder={placeholder}
+        onChange={handleChange}
+      ></textarea>
+      {meta.touched && meta.error ? (
+        <div className="absolute top-10 left-0 text-xs text-[#E74A3B]">
+          {meta.error}
+        </div>
+      ) : null}
+    </div>
   );
 };
 
 //////////   TIME PICKER   //////////
+import { formatTime } from "@/app/utils/timePickerHelpers";
+import { Field, FieldProps, useFormikContext } from "formik";
+import { FormikValues } from "formik";
 import {
-  SetHoursFunction,
-  SetMinutesFunction,
+  handleDecrement,
+  handleIncrement,
 } from "@/app/utils/timePickerHelpers";
 
 interface TimePickerProps {
@@ -129,23 +161,6 @@ interface TimePickerProps {
   name: string;
   label: string;
   placeholder: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onDecrement: (
-    minutes: number,
-    hours: number,
-    setHours: SetHoursFunction,
-    setMinutes: SetMinutesFunction
-  ) => void;
-  onIncrement: (
-    minutes: number,
-    setHours: SetHoursFunction,
-    setMinutes: SetMinutesFunction
-  ) => void;
-  hours: number;
-  minutes: number;
-  setHours: SetHoursFunction;
-  setMinutes: SetMinutesFunction;
 }
 
 export const TimePicker: React.FC<TimePickerProps> = ({
@@ -153,48 +168,57 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   name,
   label,
   placeholder,
-  value,
-  onChange,
-  onDecrement,
-  onIncrement,
-  hours,
-  minutes,
-  setHours,
-  setMinutes,
 }) => {
+  const { setFieldValue, values } = useFormikContext<FormikValues>();
+
+  const isMinimumTime = (time: string) => {
+    const timeArray = time.split(" ");
+    const hours = parseInt(timeArray[0].replace("h", "")) || 0;
+    const minutes = parseInt(timeArray[1].replace("min", "")) || 0;
+    return hours === 0 && minutes <= 5;
+  };
+
   return (
     <div className="flex space-x-2">
-      <Input
-        id={id}
-        name={name}
-        type="text"
-        label={label}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        readOnly
-      />
-      <div className="flex space-x-1">
-        <button
-          onClick={() => onDecrement(minutes, hours, setHours, setMinutes)}
-          disabled={value === "" || (hours === 0 && minutes === 5)}
-          className={clsx(
-            "bg-[--primary-color] text-white hover:bg-[--gray-dark] h-10 w-10 rounded-l-lg",
-            {
-              "bg-gray-300 cursor-not-allowed hover:bg-gray-300":
-                value === "" || (hours === 0 && minutes === 5),
-            }
-          )}
-        >
-          -
-        </button>
-        <button
-          onClick={() => onIncrement(minutes, setHours, setMinutes)}
-          className="bg-[--primary-color] text-white hover:bg-[--gray-dark] h-10 w-10 rounded-r-lg"
-        >
-          +
-        </button>
-      </div>
+      <Field name={name}>
+        {({ field }: { field: any; meta: any }) => (
+          <>
+            <Input
+              id={id}
+              {...field}
+              type="text"
+              label={label}
+              placeholder={placeholder}
+              readOnly
+              value={values[name] || ""}
+            />
+
+            <div className="flex space-x-1">
+              <button
+                type="button"
+                onClick={() => handleDecrement(values, name, setFieldValue)}
+                disabled={values[name] === "" || isMinimumTime(values[name])}
+                className={clsx(
+                  "bg-[--primary-color] text-white hover:bg-[--gray-dark] h-10 w-10 rounded-l-lg",
+                  {
+                    "bg-gray-300 cursor-not-allowed hover:bg-gray-300":
+                      values[name] === "" || isMinimumTime(values[name]),
+                  }
+                )}
+              >
+                -
+              </button>
+              <button
+                type="button"
+                onClick={() => handleIncrement(values, name, setFieldValue)}
+                className="bg-[--primary-color] text-white hover:bg-[--gray-dark] h-10 w-10 rounded-r-lg"
+              >
+                +
+              </button>
+            </div>
+          </>
+        )}
+      </Field>
     </div>
   );
 };

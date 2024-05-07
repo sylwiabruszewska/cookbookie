@@ -4,6 +4,15 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  Formik,
+  Form,
+  Field,
+  FormikHelpers,
+  FieldArray,
+  ErrorMessage,
+} from "formik";
+import * as Yup from "yup";
 
 import { Category } from "@/app/lib/definitions";
 import { Button } from "@/app/ui/components/button";
@@ -21,6 +30,27 @@ interface CategoriesProps {
   categories: Category[];
 }
 
+interface Ingredient {
+  id: string;
+  ingredient: string;
+  quantity: string;
+  quantityUnit: string;
+}
+
+interface Step {
+  id: string;
+  step: string;
+}
+
+interface FormValues {
+  title: string;
+  description: string;
+  category: Category;
+  cookingTime: string;
+  ingredients: Ingredient[];
+  steps: Step[];
+}
+
 export default function AddRecipeForm({ categories }: CategoriesProps) {
   const [steps, setSteps] = useState([""]);
   const [ingredients, setIngredients] = useState([""]);
@@ -28,228 +58,232 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
   const [minutes, setMinutes] = useState(0);
   const [formattedTime, setFormattedTime] = useState("");
 
-  // HANDLE ADD ITEM
-  const addStep = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setSteps([...steps, ""]);
-  };
-
-  const addIngredient = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setIngredients([...ingredients, ""]);
-  };
-
-  // HANDLE REMOVE ITEM
-  const handleRemoveItem = (
-    indexToRemove: number,
-    originalArray: string[],
-    setUpdatedArray: React.Dispatch<React.SetStateAction<string[]>>
-  ) => {
-    const copiedArray = [...originalArray];
-    copiedArray.splice(indexToRemove, 1);
-    setUpdatedArray(copiedArray);
-  };
-
-  const handleRemoveIngredient = (index: number) => {
-    handleRemoveItem(index, ingredients, setIngredients);
-  };
-
-  const handleRemoveStep = (index: number) => {
-    handleRemoveItem(index, steps, setSteps);
-  };
-
-  // HANDLE UPDATE ITEM
-  const handleUpdateItem = (
-    indexToUpdate: number,
-    newValue: string,
-    originalArray: string[],
-    setUpdatedArray: React.Dispatch<React.SetStateAction<string[]>>
-  ) => {
-    setUpdatedArray(() => {
-      const newArray = [...originalArray];
-      newArray[indexToUpdate] = newValue;
-      return newArray;
-    });
-  };
-
-  const updateIngredient = (index: number, value: string) => {
-    handleUpdateItem(index, value, ingredients, setIngredients);
-    console.log(ingredients);
-  };
-
-  const updateStep = (index: number, value: string) => {
-    handleUpdateItem(index, value, steps, setSteps);
-    console.log(steps);
-  };
-
-  // HANDLE SUBMIT
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
-
   // FORMAT COOKING TIME
-  useEffect(() => {
-    if (hours !== 0 || minutes !== 0) {
-      formatTime(hours, minutes, setFormattedTime);
+  // useEffect(() => {
+  //   if (hours !== 0 || minutes !== 0) {
+  //     formatTime(hours, minutes, setFormattedTime);
+  //   }
+  // }, [hours, minutes]);
+
+  // FORM
+  const initialValues: FormValues = {
+    title: "",
+    description: "",
+    category: { id: "", name: "" },
+    cookingTime: "",
+    ingredients: [{ id: "", ingredient: "", quantity: "", quantityUnit: "" }],
+    steps: [{ id: "", step: "" }],
+  };
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string()
+      .required("Title is required")
+      .min(6, "Title should be at least 6 characters")
+      .max(30, "Title should be at most 20 characters"),
+    description: Yup.string().max(
+      200,
+      "Description should be at most 20 characters"
+    ),
+    category: Yup.string().required("Category is required"),
+    cookingTime: Yup.string().required("Cooking time is required"),
+    ingredients: Yup.array()
+      .of(
+        Yup.object().shape({
+          ingredient: Yup.string().required("Ingredient name is required"),
+          quantity: Yup.string().required("Quantity is required"),
+          quantityUnit: Yup.string().required("Quantity unit is required"),
+        })
+      )
+      .required("Ingredients are required"),
+    steps: Yup.array().of(
+      Yup.object().shape({
+        step: Yup.string()
+          .required("Step description is required")
+          .min(1, "At least one step is required"),
+      })
+    ),
+  });
+
+  const handleSubmit = async (
+    values: FormValues,
+    { setSubmitting, resetForm }: FormikHelpers<FormValues>
+  ) => {
+    console.log(values);
+    try {
+      console.log(values);
+      resetForm();
+    } catch (error) {
+      console.error("fail", error);
+    } finally {
+      setSubmitting(false);
     }
-  }, [hours, minutes]);
+  };
 
   return (
     <div>
       <h2 className="text-xl font-semibold mb-8">Add recipe</h2>
 
-      <form onSubmit={handleSubmit} className="mb-8">
-        <Image
-          src="/add.png"
-          alt="Add recipe"
-          className="dark:invert mx-auto rounded-lg mb-8"
-          width={279}
-          height={268}
-        />
-
-        <Input
-          id="title"
-          name="title"
-          type="text"
-          label="Enter item title"
-          placeholder="Enter item title"
-        />
-
-        <Input
-          id="about"
-          name="about"
-          type="text"
-          label="Enter about recipe"
-          placeholder="Enter about recipe"
-        />
-
-        {categories && (
-          <Select
-            id="category"
-            name="category"
-            label="Category"
-            options={categories.map((category: Category) => ({
-              value: category.name,
-              label: category.name,
-            }))}
-          />
-        )}
-
-        <TimePicker
-          id="cookingTime"
-          name="cookingTime"
-          label="Cooking Time"
-          placeholder="Cooking Time"
-          value={formattedTime}
-          onChange={(e) => {}}
-          onDecrement={(mins, hrs, setHrs, setMins) =>
-            handleDecrement(mins, hrs, setHrs, setMins)
-          }
-          onIncrement={(mins, setHrs, setMins) =>
-            handleIncrement(mins, setHrs, setMins)
-          }
-          hours={hours}
-          minutes={minutes}
-          setHours={setHours}
-          setMinutes={setMinutes}
-        />
-
-        <h3 className="text-l font-semibold mb-2">Ingredients</h3>
-
-        {ingredients.map((ingredient, index) => (
-          <div
-            className="flex justify-between space-x-2 align-center"
-            key={index}
-          >
-            <div className="flex-grow">
-              <Input
-                id={`ingredient-${index}`}
-                name={`ingredient-name-${index}`}
-                type="text"
-                label="Ingredient"
-                placeholder="Ingredient"
-                value={ingredient}
-                onChange={(e) => updateIngredient(index, e.target.value)}
-              />
-            </div>
-
-            <div className="w-1/3 flex items-center space-x-2">
-              <Input
-                id={`quantity-${index}`}
-                name={`quantity-${index}`}
-                type="text"
-                label="Quantity"
-                placeholder="Quantity"
-              />
-              <Select
-                id={`quantityUnit-${index}`}
-                name={`quantityUnit-${index}`}
-                label="Unit"
-                options={[
-                  { value: "tbs", label: "tbs" },
-                  { value: "tsp", label: "tsp" },
-                  { value: "kg", label: "kg" },
-                  { value: "g", label: "g" },
-                  { value: "piece", label: "piece" },
-                ]}
-              />
-            </div>
-
-            <button
-              className="h-10"
-              type="button"
-              onClick={() => handleRemoveIngredient(index)}
-            >
-              <FontAwesomeIcon icon={faTrash} aria-label="Remove" />
-            </button>
-          </div>
-        ))}
-
-        <Button
-          variant="secondary"
-          className="mb-4 ml-auto h-10 w-10"
-          onClick={addIngredient}
-        >
-          +
-        </Button>
-
-        <h3 className="text-l font-semibold mb-2">Recipe Preparation</h3>
-
-        {steps.map((step, index) => (
-          <div
-            className="flex justify-between space-x-2 align-center"
-            key={index}
-          >
-            <TextArea
-              key={index}
-              id={`step-${index}`}
-              placeholder={`Step ${index + 1}`}
-              value={step}
-              onChange={(e) => updateStep(index, e.target.value)}
-              className="mb-2"
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ isSubmitting }) => (
+          <Form className="mb-8">
+            <Image
+              src="/add.png"
+              alt="Add recipe"
+              className="dark:invert mx-auto rounded-lg mb-8"
+              width={279}
+              height={268}
+              priority
             />
-            <button
-              className="h-10"
-              type="button"
-              onClick={() => handleRemoveStep(index)}
+
+            <Input
+              id="title"
+              name="title"
+              type="text"
+              label="Enter item title"
+              placeholder="Enter item title"
+            />
+
+            <Input
+              id="description"
+              name="description"
+              type="text"
+              label="Enter about recipe"
+              placeholder="Enter about recipe"
+            />
+
+            {categories && (
+              <Select
+                id="category"
+                name="category"
+                label="Category"
+                options={categories.map((category: Category) => ({
+                  value: category.name,
+                  label: category.name,
+                }))}
+              />
+            )}
+
+            <TimePicker
+              id="cookingTime"
+              name="cookingTime"
+              label="Cooking Time"
+              placeholder="Cooking Time"
+            />
+
+            <h3 className="text-l font-semibold mb-2">Ingredients</h3>
+
+            <FieldArray name="ingredients">
+              {({ push, remove, form }) => (
+                <div>
+                  {form.values.ingredients.map(
+                    (ingredient: Ingredient, index: number) => (
+                      <div
+                        className="flex justify-between space-x-2 align-center"
+                        key={index}
+                      >
+                        <Input
+                          id={`ingredients.${index}.ingredient`}
+                          name={`ingredients.${index}.ingredient`}
+                          type="text"
+                          label="Ingredient"
+                          placeholder="Ingredient"
+                        />
+                        <div className="w-1/3 flex items-center space-x-2">
+                          <Input
+                            id={`ingredients.${index}.quantity`}
+                            name={`ingredients.${index}.quantity`}
+                            type="number"
+                            label="Quantity"
+                            placeholder="Quantity"
+                          />
+                          <Select
+                            id={`ingredients.${index}.quantityUnit`}
+                            name={`ingredients.${index}.quantityUnit`}
+                            label="Unit"
+                            options={[
+                              { value: "tbs", label: "tbs" },
+                              { value: "tsp", label: "tsp" },
+                              { value: "kg", label: "kg" },
+                              { value: "g", label: "g" },
+                              { value: "piece", label: "piece" },
+                            ]}
+                          />
+                        </div>
+                        <button
+                          className="h-10"
+                          type="button"
+                          onClick={() => remove(index)}
+                        >
+                          <FontAwesomeIcon icon={faTrash} aria-label="Remove" />
+                        </button>
+                      </div>
+                    )
+                  )}
+                  <Button
+                    variant="secondary"
+                    type="button"
+                    className="mb-4 ml-auto h-10 w-10"
+                    onClick={() =>
+                      push({ ingredient: "", quantity: 0, quantityUnit: "" })
+                    }
+                  >
+                    +
+                  </Button>
+                </div>
+              )}
+            </FieldArray>
+
+            <h3 className="text-l font-semibold mb-2">Recipe Preparation</h3>
+
+            <FieldArray name="steps">
+              {({ push, remove, form }) => (
+                <div>
+                  {form.values.steps.map((step: Step, index: number) => (
+                    <div
+                      className="flex justify-between space-x-2 align-center"
+                      key={index}
+                    >
+                      <TextArea
+                        id={`steps.${index}.step`}
+                        placeholder={`Step ${index + 1}`}
+                        className="mb-2"
+                      />
+                      <button
+                        className="h-10"
+                        type="button"
+                        onClick={() => remove(index)}
+                      >
+                        <FontAwesomeIcon icon={faTrash} aria-label="Remove" />
+                      </button>
+                    </div>
+                  ))}
+                  <Button
+                    variant="secondary"
+                    type="button"
+                    className="mb-4 ml-auto h-10 w-10"
+                    onClick={() => push({ step: "" })}
+                  >
+                    +
+                  </Button>
+                </div>
+              )}
+            </FieldArray>
+
+            <Button
+              className="mx-auto px-4"
+              variant="secondary"
+              type="submit"
+              disabled={isSubmitting}
             >
-              <FontAwesomeIcon icon={faTrash} aria-label="Remove" />
-            </button>
-          </div>
-        ))}
-
-        <Button
-          variant="secondary"
-          className="mb-4 ml-auto h-10 w-10"
-          onClick={addStep}
-        >
-          +
-        </Button>
-
-        <Button className="mx-auto px-4" variant="secondary" type="submit">
-          Add recipe
-        </Button>
-      </form>
+              Add recipe
+            </Button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 }

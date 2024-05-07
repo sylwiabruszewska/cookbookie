@@ -33,7 +33,7 @@ interface Step {
 interface FormValues {
   title: string;
   description: string;
-  category: Category;
+  category: string;
   cookingTime: string;
   ingredients: Ingredient[];
   steps: Step[];
@@ -44,7 +44,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
   const initialValues: FormValues = {
     title: "",
     description: "",
-    category: { id: "", name: "" },
+    category: "",
     cookingTime: "",
     ingredients: [{ id: "", ingredient: "", quantity: "", quantityUnit: "" }],
     steps: [{ id: "", step: "" }],

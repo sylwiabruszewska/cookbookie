@@ -148,12 +148,13 @@ export const TextArea: React.FC<TextAreaProps> = ({
 };
 
 //////////   TIME PICKER   //////////
-import { formatTime } from "@/app/utils/timePickerHelpers";
 import { Field, FieldProps, useFormikContext } from "formik";
 import { FormikValues } from "formik";
+import { useState } from "react";
 import {
-  handleDecrement,
-  handleIncrement,
+  incrementTime,
+  decrementTime,
+  formatTime,
 } from "@/app/utils/timePickerHelpers";
 
 interface TimePickerProps {
@@ -169,15 +170,20 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   label,
   placeholder,
 }) => {
-  const { setFieldValue, values } = useFormikContext<FormikValues>();
+  const { setFieldValue, values } = useFormikContext<any>();
+  const [time, setTime] = useState({ hours: 0, minutes: 0 });
 
-  const isMinimumTime = (time: string) => {
-    const timeArray = time.split(" ");
-    const hours = parseInt(timeArray[0].replace("h", "")) || 0;
-    const minutes = parseInt(timeArray[1].replace("min", "")) || 0;
-    return hours === 0 && minutes <= 5;
+  const handleIncrement = () => {
+    const updatedTime = incrementTime(time);
+    setTime(updatedTime);
+    setFieldValue(name, formatTime(updatedTime.hours, updatedTime.minutes));
   };
 
+  const handleDecrement = () => {
+    const updatedTime = decrementTime(time);
+    setTime(updatedTime);
+    setFieldValue(name, formatTime(updatedTime.hours, updatedTime.minutes));
+  };
   return (
     <div className="flex space-x-2">
       <Field name={name}>
@@ -190,19 +196,19 @@ export const TimePicker: React.FC<TimePickerProps> = ({
               label={label}
               placeholder={placeholder}
               readOnly
-              value={values[name] || ""}
+              value={formatTime(time.hours, time.minutes)}
             />
 
             <div className="flex space-x-1">
               <button
                 type="button"
-                onClick={() => handleDecrement(values, name, setFieldValue)}
-                disabled={values[name] === "" || isMinimumTime(values[name])}
+                onClick={handleDecrement}
+                disabled={time.hours === 0 && time.minutes <= 5}
                 className={clsx(
                   "bg-[--primary-color] text-white hover:bg-[--gray-dark] h-10 w-10 rounded-l-lg",
                   {
                     "bg-gray-300 cursor-not-allowed hover:bg-gray-300":
-                      values[name] === "" || isMinimumTime(values[name]),
+                      time.hours === 0 && time.minutes <= 5,
                   }
                 )}
               >
@@ -210,7 +216,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
               </button>
               <button
                 type="button"
-                onClick={() => handleIncrement(values, name, setFieldValue)}
+                onClick={handleIncrement}
                 className="bg-[--primary-color] text-white hover:bg-[--gray-dark] h-10 w-10 rounded-r-lg"
               >
                 +

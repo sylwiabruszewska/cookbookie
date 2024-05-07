@@ -1,17 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Formik,
-  Form,
-  Field,
-  FormikHelpers,
-  FieldArray,
-  ErrorMessage,
-} from "formik";
+import { Formik, Form, FormikHelpers, FieldArray } from "formik";
 import * as Yup from "yup";
 
 import { Category } from "@/app/lib/definitions";
@@ -20,11 +13,6 @@ import { Input } from "@/app/ui/components/recipe-form-components";
 import { Select } from "@/app/ui/components/recipe-form-components";
 import { TextArea } from "@/app/ui/components/recipe-form-components";
 import { TimePicker } from "@/app/ui/components/recipe-form-components";
-import {
-  handleDecrement,
-  handleIncrement,
-  formatTime,
-} from "@/app/utils/timePickerHelpers";
 
 interface CategoriesProps {
   categories: Category[];
@@ -52,19 +40,6 @@ interface FormValues {
 }
 
 export default function AddRecipeForm({ categories }: CategoriesProps) {
-  const [steps, setSteps] = useState([""]);
-  const [ingredients, setIngredients] = useState([""]);
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [formattedTime, setFormattedTime] = useState("");
-
-  // FORMAT COOKING TIME
-  // useEffect(() => {
-  //   if (hours !== 0 || minutes !== 0) {
-  //     formatTime(hours, minutes, setFormattedTime);
-  //   }
-  // }, [hours, minutes]);
-
   // FORM
   const initialValues: FormValues = {
     title: "",
@@ -110,7 +85,6 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
   ) => {
     console.log(values);
     try {
-      console.log(values);
       resetForm();
     } catch (error) {
       console.error("fail", error);

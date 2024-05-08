@@ -31,28 +31,23 @@ export const Select: React.FC<SelectProps> = ({
   };
 
   return (
-    <>
-      <label className="w-full">
-        <span className="sr-only">{label}</span>
-        <select
-          id={id}
-          className={clsx(baseClass, className)}
-          value={field.value}
-          onChange={handleChange}
-        >
-          <option value="" disabled>
-            {label}
+    <label className="w-full">
+      <span className="sr-only">{label}</span>
+      <select
+        id={id}
+        className={clsx(baseClass, className)}
+        value={field.value}
+        onChange={handleChange}
+      >
+        <option value="" disabled>
+          {label}
+        </option>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
           </option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </label>
-      {meta.touched && meta.error ? (
-        <div className="error-text">{meta.error}</div>
-      ) : null}
-    </>
+        ))}
+      </select>
+    </label>
   );
 };

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Formik, Form, FormikHelpers, FieldArray } from "formik";
+import { Formik, Form, FormikHelpers, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { v4 as uuidv4 } from "uuid";
 
@@ -105,7 +105,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className="mb-8">
+          <Form className="mb-8 space-y-4">
             <Image
               src="/add.png"
               alt="Add recipe"
@@ -115,40 +115,68 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
               priority
             />
 
-            <Input
-              id="title"
-              name="title"
-              type="text"
-              label="Enter item title"
-              placeholder="Enter item title"
-            />
-
-            <Input
-              id="description"
-              name="description"
-              type="text"
-              label="Enter about recipe"
-              placeholder="Enter about recipe"
-            />
-
-            {categories && (
-              <Select
-                id="category"
-                name="category"
-                label="Category"
-                options={categories.map((category: Category) => ({
-                  value: category.name,
-                  label: category.name,
-                }))}
+            <div>
+              <Input
+                id="title"
+                name="title"
+                type="text"
+                label="Enter item title"
+                placeholder="Enter item title"
               />
-            )}
+              <ErrorMessage
+                name="title"
+                component="div"
+                className="error-text"
+              />
+            </div>
 
-            <TimePicker
-              id="cookingTime"
-              name="cookingTime"
-              label="Cooking Time"
-              placeholder="Cooking Time"
-            />
+            <div>
+              <Input
+                id="description"
+                name="description"
+                type="text"
+                label="Enter about recipe"
+                placeholder="Enter about recipe"
+              />
+              <ErrorMessage
+                name="description"
+                component="div"
+                className="error-text"
+              />
+            </div>
+
+            <div>
+              {categories && (
+                <Select
+                  id="category"
+                  name="category"
+                  label="Category"
+                  options={categories.map((category: Category) => ({
+                    value: category.name,
+                    label: category.name,
+                  }))}
+                />
+              )}
+              <ErrorMessage
+                name="category"
+                component="div"
+                className="error-text"
+              />
+            </div>
+
+            <div>
+              <TimePicker
+                id="cookingTime"
+                name="cookingTime"
+                label="Cooking Time"
+                placeholder="Cooking Time"
+              />
+              <ErrorMessage
+                name="cookingTime"
+                component="div"
+                className="error-text"
+              />
+            </div>
 
             <h3 className="text-l font-semibold mb-2">Ingredients</h3>
 
@@ -161,37 +189,58 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                         className="flex justify-between space-x-2 align-center"
                         key={index}
                       >
-                        <div className="w-1/2">
-                          <Input
-                            id={`ingredients.${index}.ingredient`}
-                            name={`ingredients.${index}.ingredient`}
-                            type="text"
-                            label="Ingredient"
-                            placeholder="Ingredient"
-                          />
+                        <div>
+                          <div className="flex justify-between space-x-2 align-center">
+                            <div className="w-1/2">
+                              <Input
+                                id={`ingredients.${index}.ingredient`}
+                                name={`ingredients.${index}.ingredient`}
+                                type="text"
+                                label="Ingredient"
+                                placeholder="Ingredient"
+                              />
+                            </div>
+
+                            <div className="w-1/2 flex items-center space-x-2">
+                              <Input
+                                id={`ingredients.${index}.quantity`}
+                                name={`ingredients.${index}.quantity`}
+                                type="number"
+                                label="Quantity"
+                                placeholder="Quantity"
+                              />
+
+                              <Select
+                                id={`ingredients.${index}.quantityUnit`}
+                                name={`ingredients.${index}.quantityUnit`}
+                                label="Unit"
+                                options={[
+                                  { value: "tbs", label: "tbs" },
+                                  { value: "tsp", label: "tsp" },
+                                  { value: "kg", label: "kg" },
+                                  { value: "g", label: "g" },
+                                  { value: "piece", label: "piece" },
+                                ]}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="error-text">
+                            <ErrorMessage
+                              name={`ingredients.${index}.ingredient`}
+                              component="div"
+                            />
+                            <ErrorMessage
+                              name={`ingredients.${index}.quantity`}
+                              component="div"
+                            />
+                            <ErrorMessage
+                              name={`ingredients.${index}.quantityUnit`}
+                              component="div"
+                            />
+                          </div>
                         </div>
 
-                        <div className="w-1/2 flex items-center space-x-2">
-                          <Input
-                            id={`ingredients.${index}.quantity`}
-                            name={`ingredients.${index}.quantity`}
-                            type="number"
-                            label="Quantity"
-                            placeholder="Quantity"
-                          />
-                          <Select
-                            id={`ingredients.${index}.quantityUnit`}
-                            name={`ingredients.${index}.quantityUnit`}
-                            label="Unit"
-                            options={[
-                              { value: "tbs", label: "tbs" },
-                              { value: "tsp", label: "tsp" },
-                              { value: "kg", label: "kg" },
-                              { value: "g", label: "g" },
-                              { value: "piece", label: "piece" },
-                            ]}
-                          />
-                        </div>
                         <button
                           className="h-10 flex items-center justify-center"
                           type="button"
@@ -235,11 +284,20 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                       className="flex justify-between space-x-2 align-center"
                       key={index}
                     >
-                      <TextArea
-                        id={`steps.${index}.step`}
-                        placeholder={`Step ${index + 1}`}
-                        className="mb-2"
-                      />
+                      <div className="w-full">
+                        <TextArea
+                          id={`steps.${index}.step`}
+                          label={`Step ${index + 1}`}
+                          placeholder={`Step ${index + 1}`}
+                        />
+
+                        <ErrorMessage
+                          name={`steps.${index}.step`}
+                          component="div"
+                          className="error-text"
+                        />
+                      </div>
+
                       <button
                         className="h-10 flex items-center justify-center"
                         type="button"

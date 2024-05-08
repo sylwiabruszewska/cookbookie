@@ -25,24 +25,19 @@ export const TextArea: React.FC<TextAreaProps> = ({
   };
 
   return (
-    <>
-      <label className="w-full">
-        <span className="sr-only">{label}</span>
-        <textarea
-          id={id}
-          {...field}
-          className={clsx(
-            baseClass,
-            className,
-            "resize-none hover:resize-y max-h-60"
-          )}
-          placeholder={placeholder}
-          onChange={handleChange}
-        ></textarea>
-      </label>
-      {meta.touched && meta.error ? (
-        <div className="error-text">{meta.error}</div>
-      ) : null}
-    </>
+    <label className="w-full">
+      <span className="sr-only">{label}</span>
+      <textarea
+        id={id}
+        {...field}
+        className={clsx(
+          baseClass,
+          className,
+          "resize-none hover:resize-y max-h-60"
+        )}
+        placeholder={placeholder}
+        onChange={handleChange}
+      ></textarea>
+    </label>
   );
 };

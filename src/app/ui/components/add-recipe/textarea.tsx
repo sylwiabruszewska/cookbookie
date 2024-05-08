@@ -5,12 +5,14 @@ const baseClass = "recipe-form-components";
 
 interface TextAreaProps {
   id: string;
+  label: string;
   placeholder: string;
   className?: string;
 }
 
 export const TextArea: React.FC<TextAreaProps> = ({
   id,
+  label,
   placeholder,
   className,
 }) => {
@@ -23,19 +25,24 @@ export const TextArea: React.FC<TextAreaProps> = ({
   };
 
   return (
-    <div className="relative w-full">
-      <textarea
-        id={id}
-        {...field}
-        className={clsx(baseClass, className, "relative")}
-        placeholder={placeholder}
-        onChange={handleChange}
-      ></textarea>
+    <>
+      <label className="w-full">
+        <span className="sr-only">{label}</span>
+        <textarea
+          id={id}
+          {...field}
+          className={clsx(
+            baseClass,
+            className,
+            "resize-none hover:resize-y max-h-60"
+          )}
+          placeholder={placeholder}
+          onChange={handleChange}
+        ></textarea>
+      </label>
       {meta.touched && meta.error ? (
-        <div className="absolute top-10 left-0 text-xs text-[#E74A3B]">
-          {meta.error}
-        </div>
+        <div className="error-text">{meta.error}</div>
       ) : null}
-    </div>
+    </>
   );
 };

@@ -30,22 +30,22 @@ export const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <label className="relative mb-4 flex items-center w-full">
-      <span className="sr-only">{label}</span>
-      <input
-        id={id}
-        {...field}
-        type={type}
-        placeholder={placeholder}
-        className={clsx(baseClass, className)}
-        readOnly={readOnly}
-        onChange={handleChange}
-      />
+    <>
+      <label className="w-full">
+        <span className="sr-only">{label}</span>
+        <input
+          id={id}
+          {...field}
+          type={type}
+          placeholder={placeholder}
+          className={clsx(baseClass, className)}
+          readOnly={readOnly}
+          onChange={handleChange}
+        />
+      </label>
       {meta.touched && meta.error ? (
-        <div className="absolute top-10 left-0 text-xs text-[#E74A3B]">
-          {meta.error}
-        </div>
+        <div className="error-text">{meta.error}</div>
       ) : null}
-    </label>
+    </>
   );
 };

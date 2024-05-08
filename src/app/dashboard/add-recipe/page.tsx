@@ -1,4 +1,4 @@
-import AddRecipeForm from "@/app/ui/components/add-recipe-form";
+import AddRecipeForm from "@/app/ui/components/add-recipe/add-recipe-form";
 import { fetchCategories } from "@/app/lib/data";
 
 export default async function Page() {

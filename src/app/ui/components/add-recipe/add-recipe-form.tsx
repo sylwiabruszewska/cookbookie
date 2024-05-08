@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik, Form, FormikHelpers, FieldArray } from "formik";
@@ -10,10 +9,11 @@ import { v4 as uuidv4 } from "uuid";
 
 import { Category } from "@/app/lib/definitions";
 import { Button } from "@/app/ui/components/button";
-import { Input } from "@/app/ui/components/recipe-form-components";
-import { Select } from "@/app/ui/components/recipe-form-components";
-import { TextArea } from "@/app/ui/components/recipe-form-components";
-import { TimePicker } from "@/app/ui/components/recipe-form-components";
+
+import { Input } from "./input";
+import { Select } from "./select";
+import { TextArea } from "./textarea";
+import { TimePicker } from "./time-picker";
 
 interface CategoriesProps {
   categories: Category[];
@@ -41,7 +41,6 @@ interface FormValues {
 }
 
 export default function AddRecipeForm({ categories }: CategoriesProps) {
-  // FORM
   const initialValues: FormValues = {
     title: "",
     description: "",

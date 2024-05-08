@@ -1,0 +1,4 @@
+/* BASE STYLES FOR ADD RECIPE FORM COMPONENTS */
+.recipe-form-components {
+  @apply w-full h-10 p-2 bg-[--gray-light] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray-dark];
+}

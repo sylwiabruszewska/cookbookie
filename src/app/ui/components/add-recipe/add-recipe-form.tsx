@@ -161,14 +161,17 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                         className="flex justify-between space-x-2 align-center"
                         key={index}
                       >
-                        <Input
-                          id={`ingredients.${index}.ingredient`}
-                          name={`ingredients.${index}.ingredient`}
-                          type="text"
-                          label="Ingredient"
-                          placeholder="Ingredient"
-                        />
-                        <div className="w-1/3 flex items-center space-x-2">
+                        <div className="w-1/2">
+                          <Input
+                            id={`ingredients.${index}.ingredient`}
+                            name={`ingredients.${index}.ingredient`}
+                            type="text"
+                            label="Ingredient"
+                            placeholder="Ingredient"
+                          />
+                        </div>
+
+                        <div className="w-1/2 flex items-center space-x-2">
                           <Input
                             id={`ingredients.${index}.quantity`}
                             name={`ingredients.${index}.quantity`}
@@ -190,11 +193,15 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                           />
                         </div>
                         <button
-                          className="h-10"
+                          className="h-10 flex items-center justify-center"
                           type="button"
                           onClick={() => remove(index)}
                         >
-                          <FontAwesomeIcon icon={faTrash} aria-label="Remove" />
+                          <FontAwesomeIcon
+                            icon={faTrash}
+                            aria-label="Remove"
+                            className="h-4 w-3"
+                          />
                         </button>
                       </div>
                     )
@@ -207,7 +214,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                       push({
                         id: uuidv4(),
                         ingredient: "",
-                        quantity: 0,
+                        quantity: "",
                         quantityUnit: "",
                       })
                     }
@@ -234,11 +241,15 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                         className="mb-2"
                       />
                       <button
-                        className="h-10"
+                        className="h-10 flex items-center justify-center"
                         type="button"
                         onClick={() => remove(index)}
                       >
-                        <FontAwesomeIcon icon={faTrash} aria-label="Remove" />
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          aria-label="Remove"
+                          className="h-4 w-3"
+                        />
                       </button>
                     </div>
                   ))}

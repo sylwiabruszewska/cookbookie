@@ -6,6 +6,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik, Form, FormikHelpers, FieldArray } from "formik";
 import * as Yup from "yup";
+import { v4 as uuidv4 } from "uuid";
 
 import { Category } from "@/app/lib/definitions";
 import { Button } from "@/app/ui/components/button";
@@ -46,8 +47,10 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
     description: "",
     category: "",
     cookingTime: "",
-    ingredients: [{ id: "", ingredient: "", quantity: "", quantityUnit: "" }],
-    steps: [{ id: "", step: "" }],
+    ingredients: [
+      { id: uuidv4(), ingredient: "", quantity: "", quantityUnit: "" },
+    ],
+    steps: [{ id: uuidv4(), step: "" }],
   };
 
   const validationSchema = Yup.object().shape({
@@ -202,7 +205,12 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                     type="button"
                     className="mb-4 ml-auto h-10 w-10"
                     onClick={() =>
-                      push({ ingredient: "", quantity: 0, quantityUnit: "" })
+                      push({
+                        id: uuidv4(),
+                        ingredient: "",
+                        quantity: 0,
+                        quantityUnit: "",
+                      })
                     }
                   >
                     +
@@ -239,7 +247,12 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                     variant="secondary"
                     type="button"
                     className="mb-4 ml-auto h-10 w-10"
-                    onClick={() => push({ step: "" })}
+                    onClick={() =>
+                      push({
+                        id: uuidv4(),
+                        step: "",
+                      })
+                    }
                   >
                     +
                   </Button>

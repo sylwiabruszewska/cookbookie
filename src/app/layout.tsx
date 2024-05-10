@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { poppins } from "@/app/ui/fonts";
-import "./ui/styles/globals.css";
+import { poppins } from "@/ui/fonts";
+import "@/ui/styles/globals.css";
 
 export const metadata: Metadata = {
   title: "CookBookie",

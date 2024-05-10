@@ -1,5 +1,5 @@
-import AddRecipeForm from "@/app/ui/components/add-recipe/add-recipe-form";
-import { fetchCategories } from "@/app/lib/data";
+import AddRecipeForm from "@/ui/components/add-recipe/add-recipe-form";
+import { fetchCategories } from "@/lib/data";
 
 export default async function Page() {
   const categories = await fetchCategories();

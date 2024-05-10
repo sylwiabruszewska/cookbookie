@@ -1,7 +1,7 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// import Icon from "@/app/ui/components/icon";
+// import Icon from "@/ui/components/icon";
 
 export default function Page() {
   return (

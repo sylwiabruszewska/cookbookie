@@ -1,4 +1,4 @@
-import RecipeCardMedium from "@/app/ui/components/recipe-card-medium";
+import RecipeCardMedium from "@/ui/components/recipe-card-medium";
 
 export default function Page() {
   return (

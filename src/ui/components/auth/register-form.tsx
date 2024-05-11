@@ -6,6 +6,7 @@ import * as Yup from "yup";
 
 import { Button } from "../button";
 import IconInput from "../icon-input";
+import { register } from "@lib/actions";
 
 interface FormValues {
   name: string;
@@ -43,17 +44,21 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (
     values: FormValues,
-    { setSubmitting, resetForm }: FormikHelpers<FormValues>
+    actions: FormikHelpers<FormValues>
   ) => {
     try {
-      const { name, email, password } = values;
+      const error = await register(values);
 
-      console.log("log in");
-      resetForm();
+      if (error) {
+        actions.setFieldError("password", error);
+      } else {
+        console.log("Registration successful");
+        actions.resetForm();
+      }
     } catch (error) {
-      console.error("Login fail:", error);
+      console.error("Registration failed:", error);
     } finally {
-      setSubmitting(false);
+      actions.setSubmitting(false);
     }
   };
 

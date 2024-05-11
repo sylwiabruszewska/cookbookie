@@ -6,6 +6,8 @@ import * as Yup from "yup";
 
 import { Button } from "../button";
 import IconInput from "../icon-input";
+import { authenticate } from "@lib/actions";
+
 interface FormValues {
   email: string;
   password: string;
@@ -34,17 +36,20 @@ const LoginForm = () => {
 
   const handleSubmit = async (
     values: FormValues,
-    { setSubmitting, resetForm }: FormikHelpers<FormValues>
+    actions: FormikHelpers<FormValues>
   ) => {
     try {
-      const { email, password } = values;
-
-      console.log("log in");
-      resetForm();
+      const error = await authenticate(values);
+      if (error) {
+        actions.setFieldError("password", error);
+      } else {
+        console.log("Login successful");
+        actions.resetForm();
+      }
     } catch (error) {
       console.error("Login fail:", error);
     } finally {
-      setSubmitting(false);
+      actions.setSubmitting(false);
     }
   };
 

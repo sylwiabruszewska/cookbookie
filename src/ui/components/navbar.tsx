@@ -52,13 +52,13 @@ const NavBar = () => {
         {isNavOpen && <MobileMenu closeMenu={closeMenu} />}
 
         <div className="flex items-center space-x-4">
-          <div>
+          <div className="w-[44px] h-[44px]">
             <Image
               src="/salad.png"
               alt="User avatar"
-              className="dark:invert"
-              width={44}
-              height={44}
+              className="object-contain"
+              width={578}
+              height={539}
               priority
             />
           </div>

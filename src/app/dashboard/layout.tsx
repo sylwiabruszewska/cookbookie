@@ -1,13 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
-
 import NewsletterForm from "@/ui/components/newsletter-form";
 import NavBar from "@ui/components/navbar";
+import { signOut } from "@auth";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <>
+        <form
+          action={async () => {
+            "use server";
+            await signOut();
+          }}
+        >
+          <button className="h-[48px] rounded-md bg-gray-50 p-3 ">
+            Sign Out
+          </button>
+        </form>
+
         <NavBar />
 
         <main className="flex-grow overflow-y-auto w-full">

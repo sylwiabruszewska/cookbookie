@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { Formik, Form, FormikHelpers } from "formik";
-import * as Yup from "yup";
 
-import { Button } from "../button";
-import IconInput from "../icon-input";
+import { Button } from "@ui/components/button";
+import IconInput from "@ui/components/icon-input";
 import { authenticate } from "@lib/actions";
+import { loginValidationSchema } from "@utils/validationSchemas";
 
 interface FormValues {
   email: string;
@@ -18,21 +18,6 @@ const LoginForm = () => {
     email: "",
     password: "",
   };
-
-  const passwordPattern =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=[\]{}'"\\|,.<>/?~])/;
-
-  const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string()
-      .matches(
-        passwordPattern,
-        "The password should contain at least one: uppercase letter, special character and digit"
-      )
-      .required("Password is required")
-      .min(6, "Password should be at least 6 characters")
-      .max(20, "Password should be at most 20 characters"),
-  });
 
   const handleSubmit = async (
     values: FormValues,
@@ -56,7 +41,7 @@ const LoginForm = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      validationSchema={loginValidationSchema}
       onSubmit={handleSubmit}
     >
       {() => (

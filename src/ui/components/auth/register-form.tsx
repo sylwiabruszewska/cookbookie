@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { Formik, Form, FormikHelpers } from "formik";
-import * as Yup from "yup";
 
 import { Button } from "../button";
 import IconInput from "../icon-input";
+import { registrationValidationSchema } from "@utils/validationSchemas";
 import { register } from "@lib/actions";
 
 interface FormValues {
@@ -20,27 +20,6 @@ const RegistrationForm = () => {
     email: "",
     password: "",
   };
-
-  const namePattern = /^[a-zA-ZąćęłńóśżźĄĆĘŁŃÓŚŻŹ]+$/;
-  const passwordPattern =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=[\]{}'"\\|,.<>/?~])/;
-
-  const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .matches(namePattern, "The name should contain only letters")
-      .required("Name is required")
-      .min(3, "Name should be at least 3 characters")
-      .max(20, "Name should be at most 20 characters"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string()
-      .matches(
-        passwordPattern,
-        "The password should contain at least one: uppercase letter, special character and digit"
-      )
-      .required("Password is required")
-      .min(6, "Password should be at least 6 characters")
-      .max(20, "Password should be at most 20 characters"),
-  });
 
   const handleSubmit = async (
     values: FormValues,
@@ -65,7 +44,7 @@ const RegistrationForm = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      validationSchema={registrationValidationSchema}
       onSubmit={handleSubmit}
     >
       {() => (

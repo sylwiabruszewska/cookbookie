@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { Formik, Form, FormikHelpers } from "formik";
+import axios from "axios";
+import { useState } from "react";
 
-import { Button } from "../button";
-import IconInput from "../icon-input";
+import { Button } from "@ui/components/button";
+import IconInput from "@ui/components/icon-input";
+import { useRouter } from "next/navigation";
 import { registrationValidationSchema } from "@utils/validationSchemas";
-import { register } from "@lib/actions";
 
 interface FormValues {
   name: string;
@@ -15,6 +17,9 @@ interface FormValues {
 }
 
 const RegistrationForm = () => {
+  const router = useRouter();
+  const [globalError, setGlobalError] = useState<string | null>(null);
+
   const initialValues = {
     name: "",
     email: "",
@@ -26,16 +31,17 @@ const RegistrationForm = () => {
     actions: FormikHelpers<FormValues>
   ) => {
     try {
-      const error = await register(values);
-
-      if (error) {
-        actions.setFieldError("password", error);
+      const res = await axios.post("/api/register", values);
+      console.log(res.data);
+      console.log("Registration successful");
+      actions.resetForm();
+      router.push("/login");
+    } catch (error: any) {
+      if (error.response && error.response.data && error.response.data.error) {
+        setGlobalError(error.response.data.error.toString());
       } else {
-        console.log("Registration successful");
-        actions.resetForm();
+        setGlobalError("Registration failed. Please try again.");
       }
-    } catch (error) {
-      console.error("Registration failed:", error);
     } finally {
       actions.setSubmitting(false);
     }
@@ -47,7 +53,7 @@ const RegistrationForm = () => {
       validationSchema={registrationValidationSchema}
       onSubmit={handleSubmit}
     >
-      {() => (
+      {({}) => (
         <Form
           className="z-10 max-w-md w-[90vw] mx-auto p-6 bg-white rounded-lg shadow-md flex flex-col items-center"
           autoComplete="off"
@@ -83,6 +89,8 @@ const RegistrationForm = () => {
             iconID="icon-lock"
             label="Password"
           />
+
+          {globalError && <div className="error-text">{globalError}</div>}
 
           <Button
             type="submit"

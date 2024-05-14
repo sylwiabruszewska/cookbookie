@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useState } from "react";
 
 import MobileMenu from "@/ui/components/dashboard/mobile-menu";
 

@@ -4,10 +4,10 @@ import Link from "next/link";
 import { Formik, Form, FormikHelpers } from "formik";
 import axios from "axios";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@ui/components/button";
 import IconInput from "@ui/components/icon-input";
-import { useRouter } from "next/navigation";
 import { registrationValidationSchema } from "@utils/validationSchemas";
 
 interface FormValues {

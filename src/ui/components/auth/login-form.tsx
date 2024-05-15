@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { Formik, Form, FormikHelpers } from "formik";
+import { useState } from "react";
+// import { useRouter } from "next/navigation";
 
 import { Button } from "@ui/components/button";
 import IconInput from "@ui/components/icon-input";
@@ -14,6 +16,9 @@ interface FormValues {
 }
 
 const LoginForm = () => {
+  // const router = useRouter();
+  const [globalError, setGlobalError] = useState<string | null>(null);
+
   const initialValues = {
     email: "",
     password: "",
@@ -25,14 +30,17 @@ const LoginForm = () => {
   ) => {
     try {
       const error = await authenticate(values);
+
       if (error) {
-        actions.setFieldError("password", error);
+        setGlobalError(error);
       } else {
         console.log("Login successful");
         actions.resetForm();
+        // router.push("/dashboard");
       }
-    } catch (error) {
-      console.error("Login fail:", error);
+    } catch (error: any) {
+      console.log(error);
+      setGlobalError("Login failed. Please try again.");
     } finally {
       actions.setSubmitting(false);
     }
@@ -69,6 +77,8 @@ const LoginForm = () => {
             iconID="icon-lock"
             label="Password"
           />
+
+          {globalError && <div className="error-text">{globalError}</div>}
 
           <Button
             type="submit"

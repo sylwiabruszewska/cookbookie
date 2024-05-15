@@ -9,6 +9,7 @@ async function createUsersTable(client) {
           name VARCHAR(255) NOT NULL,
           email TEXT NOT NULL UNIQUE,
           password TEXT NOT NULL
+          image TEXT NOT NULL
         );
       `;
 

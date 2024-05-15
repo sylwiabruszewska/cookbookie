@@ -1,6 +1,9 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import bycrptjs from "bcryptjs";
+import { sql } from "@vercel/postgres";
+import { v4 as uuidv4 } from "uuid";
 
 import { getUser } from "@lib/actions";
 
@@ -36,6 +39,10 @@ export const authOptions = {
         }
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
   ],
 
   session: {
@@ -43,7 +50,29 @@ export const authOptions = {
   },
 
   callbacks: {
-    async signIn({ user }: { user: any; account: any }) {
+    async signIn({ user, account }: { user: any; account: any }) {
+      if (account.provider === "google") {
+        try {
+          const { name, email } = user;
+          const ifUserExists = await getUser(email);
+          if (ifUserExists) {
+            return user;
+          }
+
+          const id = uuidv4();
+
+          try {
+            await sql`
+                  INSERT INTO users (id, name, email, password)
+                  VALUES (${id}, ${name}, ${email}, ${""})
+                `;
+          } catch (error) {
+            return "Database Error: Failed to Create Account.";
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
       return user;
     },
     async jwt({ token, user }: { user: any; token: any }) {

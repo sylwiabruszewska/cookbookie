@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { poppins } from "@/ui/fonts";
 import "@/ui/styles/globals.css";
+import Provider from "@ui/components/provider";
 
 export const metadata: Metadata = {
   title: "CookBookie",
@@ -9,12 +10,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <Provider>{children}</Provider>
+      </body>
     </html>
   );
 }

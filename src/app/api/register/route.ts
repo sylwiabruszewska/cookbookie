@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { v4 as uuidv4 } from "uuid";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import { sql } from "@vercel/postgres";
 
 import { getUser } from "@lib/actions";
@@ -18,7 +18,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const salt = await bcryptjs.genSalt(10);
+    const hashedPassword = await bcryptjs.hash(password, salt);
     const id = uuidv4();
 
     try {

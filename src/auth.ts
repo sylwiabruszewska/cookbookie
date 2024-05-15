@@ -3,7 +3,7 @@ import { authConfig } from "@/auth.config";
 import Credentials from "next-auth/providers/credentials";
 import { sql } from "@vercel/postgres";
 import type { User } from "@/models/User";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 
 async function getUser(email: string): Promise<User | undefined> {
   try {
@@ -30,7 +30,7 @@ export const { auth, signIn, signOut } = NextAuth({
           return null;
         }
 
-        const passwordsMatch = await bcrypt.compare(password, user.password);
+        const passwordsMatch = await bcryptjs.compare(password, user.password);
 
         if (passwordsMatch) {
           return user;

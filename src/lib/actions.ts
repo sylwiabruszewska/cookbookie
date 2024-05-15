@@ -2,10 +2,21 @@
 
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
 import { redirect } from "next/navigation";
 import { sql } from "@vercel/postgres";
+import { User } from "@models/User";
+
+export async function getUser(email: string): Promise<User | undefined> {
+  try {
+    const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
+    return user.rows[0] as User | undefined;
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    throw new Error("Failed to fetch user.");
+  }
+}
 
 interface RegisterFormValues {
   name: string;
@@ -15,7 +26,7 @@ interface RegisterFormValues {
 export async function register(values: RegisterFormValues) {
   const { name, email, password } = values;
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcryptjs.hash(password, 10);
   const id = uuidv4();
 
   try {

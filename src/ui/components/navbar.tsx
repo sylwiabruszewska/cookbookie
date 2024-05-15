@@ -3,11 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 
 import MobileMenu from "@/ui/components/dashboard/mobile-menu";
 
 const NavBar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const { data: session } = useSession();
 
   const closeMenu = () => {
     setIsNavOpen(false);
@@ -51,15 +53,29 @@ const NavBar = () => {
         {isNavOpen && <MobileMenu closeMenu={closeMenu} />}
 
         <div className="flex items-center space-x-4">
-          <div className="w-[44px] h-[44px]">
-            <Image
-              src="/salad.png"
-              alt="User avatar"
-              className="object-contain"
-              width={578}
-              height={539}
-              priority
-            />
+          <div>
+            {session && (
+              <div className="flex items-center space-x-2">
+                <div className="w-[44px] h-[44px]">
+                  <Image
+                    src="/salad.png"
+                    alt="User avatar"
+                    className="object-contain"
+                    width={578}
+                    height={539}
+                    priority
+                  />
+                </div>
+                <span className="font-semibold">{session.user?.name}</span>
+
+                <button
+                  onClick={() => signOut()}
+                  className="bg-black text-white rounded w-auto px-2"
+                >
+                  Sign out
+                </button>
+              </div>
+            )}
           </div>
 
           <button

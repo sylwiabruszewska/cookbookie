@@ -58,15 +58,18 @@ const NavBar = () => {
               <div className="flex items-center space-x-2">
                 <div className="w-[44px] h-[44px]">
                   <Image
-                    src="/salad.png"
+                    src={session.user?.image || "/salad.png"}
                     alt="User avatar"
-                    className="object-contain"
+                    className="object-contain rounded-full"
                     width={578}
                     height={539}
                     priority
                   />
                 </div>
-                <span className="font-semibold">{session.user?.name}</span>
+
+                <span className="font-semibold max-sm:hidden">
+                  {session.user?.name}
+                </span>
 
                 <button
                   onClick={() => signOut()}

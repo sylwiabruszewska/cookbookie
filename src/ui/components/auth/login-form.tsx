@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Formik, Form, FormikHelpers } from "formik";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 import { Button } from "@ui/components/button";
 import IconInput from "@ui/components/icon-input";
-import { signIn } from "next-auth/react";
 import { loginValidationSchema } from "@utils/validationSchemas";
 
 interface FormValues {
@@ -53,26 +54,14 @@ const LoginForm = () => {
   };
 
   return (
-    <>
-      <div className="z-10 max-w-md w-[90vw] mx-auto p-6 bg-white rounded-lg shadow-md flex flex-col items-center">
-        sign in with google
-        <div
-          onClick={() => signIn("google")}
-          className="rounded px-6 py-2 shadow cursor-pointer bg-gray-50 grid place-items-center mx-auto mb-4"
-        >
-          sign in with google
-        </div>
-      </div>
+    <div className="z-10 max-w-md w-[90vw] mx-auto p-6 bg-white rounded-lg shadow-md flex flex-col items-center">
       <Formik
         initialValues={initialValues}
         validationSchema={loginValidationSchema}
         onSubmit={handleSubmit}
       >
         {() => (
-          <Form
-            className="z-10 max-w-md w-[90vw] mx-auto p-6 bg-white rounded-lg shadow-md flex flex-col items-center"
-            autoComplete="off"
-          >
+          <Form className="flex flex-col items-center" autoComplete="off">
             <h2 className="text-2xl font-semibold mb-8">Sign in</h2>
             <IconInput
               id="email"
@@ -103,17 +92,36 @@ const LoginForm = () => {
             >
               Sign in
             </Button>
-
-            <Link
-              href="/register"
-              className="underline hover:text-[--primary-color]"
-            >
-              Registration
-            </Link>
           </Form>
         )}
       </Formik>
-    </>
+
+      <div className="flex justify-center w-full items-center gap-3 py-4">
+        <div className="border-b border-[--gray] w-full" />
+        <div>or</div>
+        <div className="border-b border-[--gray] w-full" />
+      </div>
+
+      <button onClick={() => signIn("google")}>
+        <Image
+          src="/google_signin.svg"
+          alt="Google Logo"
+          className="dark:invert"
+          width={175}
+          height={40}
+        />
+      </button>
+
+      <div className="mt-10">
+        <span>Don&#39;t have an account? </span>
+        <Link
+          href="/register"
+          className="underline hover:text-[--primary-color]"
+        >
+          Sign up
+        </Link>
+      </div>
+    </div>
   );
 };
 

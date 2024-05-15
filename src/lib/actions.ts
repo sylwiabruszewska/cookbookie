@@ -46,8 +46,6 @@ interface LoginFormValues {
 }
 
 export async function authenticate(values: LoginFormValues) {
-  const { email, password } = values;
-
   try {
     await signIn("credentials", values);
     return null;

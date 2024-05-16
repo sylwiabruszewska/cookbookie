@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
 
 interface MobileMenuProps {
   closeMenu: () => void;
@@ -11,6 +14,14 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
   const handleLinkClick = () => {
     closeMenu();
   };
+
+  useEffect(() => {
+    document.body.classList.add("no-scroll");
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, []);
 
   return (
     <nav className="fixed inset-0 w-[100vw] h-[100vh] flex items-center justify-center bg-[#EBF3D4] z-50">
@@ -51,6 +62,18 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
         </li>
         <li onClick={handleLinkClick}>
           <Link href="/dashboard/shopping-list">Shopping list</Link>
+        </li>
+        <li onClick={handleLinkClick}>
+          <Link
+            href="/dashboard/search"
+            className="flex items-center space-x-2"
+          >
+            <FontAwesomeIcon
+              icon={faSearch}
+              className="text-sm w-[20px] h-[20px]"
+            />
+            <span>Search</span>
+          </Link>
         </li>
       </ul>
     </nav>

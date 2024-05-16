@@ -8,8 +8,10 @@
   --foreground: #000000;
   --background-end: #ffffff;
   --primary-color: #8baa36;
+  --green-light: #ebf3d4;
   --gray: #d9d9d9;
   --gray-dark: #22252a;
+  --gray-medium: #5d5d5d;
   --gray-light: #efefef;
   --font: #23262a;
 }

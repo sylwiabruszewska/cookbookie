@@ -24,7 +24,7 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
   }, []);
 
   return (
-    <nav className="fixed inset-0 w-[100vw] h-[100vh] flex items-center justify-center bg-[#EBF3D4] z-50">
+    <nav className="fixed inset-0 w-[100vw] h-[100vh] flex items-center justify-center bg-[--green-light] z-50">
       <div className="absolute top-4 left-6">
         <Link href="/dashboard" className="flex items-center space-x-4">
           <Image

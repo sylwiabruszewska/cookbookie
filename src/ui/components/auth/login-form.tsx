@@ -85,7 +85,7 @@ const LoginForm = () => {
 
             {globalError && <div className="error-text">{globalError}</div>}
 
-            <Button type="submit" className="w-full mt-4 mb-4">
+            <Button type="submit" className="w-full mt-6 mb-4">
               {isSubmitting ? "Logging in..." : "Sign in"}
             </Button>
           </Form>

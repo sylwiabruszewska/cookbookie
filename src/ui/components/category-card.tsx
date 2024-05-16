@@ -8,9 +8,7 @@ export default function CategoryCard() {
       <ul>
         <RecipeCardSmall />
       </ul>
-      <Button variant="secondary" className="ml-auto">
-        See all
-      </Button>
+      <Button className="ml-auto">See all</Button>
     </li>
   );
 }

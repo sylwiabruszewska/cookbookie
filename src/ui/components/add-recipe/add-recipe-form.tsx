@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik, Form, FormikHelpers, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -186,7 +186,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                   {form.values.ingredients.map(
                     (ingredient: Ingredient, index: number) => (
                       <div
-                        className="flex justify-between space-x-2 align-center"
+                        className="flex justify-between space-x-2 space-y-2 align-center"
                         key={index}
                       >
                         <div>
@@ -241,23 +241,22 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                           </div>
                         </div>
 
-                        <button
-                          className="h-10 flex items-center justify-center"
+                        <Button
+                          variant="icon"
                           type="button"
                           onClick={() => remove(index)}
                         >
                           <FontAwesomeIcon
-                            icon={faTrash}
+                            icon={faXmark}
                             aria-label="Remove"
-                            className="h-4 w-3"
+                            className="h-4 w-4"
                           />
-                        </button>
+                        </Button>
                       </div>
                     )
                   )}
                   <Button
-                    variant="secondary"
-                    type="button"
+                    variant="green"
                     className="mb-4 ml-auto h-10 w-10"
                     onClick={() =>
                       push({
@@ -281,7 +280,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                 <div>
                   {form.values.steps.map((step: Step, index: number) => (
                     <div
-                      className="flex justify-between space-x-2 align-center"
+                      className="flex justify-between space-x-2 space-y-2 align-center"
                       key={index}
                     >
                       <div className="w-full">
@@ -298,21 +297,20 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                         />
                       </div>
 
-                      <button
-                        className="h-10 flex items-center justify-center"
+                      <Button
+                        variant="icon"
                         type="button"
                         onClick={() => remove(index)}
                       >
                         <FontAwesomeIcon
-                          icon={faTrash}
+                          icon={faXmark}
                           aria-label="Remove"
-                          className="h-4 w-3"
+                          className="h-4 w-4"
                         />
-                      </button>
+                      </Button>
                     </div>
                   ))}
                   <Button
-                    variant="secondary"
                     type="button"
                     className="mb-4 ml-auto h-10 w-10"
                     onClick={() =>
@@ -330,7 +328,6 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
 
             <Button
               className="mx-auto px-4"
-              variant="secondary"
               type="submit"
               disabled={isSubmitting}
             >

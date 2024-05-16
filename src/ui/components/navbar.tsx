@@ -8,6 +8,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import MobileMenu from "@/ui/components/dashboard/mobile-menu";
+import { Button } from "@/ui/components/button";
 
 const NavBar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -72,16 +73,18 @@ const NavBar = () => {
                 {session.user?.name}
               </span>
 
-              <button
+              <Button
+                variant="dark"
                 onClick={() => signOut()}
                 className="bg-black text-white rounded w-auto px-2"
               >
                 Sign out
-              </button>
+              </Button>
             </div>
           )}
 
           <button
+            type="button"
             className="lg:hidden w-[28px] h-[28px]"
             onClick={() => setIsNavOpen((prevState) => !prevState)}
           >

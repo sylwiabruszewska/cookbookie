@@ -92,11 +92,7 @@ const RegistrationForm = () => {
 
             {globalError && <div className="error-text">{globalError}</div>}
 
-            <Button
-              type="submit"
-              className="w-full mt-4 mb-4"
-              variant="secondary"
-            >
+            <Button type="submit" className="w-full mt-4 mb-4">
               Register
             </Button>
           </Form>

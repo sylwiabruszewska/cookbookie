@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "@/ui/components/button";
 
@@ -7,7 +9,13 @@ export default function RecipeCardLarge() {
     <div>
       <h2>Title</h2>
       <p>Description</p>
-      <Button>Add to favorite recipes</Button>
+      <Button className="w-10">
+        <FontAwesomeIcon
+          icon={faStar}
+          aria-label="Add to favorite recipes"
+          className="h-4 w-4"
+        />
+      </Button>
       <span>Time</span>
 
       <Image

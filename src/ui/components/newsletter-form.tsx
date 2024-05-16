@@ -51,7 +51,7 @@ export default function NewsletterForm() {
             label="Email"
           />
 
-          <Button type="submit" className="w-full">
+          <Button variant="border" type="submit" className="w-full">
             Subscribe
           </Button>
         </Form>

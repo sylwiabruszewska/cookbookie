@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import MobileMenu from "@/ui/components/dashboard/mobile-menu";
 
@@ -53,39 +55,41 @@ const NavBar = () => {
         {isNavOpen && <MobileMenu closeMenu={closeMenu} />}
 
         <div className="flex items-center space-x-4">
-          <div>
-            {session && (
-              <div className="flex items-center space-x-2">
-                <div className="w-[44px] h-[44px]">
-                  <Image
-                    src={session.user?.image || "/salad.png"}
-                    alt="User avatar"
-                    className="object-contain rounded-full"
-                    width={578}
-                    height={539}
-                    priority
-                  />
-                </div>
-
-                <span className="font-semibold max-sm:hidden">
-                  {session.user?.name}
-                </span>
-
-                <button
-                  onClick={() => signOut()}
-                  className="bg-black text-white rounded w-auto px-2"
-                >
-                  Sign out
-                </button>
+          {session && (
+            <div className="flex items-center space-x-2">
+              <div className="w-[44px] h-[44px]">
+                <Image
+                  src={session.user?.image || "/salad.png"}
+                  alt="User avatar"
+                  className="object-contain rounded-full"
+                  width={578}
+                  height={539}
+                  priority
+                />
               </div>
-            )}
-          </div>
+
+              <span className="font-semibold max-sm:hidden">
+                {session.user?.name}
+              </span>
+
+              <button
+                onClick={() => signOut()}
+                className="bg-black text-white rounded w-auto px-2"
+              >
+                Sign out
+              </button>
+            </div>
+          )}
 
           <button
-            className="lg:hidden"
+            className="lg:hidden w-[28px] h-[28px]"
             onClick={() => setIsNavOpen((prevState) => !prevState)}
           >
-            {isNavOpen ? "Close" : "Menu"}
+            <FontAwesomeIcon
+              icon={faBars}
+              aria-label="Menu"
+              className="w-[28px] h-[28px]"
+            />
           </button>
         </div>
       </div>

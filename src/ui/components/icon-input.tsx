@@ -8,6 +8,7 @@ interface TextInputProps {
   required?: boolean;
   iconID?: string;
   label: string;
+  autocomplete?: "on" | "off";
 }
 
 const IconInput: React.FC<TextInputProps> = ({
@@ -18,6 +19,7 @@ const IconInput: React.FC<TextInputProps> = ({
   required = true,
   iconID,
   label,
+  autocomplete = "on",
 }) => {
   const [field, meta] = useField({ name, type });
 
@@ -35,6 +37,8 @@ const IconInput: React.FC<TextInputProps> = ({
           className={`w-full p-2 pl-10 border border-[--gray] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray] transition duration-150 ease-in-out`}
           placeholder={placeholder}
           required={required}
+          type={type}
+          autoComplete={autocomplete}
           {...field}
         />
         <div className="absolute inset-y-0 left-0 flex items-center pl-3">

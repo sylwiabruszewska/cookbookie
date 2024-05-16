@@ -1,4 +1,4 @@
-import RecipeCardLarge from "@/app/ui/components/recipe-card-large";
+import RecipeCardLarge from "@/ui/components/recipe-card-large";
 
 export default function Page({ params }: { params: { recipeId: string } }) {
   return (

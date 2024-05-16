@@ -1,6 +1,6 @@
 "use client";
 
-import SearchForm from "@/app/ui/components/dashboard/search-form";
+import SearchForm from "@/ui/components/dashboard/search-form";
 
 export default function Page() {
   return (

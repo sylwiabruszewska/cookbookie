@@ -2,8 +2,6 @@ import Image from "next/image";
 
 import { Button } from "./button";
 
-import image from "../../../../public/pancakes.png";
-
 export default function RecipeCardLarge() {
   return (
     <div>
@@ -13,11 +11,11 @@ export default function RecipeCardLarge() {
       <span>Time</span>
 
       <Image
-        src={image}
-        width={undefined}
-        height={undefined}
+        src={"/pancakes.png"}
+        width={343}
+        height={323}
         alt="Description"
-        className="w-full h-auto mb-10"
+        className="w-343 h-auto mb-10"
       />
 
       <div className="mb-10">

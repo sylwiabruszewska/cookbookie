@@ -7,8 +7,8 @@ import { Formik, Form, FormikHelpers, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { v4 as uuidv4 } from "uuid";
 
-import { Category } from "@/app/lib/definitions";
-import { Button } from "@/app/ui/components/button";
+import { Category } from "@/lib/definitions";
+import { Button } from "@/ui/components/button";
 
 import { Input } from "./input";
 import { Select } from "./select";

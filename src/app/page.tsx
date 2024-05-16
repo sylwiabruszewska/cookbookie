@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import HomepageLayout from "./ui/layouts/homepage";
-import { Button } from "./ui/components/button";
-import { poppins } from "@/app/ui/fonts";
+import HomepageLayout from "@/ui/layouts/homepage";
+import { Button } from "@/ui/components/button";
+import { poppins } from "@/ui/fonts";
 
 export default function Home() {
   return (

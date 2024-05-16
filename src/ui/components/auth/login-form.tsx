@@ -42,7 +42,6 @@ const LoginForm = () => {
         setGlobalError("Invalid credentials");
       } else {
         console.log("Login successful");
-        actions.resetForm();
         router.push("/dashboard");
       }
     } catch (error: any) {
@@ -59,8 +58,9 @@ const LoginForm = () => {
         initialValues={initialValues}
         validationSchema={loginValidationSchema}
         onSubmit={handleSubmit}
+        method="POST"
       >
-        {() => (
+        {({ isSubmitting }) => (
           <Form className="flex flex-col items-center" autoComplete="off">
             <h2 className="text-2xl font-semibold mb-8">Sign in</h2>
             <IconInput
@@ -86,7 +86,7 @@ const LoginForm = () => {
             {globalError && <div className="error-text">{globalError}</div>}
 
             <Button type="submit" className="w-full mt-4 mb-4">
-              Sign in
+              {isSubmitting ? "Logging in..." : "Sign in"}
             </Button>
           </Form>
         )}

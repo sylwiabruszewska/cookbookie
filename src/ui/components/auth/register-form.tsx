@@ -114,8 +114,9 @@ const RegistrationForm = () => {
           src="/google_signup.svg"
           alt="Google Logo"
           className="dark:invert"
-          width={175}
+          width={179}
           height={40}
+          priority
         />
       </button>
 

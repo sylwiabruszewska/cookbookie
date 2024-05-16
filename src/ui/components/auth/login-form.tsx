@@ -109,6 +109,7 @@ const LoginForm = () => {
           className="dark:invert"
           width={175}
           height={40}
+          priority
         />
       </button>
 

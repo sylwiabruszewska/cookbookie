@@ -241,11 +241,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                           </div>
                         </div>
 
-                        <Button
-                          variant="icon"
-                          type="button"
-                          onClick={() => remove(index)}
-                        >
+                        <Button variant="icon" onClick={() => remove(index)}>
                           <FontAwesomeIcon
                             icon={faXmark}
                             aria-label="Remove"
@@ -297,11 +293,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                         />
                       </div>
 
-                      <Button
-                        variant="icon"
-                        type="button"
-                        onClick={() => remove(index)}
-                      >
+                      <Button variant="icon" onClick={() => remove(index)}>
                         <FontAwesomeIcon
                           icon={faXmark}
                           aria-label="Remove"
@@ -311,7 +303,6 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                     </div>
                   ))}
                   <Button
-                    type="button"
                     className="mb-4 ml-auto h-10 w-10"
                     onClick={() =>
                       push({

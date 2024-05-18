@@ -15,19 +15,10 @@ export function Button({
   variant = "green",
   className,
 }: ButtonProps) {
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (type === "button") {
-      e.preventDefault();
-    }
-    if (onClick) {
-      onClick(e);
-    }
-  };
-
   return (
     <button
       type={type}
-      onClick={handleClick}
+      onClick={onClick}
       className={clsx(
         "flex items-center justify-center rounded-lg text-sm font-medium transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
         {

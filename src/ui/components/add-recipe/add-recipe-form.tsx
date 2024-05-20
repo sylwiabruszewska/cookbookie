@@ -7,29 +7,12 @@ import { Formik, Form, FormikHelpers, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { v4 as uuidv4 } from "uuid";
 
-import { Category } from "@/lib/definitions";
-import { Button } from "@/ui/components/button";
-
 import { Input } from "./input";
 import { Select } from "./select";
 import { TextArea } from "./textarea";
 import { TimePicker } from "./time-picker";
-
-interface CategoriesProps {
-  categories: Category[];
-}
-
-interface Ingredient {
-  id: string;
-  ingredient: string;
-  quantity: string;
-  quantityUnit: string;
-}
-
-interface Step {
-  id: string;
-  step: string;
-}
+import { Button } from "@/ui/components/button";
+import { CategoriesProps, Category, Ingredient, Step } from "@/lib/definitions";
 
 interface FormValues {
   title: string;

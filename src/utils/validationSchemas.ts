@@ -12,7 +12,7 @@ export const registrationValidationSchema = Yup.object().shape({
   password: Yup.string()
     .matches(
       passwordPattern,
-      "The password should contain at least one: uppercase letter, special character and digit"
+      "Password requires at least one: uppercase, special character, digit."
     )
     .required("Password is required")
     .min(6, "Password should be at least 6 characters")
@@ -24,7 +24,7 @@ export const loginValidationSchema = Yup.object().shape({
   password: Yup.string()
     .matches(
       passwordPattern,
-      "The password should contain at least one: uppercase letter, special character and digit"
+      "Password requires at least one: uppercase, special character, digit."
     )
     .required("Password is required")
     .min(6, "Password should be at least 6 characters")

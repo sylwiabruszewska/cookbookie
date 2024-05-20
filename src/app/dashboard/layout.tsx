@@ -8,10 +8,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-screen flex-col items-center justify-center">
       <NavBar />
 
-      <main className="flex-grow overflow-y-auto w-full">
-        <div className="container mx-auto w-[343px] md:w-[704px] lg:w-[1240px]">
-          {children}
-        </div>
+      <main className="flex-grow overflow-y-auto w-full mb-8">
+        <div className="content-container">{children}</div>
       </main>
 
       <Footer />

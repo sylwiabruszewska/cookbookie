@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -28,14 +30,18 @@ export default function RecipeCardMedium() {
             </p>
           </div>
           <div>
-            <Button variant="secondary" className="h-7 w-7 px-0 text-black">
-              <FontAwesomeIcon icon={faTrash} aria-label="Remove" />
+            <Button variant="icon" className="h-6 w-6">
+              <FontAwesomeIcon
+                icon={faTrash}
+                aria-label="Remove"
+                className="h-4 w-4"
+              />
             </Button>
           </div>
         </div>
         <div className="flex justify-between items-end">
           <span className="text-[#3E4462] text-xs font-semibold">Time</span>
-          <Button className="h-7 px-2">See recipe</Button>
+          <Button className="h-6">See recipe</Button>
         </div>
       </div>
     </div>

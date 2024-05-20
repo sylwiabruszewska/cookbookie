@@ -56,7 +56,7 @@ const RegistrationForm = () => {
         validationSchema={registrationValidationSchema}
         onSubmit={handleSubmit}
       >
-        {({}) => (
+        {({ isSubmitting }) => (
           <Form className="flex flex-col items-center" autoComplete="off">
             <h2 className="text-2xl font-semibold mb-8">Registration</h2>
 
@@ -92,12 +92,8 @@ const RegistrationForm = () => {
 
             {globalError && <div className="error-text">{globalError}</div>}
 
-            <Button
-              type="submit"
-              className="w-full mt-4 mb-4"
-              variant="secondary"
-            >
-              Register
+            <Button type="submit" className="w-full mt-4 mb-4">
+              {isSubmitting ? "Creating an account..." : "Register"}
             </Button>
           </Form>
         )}
@@ -122,7 +118,7 @@ const RegistrationForm = () => {
 
       <div className="mt-10">
         <span>Have an account? </span>
-        <Link href="/login" className="underline hover:text-[--primary-color]">
+        <Link href="/login" className="underline">
           Sign in
         </Link>
       </div>

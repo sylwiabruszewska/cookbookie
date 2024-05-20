@@ -9,6 +9,7 @@ import {
   formatTime,
 } from "@/utils/timePickerHelpers";
 import { Input } from "./input";
+import { Button } from "../button";
 
 interface TimePickerProps {
   id: string;
@@ -54,27 +55,22 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       </Field>
 
       <div className="flex space-x-1">
-        <button
-          type="button"
+        <Button
           onClick={handleDecrement}
           disabled={time.hours === 0 && time.minutes <= 5}
-          className={clsx(
-            "bg-[--primary-color] text-white hover:bg-[--gray-dark] h-10 w-10 rounded-l-lg",
-            {
-              "bg-gray-300 cursor-not-allowed hover:bg-gray-300":
-                time.hours === 0 && time.minutes <= 5,
-            }
-          )}
+          className={clsx("h-10 w-10 rounded-l-lg rounded-r-none", {
+            "bg-gray-300 cursor-not-allowed hover:bg-gray-300":
+              time.hours === 0 && time.minutes <= 5,
+          })}
         >
           -
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
           onClick={handleIncrement}
-          className="bg-[--primary-color] text-white hover:bg-[--gray-dark] h-10 w-10 rounded-r-lg"
+          className="h-10 w-10 rounded-l-none rounded-r-lg"
         >
           +
-        </button>
+        </Button>
       </div>
     </div>
   );

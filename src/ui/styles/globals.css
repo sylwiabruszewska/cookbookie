@@ -46,7 +46,7 @@ body {
 }
 
 /* NAVIGATION */
-nav a:hover {
+a:hover {
   color: var(--primary-color);
 }
 

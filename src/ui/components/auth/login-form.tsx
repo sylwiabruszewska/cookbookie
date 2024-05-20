@@ -111,10 +111,7 @@ const LoginForm = () => {
 
       <div className="mt-10">
         <span>Don&#39;t have an account? </span>
-        <Link
-          href="/register"
-          className="underline hover:text-[--primary-color]"
-        >
+        <Link href="/register" className="underline">
           Sign up
         </Link>
       </div>

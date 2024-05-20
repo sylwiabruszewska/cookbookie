@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { getUser } from "@lib/actions";
 
-export const authOptions = {
+const authOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",

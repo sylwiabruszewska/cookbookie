@@ -13,6 +13,7 @@ import { TimePicker } from "./time-picker";
 import { Button } from "@/ui/components/button";
 import { CategoriesProps, Category, Ingredient, Step } from "@/lib/definitions";
 import { recipeValidationSchema } from "@utils/validationSchemas";
+import { Switch } from "./switch";
 
 interface FormValues {
   title: string;
@@ -21,6 +22,7 @@ interface FormValues {
   cookingTime: string;
   ingredients: Ingredient[];
   steps: Step[];
+  isPublic: boolean;
 }
 
 export default function AddRecipeForm({ categories }: CategoriesProps) {
@@ -33,6 +35,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
       { id: uuidv4(), ingredient: "", quantity: "", quantityUnit: "" },
     ],
     steps: [{ id: uuidv4(), step: "" }],
+    isPublic: true,
   };
 
   const handleSubmit = async (
@@ -270,6 +273,8 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                 </div>
               )}
             </FieldArray>
+
+            <Switch name="isPublic" />
 
             <Button
               className="mx-auto px-4"

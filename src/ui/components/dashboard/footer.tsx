@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+
 import NewsletterForm from "@/ui/components/newsletter-form";
 
 const Footer = () => {
   return (
     <footer className="w-full">
       <div className="bg-[--gray-dark] text-white py-12">
-        <div className="container mx-auto w-[343px] md:w-[704px] lg:w-[1240px]">
-          <div className="flex flex-col items-center space-y-8">
+        <div className="content-container">
+          <div className="page-container flex flex-col items-center space-y-8">
             <div className="flex items-center space-x-4">
               <Link href="/dashboard">
                 <Image
@@ -19,7 +20,7 @@ const Footer = () => {
                   priority
                 />
               </Link>
-              <h3 className="text-xl tracking-wider">CookBookie</h3>
+              <h3 className="heading-brand text-white">CookBookie</h3>
             </div>
             <div>
               <ul className="flex flex-col items-center space-y-2">
@@ -42,8 +43,8 @@ const Footer = () => {
         </div>
       </div>
       <div className="py-4 text-[--gray-dark]">
-        <div className="container mx-auto w-[343px] md:w-[704px] lg:w-[1240px]">
-          <div className="flex justify-center space-x-4 text-xs">
+        <div className="content-container ">
+          <div className="page-container flex justify-center space-x-4 text-xs">
             <span>© 2024 All Rights Reserved.</span>
             <span>Terms of Service</span>
           </div>

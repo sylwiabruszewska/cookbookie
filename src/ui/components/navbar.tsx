@@ -20,7 +20,7 @@ const NavBar = () => {
 
   return (
     <header className="text-gray-800 py-4 w-full">
-      <div className="container mx-auto flex items-center justify-between w-[343px] md:w-[704px] lg:w-[1240px]">
+      <div className="content-container flex items-center justify-between">
         <Link href="/dashboard" className="flex items-center space-x-4">
           <Image
             src="/logo.svg"
@@ -30,7 +30,7 @@ const NavBar = () => {
             height={44}
             priority
           />
-          <p className="max-sm:hidden font-semibold text-lg text-black tracking-wide">
+          <p className="max-md:hidden heading-brand font-semibold text-black">
             CookBookie
           </p>
         </Link>
@@ -69,7 +69,7 @@ const NavBar = () => {
                 />
               </div>
 
-              <span className="font-semibold max-sm:hidden">
+              <span className="font-semibold max-md:hidden">
                 {session.user?.name}
               </span>
 

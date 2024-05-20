@@ -9,9 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <NavBar />
 
       <main className="flex-grow overflow-y-auto w-full mb-8">
-        <div className="container mx-auto w-[343px] md:w-[704px] lg:w-[1240px]">
-          {children}
-        </div>
+        <div className="content-container">{children}</div>
       </main>
 
       <Footer />

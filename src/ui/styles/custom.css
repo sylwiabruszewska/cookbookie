@@ -10,3 +10,11 @@
 .no-scroll {
   overflow: hidden;
 }
+
+.content-container {
+  @apply w-[343px] md:w-[704px] lg:w-[1240px] mx-auto;
+}
+
+.heading-brand {
+  @apply text-xl tracking-wide;
+}

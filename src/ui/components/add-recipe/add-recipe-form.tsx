@@ -4,7 +4,6 @@ import Image from "next/image";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik, Form, FormikHelpers, FieldArray, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import { v4 as uuidv4 } from "uuid";
 
 import { Input } from "./input";
@@ -13,6 +12,7 @@ import { TextArea } from "./textarea";
 import { TimePicker } from "./time-picker";
 import { Button } from "@/ui/components/button";
 import { CategoriesProps, Category, Ingredient, Step } from "@/lib/definitions";
+import { recipeValidationSchema } from "@utils/validationSchemas";
 
 interface FormValues {
   title: string;
@@ -35,35 +35,6 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
     steps: [{ id: uuidv4(), step: "" }],
   };
 
-  const validationSchema = Yup.object().shape({
-    title: Yup.string()
-      .required("Title is required")
-      .min(6, "Title should be at least 6 characters")
-      .max(30, "Title should be at most 20 characters"),
-    description: Yup.string().max(
-      200,
-      "Description should be at most 20 characters"
-    ),
-    category: Yup.string().required("Category is required"),
-    cookingTime: Yup.string().required("Cooking time is required"),
-    ingredients: Yup.array()
-      .of(
-        Yup.object().shape({
-          ingredient: Yup.string().required("Ingredient name is required"),
-          quantity: Yup.string().required("Quantity is required"),
-          quantityUnit: Yup.string().required("Quantity unit is required"),
-        })
-      )
-      .required("Ingredients are required"),
-    steps: Yup.array().of(
-      Yup.object().shape({
-        step: Yup.string()
-          .required("Step description is required")
-          .min(1, "At least one step is required"),
-      })
-    ),
-  });
-
   const handleSubmit = async (
     values: FormValues,
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
@@ -84,7 +55,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
 
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={recipeValidationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (

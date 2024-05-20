@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import clsx from "clsx";
 import { useField } from "formik";
 import { useState } from "react";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +13,7 @@ interface TextInputProps {
   iconID?: string;
   label: string;
   autocomplete?: "on" | "off";
+  className?: string;
 }
 
 const IconInput: React.FC<TextInputProps> = ({
@@ -23,6 +25,7 @@ const IconInput: React.FC<TextInputProps> = ({
   iconID,
   label,
   autocomplete = "on",
+  className,
 }) => {
   const [field, meta] = useField({ name, type });
   const [showPassword, setShowPassword] = useState(false);
@@ -39,7 +42,9 @@ const IconInput: React.FC<TextInputProps> = ({
   };
 
   return (
-    <label className="relative mb-6 flex items-center w-full">
+    <label
+      className={clsx("relative mb-6 flex items-center w-full", className)}
+    >
       <span className="sr-only">{label}</span>
       <div className="relative w-full">
         <input

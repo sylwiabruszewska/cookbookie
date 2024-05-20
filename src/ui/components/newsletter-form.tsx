@@ -40,7 +40,10 @@ export default function NewsletterForm() {
       onSubmit={handleSubmit}
     >
       {() => (
-        <Form className="space-y-2 text-black" autoComplete="off">
+        <Form
+          className="text-black flex flex-col md:flex-row md:items-center gap-4 lg:flex-col"
+          autoComplete="off"
+        >
           <IconInput
             id="newsletter"
             name="newsletter"
@@ -49,9 +52,14 @@ export default function NewsletterForm() {
             required
             iconID="icon-mail"
             label="Email"
+            className="mb-0"
           />
 
-          <Button variant="border" type="submit" className="w-full">
+          <Button
+            variant="border"
+            type="submit"
+            className="w-full md:px-10 md:w-auto"
+          >
             Subscribe
           </Button>
         </Form>

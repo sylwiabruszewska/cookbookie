@@ -22,12 +22,14 @@
     "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18",
+    "react-dropzone": "^14.2.3",
     "uuid": "^9.0.1",
     "yup": "^1.4.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/dropzone": "^5.7.8",
     "@types/gravatar": "^1.8.6",
     "@types/node": "^20",
     "@types/react": "^18",

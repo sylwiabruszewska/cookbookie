@@ -14,7 +14,7 @@ import { Button } from "@/ui/components/button";
 import { CategoriesProps, Category, Ingredient, Step } from "@/lib/definitions";
 import { recipeValidationSchema } from "@utils/validationSchemas";
 import { Switch } from "./switch";
-
+import { FileUpload } from "./file-upload";
 interface FormValues {
   title: string;
   description: string;
@@ -63,14 +63,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
       >
         {({ isSubmitting }) => (
           <Form className="mb-8 space-y-4">
-            <Image
-              src="/add.png"
-              alt="Add recipe"
-              className="dark:invert mx-auto rounded-lg mb-8"
-              width={279}
-              height={268}
-              priority
-            />
+            <FileUpload />
 
             <div>
               <Input

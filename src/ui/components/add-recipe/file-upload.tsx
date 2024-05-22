@@ -1,11 +1,14 @@
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { useCallback, useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 export const FileUpload = () => {
   const [file, setFile] = useState<{ file: File; preview: string } | null>(
     null
   );
+  const [showCheckmark, setShowCheckmark] = useState<boolean>(false);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
@@ -14,8 +17,16 @@ export const FileUpload = () => {
         file: newFile,
         preview: URL.createObjectURL(newFile),
       });
+      setShowCheckmark(false);
     }
   }, []);
+
+  const handleImageLoad = () => {
+    setShowCheckmark(true);
+    setTimeout(() => {
+      setShowCheckmark(false);
+    }, 2000);
+  };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -44,6 +55,7 @@ export const FileUpload = () => {
       URL.revokeObjectURL(file.preview);
     }
     setFile(null);
+    setShowCheckmark(false);
   };
 
   return (
@@ -84,7 +96,13 @@ export const FileUpload = () => {
                 alt={file.file.name}
                 fill={true}
                 className="object-cover"
+                onLoad={handleImageLoad}
               />
+              {showCheckmark && (
+                <div className="bg-white text-[--transparent] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full w-10 h-10 flex items-center justify-center opacity-0 animate-checkmark-in">
+                  <FontAwesomeIcon icon={faCheck} />
+                </div>
+              )}
               <button
                 className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
                 onClick={removeFile}

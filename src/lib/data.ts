@@ -21,7 +21,9 @@ export async function fetchRecipes() {
   noStore();
 
   try {
-    const data = await sql<Recipe>`SELECT * FROM recipes`;
+    const data =
+      await sql<Recipe>`SELECT * FROM recipes WHERE is_public = true`;
+
     return data.rows;
   } catch (error) {
     console.error("Database Error:", error);

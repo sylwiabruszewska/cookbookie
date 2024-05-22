@@ -42,9 +42,29 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
     values: FormValues,
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
-    console.log(values);
     try {
-      resetForm();
+      const recipe = {
+        images: ["/pancakes.png"],
+
+        ...values,
+        category: categories.find((cat) => cat.name === values.category),
+      };
+
+      console.log(recipe);
+
+      const response = await fetch("/api/recipes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(recipe),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit recipe");
+      }
+
+      // resetForm();
     } catch (error) {
       console.error("fail", error);
     } finally {

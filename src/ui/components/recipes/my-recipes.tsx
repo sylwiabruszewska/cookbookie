@@ -14,7 +14,7 @@ export const MyRecipes: React.FC<MyRecipesComponentProps> = ({ recipes }) => {
             title={recipe.title}
             description={recipe.description}
             images={recipe.images}
-            cookingTime={recipe.cookingTime}
+            cookingTime={recipe.cooking_time}
           />
         </li>
       ))}

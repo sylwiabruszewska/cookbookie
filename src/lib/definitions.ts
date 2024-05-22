@@ -17,11 +17,11 @@ export type Recipe = {
   title: string;
   description: string;
   category: Category;
-  cookingTime: string;
+  cooking_time: string;
   ingredients: Ingredient[];
   steps: Step[];
   isPublic: boolean;
-  owner: User["id"];
+  owner_id: User["id"];
 };
 
 export interface Ingredient {

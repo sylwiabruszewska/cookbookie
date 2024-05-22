@@ -34,6 +34,18 @@ export const FileUpload = () => {
     };
   }, [file]);
 
+  const removeFile = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (file) {
+      URL.revokeObjectURL(file.preview);
+    }
+    setFile(null);
+  };
+
   return (
     <div className="w-[300px] h-[300px] p-2 bg-[--primary-color] flex justify-center items-center rounded-[30px] overflow-hidden mx-auto mb-12">
       <div
@@ -73,6 +85,12 @@ export const FileUpload = () => {
                 fill={true}
                 className="object-cover"
               />
+              <button
+                className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                onClick={removeFile}
+              >
+                &times;
+              </button>
             </div>
           </div>
         )}

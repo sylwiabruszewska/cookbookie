@@ -38,7 +38,7 @@ const LoginForm = () => {
       });
 
       if (res?.error) {
-        console.log(res);
+        // console.log(res);
         setGlobalError("Invalid credentials");
       } else {
         console.log("Login successful");

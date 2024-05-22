@@ -34,7 +34,7 @@ const RegistrationForm = () => {
   ) => {
     try {
       const res = await axios.post("/api/register", values);
-      console.log(res.data);
+      // console.log(res.data);
       console.log("Registration successful");
       actions.resetForm();
       router.push("/login");

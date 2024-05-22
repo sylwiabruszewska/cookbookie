@@ -80,7 +80,7 @@ const authOptions = {
         token.email = user.email;
         token.name = user.name;
       }
-      console.log("token: ", token);
+      // console.log("token: ", token);
       return token;
     },
 
@@ -89,7 +89,7 @@ const authOptions = {
         session.user.email = token.email;
         session.user.name = token.name;
       }
-      console.log("session: ", session);
+      // console.log("session: ", session);
       return session;
     },
   },

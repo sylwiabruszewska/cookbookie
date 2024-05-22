@@ -13,6 +13,16 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      animation: {
+        "checkmark-in": "checkmark-in 2s forwards",
+      },
+      keyframes: {
+        "checkmark-in": {
+          "0%": { opacity: "0", transform: "translate(-50%, 100%)" },
+          "50%": { opacity: "1", transform: "translate(-50%, -50%)" },
+          "100%": { opacity: "0", transform: "translate(-50%, -200%)" },
+        },
+      },
     },
     fontSize: {
       xs: "0.75rem",

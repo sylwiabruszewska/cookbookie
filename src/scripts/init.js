@@ -22,10 +22,38 @@ async function createUsersTable(client) {
   }
 }
 
+async function createRecipesTable(client) {
+  try {
+    const createTable = await client.sql`
+        CREATE TABLE IF NOT EXISTS recipes (
+          id UUID PRIMARY KEY,
+          images JSONB NOT NULL,
+          title VARCHAR(255) NOT NULL,
+          description TEXT NOT NULL,
+          category JSONB NOT NULL,
+          cooking_time VARCHAR(255) NOT NULL,
+          ingredients JSONB NOT NULL,
+          steps JSONB NOT NULL,
+          is_public BOOLEAN NOT NULL,
+          owner_id UUID NOT NULL REFERENCES users(id),
+          created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+          updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+        );
+      `;
+
+    console.log(`Created "recipes" table`);
+
+    return createTable;
+  } catch (error) {
+    console.error("Error creating recipes table:", error);
+    throw error;
+  }
+}
+
 async function main() {
   const client = await db.connect();
 
-  await createUsersTable(client);
+  await createRecipesTable(client);
 
   await client.end();
 }

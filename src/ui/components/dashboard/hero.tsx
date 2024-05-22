@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import SearchForm from "@/ui/components/dashboard/search-form";
 
 const HeroSection = () => {
   return (
@@ -19,6 +22,7 @@ const HeroSection = () => {
 
       <div className="text-center ">
         <h1 className="text-4xl font-bold">CookBookie</h1>
+        <SearchForm />
       </div>
     </div>
   );

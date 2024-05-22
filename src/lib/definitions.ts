@@ -13,6 +13,7 @@ export type Category = {
 
 export type Recipe = {
   id: string;
+  images: string[];
   title: string;
   description: string;
   category: Category;
@@ -20,6 +21,7 @@ export type Recipe = {
   ingredients: Ingredient[];
   steps: Step[];
   isPublic: boolean;
+  owner: User["id"];
 };
 
 export interface Ingredient {

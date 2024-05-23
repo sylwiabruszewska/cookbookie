@@ -55,25 +55,25 @@ export async function POST(req: NextRequest, res: NextResponse) {
       images,
       title,
       description,
-      category,
-      cookingTime,
+      category_id: category,
+      cooking_time: cookingTime,
       ingredients,
       steps,
-      isPublic,
-      owner: userId,
+      is_public: isPublic,
+      owner_id: userId,
     };
 
     const result = await sql`
         INSERT INTO recipes(
-          id, images, title, description, category, cooking_time, is_public, owner_id, ingredients, steps
+          id, images, title, description, category_id, cooking_time, ingredients, steps, is_public, owner_id
         ) VALUES (
           ${newRecipe.id}, ${JSON.stringify(newRecipe.images)}, ${
       newRecipe.title
-    }, ${newRecipe.description}, ${JSON.stringify(newRecipe.category)}, ${
-      newRecipe.cookingTime
-    }, ${newRecipe.isPublic}, ${newRecipe.owner}, ${JSON.stringify(
-      newRecipe.ingredients
-    )}, ${JSON.stringify(newRecipe.steps)}
+    }, ${newRecipe.description}, ${newRecipe.category_id}, ${
+      newRecipe.cooking_time
+    }, ${JSON.stringify(newRecipe.ingredients)}, ${JSON.stringify(
+      newRecipe.steps
+    )}, ${newRecipe.is_public}, ${newRecipe.owner_id}
         ) RETURNING *`;
 
     return NextResponse.json(

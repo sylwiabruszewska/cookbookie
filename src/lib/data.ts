@@ -76,12 +76,13 @@ export async function fetchUserRecipes(): Promise<Recipe[]> {
 export async function fetchRecentRecipes(categoryId: string) {
   try {
     const data = await sql<Recipe>`
-    SELECT *
+    SELECT recipes.id, recipes.title, recipes.description, recipes.images
     FROM recipes
     JOIN categories ON recipes.category_id = categories.id
-    WHERE is_public = true and recipes.category_id = ${categoryId}
-    ORDER BY created_at DESC 
+    WHERE recipes.is_public = true AND recipes.category_id = ${categoryId}
+    ORDER BY recipes.created_at DESC 
     LIMIT 3;
+    
     
     
     `;
@@ -89,5 +90,32 @@ export async function fetchRecentRecipes(categoryId: string) {
   } catch (error) {
     console.error("Error fetching recent recipes:", error);
     throw new Error("Failed to fetch recent recipes for the category.");
+  }
+}
+
+// ***** FETCH RECIPE BY ID *****
+export async function fetchRecipeById(id: string): Promise<Recipe | null> {
+  try {
+    const result = await sql`SELECT * FROM recipes WHERE id = ${id}`;
+
+    const data = result.rows[0];
+
+    const recipe: Recipe = {
+      id: data.id,
+      images: data.images,
+      title: data.title,
+      description: data.description,
+      category_id: data.category_id,
+      cooking_time: data.cooking_time,
+      ingredients: data.ingredients,
+      steps: data.steps,
+      is_public: data.is_public,
+      owner_id: data.owner_id,
+    };
+
+    return recipe;
+  } catch (error) {
+    console.error("Database Error:", error);
+    return null;
   }
 }

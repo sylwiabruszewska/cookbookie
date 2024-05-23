@@ -4,7 +4,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   type?: "submit" | "reset" | "button";
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  variant?: "green" | "dark" | "border" | "icon";
+  variant?: "green" | "crazyRounded" | "dark" | "border" | "icon";
   className?: string;
 }
 
@@ -24,6 +24,8 @@ export function Button({
         {
           "bg-[--primary-color] text-white hover:bg-[--gray-dark] hover:text-white px-2 h-10":
             variant === "green",
+          "bg-[--primary-color] text-white hover:bg-[--gray-dark] hover:text-white px-5 rounded-tl-[15px] rounded-bl-[40px] rounded-br-[15px] rounded-tr-[40px] h-10":
+            variant === "crazyRounded",
           "bg-[--gray-dark] text-white border-[--primary-color] hover:bg-[--primary-color] hover:border-white px-2 h-10 ":
             variant === "dark",
           "bg-[--primary-color] text-white border-2 border-[--primary-color] hover:bg-transparent hover:border-white px-2 h-10 ":

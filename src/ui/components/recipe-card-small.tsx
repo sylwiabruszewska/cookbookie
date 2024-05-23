@@ -9,7 +9,7 @@ interface RecipeCardSmallProps {
 export default function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
   return (
     <li className="mb-8">
-      <Link href="/">
+      <Link href={`/dashboard/recipes/${recipe.id}`}>
         <div className="relative w-[343px] h-[343px] rounded-lg overflow-hidden">
           <Image
             src={recipe.images[0]}

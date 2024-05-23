@@ -81,7 +81,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-8">Add recipe</h2>
+      <h2 className="heading-l">Add recipe</h2>
 
       <Formik
         initialValues={initialValues}

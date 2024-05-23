@@ -3,7 +3,7 @@
 export default function Page() {
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-8">Favorites</h2>
+      <h2 className="heading-l">Favorites</h2>
 
       {/* <RecipeCardMedium /> */}
     </div>

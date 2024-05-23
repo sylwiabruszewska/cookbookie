@@ -15,7 +15,7 @@ interface RecipeProps {
 export default function RecipeCardLarge({ recipe }: RecipeProps) {
   return (
     <div className="flex flex-col gap-4 justify-center">
-      <h2 className="text-xl text-[--primary-color] font-semibold mt-4 mb-4 text-center">
+      <h2 className="heading-l text-[--primary-color] mt-4 mb-4 text-center">
         {recipe.title}
       </h2>
       <p className="text-center">{recipe.description}</p>

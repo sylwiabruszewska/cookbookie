@@ -62,7 +62,7 @@ const LoginForm = () => {
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col items-center" autoComplete="off">
-            <h2 className="text-2xl font-semibold mb-8">Sign in</h2>
+            <h2 className="heading-l">Sign in</h2>
             <IconInput
               id="email"
               name="email"

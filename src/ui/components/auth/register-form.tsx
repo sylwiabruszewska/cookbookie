@@ -58,7 +58,7 @@ const RegistrationForm = () => {
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col items-center" autoComplete="off">
-            <h2 className="text-2xl font-semibold mb-8">Registration</h2>
+            <h2 className="heading-l">Registration</h2>
 
             <IconInput
               id="text"

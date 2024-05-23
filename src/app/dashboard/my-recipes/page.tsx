@@ -6,7 +6,7 @@ export default async function Page() {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-8">My recipes</h2>
+      <h2 className="heading-l">My recipes</h2>
       {recipes && recipes.length > 0 ? (
         <MyRecipes recipes={recipes} />
       ) : (

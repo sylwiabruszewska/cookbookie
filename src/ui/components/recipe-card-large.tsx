@@ -18,7 +18,7 @@ export default function RecipeCardLarge({ recipe }: RecipeProps) {
       <h2 className="text-xl text-[--primary-color] font-semibold mt-4 mb-4 text-center">
         {recipe.title}
       </h2>
-      <p className="text-center text-base">{recipe.description}</p>
+      <p className="text-center">{recipe.description}</p>
 
       <Button variant="crazyRounded" className="self-center">
         Add to favorite recipes

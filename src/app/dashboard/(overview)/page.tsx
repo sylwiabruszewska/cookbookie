@@ -18,11 +18,13 @@ export default async function Page() {
       {categories && categories.length > 0 ? (
         <ul className="list-none">
           {categories.map((category) => {
-            const matchingCategory = recentRecipesForCategories.filter(
+            const matchingCategory = recentRecipesForCategories.find(
               (item) => item.categoryId === category.id
             );
             const recentRecipes =
-              matchingCategory.length > 0 ? matchingCategory[0].recipes : [];
+              matchingCategory && matchingCategory.recipes
+                ? matchingCategory.recipes
+                : [];
 
             return (
               <li key={category.id} className="mb-8">

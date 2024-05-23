@@ -1,5 +1,24 @@
 const { db } = require("@vercel/postgres");
 
+async function createCategoriesTable(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    const createTable = await client.sql`
+      CREATE TABLE IF NOT EXISTS categories (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        name VARCHAR(255) NOT NULL
+      );
+    `;
+
+    console.log(`Created "categories" table`);
+
+    return createTable;
+  } catch (error) {
+    console.error("Error creating categories table:", error);
+    throw error;
+  }
+}
+
 async function createUsersTable(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -30,7 +49,7 @@ async function createRecipesTable(client) {
           images JSONB NOT NULL,
           title VARCHAR(255) NOT NULL,
           description TEXT NOT NULL,
-          category JSONB NOT NULL,
+          category_id UUID NOT NULL REFERENCES categories(id),
           cooking_time VARCHAR(255) NOT NULL,
           ingredients JSONB NOT NULL,
           steps JSONB NOT NULL,

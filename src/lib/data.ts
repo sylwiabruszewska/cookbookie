@@ -61,6 +61,7 @@ export async function fetchUserRecipes(): Promise<Recipe[]> {
       FROM recipes
       JOIN users ON recipes.owner_id = users.id
       WHERE users.email = ${userEmail};
+      ORDER BY created_at DESC 
     `;
 
     const recipes: Recipe[] = data.rows.flat();

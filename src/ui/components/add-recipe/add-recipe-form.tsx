@@ -89,7 +89,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className="mb-8 space-y-4">
+          <Form className="mb-8 flex flex-col gap-4">
             <FileUpload />
 
             <div>
@@ -297,7 +297,8 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
             <Switch name="isPublic" />
 
             <Button
-              className="mx-auto px-4"
+              variant="crazyRounded"
+              className="mx-auto mt-10"
               type="submit"
               disabled={isSubmitting}
             >

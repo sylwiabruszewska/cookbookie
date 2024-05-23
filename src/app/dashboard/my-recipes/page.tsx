@@ -2,9 +2,8 @@ import { fetchUserRecipes } from "@lib/data";
 import { MyRecipes } from "@ui/components/recipes/my-recipes";
 import { getUserEmail } from "@utils/getUser";
 
-export default async function MyRecipesPage() {
-  const userEmail = await getUserEmail();
-  const recipes = await fetchUserRecipes(userEmail);
+export default async function Page() {
+  const recipes = await fetchUserRecipes();
 
   return (
     <div>

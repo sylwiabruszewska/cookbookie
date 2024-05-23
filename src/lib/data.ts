@@ -2,6 +2,7 @@ import { sql } from "@vercel/postgres";
 import { unstable_noStore as noStore } from "next/cache";
 
 import { Category, Recipe } from "./definitions";
+import { getUserEmail } from "@utils/getUser";
 
 // ***** CATEGORIES *****
 export async function fetchCategories() {
@@ -49,10 +50,12 @@ export async function getUserIdByEmail(email: string): Promise<string | null> {
 }
 
 // ***** USER RECIPES *****
-export async function fetchUserRecipes(userEmail: string): Promise<Recipe[]> {
+export async function fetchUserRecipes(): Promise<Recipe[]> {
   noStore();
 
   try {
+    const userEmail = await getUserEmail();
+
     const data = await sql<Recipe[]>`
       SELECT recipes.*
       FROM recipes

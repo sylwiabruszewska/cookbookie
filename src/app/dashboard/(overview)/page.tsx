@@ -14,24 +14,29 @@ export default async function Page() {
   return (
     <>
       <HeroSection />
-      <ul className="list-none">
-        {categories.map((category) => {
-          const matchingCategory = recentRecipesForCategories.filter(
-            (item) => item.categoryId === category.id
-          );
-          const recentRecipes =
-            matchingCategory.length > 0 ? matchingCategory[0].recipes : [];
 
-          return (
-            <li key={category.id} className="mb-8">
-              <CategoryCard
-                title={category.name}
-                recentRecipes={recentRecipes}
-              />
-            </li>
-          );
-        })}
-      </ul>
+      {categories && categories.length > 0 ? (
+        <ul className="list-none">
+          {categories.map((category) => {
+            const matchingCategory = recentRecipesForCategories.filter(
+              (item) => item.categoryId === category.id
+            );
+            const recentRecipes =
+              matchingCategory.length > 0 ? matchingCategory[0].recipes : [];
+
+            return (
+              <li key={category.id} className="mb-8">
+                <CategoryCard
+                  title={category.name}
+                  recentRecipes={recentRecipes}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <p>No categories found.</p>
+      )}
     </>
   );
 }

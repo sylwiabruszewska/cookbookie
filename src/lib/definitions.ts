@@ -16,11 +16,11 @@ export type Recipe = {
   images: string[];
   title: string;
   description: string;
-  category: Category;
+  category_id: Category["id"];
   cooking_time: string;
   ingredients: Ingredient[];
   steps: Step[];
-  isPublic: boolean;
+  is_public: boolean;
   owner_id: User["id"];
 };
 

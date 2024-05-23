@@ -26,7 +26,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
       <div className="flex-shrink-0 w-[124px] h-[124px] relative rounded-lg">
         <Image
           src={images[0]}
-          fill={true}
+          fill
           object-fit="cover"
           alt={title}
           sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"

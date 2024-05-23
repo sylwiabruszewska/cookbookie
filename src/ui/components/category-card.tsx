@@ -1,14 +1,29 @@
 import RecipeCardSmall from "./recipe-card-small";
 import { Button } from "./button";
+import { Recipe } from "@lib/definitions";
 
-export default function CategoryCard() {
+interface CategoryCardProps {
+  title: string;
+  recentRecipes: Recipe[];
+}
+
+export default function CategoryCard({
+  title,
+  recentRecipes,
+}: CategoryCardProps) {
   return (
-    <li>
-      <h3 className="text-xl font-semibold mb-4">Title</h3>
+    <div>
+      <h3 className="text-xl font-semibold mb-4">{title}</h3>
       <ul>
-        <RecipeCardSmall />
+        {recentRecipes.length > 0 ? (
+          recentRecipes.map((recipe) => (
+            <RecipeCardSmall key={recipe.id} recipe={recipe} />
+          ))
+        ) : (
+          <p>No recent recipes found.</p>
+        )}
       </ul>
-      <Button className="ml-auto">See all</Button>
-    </li>
+      {recentRecipes.length > 0 && <Button className="ml-auto">See all</Button>}
+    </div>
   );
 }

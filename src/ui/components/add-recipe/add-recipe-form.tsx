@@ -302,7 +302,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
               type="submit"
               disabled={isSubmitting}
             >
-              Add recipe
+              {isSubmitting ? "Adding recipe..." : "Add recipe"}
             </Button>
           </Form>
         )}

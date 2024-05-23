@@ -20,7 +20,7 @@ export default function RecipeCardLarge({ recipe }: RecipeProps) {
       </h2>
       <p className="text-center text-base">{recipe.description}</p>
 
-      <Button className="self-center text-base px-5 rounded-tl-[15px] rounded-bl-[40px] rounded-br-[15px] rounded-tr-[40px]">
+      <Button variant="crazyRounded" className="self-center">
         Add to favorite recipes
       </Button>
       <div className="flex justify-center items-center gap-2">

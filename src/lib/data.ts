@@ -67,3 +67,23 @@ export async function fetchUserRecipes(userEmail: string): Promise<Recipe[]> {
     throw new Error("Failed to fetch user recipes.");
   }
 }
+
+// ***** CATEGORY - 3 RECENT RECIPES *****
+export async function fetchRecentRecipes(categoryId: string) {
+  try {
+    const data = await sql<Recipe>`
+    SELECT *
+    FROM recipes
+    JOIN categories ON recipes.category_id = categories.id
+    WHERE is_public = true and recipes.category_id = ${categoryId}
+    ORDER BY created_at DESC 
+    LIMIT 3;
+    
+    
+    `;
+    return data.rows;
+  } catch (error) {
+    console.error("Error fetching recent recipes:", error);
+    throw new Error("Failed to fetch recent recipes for the category.");
+  }
+}

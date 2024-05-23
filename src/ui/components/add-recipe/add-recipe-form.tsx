@@ -43,16 +43,23 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
     try {
+      const selectedCategory = categories.find(
+        (cat) => cat.name === values.category
+      );
+
+      if (!selectedCategory) {
+        throw new Error("Selected category not found.");
+      }
+
       const recipe = {
         images: ["/pancakes.png"],
-
         ...values,
-        category: categories.find((cat) => cat.name === values.category),
+        category: selectedCategory.id,
       };
 
       console.log(recipe);
 
-      const response = await fetch("/api/recipes", {
+      const response = await fetch("/api/add-recipe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

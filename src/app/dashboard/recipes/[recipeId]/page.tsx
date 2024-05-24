@@ -1,4 +1,4 @@
-import RecipeCardLarge from "@/ui/components/recipe-card-large";
+import RecipeCardLarge from "@ui/components/recipes/recipe-card-large";
 import { fetchRecipeById } from "@lib/data";
 import { notFound } from "next/navigation";
 

@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { namePattern, passwordPattern } from "./patterns";
+import { namePattern, passwordPattern } from "@/utils/patterns";
 
 export const registrationValidationSchema = Yup.object().shape({
   name: Yup.string()

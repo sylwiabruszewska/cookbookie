@@ -1,16 +1,18 @@
 import { Recipe } from "@lib/definitions";
-import { RecipeCardMedium } from "@/ui/components/my-recipes/recipe-card-medium";
+import { RecipeCardFavorite } from "@ui/components/favorites/recipe-card-favorite";
 
-interface MyRecipesComponentProps {
+interface MyFavoritesComponentProps {
   recipes: Recipe[];
 }
 
-export const MyRecipes: React.FC<MyRecipesComponentProps> = ({ recipes }) => {
+export const MyFavorites: React.FC<MyFavoritesComponentProps> = ({
+  recipes,
+}) => {
   return (
     <ul>
       {recipes.map((recipe) => (
         <li key={recipe.id} className="mb-4">
-          <RecipeCardMedium
+          <RecipeCardFavorite
             title={recipe.title}
             description={recipe.description}
             images={recipe.images}

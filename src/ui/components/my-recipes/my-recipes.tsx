@@ -1,4 +1,4 @@
-import { Recipe } from "@lib/definitions";
+import { Recipe } from "@/lib/definitions";
 import { RecipeCardMedium } from "@/ui/components/my-recipes/recipe-card-medium";
 
 interface MyRecipesComponentProps {

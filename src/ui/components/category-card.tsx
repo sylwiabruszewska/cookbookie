@@ -1,5 +1,5 @@
 import RecipeCardSmall from "./recipe-card-small";
-import { Button } from "./button";
+import { Button } from "@/ui/components/button";
 import { Recipe } from "@lib/definitions";
 
 interface CategoryCardProps {

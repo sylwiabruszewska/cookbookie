@@ -3,8 +3,8 @@
 import { Formik, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
 
-import { Button } from "./button";
-import IconInput from "./icon-input";
+import { Button } from "@/ui/components/button";
+import IconInput from "@/ui/components/icon-input";
 
 interface FormValues {
   email: string;

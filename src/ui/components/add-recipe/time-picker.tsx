@@ -8,8 +8,8 @@ import {
   decrementTime,
   formatTime,
 } from "@/utils/timePickerHelpers";
-import { Input } from "./input";
-import { Button } from "../button";
+import { Input } from "@ui/components/add-recipe/input";
+import { Button } from "@ui/components/button";
 
 interface TimePickerProps {
   id: string;

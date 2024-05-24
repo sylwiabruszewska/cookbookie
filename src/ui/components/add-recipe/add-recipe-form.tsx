@@ -6,15 +6,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik, Form, FormikHelpers, FieldArray, ErrorMessage } from "formik";
 import { v4 as uuidv4 } from "uuid";
 
-import { Input } from "./input";
-import { Select } from "./select";
-import { TextArea } from "./textarea";
-import { TimePicker } from "./time-picker";
+import { Input } from "@ui/components/add-recipe/input";
+import { Select } from "@ui/components/add-recipe/select";
+import { TextArea } from "@ui/components/add-recipe/textarea";
+import { TimePicker } from "@ui/components/add-recipe/time-picker";
+import { Switch } from "@ui/components/add-recipe/switch";
+import { FileUpload } from "@ui/components/add-recipe/file-upload";
 import { Button } from "@/ui/components/button";
 import { CategoriesProps, Category, Ingredient, Step } from "@/lib/definitions";
 import { recipeValidationSchema } from "@utils/validationSchemas";
-import { Switch } from "./switch";
-import { FileUpload } from "./file-upload";
+
 interface FormValues {
   title: string;
   description: string;

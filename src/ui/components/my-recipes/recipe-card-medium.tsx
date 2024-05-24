@@ -4,7 +4,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-import { Button } from "./button";
+import { Button } from "@ui/components/button";
 import { truncateDescription } from "@utils/recipes";
 // import Icon from "./icon";
 

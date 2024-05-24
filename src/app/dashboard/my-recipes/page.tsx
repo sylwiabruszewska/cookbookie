@@ -1,5 +1,5 @@
 import { fetchUserRecipes } from "@lib/data";
-import { MyRecipes } from "@ui/components/recipes/my-recipes";
+import { MyRecipes } from "@ui/components/my-recipes/my-recipes";
 
 export default async function Page() {
   const recipes = await fetchUserRecipes();

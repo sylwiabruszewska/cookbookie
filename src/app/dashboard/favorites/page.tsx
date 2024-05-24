@@ -1,11 +1,18 @@
-// import RecipeCardMedium from "@/ui/components/recipe-card-medium";
+import { fetchUserFavorites } from "@lib/data";
+import { MyFavorites } from "@ui/components/favorites/my-favorites";
 
-export default function Page() {
+export default async function Page() {
+  const recipes = await fetchUserFavorites();
+
   return (
     <div>
       <h2 className="heading-l">Favorites</h2>
 
-      {/* <RecipeCardMedium /> */}
+      {recipes && recipes.length > 0 ? (
+        <MyFavorites recipes={recipes} />
+      ) : (
+        <p>Add some recipes to favorites!</p>
+      )}
     </div>
   );
 }

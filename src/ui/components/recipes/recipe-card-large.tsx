@@ -1,9 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "@/ui/components/button";
 import { Recipe } from "@lib/definitions";

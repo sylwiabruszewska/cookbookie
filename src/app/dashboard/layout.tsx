@@ -1,6 +1,6 @@
 "use client";
 
-import NavBar from "@ui/components/navbar";
+import NavBar from "@ui/components/dashboard/navbar";
 import Footer from "@ui/components/dashboard/footer";
 
 export default function Layout({ children }: { children: React.ReactNode }) {

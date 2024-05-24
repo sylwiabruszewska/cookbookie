@@ -69,10 +69,31 @@ async function createRecipesTable(client) {
   }
 }
 
+async function createUserFavoritesTable(client) {
+  try {
+    const createTable = await client.sql`
+          CREATE TABLE IF NOT EXISTS UserFavorites (
+          userId UUID NOT NULL,
+          recipeId UUID NOT NULL,
+          PRIMARY KEY (userId, recipeId),
+          FOREIGN KEY (userId) REFERENCES Users(id),
+          FOREIGN KEY (recipeId) REFERENCES Recipes(id)
+    );
+      `;
+
+    console.log(`Created "userFavorites" table`);
+
+    return createTable;
+  } catch (error) {
+    console.error("Error creating userFavorites table:", error);
+    throw error;
+  }
+}
+
 async function main() {
   const client = await db.connect();
 
-  await createRecipesTable(client);
+  await createUserFavoritesTable(client);
 
   await client.end();
 }

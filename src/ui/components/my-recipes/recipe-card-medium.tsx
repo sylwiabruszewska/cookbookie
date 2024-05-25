@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "@ui/components/button";
 import { truncateDescription } from "@utils/recipes";
@@ -55,7 +56,17 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
           </div>
         </div>
       </Link>
-      <div className="flex items-start">
+      <div className="flex flex-col items-start gap-4">
+        <Link href={`/dashboard/recipes/${id}/edit`}>
+          <Button variant="icon" className="h-6 w-6">
+            <FontAwesomeIcon
+              icon={faPencil}
+              aria-label="Edit"
+              className="h-4 w-4"
+            />
+          </Button>
+        </Link>
+
         <Button variant="icon" className="h-6 w-6">
           <FontAwesomeIcon
             icon={faTrash}

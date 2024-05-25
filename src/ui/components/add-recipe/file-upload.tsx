@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { useCallback, useEffect, useState } from "react";
 import { FC } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -11,14 +12,17 @@ interface FileUploadProps {
 }
 
 export const FileUpload: FC<FileUploadProps> = ({ initialImages = [] }) => {
-  const [files, setFiles] = useState<{ file: File | null; preview: string }[]>(
-    initialImages.map((image) => ({ file: null, preview: image }))
+  const [files, setFiles] = useState<
+    { id: string; file: File | null; preview: string }[]
+  >(
+    initialImages.map((image) => ({ id: uuidv4(), file: null, preview: image }))
   );
   const [showCheckmark, setShowCheckmark] = useState<boolean>(false);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       const newFiles = acceptedFiles.map((file) => ({
+        id: uuidv4(),
         file,
         preview: URL.createObjectURL(file),
       }));
@@ -56,15 +60,12 @@ export const FileUpload: FC<FileUploadProps> = ({ initialImages = [] }) => {
 
   const removeFile = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number
+    id: string
   ) => {
     event.preventDefault();
     event.stopPropagation();
 
-    const newFiles = files.filter((_, i) => i !== index);
-    if (files[index].file) {
-      URL.revokeObjectURL(files[index].preview);
-    }
+    const newFiles = files.filter((file) => file.id !== id);
     setFiles(newFiles);
     setShowCheckmark(false);
   };
@@ -101,9 +102,9 @@ export const FileUpload: FC<FileUploadProps> = ({ initialImages = [] }) => {
 
         {files.length > 0 && (
           <div className="w-full h-full relative flex items-center justify-center flex-wrap gap-4">
-            {files.map((file, index) => (
+            {files.map((file) => (
               <div
-                key={index}
+                key={file.id}
                 className={`rounded-[10px] overflow-hidden relative ${
                   files.length > 1
                     ? "inline-flex w-[100px] h-[100px]"
@@ -112,7 +113,7 @@ export const FileUpload: FC<FileUploadProps> = ({ initialImages = [] }) => {
               >
                 <Image
                   src={file.preview}
-                  alt={file.file ? file.file.name : `Initial image ${index}`}
+                  alt={file.file ? file.file.name : `Initial image ${file.id}`}
                   fill={true}
                   className="object-cover"
                   onLoad={handleImageLoad}
@@ -124,7 +125,7 @@ export const FileUpload: FC<FileUploadProps> = ({ initialImages = [] }) => {
                 )}
                 <button
                   className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
-                  onClick={(event) => removeFile(event, index)}
+                  onClick={(event) => removeFile(event, file.id)}
                 >
                   &times;
                 </button>

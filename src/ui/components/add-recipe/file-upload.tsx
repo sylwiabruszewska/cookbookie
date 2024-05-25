@@ -1,25 +1,32 @@
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { useCallback, useEffect, useState } from "react";
+import { FC } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
-export const FileUpload = () => {
-  const [file, setFile] = useState<{ file: File; preview: string } | null>(
-    null
+interface FileUploadProps {
+  initialImages?: string[];
+}
+
+export const FileUpload: FC<FileUploadProps> = ({ initialImages = [] }) => {
+  const [files, setFiles] = useState<{ file: File | null; preview: string }[]>(
+    initialImages.map((image) => ({ file: null, preview: image }))
   );
   const [showCheckmark, setShowCheckmark] = useState<boolean>(false);
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    if (acceptedFiles.length > 0) {
-      const newFile = acceptedFiles[0];
-      setFile({
-        file: newFile,
-        preview: URL.createObjectURL(newFile),
-      });
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const newFiles = acceptedFiles.map((file) => ({
+        file,
+        preview: URL.createObjectURL(file),
+      }));
+      setFiles([...files, ...newFiles]);
       setShowCheckmark(false);
-    }
-  }, []);
+    },
+    [files]
+  );
 
   const handleImageLoad = () => {
     setShowCheckmark(true);
@@ -34,32 +41,36 @@ export const FileUpload = () => {
       "image/png": [".png"],
       "image/jpg": [".jpg"],
     },
-    maxFiles: 1,
+    maxFiles: 4,
   });
 
   useEffect(() => {
     return () => {
-      if (file) {
-        URL.revokeObjectURL(file.preview);
-      }
+      files.forEach((file) => {
+        if (file.file) {
+          URL.revokeObjectURL(file.preview);
+        }
+      });
     };
-  }, [file]);
+  }, [files]);
 
   const removeFile = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number
   ) => {
     event.preventDefault();
     event.stopPropagation();
 
-    if (file) {
-      URL.revokeObjectURL(file.preview);
+    const newFiles = files.filter((_, i) => i !== index);
+    if (files[index].file) {
+      URL.revokeObjectURL(files[index].preview);
     }
-    setFile(null);
+    setFiles(newFiles);
     setShowCheckmark(false);
   };
 
   return (
-    <div className="w-[300px] h-[300px] p-2 bg-[--primary-color] flex justify-center items-center rounded-[30px] overflow-hidden mx-auto mb-12">
+    <div className="w-[300px] h-[300px] p-2 bg-[--primary-color] flex flex-col justify-center items-center rounded-[30px] overflow-hidden mx-auto mb-12">
       <div
         {...getRootProps()}
         className={`w-full h-full p-2 rounded-[25px] flex justify-center items-center cursor-pointer ${
@@ -70,7 +81,7 @@ export const FileUpload = () => {
       >
         <input {...getInputProps()} />
 
-        {!file && (
+        {files.length === 0 && (
           <div className="w-full h-full p-2 flex flex-col justify-center items-center text-center text-white">
             {isDragActive ? (
               <div>Drop the file here...</div>
@@ -88,28 +99,37 @@ export const FileUpload = () => {
           </div>
         )}
 
-        {file && (
-          <div className="w-full h-full relative flex items-center justify-center">
-            <div className="inline-flex w-[250px] h-[250px] rounded-[10px] overflow-hidden relative">
-              <Image
-                src={file.preview}
-                alt={file.file.name}
-                fill={true}
-                className="object-cover"
-                onLoad={handleImageLoad}
-              />
-              {showCheckmark && (
-                <div className="bg-white text-[--transparent] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full w-10 h-10 flex items-center justify-center opacity-0 animate-checkmark-in">
-                  <FontAwesomeIcon icon={faCheck} />
-                </div>
-              )}
-              <button
-                className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
-                onClick={removeFile}
+        {files.length > 0 && (
+          <div className="w-full h-full relative flex items-center justify-center flex-wrap gap-4">
+            {files.map((file, index) => (
+              <div
+                key={index}
+                className={`rounded-[10px] overflow-hidden relative ${
+                  files.length > 1
+                    ? "inline-flex w-[100px] h-[100px]"
+                    : "w-[250px] h-[250px]"
+                }`}
               >
-                &times;
-              </button>
-            </div>
+                <Image
+                  src={file.preview}
+                  alt={file.file ? file.file.name : `Initial image ${index}`}
+                  fill={true}
+                  className="object-cover"
+                  onLoad={handleImageLoad}
+                />
+                {showCheckmark && (
+                  <div className="bg-white text-[--transparent] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full w-10 h-10 flex items-center justify-center opacity-0 animate-checkmark-in">
+                    <FontAwesomeIcon icon={faCheck} />
+                  </div>
+                )}
+                <button
+                  className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                  onClick={(event) => removeFile(event, index)}
+                >
+                  &times;
+                </button>
+              </div>
+            ))}
           </div>
         )}
       </div>

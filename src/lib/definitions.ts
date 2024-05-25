@@ -24,6 +24,10 @@ export type Recipe = {
   owner_id: User["id"];
 };
 
+export interface RecipeWithFavoriteStatus extends Recipe {
+  is_favorite: boolean;
+}
+
 export interface Ingredient {
   id: string;
   ingredient: string;

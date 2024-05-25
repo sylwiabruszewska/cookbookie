@@ -13,6 +13,7 @@ export const MyFavorites: React.FC<MyFavoritesComponentProps> = ({
       {recipes.map((recipe) => (
         <li key={recipe.id} className="mb-4">
           <RecipeCardFavorite
+            id={recipe.id}
             title={recipe.title}
             description={recipe.description}
             images={recipe.images}

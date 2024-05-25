@@ -3,7 +3,7 @@
 import { sql } from "@vercel/postgres";
 import { unstable_noStore as noStore } from "next/cache";
 
-import { Category, Recipe } from "@/lib/definitions";
+import { Category, Recipe, RecipeWithFavoriteStatus } from "@/lib/definitions";
 import { getUserEmail } from "@utils/getUser";
 
 // ***** CATEGORIES *****
@@ -20,17 +20,30 @@ export async function fetchCategories() {
 }
 
 // ***** RECIPES *****
-export async function fetchRecipes() {
+export async function fetchRecipes(): Promise<RecipeWithFavoriteStatus[]> {
   noStore();
 
   try {
-    const data =
-      await sql<Recipe>`SELECT * FROM recipes WHERE is_public = true`;
+    const userEmail = await getUserEmail();
+    const userId = await getUserIdByEmail(userEmail);
+
+    const data = await sql<RecipeWithFavoriteStatus>`
+      SELECT recipes.*,
+        CASE
+          WHEN UserFavorites.recipeId IS NOT NULL THEN TRUE
+          ELSE FALSE
+        END AS is_favorite
+      FROM recipes
+      LEFT JOIN UserFavorites
+        ON recipes.id = UserFavorites.recipeId
+        AND UserFavorites.userId = ${userId}
+      WHERE recipes.is_public = true
+    `;
 
     return data.rows;
   } catch (error) {
     console.error("Database Error:", error);
-    throw new Error("Failed to fetch the latest categories.");
+    throw new Error("Failed to fetch the latest recipes.");
   }
 }
 
@@ -98,13 +111,35 @@ export async function fetchRecentRecipes(categoryId: string) {
 }
 
 // ***** FETCH RECIPE BY ID *****
-export async function fetchRecipeById(id: string): Promise<Recipe | null> {
+export async function fetchRecipeById(
+  id: string
+): Promise<RecipeWithFavoriteStatus | null> {
+  noStore();
+
   try {
-    const result = await sql`SELECT * FROM recipes WHERE id = ${id}`;
+    const userEmail = await getUserEmail();
+    const userId = await getUserIdByEmail(userEmail);
+
+    const result = await sql`
+      SELECT recipes.*, 
+        CASE 
+          WHEN UserFavorites.recipeId IS NOT NULL THEN TRUE 
+          ELSE FALSE 
+        END AS is_favorite
+      FROM recipes
+      LEFT JOIN UserFavorites 
+        ON recipes.id = UserFavorites.recipeId 
+        AND UserFavorites.userId = ${userId}
+      WHERE recipes.id = ${id}
+    `;
+
+    if (result.rows.length === 0) {
+      return null;
+    }
 
     const data = result.rows[0];
 
-    const recipe: Recipe = {
+    const recipe: RecipeWithFavoriteStatus = {
       id: data.id,
       images: data.images,
       title: data.title,
@@ -115,6 +150,7 @@ export async function fetchRecipeById(id: string): Promise<Recipe | null> {
       steps: data.steps,
       is_public: data.is_public,
       owner_id: data.owner_id,
+      is_favorite: data.is_favorite,
     };
 
     return recipe;

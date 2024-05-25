@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useDropzone } from "react-dropzone";
+import { FileRejection, useDropzone } from "react-dropzone";
 import { useCallback, useEffect, useState } from "react";
 import { FC } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -13,39 +13,62 @@ interface FileUploadProps {
 
 export const FileUpload: FC<FileUploadProps> = ({ initialImages = [] }) => {
   const [files, setFiles] = useState<
-    { id: string; file: File | null; preview: string }[]
+    { id: string; file: File | null; preview: string; loaded: boolean }[]
   >(
-    initialImages.map((image) => ({ id: uuidv4(), file: null, preview: image }))
+    initialImages.map((image) => ({
+      id: uuidv4(),
+      file: null,
+      preview: image,
+      loaded: false,
+    }))
   );
-  const [showCheckmark, setShowCheckmark] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
+      setErrorMessage("");
+
       const newFiles = acceptedFiles.map((file) => ({
         id: uuidv4(),
         file,
         preview: URL.createObjectURL(file),
+        loaded: false,
       }));
       setFiles([...files, ...newFiles]);
-      setShowCheckmark(false);
     },
     [files]
   );
 
-  const handleImageLoad = () => {
-    setShowCheckmark(true);
-    setTimeout(() => {
-      setShowCheckmark(false);
-    }, 2000);
+  const handleImageLoad = (id: string) => {
+    setFiles((prevFiles) =>
+      prevFiles.map((file) =>
+        file.id === id ? { ...file, loaded: true } : file
+      )
+    );
+  };
+
+  const handleDropRejected = (fileRejections: FileRejection[]) => {
+    const rejectedFile = fileRejections[0].file;
+    if (rejectedFile.size > 4 * 1024 * 1024) {
+      setErrorMessage(
+        "The file size is too large. Maximum size allowed is 4MB."
+      );
+    } else if (fileRejections.length > 4) {
+      setErrorMessage("You can upload max 4 files.");
+    } else {
+      setErrorMessage("File upload failed. Please try again.");
+    }
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
+    onDropRejected: handleDropRejected,
     accept: {
       "image/png": [".png"],
       "image/jpg": [".jpg"],
     },
     maxFiles: 4,
+    maxSize: 4 * 1024 * 1024, // 4 MB
   });
 
   useEffect(() => {
@@ -67,73 +90,96 @@ export const FileUpload: FC<FileUploadProps> = ({ initialImages = [] }) => {
 
     const newFiles = files.filter((file) => file.id !== id);
     setFiles(newFiles);
-    setShowCheckmark(false);
+  };
+
+  const getGridClass = () => {
+    switch (files.length) {
+      case 1:
+        return "grid-cols-1";
+      case 2:
+        return "grid-cols-2";
+      case 3:
+        return "grid-cols-2 grid-rows-2";
+      case 4:
+        return "grid-cols-2 grid-rows-2";
+      default:
+        return "";
+    }
   };
 
   return (
-    <div className="w-[300px] h-[300px] p-2 bg-[--primary-color] flex flex-col justify-center items-center rounded-[30px] overflow-hidden mx-auto mb-12">
-      <div
-        {...getRootProps()}
-        className={`w-full h-full p-2 rounded-[25px] flex justify-center items-center cursor-pointer ${
-          isDragActive
-            ? "border-2 border-dashed border-white"
-            : "border-2 border-dashed border-[--primary-color]"
-        }`}
-      >
-        <input {...getInputProps()} />
+    <div className="relative mx-auto mb-12">
+      <div className="w-[300px] h-[300px] p-2 bg-[--primary-color] flex flex-col justify-center items-center rounded-[30px] overflow-hidden">
+        <div
+          {...getRootProps()}
+          className={`w-full h-full p-2 rounded-[25px] flex justify-center items-center cursor-pointer ${
+            isDragActive
+              ? "border-2 border-dashed border-white"
+              : "border-2 border-dashed border-[--primary-color]"
+          }`}
+        >
+          <input {...getInputProps()} />
 
-        {files.length === 0 && (
-          <div className="w-full h-full p-2 flex flex-col justify-center items-center text-center text-white">
-            {isDragActive ? (
-              <div>Drop the file here...</div>
-            ) : (
-              <div>
-                <Image
-                  src="/camera.svg"
-                  alt="Camera"
-                  className="w-[64px] h-auto object-fit"
-                  width={64}
-                  height={64}
-                />
-              </div>
-            )}
-          </div>
-        )}
+          {files.length === 0 && (
+            <div className="w-full h-full p-2 flex flex-col justify-center items-center text-center text-white">
+              {isDragActive ? (
+                <div>Drop the file here...</div>
+              ) : (
+                <div>
+                  <Image
+                    src="/camera.svg"
+                    alt="Camera"
+                    className="w-[64px] h-auto object-fit"
+                    width={64}
+                    height={64}
+                  />
+                </div>
+              )}
+            </div>
+          )}
 
-        {files.length > 0 && (
-          <div className="w-full h-full relative flex items-center justify-center flex-wrap gap-4">
-            {files.map((file) => (
-              <div
-                key={file.id}
-                className={`rounded-[10px] overflow-hidden relative ${
-                  files.length > 1
-                    ? "inline-flex w-[100px] h-[100px]"
-                    : "w-[250px] h-[250px]"
-                }`}
-              >
-                <Image
-                  src={file.preview}
-                  alt={file.file ? file.file.name : `Initial image ${file.id}`}
-                  fill={true}
-                  className="object-cover"
-                  onLoad={handleImageLoad}
-                />
-                {showCheckmark && (
-                  <div className="bg-white text-[--transparent] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full w-10 h-10 flex items-center justify-center opacity-0 animate-checkmark-in">
-                    <FontAwesomeIcon icon={faCheck} />
-                  </div>
-                )}
-                <button
-                  className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
-                  onClick={(event) => removeFile(event, file.id)}
+          {files.length > 0 && (
+            <div
+              className={`grid gap-4 p-4 w-full h-full ${getGridClass()}`}
+              style={{ gridTemplateRows: files.length === 3 ? "1fr 1fr" : "" }}
+            >
+              {files.map((file) => (
+                <div
+                  key={file.id}
+                  className={`relative ${
+                    files.length === 1 ? "w-full h-full" : "w-[100px] h-[100px]"
+                  } rounded-[10px] overflow-hidden`}
                 >
-                  &times;
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
+                  <Image
+                    src={file.preview}
+                    alt="Uploaded image"
+                    fill={true}
+                    className="object-cover"
+                    sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                    onLoad={() => handleImageLoad(file.id)}
+                  />
+                  {file.loaded && !initialImages.includes(file.preview) && (
+                    <div className="bg-white text-[--transparent] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full w-10 h-10 flex items-center justify-center opacity-0 animate-checkmark-in">
+                      <FontAwesomeIcon icon={faCheck} />
+                    </div>
+                  )}
+                  <button
+                    className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                    onClick={(event) => removeFile(event, file.id)}
+                  >
+                    &times;
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
+      {errorMessage && (
+        <div className="absolute bottom-[-20] l-0 text-red-500 mt-2 w-[300px] text-center">
+          {errorMessage}
+        </div>
+      )}
     </div>
   );
 };

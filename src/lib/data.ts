@@ -1,7 +1,9 @@
+"use server";
+
 import { sql } from "@vercel/postgres";
 import { unstable_noStore as noStore } from "next/cache";
 
-import { Category, Recipe } from "./definitions";
+import { Category, Recipe } from "@/lib/definitions";
 import { getUserEmail } from "@utils/getUser";
 
 // ***** CATEGORIES *****
@@ -74,6 +76,8 @@ export async function fetchUserRecipes(): Promise<Recipe[]> {
 
 // ***** CATEGORY - 3 RECENT RECIPES *****
 export async function fetchRecentRecipes(categoryId: string) {
+  noStore();
+
   try {
     const data = await sql<Recipe>`
     SELECT recipes.id, recipes.title, recipes.description, recipes.images
@@ -117,5 +121,27 @@ export async function fetchRecipeById(id: string): Promise<Recipe | null> {
   } catch (error) {
     console.error("Database Error:", error);
     return null;
+  }
+}
+
+export async function fetchUserFavorites(): Promise<Recipe[]> {
+  noStore();
+
+  try {
+    const userEmail = await getUserEmail();
+    const userId = await getUserIdByEmail(userEmail);
+
+    const data = await sql<Recipe[]>`
+    SELECT recipes.*
+    FROM recipes
+    JOIN UserFavorites ON recipes.id = UserFavorites.recipeId
+    WHERE UserFavorites.userId = ${userId}
+  `;
+
+    const recipes: Recipe[] = data.rows.flat();
+    return recipes;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch user recipes.");
   }
 }

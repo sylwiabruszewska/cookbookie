@@ -3,8 +3,24 @@
 import { sql } from "@vercel/postgres";
 import { unstable_noStore as noStore } from "next/cache";
 
-import { Category, Recipe, RecipeWithFavoriteStatus } from "@/lib/definitions";
+import {
+  User,
+  Category,
+  Recipe,
+  RecipeWithFavoriteStatus,
+} from "@/lib/definitions";
 import { getUserEmail } from "@utils/getUser";
+
+// ***** GET USER *****
+export async function getUser(email: string): Promise<User | undefined> {
+  try {
+    const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
+    return user.rows[0] as User | undefined;
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    throw new Error("Failed to fetch user.");
+  }
+}
 
 // ***** CATEGORIES *****
 export async function fetchCategories() {

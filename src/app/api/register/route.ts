@@ -4,7 +4,7 @@ import bcryptjs from "bcryptjs";
 import { sql } from "@vercel/postgres";
 import gravatar from "gravatar";
 
-import { getUser } from "@lib/actions";
+import { getUser } from "@lib/data";
 
 export async function POST(request: NextRequest) {
   try {

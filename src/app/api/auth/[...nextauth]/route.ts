@@ -5,7 +5,7 @@ import bycrptjs from "bcryptjs";
 import { sql } from "@vercel/postgres";
 import { v4 as uuidv4 } from "uuid";
 
-import { getUser } from "@lib/actions";
+import { getUser } from "@lib/data";
 
 const authOptions = {
   providers: [
@@ -75,10 +75,26 @@ const authOptions = {
       }
       return user;
     },
-    async jwt({ token, user }: { user: any; token: any }) {
-      if (user) {
-        token.email = user.email;
+    async jwt({
+      token,
+      user,
+      account,
+    }: {
+      user: any;
+      token: any;
+      account: any;
+    }) {
+      if (account && account.provider === "google") {
+        const dbUser = await getUser(token.email);
+        if (dbUser) {
+          token.id = dbUser.id;
+          token.name = user.name;
+          token.email = user.email;
+        }
+      } else if (user) {
+        token.id = user.id;
         token.name = user.name;
+        token.email = user.email;
       }
       // console.log("token: ", token);
       return token;
@@ -86,6 +102,7 @@ const authOptions = {
 
     async session({ session, token }: { session: any; token: any }) {
       if (session.user) {
+        session.user.id = token.id;
         session.user.email = token.email;
         session.user.name = token.name;
       }

@@ -1,15 +1,34 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/ui/components/button";
-import { Recipe } from "@lib/definitions";
+import { RecipeWithFavoriteStatus } from "@lib/definitions";
+import { addToFavorites, removeFromFavorites } from "@lib/actions";
 
 interface RecipeProps {
-  recipe: Recipe;
+  recipe: RecipeWithFavoriteStatus;
 }
 
 export default function RecipeCardLarge({ recipe }: RecipeProps) {
+  const [isFavorite, setIsFavorite] = useState(recipe.is_favorite);
+  const recipeId = recipe.id;
+
+  useEffect(() => {
+    setIsFavorite(recipe.is_favorite);
+  }, [recipe, recipe.is_favorite]);
+
+  const handleToggleFavorites = async () => {
+    if (isFavorite) {
+      await removeFromFavorites(recipeId);
+      setIsFavorite(false);
+    } else {
+      await addToFavorites(recipeId);
+      setIsFavorite(true);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4 justify-center">
       <h2 className="heading-l text-[--primary-color] mt-4 mb-4 text-center">
@@ -17,8 +36,14 @@ export default function RecipeCardLarge({ recipe }: RecipeProps) {
       </h2>
       <p className="text-center">{recipe.description}</p>
 
-      <Button variant="crazyRounded" className="self-center">
-        Add to favorite recipes
+      <Button
+        onClick={handleToggleFavorites}
+        variant="crazyRounded"
+        className="self-center"
+      >
+        {isFavorite
+          ? "Remove from favorite recipes"
+          : "Add to favorite recipes"}
       </Button>
       <div className="flex justify-center items-center gap-2">
         <Image

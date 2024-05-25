@@ -188,6 +188,7 @@ export async function fetchUserFavorites(): Promise<Recipe[]> {
     FROM recipes
     JOIN UserFavorites ON recipes.id = UserFavorites.recipeId
     WHERE UserFavorites.userId = ${userId}
+    ORDER BY UserFavorites.addedAt DESC
   `;
 
     const recipes: Recipe[] = data.rows.flat();

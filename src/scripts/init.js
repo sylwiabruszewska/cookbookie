@@ -75,6 +75,7 @@ async function createUserFavoritesTable(client) {
           CREATE TABLE IF NOT EXISTS UserFavorites (
           userId UUID NOT NULL,
           recipeId UUID NOT NULL,
+          addedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
           PRIMARY KEY (userId, recipeId),
           FOREIGN KEY (userId) REFERENCES Users(id),
           FOREIGN KEY (recipeId) REFERENCES Recipes(id)

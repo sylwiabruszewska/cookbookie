@@ -33,7 +33,7 @@ export const TextArea: React.FC<TextAreaProps> = ({
         className={clsx(
           baseClass,
           className,
-          "resize-none hover:resize-y max-h-60"
+          "resize-none hover:resize-y min-h-10 h-auto max-h-[100px]"
         )}
         placeholder={placeholder}
         onChange={handleChange}

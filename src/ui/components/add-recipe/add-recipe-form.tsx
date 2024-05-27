@@ -109,10 +109,8 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
             </div>
 
             <div>
-              <Input
+              <TextArea
                 id="description"
-                name="description"
-                type="text"
                 label="Enter about recipe"
                 placeholder="Enter about recipe"
               />

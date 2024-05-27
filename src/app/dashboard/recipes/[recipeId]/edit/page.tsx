@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { fetchCategories, fetchRecipeById } from "@lib/data";
+import EditForm from "@ui/components/recipes/edit-form";
 
 export default async function Page({
   params,
@@ -18,10 +19,9 @@ export default async function Page({
     notFound();
   }
 
-  console.log(recipe);
   return (
     <>
-      <p>edit recipe {recipe?.title}</p>
+      <EditForm recipe={recipe} categories={categories} />
     </>
   );
 }

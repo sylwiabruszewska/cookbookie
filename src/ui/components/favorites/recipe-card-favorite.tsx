@@ -7,6 +7,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "@ui/components/button";
 import { truncateDescription } from "@utils/recipes";
+import { removeFromFavorites } from "@lib/actions";
 // import Icon from "./icon";
 
 interface RecipeCardFavoriteProps {
@@ -56,7 +57,11 @@ export const RecipeCardFavorite: React.FC<RecipeCardFavoriteProps> = ({
         </div>
       </Link>
       <div className="flex items-start">
-        <Button variant="icon" className="h-6 w-6">
+        <Button
+          onClick={() => removeFromFavorites(id)}
+          variant="icon"
+          className="h-6 w-6"
+        >
           <FontAwesomeIcon
             icon={faTrash}
             aria-label="Remove"

@@ -42,6 +42,47 @@ export async function addRecipe(formData: Recipe) {
   }
 }
 
+// ***** UPDATE RECIPE *****
+export async function updateRecipe(recipeId: string, formData: Recipe) {
+  const {
+    images,
+    title,
+    description,
+    category_id,
+    cooking_time,
+    ingredients,
+    steps,
+    is_public,
+  } = formData;
+
+  try {
+    const userId = await getUserId();
+
+    const result = await sql`
+      UPDATE recipes
+      SET
+        images = ${JSON.stringify(images)},
+        title = ${title},
+        description = ${description},
+        category_id = ${category_id},
+        cooking_time = ${cooking_time},
+        ingredients = ${JSON.stringify(ingredients)},
+        steps = ${JSON.stringify(steps)},
+        is_public = ${is_public}
+      WHERE
+        id = ${recipeId} AND owner_id = ${userId}
+      RETURNING *
+    `;
+
+    console.log("Recipe updated successfully");
+    revalidatePath(`/dashboard/recipes/${recipeId}`);
+    return result;
+  } catch (error) {
+    console.error("Failed to update recipe:", error);
+    throw new Error("Failed to update recipe.");
+  }
+}
+
 // ***** ADD RECIPE TO FAVORITES *****
 export async function addToFavorites(recipeId: string) {
   noStore();

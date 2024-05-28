@@ -45,7 +45,7 @@ async function createRecipesTable(client) {
   try {
     const createTable = await client.sql`
         CREATE TABLE IF NOT EXISTS recipes (
-          id UUID PRIMARY KEY,
+          id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
           images JSONB NOT NULL,
           title VARCHAR(255) NOT NULL,
           description TEXT NOT NULL,

@@ -8,6 +8,7 @@ import { faPencil } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "@ui/components/button";
 import { truncateDescription } from "@utils/recipes";
+import { deleteRecipe } from "@lib/actions";
 // import Icon from "./icon";
 
 interface RecipeCardMediumProps {
@@ -67,7 +68,12 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
           </Button>
         </Link>
 
-        <Button variant="icon" className="h-6 w-6">
+        {/* add modal later */}
+        <Button
+          onClick={() => deleteRecipe(id)}
+          variant="icon"
+          className="h-6 w-6"
+        >
           <FontAwesomeIcon
             icon={faTrash}
             aria-label="Remove"

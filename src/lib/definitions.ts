@@ -12,7 +12,7 @@ export type Category = {
 };
 
 export type Recipe = {
-  id: string;
+  id?: string;
   images: string[];
   title: string;
   description: string;
@@ -21,7 +21,7 @@ export type Recipe = {
   ingredients: Ingredient[];
   steps: Step[];
   is_public: boolean;
-  owner_id: User["id"];
+  owner_id?: User["id"];
 };
 
 export interface RecipeWithFavoriteStatus extends Recipe {

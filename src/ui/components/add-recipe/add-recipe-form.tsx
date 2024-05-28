@@ -5,6 +5,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik, Form, FormikHelpers, FieldArray, ErrorMessage } from "formik";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 
 import { Input } from "@ui/components/add-recipe/input";
 import { Select } from "@ui/components/add-recipe/select";
@@ -15,6 +16,7 @@ import { FileUpload } from "@ui/components/add-recipe/file-upload";
 import { Button } from "@/ui/components/button";
 import { CategoriesProps, Category, Ingredient, Step } from "@/lib/definitions";
 import { recipeValidationSchema } from "@utils/validationSchemas";
+import { addRecipe } from "@lib/actions";
 
 interface FormValues {
   title: string;
@@ -27,6 +29,8 @@ interface FormValues {
 }
 
 export default function AddRecipeForm({ categories }: CategoriesProps) {
+  const router = useRouter();
+
   const initialValues: FormValues = {
     title: "",
     description: "",
@@ -54,23 +58,22 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
 
       const recipe = {
         images: ["/pancakes.png"],
-        ...values,
-        category: selectedCategory.id,
+        title: values.title,
+        description: values.description,
+        category_id: selectedCategory.id,
+        cooking_time: values.cookingTime,
+        ingredients: values.ingredients,
+        steps: values.steps,
+        is_public: values.isPublic,
       };
 
-      console.log(recipe);
+      const response = await addRecipe(recipe);
 
-      const response = await fetch("/api/add-recipe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(recipe),
-      });
-
-      if (!response.ok) {
+      if (!response) {
         throw new Error("Failed to submit recipe");
       }
+
+      router.push("/dashboard/my-recipes");
 
       // resetForm();
     } catch (error) {

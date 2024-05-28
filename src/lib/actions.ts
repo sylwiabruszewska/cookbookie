@@ -83,6 +83,21 @@ export async function updateRecipe(recipeId: string, formData: Recipe) {
   }
 }
 
+// ***** DELETE RECIPE *****
+export async function deleteRecipe(recipeId: string) {
+  try {
+    const userId = await getUserId();
+
+    await sql`DELETE FROM recipes WHERE owner_id = ${userId} AND id = ${recipeId}`;
+
+    console.log("Recipe has been deleted");
+    revalidatePath("/dashboard/my-recipes");
+  } catch (error) {
+    console.error("Failed to delete recipe:", error);
+    throw new Error("Failed to delete recipe.");
+  }
+}
+
 // ***** ADD RECIPE TO FAVORITES *****
 export async function addToFavorites(recipeId: string) {
   noStore();

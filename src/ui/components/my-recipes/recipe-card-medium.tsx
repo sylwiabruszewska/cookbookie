@@ -30,7 +30,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
     <div className="flex justify-between gap-2 h-30">
       <Link href={`/dashboard/recipes/${id}`} className="flex flex-grow">
         <div className="flex gap-4 flex-grow">
-          <div className="flex-shrink-0 w-[124px] h-[124px] relative rounded-lg">
+          <div className="flex-shrink-0 w-[124px] h-[124px] relative rounded-lg overflow-hidden">
             <Image
               src={images[0]}
               fill

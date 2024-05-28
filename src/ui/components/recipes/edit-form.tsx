@@ -4,6 +4,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik, Form, FormikHelpers, FieldArray, ErrorMessage } from "formik";
 import { v4 as uuidv4 } from "uuid";
+import { notFound, useRouter } from "next/navigation";
 
 import { Input } from "@ui/components/add-recipe/input";
 import { Select } from "@ui/components/add-recipe/select";
@@ -19,6 +20,7 @@ import {
   Step,
 } from "@/lib/definitions";
 import { recipeValidationSchema } from "@utils/validationSchemas";
+import { updateRecipe } from "@lib/actions";
 
 interface FormValues {
   title: string;
@@ -38,6 +40,14 @@ export default function EditForm({
   categories: Category[];
   recipe: RecipeWithFavoriteStatus;
 }) {
+  const router = useRouter();
+
+  const recipeId = recipe.id;
+
+  if (!recipeId) {
+    notFound();
+  }
+
   const selectedCategoryName =
     categories.find((category: Category) => category.id === recipe.category_id)
       ?.name || "";
@@ -66,16 +76,32 @@ export default function EditForm({
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
     try {
+      const selectedCategory = categories.find(
+        (cat) => cat.name === values.category
+      );
+
+      if (!selectedCategory) {
+        throw new Error("Selected category not found.");
+      }
+
       const recipe = {
-        ...values,
+        images: ["/pancakes.png"],
+        title: values.title,
+        description: values.description,
+        category_id: selectedCategory.id,
+        cooking_time: values.cookingTime,
+        ingredients: values.ingredients,
+        steps: values.steps,
+        is_public: values.isPublic,
       };
 
-      // temp log
-      console.log("update recipe");
+      const response = await updateRecipe(recipeId, recipe);
 
-      //   if (!response.ok) {
-      //     throw new Error("Failed to submit recipe");
-      //   }
+      if (!response) {
+        throw new Error("Failed to submit recipe");
+      }
+
+      router.push(`/dashboard/recipes/${recipeId}`);
 
       // resetForm();
     } catch (error) {

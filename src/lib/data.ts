@@ -195,3 +195,48 @@ export async function fetchUserFavorites(): Promise<Recipe[]> {
     throw new Error("Failed to fetch user recipes.");
   }
 }
+
+// ***** FETCH USER SHOPPING LIST ***** - FIRST VERSION - COLUMN INGREDIENTS
+// export async function fetchUserShoppingList() {
+//   noStore();
+
+//   try {
+//     const userId = await getUserId();
+
+//     const data =
+//       await sql`SELECT ingredients FROM userShoppingList WHERE user_id = ${userId}`;
+
+//     const ingredients = data.rows.map((row) => row.ingredients).flat();
+//     return ingredients;
+//   } catch (error) {
+//     console.error("Database Error:", error);
+//     throw new Error("Failed to add ingredients to shopping list.");
+//   }
+// }
+
+// ***** FETCH USER SHOPPING LIST ***** - SECOND VERSION - MORE COLUMNS
+export async function fetchUserShoppingList() {
+  noStore();
+
+  try {
+    const userId = await getUserId();
+
+    const data = await sql`
+      SELECT ingredient_id, name, quantity, quantity_unit
+      FROM UserShoppingListItems
+      WHERE user_id = ${userId}
+    `;
+
+    const ingredients = data.rows.map((row) => ({
+      id: row.ingredient_id,
+      ingredient: row.name,
+      quantity: row.quantity,
+      quantityUnit: row.quantity_unit,
+    }));
+
+    return ingredients;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch ingredients from shopping list.");
+  }
+}

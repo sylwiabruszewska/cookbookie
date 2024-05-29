@@ -91,10 +91,54 @@ async function createUserFavoritesTable(client) {
   }
 }
 
+// FIRST VERSION
+// async function createUserShoppingListTable(client) {
+//   try {
+//     const createTable = await client.sql`
+//       CREATE TABLE IF NOT EXISTS UserShoppingList (
+//         user_id UUID NOT NULL,
+//         ingredients JSONB NOT NULL,
+//         FOREIGN KEY (user_id) REFERENCES Users(id)
+//       )
+//     `;
+
+//     console.log(`Created "UserShoppingList" table`);
+
+//     return createTable;
+//   } catch (error) {
+//     console.error("Error creating UserShoppingList table:", error);
+//     throw error;
+//   }
+// }
+
+// SECOND VERSION
+async function createUserShoppingListTable(client) {
+  try {
+    const createTable = await client.sql`
+    CREATE TABLE IF NOT EXISTS UserShoppingListItems (
+      user_id UUID NOT NULL,
+      ingredient_id UUID NOT NULL,
+      name VARCHAR(255) NOT NULL,
+      quantity VARCHAR(255) NOT NULL,
+      quantity_unit VARCHAR(255) NOT NULL,
+      PRIMARY KEY (user_id, ingredient_id),
+      FOREIGN KEY (user_id) REFERENCES Users(id)
+    )
+    `;
+
+    console.log(`Created "UserShoppingListItems" table`);
+
+    return createTable;
+  } catch (error) {
+    console.error("Error creating UserShoppingListItems table:", error);
+    throw error;
+  }
+}
+
 async function main() {
   const client = await db.connect();
 
-  await createUserFavoritesTable(client);
+  await createUserShoppingListTable(client);
 
   await client.end();
 }

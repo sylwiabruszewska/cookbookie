@@ -9,7 +9,7 @@ import {
   Recipe,
   RecipeWithFavoriteStatus,
 } from "@/lib/definitions";
-import { getUserEmail } from "@utils/getUser";
+import { getUserEmail, getUserId } from "@utils/getUser";
 
 // ***** GET USER *****
 export async function getUser(email: string): Promise<User | undefined> {
@@ -36,13 +36,12 @@ export async function fetchCategories() {
 }
 
 // ***** RECIPES *****
-export async function fetchRecipes(): Promise<RecipeWithFavoriteStatus[]> {
+export async function fetchRecipes(
+  userId: string
+): Promise<RecipeWithFavoriteStatus[]> {
   noStore();
 
   try {
-    const userEmail = await getUserEmail();
-    const userId = await getUserIdByEmail(userEmail);
-
     const data = await sql<RecipeWithFavoriteStatus>`
       SELECT recipes.*,
         CASE
@@ -133,8 +132,7 @@ export async function fetchRecipeById(
   noStore();
 
   try {
-    const userEmail = await getUserEmail();
-    const userId = await getUserIdByEmail(userEmail);
+    const userId = await getUserId();
 
     const result = await sql`
       SELECT recipes.*, 
@@ -180,8 +178,7 @@ export async function fetchUserFavorites(): Promise<Recipe[]> {
   noStore();
 
   try {
-    const userEmail = await getUserEmail();
-    const userId = await getUserIdByEmail(userEmail);
+    const userId = await getUserId();
 
     const data = await sql<Recipe[]>`
     SELECT recipes.*

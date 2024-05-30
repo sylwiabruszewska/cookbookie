@@ -5,7 +5,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { revalidatePath } from "next/cache";
 
 import { getUserId } from "@utils/getUser";
-import { Recipe } from "@/lib/definitions";
+import { Ingredient, Recipe } from "@/lib/definitions";
 
 // ***** ADD RECIPE *****
 export async function addRecipe(formData: Recipe) {
@@ -130,5 +130,143 @@ export async function removeFromFavorites(recipeId: string) {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to remove recipe from favorites.");
+  }
+}
+
+// ***** ADD INGREDIENT TO SHOPPING LIST ***** FIRST VERSION - COLUMN INGREDIENTS
+// export async function addToShoppingList(ingredient: any) {
+//   noStore();
+
+//   try {
+//     const userId = await getUserId();
+
+//     const currentList =
+//       await sql`SELECT ingredients FROM UserShoppingList WHERE user_id = ${userId}`;
+
+//     const newIngredient = {
+//       id: ingredient.id,
+//       name: ingredient.name,
+//       quantity: ingredient.quantity,
+//       checked: ingredient.checked,
+//     };
+
+//     let newList = [];
+//     if (currentList.rows.length > 0) {
+//       const existingIngredientIndex = currentList.rows[0].ingredients.findIndex(
+//         (i: { id: string }) => i.id === newIngredient.id
+//       );
+
+//       if (existingIngredientIndex !== -1) {
+//         newList = [...currentList.rows[0].ingredients];
+//         newList[existingIngredientIndex].quantity =
+//           parseFloat(newList[existingIngredientIndex].quantity) +
+//           parseFloat(newIngredient.quantity);
+//       } else {
+//         newList = [...currentList.rows[0].ingredients, newIngredient];
+//       }
+//       await sql`UPDATE UserShoppingList SET ingredients = ${JSON.stringify(
+//         newList
+//       )} WHERE user_id = ${userId}`;
+//     } else {
+//       newList = [newIngredient];
+//       await sql`INSERT INTO UserShoppingList (user_id, ingredients) VALUES (${userId}, ${JSON.stringify(
+//         newList
+//       )})`;
+//     }
+
+//     console.log("added actions", newIngredient);
+//     console.log("Ingredient added to shopping list");
+//     revalidatePath("/dashboard/shopping-list");
+//   } catch (error) {
+//     console.error("Database Error:", error);
+//     throw new Error("Failed to add ingredient to shopping list.");
+//   }
+// }
+
+// ***** ADD INGREDIENT TO SHOPPING LIST ***** FIRST VERSION - COLUMN INGREDIENTS
+// export async function removeFromShoppingList(id: string) {
+//   noStore();
+
+//   try {
+//     const userId = await getUserId();
+
+//     const currentList =
+//       await sql`SELECT ingredients FROM UserShoppingList WHERE user_id = ${userId}`;
+
+//     if (currentList.rows.length > 0) {
+//       const newList = currentList.rows[0].ingredients.filter(
+//         (ingredient: any) => ingredient.id !== id
+//       );
+
+//       await sql`UPDATE UserShoppingList SET ingredients = ${JSON.stringify(
+//         newList
+//       )} WHERE user_id = ${userId}`;
+
+//       console.log("removed actions", currentList.rows[0]);
+//       console.log("Ingredient removed from shopping list");
+//       revalidatePath("/dashboard/shopping-list");
+//     }
+//   } catch (error) {
+//     console.error("Database Error:", error);
+//     throw new Error("Failed to remove ingredient from shopping list.");
+//   }
+// }
+
+// ***** ADD INGREDIENT TO SHOPPING LIST ***** SECOND VERSION - MORE COLUMNS
+export async function addToShoppingList(ingredient: Ingredient) {
+  noStore();
+
+  try {
+    const userId = await getUserId();
+
+    const existingItem = await sql`
+      SELECT * FROM UserShoppingListItems 
+      WHERE user_id = ${userId} AND ingredient_id = ${ingredient.id}
+    `;
+
+    let newingredient;
+
+    if (existingItem.rows.length > 0) {
+      newingredient = await sql`
+        UPDATE UserShoppingListItems 
+        SET quantity = ${
+          parseFloat(existingItem.rows[0].quantity) +
+          parseFloat(ingredient.quantity)
+        }
+        WHERE user_id = ${userId} AND ingredient_id = ${
+        ingredient.id
+      } RETURNING*
+      `;
+    } else {
+      newingredient = await sql`
+        INSERT INTO UserShoppingListItems (user_id, ingredient_id, name, quantity, quantity_unit)
+        VALUES (${userId}, ${ingredient.id}, ${ingredient.ingredient}, ${ingredient.quantity}, ${ingredient.quantityUnit}) RETURNING*
+      `;
+    }
+
+    console.log("Ingredient added to shopping list", newingredient);
+    revalidatePath("/dashboard/shopping-list");
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to add ingredient to shopping list.");
+  }
+}
+
+// ***** REMOVE INGREDIENT FROM SHOPPING LIST ***** SECOND VERSION - MORE COLUMNS
+export async function removeFromShoppingList(ingredientId: string) {
+  noStore();
+
+  try {
+    const userId = await getUserId();
+
+    const ingredient = await sql`
+      DELETE FROM UserShoppingListItems 
+      WHERE user_id = ${userId} AND ingredient_id = ${ingredientId} RETURNING*`;
+
+    console.log("Ingredient removed from shopping list", ingredient);
+    revalidatePath("/dashboard/shopping-list");
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to remove ingredient from shopping list.");
   }
 }

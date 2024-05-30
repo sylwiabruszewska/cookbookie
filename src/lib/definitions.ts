@@ -12,7 +12,7 @@ export type Category = {
 };
 
 export type Recipe = {
-  id?: string;
+  id: string;
   images: string[];
   title: string;
   description: string;

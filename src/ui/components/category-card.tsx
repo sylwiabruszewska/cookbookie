@@ -5,11 +5,13 @@ import { Recipe } from "@lib/definitions";
 interface CategoryCardProps {
   title: string;
   recentRecipes: Recipe[];
+  totalRecipes: number;
 }
 
 export default function CategoryCard({
   title,
   recentRecipes,
+  totalRecipes,
 }: CategoryCardProps) {
   return (
     <div>
@@ -30,7 +32,7 @@ export default function CategoryCard({
           )}
         </ul>
       </div>
-      {recentRecipes.length > 4 && <Button className="ml-auto">See all</Button>}
+      {totalRecipes > 4 && <Button className="ml-auto">See all</Button>}
     </div>
   );
 }

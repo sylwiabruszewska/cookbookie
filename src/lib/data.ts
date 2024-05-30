@@ -107,18 +107,22 @@ export async function fetchRecentRecipes(categoryId: string) {
   noStore();
 
   try {
-    const data = await sql<Recipe>`
+    const recentRecipes = await sql<Recipe>`
     SELECT recipes.id, recipes.title, recipes.description, recipes.images
     FROM recipes
     JOIN categories ON recipes.category_id = categories.id
     WHERE recipes.is_public = true AND recipes.category_id = ${categoryId}
     ORDER BY recipes.created_at DESC 
     LIMIT 4;
-    
-    
-    
     `;
-    return data.rows;
+
+    const totalRecipesResult = await sql`
+    SELECT COUNT(*) FROM recipes 
+    WHERE recipes.is_public = true AND recipes.category_id = ${categoryId}
+  `;
+    const totalRecipes = totalRecipesResult.rows[0].count;
+
+    return { recentRecipes: recentRecipes.rows, totalRecipes };
   } catch (error) {
     console.error("Error fetching recent recipes:", error);
     throw new Error("Failed to fetch recent recipes for the category.");

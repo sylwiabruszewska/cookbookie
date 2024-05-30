@@ -43,3 +43,14 @@ export interface Step {
 export interface CategoriesProps {
   categories: Category[];
 }
+
+export interface RecipeFormProps {
+  images?: string[];
+  title: string;
+  description: string;
+  category: string;
+  cookingTime: string;
+  ingredients: Ingredient[];
+  steps: Step[];
+  isPublic: boolean;
+}

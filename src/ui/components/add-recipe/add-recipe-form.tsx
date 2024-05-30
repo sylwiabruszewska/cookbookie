@@ -14,24 +14,20 @@ import { TimePicker } from "@ui/components/add-recipe/time-picker";
 import { Switch } from "@ui/components/add-recipe/switch";
 import { FileUpload } from "@ui/components/add-recipe/file-upload";
 import { Button } from "@/ui/components/button";
-import { CategoriesProps, Category, Ingredient, Step } from "@/lib/definitions";
+import {
+  CategoriesProps,
+  Category,
+  Ingredient,
+  RecipeFormProps,
+  Step,
+} from "@/lib/definitions";
 import { recipeValidationSchema } from "@utils/validationSchemas";
 import { addRecipe } from "@lib/actions";
-
-interface FormValues {
-  title: string;
-  description: string;
-  category: string;
-  cookingTime: string;
-  ingredients: Ingredient[];
-  steps: Step[];
-  isPublic: boolean;
-}
 
 export default function AddRecipeForm({ categories }: CategoriesProps) {
   const router = useRouter();
 
-  const initialValues: FormValues = {
+  const initialValues: RecipeFormProps = {
     title: "",
     description: "",
     category: "",
@@ -44,8 +40,8 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
   };
 
   const handleSubmit = async (
-    values: FormValues,
-    { setSubmitting, resetForm }: FormikHelpers<FormValues>
+    values: RecipeFormProps,
+    { setSubmitting, resetForm }: FormikHelpers<RecipeFormProps>
   ) => {
     try {
       const selectedCategory = categories.find(
@@ -57,15 +53,9 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
       }
 
       const recipe = {
-        id: "",
+        ...values,
         images: ["/pancakes.png"],
-        title: values.title,
-        description: values.description,
-        category_id: selectedCategory.id,
-        cooking_time: values.cookingTime,
-        ingredients: values.ingredients,
-        steps: values.steps,
-        is_public: values.isPublic,
+        category: selectedCategory.id,
       };
 
       const response = await addRecipe(recipe);

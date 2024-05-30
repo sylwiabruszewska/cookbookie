@@ -16,22 +16,12 @@ import { Button } from "@/ui/components/button";
 import {
   Category,
   Ingredient,
+  RecipeFormProps,
   RecipeWithFavoriteStatus,
   Step,
 } from "@/lib/definitions";
 import { recipeValidationSchema } from "@utils/validationSchemas";
 import { updateRecipe } from "@lib/actions";
-
-interface FormValues {
-  title: string;
-  images: string[];
-  description: string;
-  category: string;
-  cookingTime: string;
-  ingredients: Ingredient[];
-  steps: Step[];
-  isPublic: boolean;
-}
 
 export default function EditForm({
   categories,
@@ -52,7 +42,7 @@ export default function EditForm({
     categories.find((category: Category) => category.id === recipe.category_id)
       ?.name || "";
 
-  const initialValues: FormValues = {
+  const initialValues: RecipeFormProps = {
     title: `${recipe.title}`,
     images: recipe.images.length > 0 ? [recipe.images[0]] : [],
     description: `${recipe.description}`,
@@ -72,8 +62,8 @@ export default function EditForm({
   };
 
   const handleSubmit = async (
-    values: FormValues,
-    { setSubmitting, resetForm }: FormikHelpers<FormValues>
+    values: RecipeFormProps,
+    { setSubmitting, resetForm }: FormikHelpers<RecipeFormProps>
   ) => {
     try {
       const selectedCategory = categories.find(
@@ -88,11 +78,11 @@ export default function EditForm({
         images: ["/pancakes.png"],
         title: values.title,
         description: values.description,
-        category_id: selectedCategory.id,
-        cooking_time: values.cookingTime,
+        category: selectedCategory.id,
+        cookingTime: values.cookingTime,
         ingredients: values.ingredients,
         steps: values.steps,
-        is_public: values.isPublic,
+        isPublic: values.isPublic,
       };
 
       const response = await updateRecipe(recipeId, recipe);

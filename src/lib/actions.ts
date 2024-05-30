@@ -5,19 +5,19 @@ import { unstable_noStore as noStore } from "next/cache";
 import { revalidatePath } from "next/cache";
 
 import { getUserId } from "@utils/getUser";
-import { Ingredient, Recipe } from "@/lib/definitions";
+import { Ingredient, Recipe, RecipeFormProps } from "@/lib/definitions";
 
 // ***** ADD RECIPE *****
-export async function addRecipe(formData: Recipe) {
+export async function addRecipe(formData: RecipeFormProps) {
   const {
     images,
     title,
     description,
-    category_id,
-    cooking_time,
+    category,
+    cookingTime,
     ingredients,
     steps,
-    is_public,
+    isPublic,
   } = formData;
 
   try {
@@ -29,9 +29,9 @@ export async function addRecipe(formData: Recipe) {
     ) VALUES (
       ${JSON.stringify(
         images
-      )}, ${title}, ${description}, ${category_id}, ${cooking_time}, ${JSON.stringify(
+      )}, ${title}, ${description}, ${category}, ${cookingTime}, ${JSON.stringify(
       ingredients
-    )}, ${JSON.stringify(steps)}, ${is_public}, ${userId}
+    )}, ${JSON.stringify(steps)}, ${isPublic}, ${userId}
     ) RETURNING *`;
 
     console.log("Recipe added successfully");
@@ -43,16 +43,19 @@ export async function addRecipe(formData: Recipe) {
 }
 
 // ***** UPDATE RECIPE *****
-export async function updateRecipe(recipeId: string, formData: Recipe) {
+export async function updateRecipe(
+  recipeId: string,
+  formData: RecipeFormProps
+) {
   const {
     images,
     title,
     description,
-    category_id,
-    cooking_time,
+    category,
+    cookingTime,
     ingredients,
     steps,
-    is_public,
+    isPublic,
   } = formData;
 
   try {
@@ -64,11 +67,11 @@ export async function updateRecipe(recipeId: string, formData: Recipe) {
         images = ${JSON.stringify(images)},
         title = ${title},
         description = ${description},
-        category_id = ${category_id},
-        cooking_time = ${cooking_time},
+        category_id = ${category},
+        cooking_time = ${cookingTime},
         ingredients = ${JSON.stringify(ingredients)},
         steps = ${JSON.stringify(steps)},
-        is_public = ${is_public}
+        is_public = ${isPublic}
       WHERE
         id = ${recipeId} AND owner_id = ${userId}
       RETURNING *

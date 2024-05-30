@@ -57,6 +57,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
       }
 
       const recipe = {
+        id: "",
         images: ["/pancakes.png"],
         title: values.title,
         description: values.description,

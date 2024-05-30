@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/ui/components/button";
 import { Ingredient } from "@lib/definitions";
+import { removeFromShoppingList } from "@lib/actions";
 
 interface ShoppingListProps {
   userShoppingList: Ingredient[];
@@ -27,7 +28,10 @@ const ShoppingList: React.FC<ShoppingListProps> = ({ userShoppingList }) => {
             <div className="w-1/2">{ingredient.ingredient}</div>
             <div className="w-1/4 flex justify-center">{`${ingredient.quantity} ${ingredient.quantityUnit}`}</div>
             <div className="w-1/4 flex justify-center">
-              <Button variant="icon">
+              <Button
+                variant="icon"
+                onClick={() => removeFromShoppingList(ingredient.id)}
+              >
                 <FontAwesomeIcon
                   icon={faXmark}
                   aria-label="Remove"

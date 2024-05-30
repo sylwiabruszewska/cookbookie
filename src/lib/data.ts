@@ -113,7 +113,7 @@ export async function fetchRecentRecipes(categoryId: string) {
     JOIN categories ON recipes.category_id = categories.id
     WHERE recipes.is_public = true AND recipes.category_id = ${categoryId}
     ORDER BY recipes.created_at DESC 
-    LIMIT 3;
+    LIMIT 4;
     
     
     

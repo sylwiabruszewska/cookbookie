@@ -35,6 +35,7 @@ export async function addRecipe(formData: RecipeFormProps) {
     ) RETURNING *`;
 
     console.log("Recipe added successfully");
+    revalidatePath("/dashboard/my-recipes");
     return result;
   } catch (error) {
     console.error("Failed to add recipe:", error);

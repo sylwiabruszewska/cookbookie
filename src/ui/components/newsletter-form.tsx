@@ -41,7 +41,7 @@ export default function NewsletterForm() {
     >
       {() => (
         <Form
-          className="text-black flex flex-col md:flex-row md:items-center gap-4 lg:flex-col"
+          className="text-black flex flex-col gap-0 md:flex-row md:items-start md:gap-4 lg:flex-col lg:gap-0 lg:items-center"
           autoComplete="off"
         >
           <IconInput

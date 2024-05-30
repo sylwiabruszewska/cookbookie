@@ -14,16 +14,23 @@ export default function CategoryCard({
   return (
     <div>
       <h3 className="text-xl font-semibold mb-4">{title}</h3>
-      <ul>
-        {recentRecipes.length > 0 ? (
-          recentRecipes.map((recipe) => (
-            <RecipeCardSmall key={recipe.id} recipe={recipe} />
-          ))
-        ) : (
-          <p>No recent recipes found.</p>
-        )}
-      </ul>
-      {recentRecipes.length > 0 && <Button className="ml-auto">See all</Button>}
+      <div className="overflow-hidden">
+        <ul className="flex gap-4 overflow-x-auto md:overflow-x-scroll scrollbar-hide snap-x snap-mandatory custom-scroll">
+          {recentRecipes.length > 0 ? (
+            recentRecipes.map((recipe) => (
+              <li
+                key={recipe.id}
+                className="mb-8 flex-shrink-0 w-full md:w-[calc(50%-0.5rem)] lg:w-[calc(25%-0.75rem)] snap-center"
+              >
+                <RecipeCardSmall recipe={recipe} />
+              </li>
+            ))
+          ) : (
+            <p>No recent recipes found.</p>
+          )}
+        </ul>
+      </div>
+      {recentRecipes.length > 4 && <Button className="ml-auto">See all</Button>}
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import toast from "react-hot-toast";
 
 import { Button } from "@/ui/components/button";
 import { Ingredient } from "@lib/definitions";
@@ -12,6 +13,15 @@ interface ShoppingListProps {
 }
 
 const ShoppingList: React.FC<ShoppingListProps> = ({ userShoppingList }) => {
+  const handleRemoveFromShoppingList = async (ingredientId: string) => {
+    try {
+      await removeFromShoppingList(ingredientId);
+      toast.success("Ingredient deleted from your shopping list.");
+    } catch (error) {
+      toast.error("Oops! Something went wrong. Please try again soon.");
+    }
+  };
+
   return (
     <>
       <div className="flex justify-between space-x-2 mb-4 bg-[--primary-color] text-white p-2 rounded-lg">
@@ -30,7 +40,7 @@ const ShoppingList: React.FC<ShoppingListProps> = ({ userShoppingList }) => {
             <div className="w-1/4 flex justify-center">
               <Button
                 variant="icon"
-                onClick={() => removeFromShoppingList(ingredient.id)}
+                onClick={() => handleRemoveFromShoppingList(ingredient.id)}
               >
                 <FontAwesomeIcon
                   icon={faXmark}

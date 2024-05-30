@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik, Form, FormikHelpers, FieldArray, ErrorMessage } from "formik";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 import { Input } from "@ui/components/add-recipe/input";
 import { Select } from "@ui/components/add-recipe/select";
@@ -64,11 +65,10 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
         throw new Error("Failed to submit recipe");
       }
 
+      toast.success("Recipe added successfully! Time to get cooking 👨‍🍳");
       router.push("/dashboard/my-recipes");
-
-      // resetForm();
     } catch (error) {
-      console.error("fail", error);
+      toast.error("Oops! Something went wrong. Please try again soon.");
     } finally {
       setSubmitting(false);
     }

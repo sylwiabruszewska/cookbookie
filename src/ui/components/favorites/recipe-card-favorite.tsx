@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import toast from "react-hot-toast";
 
 import { Button } from "@ui/components/button";
 import { truncateDescription } from "@utils/recipes";
@@ -25,6 +26,15 @@ export const RecipeCardFavorite: React.FC<RecipeCardFavoriteProps> = ({
   images,
   cookingTime,
 }) => {
+  const handleRemoveFromFavorites = async () => {
+    try {
+      await removeFromFavorites(id);
+      toast.success(`${title} has been removed from your favorites.`);
+    } catch (error) {
+      toast.error("Oops! Something went wrong. Please try again soon.");
+    }
+  };
+
   return (
     <div className="flex justify-between gap-2 h-30">
       <Link href={`/dashboard/recipes/${id}`} className="flex flex-grow">
@@ -58,7 +68,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardFavoriteProps> = ({
       </Link>
       <div className="flex items-start">
         <Button
-          onClick={() => removeFromFavorites(id)}
+          onClick={handleRemoveFromFavorites}
           variant="icon"
           className="h-6 w-6"
         >

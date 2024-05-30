@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 import { Button } from "@/ui/components/button";
 import { Ingredient, RecipeWithFavoriteStatus } from "@lib/definitions";
@@ -61,29 +62,39 @@ export default function RecipeCardLarge({
         quantity: ingredient.quantity,
         quantityUnit: ingredient.quantityUnit,
       });
-      console.log("Ingredient added to shopping list", ingredient);
+      toast.success(`${ingredient.ingredient} added to your shopping list.`);
     } catch (error) {
-      console.log("Failed to add ingredient to shopping list.");
+      toast.error("Oops! Something went wrong. Please try again soon.");
     }
   };
 
   const handleRemoveFromShoppingList = async (ingredientId: string) => {
     try {
       await removeFromShoppingList(ingredientId);
-      console.log("Ingredient removed from shopping list", ingredientId);
+      toast.success("Ingredient deleted from your shopping list.");
     } catch (error) {
-      console.log("Failed to remove ingredient from shopping list.");
+      toast.error("Oops! Something went wrong. Please try again soon.");
     }
   };
 
   // HANDLER FAVORITES
   const handleToggleFavorites = async () => {
-    if (isFavorite) {
-      await removeFromFavorites(recipeId);
-      setIsFavorite(false);
+    if (!isFavorite) {
+      try {
+        await addToFavorites(recipeId);
+        setIsFavorite(true);
+        toast.success(`${recipe.title}} is now in your favorites.`);
+      } catch (error) {
+        toast.error("Oops! Something went wrong. Please try again soon.");
+      }
     } else {
-      await addToFavorites(recipeId);
-      setIsFavorite(true);
+      try {
+        await removeFromFavorites(recipeId);
+        setIsFavorite(false);
+        toast.success(`${recipe.title} has been removed from your favorites.`);
+      } catch (error) {
+        toast.error("Oops! Something went wrong. Please try again soon.");
+      }
     }
   };
 

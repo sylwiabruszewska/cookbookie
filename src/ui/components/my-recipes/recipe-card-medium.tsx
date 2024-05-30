@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import toast from "react-hot-toast";
 
 import { Button } from "@ui/components/button";
 import { truncateDescription } from "@utils/recipes";
@@ -26,6 +27,15 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
   images,
   cookingTime,
 }) => {
+  const handleDeleteRecipe = async () => {
+    try {
+      await deleteRecipe(id);
+      toast.success(`${title} has been removed from your recipes.`);
+    } catch (error) {
+      toast.error("Oops! Something went wrong. Please try again soon.");
+    }
+  };
+
   return (
     <div className="flex justify-between gap-2 h-30">
       <Link href={`/dashboard/recipes/${id}`} className="flex flex-grow">
@@ -69,11 +79,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
         </Link>
 
         {/* add modal later */}
-        <Button
-          onClick={() => deleteRecipe(id)}
-          variant="icon"
-          className="h-6 w-6"
-        >
+        <Button onClick={handleDeleteRecipe} variant="icon" className="h-6 w-6">
           <FontAwesomeIcon
             icon={faTrash}
             aria-label="Remove"

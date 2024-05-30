@@ -30,3 +30,7 @@
 .heading-l {
   @apply text-xl font-semibold mb-8;
 }
+
+.hover-green {
+  @apply hover:text-[--primary-color];
+}

@@ -111,7 +111,7 @@ const LoginForm = () => {
 
       <div className="mt-10">
         <span>Don&#39;t have an account? </span>
-        <Link href="/register" className="underline">
+        <Link href="/register" className="underline hover-green">
           Sign up
         </Link>
       </div>

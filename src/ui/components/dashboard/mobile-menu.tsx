@@ -83,7 +83,7 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
         </ul>
       </div>
 
-      <div className="absolute bottom-0 right-0 w-[321px] h-[343px] bg-cover bg-no-repeat bg-mobile-menu"></div>
+      <div className="absolute bottom-0 right-0 w-[321px] h-[343px] bg-cover bg-no-repeat bg-mobile-menu-bg"></div>
     </nav>
   );
 };

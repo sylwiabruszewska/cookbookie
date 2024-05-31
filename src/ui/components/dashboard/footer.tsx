@@ -5,7 +5,7 @@ import NewsletterForm from "@/ui/components/newsletter-form";
 
 const Footer = () => {
   return (
-    <footer className="relative w-full">
+    <footer className="relative w-full mt-28">
       <div className="bg-[--gray-dark] text-white py-12 font-thin relative">
         <div className="content-container">
           <div className="page-container flex flex-col items-center gap-y-8 md:flex-wrap md:gap-y-12 md:flex-row md:items-start lg:flex-nowrap lg:justify-between lg:items-start lg:gap-x-12">

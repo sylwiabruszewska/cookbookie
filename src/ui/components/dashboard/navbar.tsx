@@ -58,7 +58,7 @@ const NavBar = () => {
         <div className="flex items-center justify-end space-x-4 w-[300px]">
           {session && (
             <div className="flex items-center gap-2">
-              <div className="w-[44px] h-[44px]">
+              <div className="w-[44px] h-[44px] flex-shrink-0">
                 <Image
                   src={session.user?.image || "/salad.png"}
                   alt="User avatar"

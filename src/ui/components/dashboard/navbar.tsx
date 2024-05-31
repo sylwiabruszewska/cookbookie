@@ -37,13 +37,11 @@ const NavBar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex flex-grow justify-center">
-          <ul className="flex space-x-10">
+          <ul className="flex gap-10 items-center">
             <li>
               <Link href="/dashboard/categories">Categories</Link>
             </li>
-            <li>
-              <Link href="/dashboard/add-recipe">Add recipes</Link>
-            </li>
+
             <li>
               <Link href="/dashboard/my-recipes">My recipes</Link>
             </li>
@@ -53,6 +51,11 @@ const NavBar = () => {
             <li>
               <Link href="/dashboard/shopping-list">Shopping list</Link>
             </li>
+            <li>
+              <Link href="/dashboard/add-recipe">
+                <Button variant="crazyRounded">Add recipe</Button>
+              </Link>
+            </li>
           </ul>
         </nav>
 
@@ -60,24 +63,33 @@ const NavBar = () => {
 
         <div className="flex items-center justify-end space-x-4 w-[300px]">
           {session && (
-            <div className="flex items-center gap-2">
-              <div className="w-[44px] h-[44px] flex-shrink-0">
-                <Image
-                  src={session.user?.image || "/salad.png"}
-                  alt="User avatar"
-                  className="object-cover rounded-full"
-                  width={578}
-                  height={539}
-                  priority
-                />
+            <div className="flex items-center gap-4">
+              <div className="flex gap-2 items-center">
+                <div className="w-[44px] h-[44px] flex-shrink-0">
+                  <Image
+                    src={session.user?.image || "/salad.png"}
+                    alt="User avatar"
+                    className="object-cover rounded-full"
+                    width={578}
+                    height={539}
+                    priority
+                  />
+                </div>
+
+                <span className="font-semibold md:max-w-[200px] max-md:hidden">
+                  {session.user?.name}
+                </span>
               </div>
 
-              <span className="font-semibold md:max-w-[200px] max-md:hidden">
-                {session.user?.name}
-              </span>
-
-              <Button variant="dark" onClick={() => signOut()}>
-                Sign out
+              <Button
+                variant="crazyRounded"
+                className="group hidden md:block bg-[#22252a] text-white hover:bg-[--primary-color]"
+                onClick={() => signOut()}
+              >
+                Log out
+                <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                  &gt;
+                </span>
               </Button>
             </div>
           )}

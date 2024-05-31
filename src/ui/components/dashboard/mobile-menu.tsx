@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { signOut } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
+
+import { Button } from "@ui/components/button";
 
 interface MobileMenuProps {
   closeMenu: () => void;
@@ -25,7 +28,7 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
 
   return (
     <nav className="fixed inset-0 w-[100vw] h-[100vh] bg-[--green-light] z-50">
-      <div className="relative content-container h-full mx-auto flex items-center justify-center">
+      <div className="relative content-container h-full mx-auto flex flex-col items-center justify-center">
         <div className="absolute top-4 left-0">
           <Link
             href="/dashboard"
@@ -55,12 +58,19 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
           </button>
         </div>
 
-        <ul className="flex flex-col items-center justify-center text-[18px] space-y-4 font-semibold">
+        <ul className="flex flex-col items-center justify-center text-xl space-y-4 font-semibold mb-32">
           <li onClick={handleLinkClick}>
-            <Link href="/dashboard/categories">Categories</Link>
+            <Link href="/dashboard/add-recipe">
+              <Button
+                variant="crazyRounded"
+                className="bg-[--gray-dark] text-xl h-12 mb-4"
+              >
+                Add recipe
+              </Button>
+            </Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link href="/dashboard/add-recipe">Add recipes</Link>
+            <Link href="/dashboard/categories">Categories</Link>
           </li>
           <li onClick={handleLinkClick}>
             <Link href="/dashboard/my-recipes">My recipes</Link>
@@ -84,6 +94,17 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
             </Link>
           </li>
         </ul>
+
+        <Button
+          variant="crazyRounded"
+          className="bg-[#22252a] hover:bg-[--primary-color] h-12 text-xl"
+          onClick={() => signOut()}
+        >
+          Log out
+          <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+            &gt;
+          </span>
+        </Button>
       </div>
 
       <div className="absolute bottom-0 right-0 w-[321px] h-[343px] bg-cover bg-no-repeat bg-mobile-menu-bg"></div>

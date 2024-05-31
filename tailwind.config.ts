@@ -9,9 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "lg-left": "url('/hero/lg-left.png')",
+        "lg-blob-left": "url('/hero/lg-blob-left.svg')",
+        "lg-right": "url('/hero/lg-right.png')",
+        "lg-blob-right": "url('/hero/lg-blob-right.svg')",
+        "md-left": "url('/hero/md-left.png')",
+        "md-right": "url('/hero/md-right.png')",
+        "md-blob-right": "url('/hero/md-blob-right.svg')",
+        "sm-left": "url('/hero/sm-left.png')",
+        "sm-right": "url('/hero/sm-right.png')",
+        "sm-blob-right": "url('/hero/sm-blob-right.svg')",
       },
       animation: {
         "checkmark-in": "checkmark-in 2s forwards",

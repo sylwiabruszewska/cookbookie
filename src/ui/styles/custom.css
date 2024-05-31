@@ -43,3 +43,15 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.negative-z-index {
+  z-index: -1;
+}
+
+.bg-top-left {
+  @apply absolute top-0 left-0 bg-cover bg-no-repeat;
+}
+
+.bg-top-right {
+  @apply absolute top-0 right-0 bg-cover bg-no-repeat;
+}

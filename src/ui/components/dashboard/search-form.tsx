@@ -10,10 +10,7 @@ const SearchForm: React.FC = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex items-center justify-center mt-8"
-    >
+    <form onSubmit={handleSubmit} className="w-[300px] lg:w-[400px] ">
       <div className="relative">
         <label htmlFor="search" className="sr-only">
           Search
@@ -22,14 +19,14 @@ const SearchForm: React.FC = () => {
           type="text"
           id="search"
           placeholder="Search recipes"
-          className="border border-[--gray] rounded-l rounded-r px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[--primary-color] focus:border-[--primary-color]"
+          className="w-full border border-[--gray] focus:outline-none focus:ring-2 focus:ring-[--gray-dark] focus:border-[--gray-dark] rounded-tl-[20px] rounded-bl-[40px] rounded-br-[20px] rounded-tr-[40px] h-10 p-6 lg:p-8 pr-24"
         />
         <Button
           variant="dark"
           type="submit"
-          className="absolute top-0 end-0 p-2 px-4 text-sm font-medium h-full rounded-r rounded-l-none focus:outline-none focus:ring-2 focus:ring-[--primary-color] "
+          className="absolute top-0 end-0 text-sm font-medium h-full rounded-r rounded-l-none focus:outline-none focus:ring-2 focus:ring-[--primary-color] rounded-tl-[20px] rounded-bl-[40px] rounded-br-[20px] rounded-tr-[40px] p-2 px-8"
         >
-          <FontAwesomeIcon icon={faSearch} className="text-sm w-full h-full" />
+          <FontAwesomeIcon icon={faSearch} className="text-sm w-4 h-4" />
         </Button>
       </div>
     </form>

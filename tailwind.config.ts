@@ -19,6 +19,8 @@ const config: Config = {
         "sm-left": "url('/hero/sm-left.png')",
         "sm-right": "url('/hero/sm-right.png')",
         "sm-blob-right": "url('/hero/sm-blob-right.svg')",
+        "footer-left": "url('/footer/footer-left.png')",
+        "footer-right": "url('/footer/footer-right.png')",
       },
       animation: {
         "checkmark-in": "checkmark-in 2s forwards",

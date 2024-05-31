@@ -5,10 +5,10 @@ import NewsletterForm from "@/ui/components/newsletter-form";
 
 const Footer = () => {
   return (
-    <footer className="w-full">
-      <div className="bg-[--gray-dark] text-white py-12 font-thin">
+    <footer className="relative w-full">
+      <div className="bg-[--gray-dark] text-white py-12 font-thin relative">
         <div className="content-container">
-          <div className="page-container flex flex-col items-center gap-y-8 md:flex-wrap md:gap-y-12 md:flex-row md:items-start   lg:flex-nowrap lg:justify-between lg:items-start lg:gap-x-12">
+          <div className="page-container flex flex-col items-center gap-y-8 md:flex-wrap md:gap-y-12 md:flex-row md:items-start lg:flex-nowrap lg:justify-between lg:items-start lg:gap-x-12">
             <div className="md:space-y-4 md:w-1/2 lg:w-1/3">
               <div className="flex items-center space-x-4">
                 <Link href="/dashboard">
@@ -50,7 +50,7 @@ const Footer = () => {
 
             <div className="md:mx-auto md:w-2/3 lg:w-1/3">
               <div className="hidden lg:block">
-                <h3 className="mb-2 font-semibold ">
+                <h3 className="mb-2 font-semibold">
                   Subscribe to our Newsletter
                 </h3>
                 <p className="mb-6">
@@ -62,14 +62,17 @@ const Footer = () => {
             </div>
           </div>
         </div>
+
+        <div className="absolute top-[-70%] left-0 lg:top-[-100%] w-[315px] h-[486px] bg-cover bg-no-repeat negative-z-index bg-footer-left"></div>
       </div>
-      <div className="py-4 text-[--gray-dark]">
-        <div className="content-container ">
+      <div className="py-4 text-[--gray-dark] relative h-[66px] md:h-[78px] lg:h-[114px] flex items-center overflow-hidden">
+        <div className="content-container">
           <div className="page-container flex justify-center space-x-4 text-xs">
             <span>© 2024 All Rights Reserved.</span>
             <span>Terms of Service</span>
           </div>
         </div>
+        <div className="absolute bottom-[-100%] lg:bottom-[-50%] right-0 w-[260px] h-[320px] bg-cover bg-no-repeat negative-z-index bg-footer-right"></div>
       </div>
     </footer>
   );

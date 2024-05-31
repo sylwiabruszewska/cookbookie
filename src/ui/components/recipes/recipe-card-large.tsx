@@ -83,7 +83,7 @@ export default function RecipeCardLarge({
       try {
         await addToFavorites(recipeId);
         setIsFavorite(true);
-        toast.success(`${recipe.title}} is now in your favorites.`);
+        toast.success(`${recipe.title} is now in your favorites.`);
       } catch (error) {
         toast.error("Oops! Something went wrong. Please try again soon.");
       }

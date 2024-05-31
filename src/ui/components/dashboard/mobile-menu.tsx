@@ -57,6 +57,9 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
 
         <ul className="flex flex-col items-center justify-center text-[18px] space-y-4 font-semibold">
           <li onClick={handleLinkClick}>
+            <Link href="/dashboard/categories">Categories</Link>
+          </li>
+          <li onClick={handleLinkClick}>
             <Link href="/dashboard/add-recipe">Add recipes</Link>
           </li>
           <li onClick={handleLinkClick}>

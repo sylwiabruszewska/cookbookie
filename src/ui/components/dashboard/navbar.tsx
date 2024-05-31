@@ -39,6 +39,9 @@ const NavBar = () => {
         <nav className="hidden lg:flex flex-grow justify-center">
           <ul className="flex space-x-10">
             <li>
+              <Link href="/dashboard/categories">Categories</Link>
+            </li>
+            <li>
               <Link href="/dashboard/add-recipe">Add recipes</Link>
             </li>
             <li>

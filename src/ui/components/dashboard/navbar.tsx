@@ -76,11 +76,7 @@ const NavBar = () => {
                 {session.user?.name}
               </span>
 
-              <Button
-                variant="dark"
-                onClick={() => signOut()}
-                className="bg-black text-white rounded w-auto px-2"
-              >
+              <Button variant="dark" onClick={() => signOut()}>
                 Sign out
               </Button>
             </div>

@@ -127,7 +127,7 @@ export const FileUpload: FC<FileUploadProps> = ({ initialImages = [] }) => {
               ) : (
                 <div>
                   <Image
-                    src="/camera.svg"
+                    src="/icons/camera.svg"
                     alt="Camera"
                     className="w-[64px] h-auto object-fit"
                     width={64}

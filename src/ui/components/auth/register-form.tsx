@@ -107,7 +107,7 @@ const RegistrationForm = () => {
 
       <button onClick={() => signIn("google")}>
         <Image
-          src="/google_signup.svg"
+          src="/google/google_signup.svg"
           alt="Google Logo"
           className="dark:invert"
           width={179}

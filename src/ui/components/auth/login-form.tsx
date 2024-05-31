@@ -100,7 +100,7 @@ const LoginForm = () => {
 
       <button onClick={() => signIn("google")}>
         <Image
-          src="/google_signin.svg"
+          src="/google/google_signin.svg"
           alt="Google Logo"
           className="dark:invert"
           width={175}

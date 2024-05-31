@@ -116,7 +116,7 @@ export default function RecipeCardLarge({
       </Button>
       <div className="flex justify-center items-center gap-2">
         <Image
-          src="/clock.svg"
+          src="/icons/clock.svg"
           width={20}
           height={20}
           alt="Clock"

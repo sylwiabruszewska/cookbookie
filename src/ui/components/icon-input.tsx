@@ -63,7 +63,7 @@ const IconInput: React.FC<TextInputProps> = ({
             fill="transparent"
             viewBox="0 0 20 20"
           >
-            <use href={`/icons.svg#${iconID}`}></use>
+            <use href={`/icons/icons.svg#${iconID}`}></use>
           </svg>
         </div>
 

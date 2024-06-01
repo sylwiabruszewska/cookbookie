@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { signOut } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
@@ -94,17 +93,6 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
             </Link>
           </li>
         </ul>
-
-        <Button
-          variant="crazyRounded"
-          className="bg-[#22252a] hover:bg-[--primary-color] h-12 text-xl"
-          onClick={() => signOut()}
-        >
-          Log out
-          <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-            &gt;
-          </span>
-        </Button>
       </div>
 
       <div className="absolute bottom-0 right-0 w-[321px] h-[343px] bg-cover bg-no-repeat bg-mobile-menu-bg"></div>

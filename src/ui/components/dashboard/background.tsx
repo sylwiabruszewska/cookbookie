@@ -5,7 +5,7 @@ const Background = () => {
       <div className="md:hidden">
         <div className="bg-top-left w-[48px] h-[202px] bg-sm-left"></div>
         <div className="bg-top-right w-[269px] h-[678px] bg-sm-blob-right"></div>
-        <div className="bg-top-right top-[15%] w-[375px] h-[814px] bg-sm-right"></div>
+        <div className="bg-top-right top-0 w-[375px] h-[814px] bg-sm-right"></div>
       </div>
       {/* MEDIUM DEVICES */}
       <div className="hidden md:block lg:hidden">

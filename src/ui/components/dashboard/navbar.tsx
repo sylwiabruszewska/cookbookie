@@ -10,22 +10,28 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MobileMenu from "@/ui/components/dashboard/mobile-menu";
 import { Button } from "@/ui/components/button";
+import useDropdown from "@/hooks/useDropdown";
 
 const NavBar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const { data: session } = useSession();
-  const [toggleDropdown, setToggleDropdown] = useState(false);
+  const {
+    isDropdownOpen,
+    dropdownRef,
+    buttonRef,
+    closeDropdown,
+    toggleDropdown,
+  } = useDropdown();
 
   const closeMenu = () => {
-    setToggleDropdown(false);
+    closeDropdown();
     setIsNavOpen(false);
   };
   const handleDropdownClick = () => {
-    setToggleDropdown((prev) => !prev);
+    toggleDropdown();
   };
-
   const handleNavOpen = () => {
-    setToggleDropdown(false);
+    closeDropdown();
     setIsNavOpen((prevState) => !prevState);
   };
 
@@ -78,6 +84,7 @@ const NavBar = () => {
               <div
                 className="w-[44px] h-[44px] flex-shrink-0"
                 onClick={handleDropdownClick}
+                ref={buttonRef}
               >
                 <Image
                   src={session.user?.image || "/salad.png"}
@@ -95,17 +102,18 @@ const NavBar = () => {
             </div>
           )}
 
-          {toggleDropdown && (
+          {isDropdownOpen && (
             <motion.div
+              ref={dropdownRef}
               className="dropdown"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
               <Link
-                href="/profile"
+                href="/dashboard/profile"
                 className="link-hover-underline"
-                onClick={() => setToggleDropdown(false)}
+                onClick={() => toggleDropdown()}
               >
                 Profile
               </Link>

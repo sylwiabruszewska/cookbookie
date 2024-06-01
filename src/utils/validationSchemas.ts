@@ -35,7 +35,7 @@ export const recipeValidationSchema = Yup.object().shape({
   title: Yup.string()
     .required("Title is required")
     .min(6, "Title should be at least 6 characters")
-    .max(30, "Title should be at most 20 characters"),
+    .max(60, "Title should be at most 60 characters"),
   description: Yup.string().max(
     300,
     "Description should be at most 300 characters"

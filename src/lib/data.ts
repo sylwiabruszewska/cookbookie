@@ -189,6 +189,7 @@ export async function fetchUserFavorites(): Promise<Recipe[]> {
     FROM recipes
     JOIN UserFavorites ON recipes.id = UserFavorites.recipeId
     WHERE UserFavorites.userId = ${userId}
+      AND (recipes.owner_id = ${userId} OR recipes.is_public = true)
     ORDER BY UserFavorites.addedAt DESC
   `;
 

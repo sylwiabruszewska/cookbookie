@@ -1,12 +1,13 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
+import { motion } from "framer-motion";
+
+import Link from "next/link";
+import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import MobileMenu from "@/ui/components/dashboard/mobile-menu";
 import { Button } from "@/ui/components/button";
 
@@ -16,7 +17,16 @@ const NavBar = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   const closeMenu = () => {
+    setToggleDropdown(false);
     setIsNavOpen(false);
+  };
+  const handleDropdownClick = () => {
+    setToggleDropdown((prev) => !prev);
+  };
+
+  const handleNavOpen = () => {
+    setToggleDropdown(false);
+    setIsNavOpen((prevState) => !prevState);
   };
 
   return (
@@ -67,7 +77,7 @@ const NavBar = () => {
             <div className="flex items-center gap-2">
               <div
                 className="w-[44px] h-[44px] flex-shrink-0"
-                onClick={() => setToggleDropdown((prev) => !prev)}
+                onClick={handleDropdownClick}
               >
                 <Image
                   src={session.user?.image || "/salad.png"}
@@ -86,14 +96,22 @@ const NavBar = () => {
           )}
 
           {toggleDropdown && (
-            <div className="dropdown">
-              <Link href="/profile" onClick={() => setToggleDropdown(false)}>
+            <motion.div
+              className="dropdown"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Link
+                href="/profile"
+                className="link-hover-underline"
+                onClick={() => setToggleDropdown(false)}
+              >
                 Profile
               </Link>
-
               <Button
-                variant="dark"
-                className="group hover:bg-black"
+                variant="logout"
+                className="group mt-8 px-4"
                 onClick={() => signOut()}
               >
                 Log out
@@ -101,13 +119,13 @@ const NavBar = () => {
                   &gt;
                 </span>
               </Button>
-            </div>
+            </motion.div>
           )}
 
           <button
             type="button"
             className="lg:hidden w-[28px] h-[28px]"
-            onClick={() => setIsNavOpen((prevState) => !prevState)}
+            onClick={handleNavOpen}
           >
             <FontAwesomeIcon
               icon={faBars}

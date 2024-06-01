@@ -35,7 +35,10 @@ const Footer = () => {
 
             <ul className="flex flex-col items-center space-y-2 md:w-1/2 md:items-end lg:w-1/3 lg:items-center">
               <li>
-                <Link href="/dashboard/add-recipe">Add recipes</Link>
+                <Link href="/dashboard/categories">Categories</Link>
+              </li>
+              <li>
+                <Link href="/dashboard/add-recipe">Add recipe</Link>
               </li>
               <li>
                 <Link href="/dashboard/my-recipes">My recipes</Link>

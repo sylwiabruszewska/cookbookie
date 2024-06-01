@@ -13,6 +13,7 @@ import { Button } from "@/ui/components/button";
 const NavBar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const { data: session } = useSession();
+  const [toggleDropdown, setToggleDropdown] = useState(false);
 
   const closeMenu = () => {
     setIsNavOpen(false);
@@ -61,29 +62,38 @@ const NavBar = () => {
 
         {isNavOpen && <MobileMenu closeMenu={closeMenu} />}
 
-        <div className="flex items-center justify-end space-x-4 w-[300px]">
+        <div className="relative flex items-center justify-end space-x-4 w-[300px]">
           {session && (
-            <div className="flex items-center gap-4">
-              <div className="flex gap-2 items-center">
-                <div className="w-[44px] h-[44px] flex-shrink-0">
-                  <Image
-                    src={session.user?.image || "/salad.png"}
-                    alt="User avatar"
-                    className="object-cover rounded-full"
-                    width={578}
-                    height={539}
-                    priority
-                  />
-                </div>
-
-                <span className="font-semibold md:max-w-[200px] max-md:hidden">
-                  {session.user?.name}
-                </span>
+            <div className="flex items-center gap-2">
+              <div
+                className="w-[44px] h-[44px] flex-shrink-0"
+                onClick={() => setToggleDropdown((prev) => !prev)}
+              >
+                <Image
+                  src={session.user?.image || "/salad.png"}
+                  alt="User avatar"
+                  className="object-cover rounded-full cursor-pointer"
+                  width={578}
+                  height={539}
+                  priority
+                />
               </div>
 
+              <span className="font-semibold md:max-w-[200px] max-md:hidden">
+                {session.user?.name}
+              </span>
+            </div>
+          )}
+
+          {toggleDropdown && (
+            <div className="dropdown">
+              <Link href="/profile" onClick={() => setToggleDropdown(false)}>
+                Profile
+              </Link>
+
               <Button
-                variant="crazyRounded"
-                className="group hidden md:block bg-[#22252a] text-white hover:bg-[--primary-color]"
+                variant="dark"
+                className="group hover:bg-black"
                 onClick={() => signOut()}
               >
                 Log out

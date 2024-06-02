@@ -9,7 +9,7 @@ export const MyFavorites: React.FC<MyFavoritesComponentProps> = ({
   recipes,
 }) => {
   return (
-    <ul>
+    <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {recipes.map((recipe) => (
         <li key={recipe.id} className="mb-4">
           <RecipeCardFavorite
@@ -17,7 +17,6 @@ export const MyFavorites: React.FC<MyFavoritesComponentProps> = ({
             title={recipe.title}
             description={recipe.description}
             images={recipe.images}
-            cookingTime={recipe.cooking_time}
           />
         </li>
       ))}

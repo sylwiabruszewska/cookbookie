@@ -5,8 +5,9 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import { Button } from "@/ui/components/button";
+import clsx from "clsx";
 
-const SearchForm = () => {
+const SearchForm = ({ className }: { className?: string }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -27,7 +28,10 @@ const SearchForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-[300px] lg:w-[400px] ">
+    <form
+      onSubmit={handleSubmit}
+      className={clsx("w-[300px] lg:w-[400px]", className)}
+    >
       <div className="relative">
         <label htmlFor="search" className="sr-only">
           Search

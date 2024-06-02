@@ -245,3 +245,29 @@ export async function fetchUserShoppingList() {
     throw new Error("Failed to fetch ingredients from shopping list.");
   }
 }
+
+// FETCH FILTERED RECIPES
+const ITEMS_PER_PAGE = 10;
+
+export async function fetchFilteredRecipes(query: string, currentPage: number) {
+  noStore();
+
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const recipes = await sql<Recipe>`
+    SELECT recipes.*
+    FROM recipes
+      WHERE
+      recipes.title ILIKE ${`%${query}%`} OR
+      recipes.description ILIKE ${`%${query}%`}
+      ORDER BY recipes.created_at DESC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return recipes.rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch recipes.");
+  }
+}

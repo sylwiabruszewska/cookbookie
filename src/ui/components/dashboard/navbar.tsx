@@ -80,16 +80,16 @@ const NavBar = () => {
 
         <div className="relative flex items-center justify-end space-x-4 w-[300px]">
           {session && (
-            <div className="flex items-center gap-2">
-              <div
-                className="w-[44px] h-[44px] flex-shrink-0"
-                onClick={handleDropdownClick}
-                ref={buttonRef}
-              >
+            <div
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={handleDropdownClick}
+              ref={buttonRef}
+            >
+              <div className="w-[44px] h-[44px] flex-shrink-0">
                 <Image
                   src={session.user?.image || "/salad.png"}
                   alt="User avatar"
-                  className="object-cover rounded-full cursor-pointer"
+                  className="object-cover rounded-full"
                   width={578}
                   height={539}
                   priority

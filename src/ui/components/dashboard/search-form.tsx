@@ -6,17 +6,22 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import { Button } from "@/ui/components/button";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
 
 const SearchForm = ({ className }: { className?: string }) => {
+  const [query, setQuery] = useState("");
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
+  useEffect(() => {
+    const currentQuery = searchParams.get("query") || "";
+    setQuery(currentQuery);
+  }, [searchParams]);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  };
 
-  function handleSearch(query: string) {
     const params = new URLSearchParams(searchParams);
 
     if (query) {
@@ -24,8 +29,13 @@ const SearchForm = ({ className }: { className?: string }) => {
     } else {
       params.delete("query");
     }
+
     replace(`${pathname}?${params.toString()}`);
-  }
+  };
+
+  const handleOnInputChange = (query: string) => {
+    setQuery(query);
+  };
 
   return (
     <form
@@ -42,9 +52,9 @@ const SearchForm = ({ className }: { className?: string }) => {
           placeholder="Search recipes"
           className="w-full border border-[--gray] focus:outline-none focus:ring-2 focus:ring-[--gray-dark] focus:border-[--gray-dark] rounded-tl-[20px] rounded-bl-[40px] rounded-br-[20px] rounded-tr-[40px] h-10 p-6 lg:p-8 pr-24"
           onChange={(e) => {
-            handleSearch(e.target.value);
+            handleOnInputChange(e.target.value);
           }}
-          defaultValue={searchParams.get("query")?.toString()}
+          value={query}
         />
         <Button
           variant="dark"

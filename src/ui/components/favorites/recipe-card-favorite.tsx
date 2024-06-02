@@ -86,7 +86,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardFavoriteProps> = ({
             src={images[0]}
             fill
             // className="object-cover"
-            className="object-cover transform duration-300 transition-transform group-hover:scale-105"
+            className="object-cover transform duration-500 transition-transform group-hover:scale-105"
             alt={title}
             sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
           />

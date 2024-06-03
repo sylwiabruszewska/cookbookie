@@ -1,6 +1,8 @@
 import SearchForm from "@/ui/components/dashboard/search-form";
+import { fetchRecipesPages } from "@lib/data";
 
 import { SearchTable } from "@ui/components/search/searchTable";
+import Pagination from "@ui/pagination";
 
 export default async function Page({
   searchParams,
@@ -13,13 +15,18 @@ export default async function Page({
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
+  const totalPages = await fetchRecipesPages(query);
+
   return (
     <div className="flex flex-col justify-center">
       <h2 className="heading-l">Search</h2>
 
       <SearchForm className="mx-auto mb-12" />
-
       <SearchTable query={query} currentPage={currentPage} />
+
+      <div className="mt-20 mx-auto">
+        <Pagination totalPages={totalPages} />
+      </div>
     </div>
   );
 }

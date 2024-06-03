@@ -22,7 +22,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
   };
 
   return (
-    <div className="inline-flex">
+    <div className="inline-flex gap-4">
       <PaginationArrow
         direction="left"
         href={createPageURL(currentPage - 1)}
@@ -70,16 +70,12 @@ function PaginationNumber({
   position?: "first" | "last" | "middle" | "single";
   isActive: boolean;
 }) {
-  const className = clsx(
-    "flex h-10 w-10 items-center justify-center text-sm border border-[--gray]",
-    {
-      "rounded-l-md ": position === "first" || position === "single",
-      "rounded-r-md": position === "last" || position === "single",
-      "bg-[--primary-color] border-[--primary-color] text-white": isActive,
-      "hover:bg-[--gray-light]": !isActive && position !== "middle",
-      "text-gray-300": position === "middle",
-    }
-  );
+  const className = clsx("flex h-10 w-10 items-center justify-center text-sm", {
+    "bg-[--gray-dark] rounded-lg text-white": isActive,
+    "text-gray-300": position === "middle",
+    "hover:underline hover:underline-offset-2":
+      !isActive && position !== "middle",
+  });
 
   return isActive || position === "middle" ? (
     <button className={className}>{page}</button>
@@ -100,12 +96,9 @@ function PaginationArrow({
   isDisabled?: boolean;
 }) {
   const className = clsx(
-    "flex h-10 w-10 items-center justify-center rounded-md border border-[--gray]",
+    "flex h-10 w-10 items-center justify-center rounded-md",
     {
       "pointer-events-none text-gray-300": isDisabled,
-      "hover:bg-[--gray-light]": !isDisabled,
-      "mr-2 md:mr-4": direction === "left",
-      "ml-2 md:ml-4": direction === "right",
     }
   );
 

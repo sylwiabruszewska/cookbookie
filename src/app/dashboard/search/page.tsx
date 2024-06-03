@@ -2,7 +2,7 @@ import SearchForm from "@/ui/components/dashboard/search-form";
 import { fetchRecipesPages } from "@lib/data";
 
 import { SearchTable } from "@ui/components/search/searchTable";
-import Pagination from "@ui/pagination";
+import Pagination from "@/ui/components/pagination";
 
 export default async function Page({
   searchParams,

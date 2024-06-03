@@ -1,6 +1,6 @@
 import { fetchUserRecipes } from "@lib/data";
 import { MyRecipes } from "@ui/components/my-recipes/my-recipes";
-import Pagination from "@ui/pagination";
+import Pagination from "@/ui/components/pagination";
 
 export default async function Page({
   searchParams,

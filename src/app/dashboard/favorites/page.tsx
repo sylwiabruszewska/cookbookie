@@ -1,6 +1,6 @@
 import { fetchUserFavorites } from "@lib/data";
 import { MyFavorites } from "@ui/components/favorites/my-favorites";
-import Pagination from "@ui/pagination";
+import Pagination from "@/ui/components/pagination";
 
 export default async function Page({
   searchParams,

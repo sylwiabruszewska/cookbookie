@@ -92,7 +92,7 @@ const RegistrationForm = () => {
 
             {globalError && <div className="error-text">{globalError}</div>}
 
-            <Button type="submit" className="w-full mt-4 mb-4">
+            <Button type="submit" className="btn-green w-full mt-4 mb-4">
               {isSubmitting ? "Creating an account..." : "Register"}
             </Button>
           </Form>

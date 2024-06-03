@@ -107,8 +107,7 @@ export default function RecipeCardLarge({
 
       <Button
         onClick={handleToggleFavorites}
-        variant="crazyRounded"
-        className="self-center"
+        className="self-center btn-rounded"
       >
         {isFavorite
           ? "Remove from favorite recipes"

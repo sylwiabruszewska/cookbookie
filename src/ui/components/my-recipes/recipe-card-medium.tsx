@@ -45,7 +45,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
     <div className="relative flex flex-col h-30 h-full overflow-hidden">
       <div className="absolute top-2 right-2 z-40" ref={buttonRef}>
         <Button
-          className="bg-[--gray-light] w-7 h-7 rounded-lg flex justify-center items-center"
+          className="btn-icon bg-[--gray-light] w-7 h-7"
           onClick={toggleDropdown}
         >
           <FontAwesomeIcon
@@ -65,7 +65,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
           >
             <div className="flex flex-col items-start justify-center gap-4">
               <Link href={`/dashboard/recipes/${id}/edit`}>
-                <Button variant="icon" className="h-6 w-6">
+                <Button className="btn-icon h-6 w-6">
                   <FontAwesomeIcon
                     icon={faPencil}
                     aria-label="Edit"
@@ -73,11 +73,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
                   />
                 </Button>
               </Link>
-              <Button
-                onClick={handleDeleteRecipe}
-                variant="icon"
-                className="h-6 w-6"
-              >
+              <Button onClick={handleDeleteRecipe} className="btn-icon h-6 w-6">
                 <FontAwesomeIcon
                   icon={faTrash}
                   aria-label="Remove"

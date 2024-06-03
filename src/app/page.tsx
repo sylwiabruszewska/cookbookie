@@ -32,7 +32,7 @@ export default function Home() {
 
         <div className="flex flex-col gap-4 lg:flex-row">
           <Link href="/register">
-            <Button className="group" variant="border">
+            <Button className="group btn-bordered px-5">
               Registration
               <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 &gt;
@@ -41,7 +41,7 @@ export default function Home() {
           </Link>
 
           <Link href="/login">
-            <Button className="group" variant="border">
+            <Button className="group btn-bordered px-5">
               Sign in
               <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 &gt;

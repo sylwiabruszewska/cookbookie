@@ -1,10 +1,10 @@
 import RecipeCardSmall from "./recipe-card-small";
 import { Button } from "@/ui/components/button";
-import { Recipe } from "@lib/definitions";
+import { RecipeWithFavoriteStatus } from "@lib/definitions";
 
 interface CategoryCardProps {
   title: string;
-  recentRecipes: Recipe[];
+  recentRecipes: RecipeWithFavoriteStatus[];
   totalRecipes: number;
 }
 
@@ -32,7 +32,9 @@ export default function CategoryCard({
           )}
         </ul>
       </div>
-      {totalRecipes > 4 && <Button className="ml-auto">See all</Button>}
+      {totalRecipes > 4 && (
+        <Button className="btn-green ml-auto">See all</Button>
+      )}
     </div>
   );
 }

@@ -17,7 +17,7 @@ const NotFound = () => {
       <h1 className="text-lg font-bold">We are sorry,</h1>
       <span>but the page you were looking for can’t be found.</span>
       <Link href="/dashboard" className="mt-4">
-        <Button>Go back to dashboard</Button>
+        <Button className="btn-green">Go back to dashboard</Button>
       </Link>
     </div>
   );

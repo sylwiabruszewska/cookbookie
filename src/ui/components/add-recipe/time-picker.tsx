@@ -58,7 +58,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         <Button
           onClick={handleDecrement}
           disabled={time.hours === 0 && time.minutes <= 5}
-          className={clsx("h-10 w-10 rounded-l-lg rounded-r-none", {
+          className={clsx("btn-green h-10 w-10 rounded-l-lg rounded-r-none", {
             "bg-gray-300 cursor-not-allowed hover:bg-gray-300":
               time.hours === 0 && time.minutes <= 5,
           })}
@@ -67,7 +67,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         </Button>
         <Button
           onClick={handleIncrement}
-          className="h-10 w-10 rounded-l-none rounded-r-lg"
+          className="btn-green h-10 w-10 rounded-l-none rounded-r-lg"
         >
           +
         </Button>

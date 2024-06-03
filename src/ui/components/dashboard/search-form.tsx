@@ -81,9 +81,8 @@ const SearchForm = ({ className }: { className?: string }) => {
           value={query}
         />
         <Button
-          variant="dark"
           type="submit"
-          className="absolute top-0 end-0 text-sm font-medium h-full rounded-r rounded-l-none focus:outline-none focus:ring-2 focus:ring-[--primary-color] rounded-tl-[20px] rounded-bl-[40px] rounded-br-[20px] rounded-tr-[40px] p-2 px-8"
+          className="btn-dark absolute top-0 end-0 text-sm font-medium h-full rounded-r rounded-l-none focus:outline-none focus:ring-2 focus:ring-[--primary-color] rounded-tl-[20px] rounded-bl-[40px] rounded-br-[20px] rounded-tr-[40px] p-2 px-8"
         >
           <FontAwesomeIcon icon={faSearch} className="text-sm w-4 h-4" />
         </Button>

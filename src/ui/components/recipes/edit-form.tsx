@@ -238,7 +238,10 @@ export default function EditForm({
                           </div>
                         </div>
 
-                        <Button variant="icon" onClick={() => remove(index)}>
+                        <Button
+                          className="btn-icon"
+                          onClick={() => remove(index)}
+                        >
                           <FontAwesomeIcon
                             icon={faXmark}
                             aria-label="Remove"
@@ -249,8 +252,7 @@ export default function EditForm({
                     )
                   )}
                   <Button
-                    variant="green"
-                    className="mb-4 ml-auto h-10 w-10"
+                    className="btn-green mb-4 ml-auto h-10 w-10"
                     onClick={() =>
                       push({
                         id: uuidv4(),
@@ -290,7 +292,10 @@ export default function EditForm({
                         />
                       </div>
 
-                      <Button variant="icon" onClick={() => remove(index)}>
+                      <Button
+                        className="btn-icon"
+                        onClick={() => remove(index)}
+                      >
                         <FontAwesomeIcon
                           icon={faXmark}
                           aria-label="Remove"
@@ -300,7 +305,7 @@ export default function EditForm({
                     </div>
                   ))}
                   <Button
-                    className="mb-4 ml-auto h-10 w-10"
+                    className="btn-green mb-4 ml-auto h-10 w-10"
                     onClick={() =>
                       push({
                         id: uuidv4(),
@@ -317,8 +322,7 @@ export default function EditForm({
             <Switch name="isPublic" />
 
             <Button
-              variant="crazyRounded"
-              className="mx-auto mt-10"
+              className="mx-auto mt-10 btn-rounded"
               type="submit"
               disabled={isSubmitting}
             >

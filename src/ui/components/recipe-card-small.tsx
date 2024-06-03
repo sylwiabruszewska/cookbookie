@@ -1,9 +1,9 @@
-import { Recipe } from "@lib/definitions";
+import { RecipeWithFavoriteStatus } from "@lib/definitions";
 import Image from "next/image";
 import Link from "next/link";
 
 interface RecipeCardSmallProps {
-  recipe: Recipe;
+  recipe: RecipeWithFavoriteStatus;
 }
 
 export default function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
@@ -18,7 +18,7 @@ export default function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
           sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
         />
         <div className="absolute bottom-0 left-0 right-0 m-4 bg-white rounded-lg p-4 shadow-sm">
-          <h3 className="relative z-50">{recipe.title}</h3>
+          <h3 className="relative">{recipe.title}</h3>
         </div>
       </div>
     </Link>

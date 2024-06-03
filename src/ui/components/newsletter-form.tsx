@@ -56,9 +56,8 @@ export default function NewsletterForm() {
           />
 
           <Button
-            variant="border"
             type="submit"
-            className="w-full md:px-10 md:w-auto"
+            className="btn-bordered w-full md:px-10 md:w-auto"
           >
             Subscribe
           </Button>

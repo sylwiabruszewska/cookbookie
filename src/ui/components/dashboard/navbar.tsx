@@ -70,7 +70,7 @@ const NavBar = () => {
             </li>
             <li>
               <Link href="/dashboard/add-recipe">
-                <Button variant="crazyRounded">Add recipe</Button>
+                <Button className="btn-rounded">Add recipe</Button>
               </Link>
             </li>
           </ul>
@@ -118,8 +118,7 @@ const NavBar = () => {
                 Profile
               </Link>
               <Button
-                variant="logout"
-                className="group mt-8 px-4"
+                className="group mt-8 btn-rounded bg-[--gray-dark] border-2 border-white px-5"
                 onClick={() => signOut()}
               >
                 Log out

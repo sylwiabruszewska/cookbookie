@@ -39,7 +39,7 @@ const ShoppingList: React.FC<ShoppingListProps> = ({ userShoppingList }) => {
             <div className="w-1/4 flex justify-center">{`${ingredient.quantity} ${ingredient.quantityUnit}`}</div>
             <div className="w-1/4 flex justify-center">
               <Button
-                variant="icon"
+                className="btn-icon"
                 onClick={() => handleRemoveFromShoppingList(ingredient.id)}
               >
                 <FontAwesomeIcon

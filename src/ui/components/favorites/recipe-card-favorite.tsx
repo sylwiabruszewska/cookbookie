@@ -42,7 +42,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardFavoriteProps> = ({
     <div className="relative flex flex-col h-30 h-full overflow-hidden">
       <div className="absolute top-2 right-2 z-40" ref={buttonRef}>
         <Button
-          className="bg-[--gray-light] w-7 h-7 rounded-lg flex justify-center items-center"
+          className="btn-icon bg-[--gray-light] w-7 h-7"
           onClick={toggleDropdown}
         >
           <FontAwesomeIcon
@@ -63,8 +63,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardFavoriteProps> = ({
             <div className="flex flex-col items-start justify-center gap-4">
               <Button
                 onClick={handleRemoveFromFavorites}
-                variant="icon"
-                className="h-6 w-6"
+                className="btn-icon h-6 w-6"
               >
                 <FontAwesomeIcon
                   icon={faTrash}

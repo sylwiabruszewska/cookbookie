@@ -19,7 +19,7 @@ export default async function Page({
         <>
           <MyRecipes recipes={recipes} />
 
-          {totalPages > 0 && (
+          {totalPages > 1 && (
             <div className="mt-20 flex justify-center">
               <Pagination totalPages={totalPages} />
             </div>

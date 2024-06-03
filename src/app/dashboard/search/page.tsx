@@ -24,9 +24,11 @@ export default async function Page({
       <SearchForm className="mx-auto mb-12" />
       <SearchTable query={query} currentPage={currentPage} />
 
-      <div className="mt-20 mx-auto">
-        <Pagination totalPages={totalPages} />
-      </div>
+      {totalPages > 1 && (
+        <div className="mt-20 flex justify-center">
+          <Pagination totalPages={totalPages} />
+        </div>
+      )}
     </div>
   );
 }

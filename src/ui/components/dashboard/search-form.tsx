@@ -23,6 +23,7 @@ const SearchForm = ({ className }: { className?: string }) => {
   const handleSubmitOnSearchPage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
 
     if (query) {
       params.set("query", query);
@@ -41,6 +42,7 @@ const SearchForm = ({ className }: { className?: string }) => {
     console.log(query);
 
     const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
 
     if (query) {
       params.set("query", query);

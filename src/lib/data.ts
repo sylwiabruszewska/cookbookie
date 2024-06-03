@@ -105,7 +105,6 @@ export async function fetchUserRecipes(currentPage: number) {
     const recipes = data.rows.flat();
 
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
-    console.log("count", totalPages);
     return { recipes, totalPages };
   } catch (error) {
     console.error("Database Error:", error);

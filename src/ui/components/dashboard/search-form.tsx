@@ -13,14 +13,32 @@ const SearchForm = ({ className }: { className?: string }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     const currentQuery = searchParams.get("query") || "";
     setQuery(currentQuery);
   }, [searchParams]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitOnSearchPage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const params = new URLSearchParams(searchParams);
+
+    if (query) {
+      params.set("query", query);
+    } else {
+      params.delete("query");
+    }
+    replace(`${pathname}?${params.toString()}`);
+  };
+
+  const handleSubmitOnDashboardPage = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    document
+      .getElementById("search-results")
+      ?.scrollIntoView({ behavior: "smooth" });
+    console.log("search dashboard");
+    console.log(query);
 
     const params = new URLSearchParams(searchParams);
 
@@ -30,7 +48,7 @@ const SearchForm = ({ className }: { className?: string }) => {
       params.delete("query");
     }
 
-    replace(`${pathname}?${params.toString()}`);
+    router.replace(`/dashboard/search?${params.toString()}`);
   };
 
   const handleOnInputChange = (query: string) => {
@@ -39,7 +57,11 @@ const SearchForm = ({ className }: { className?: string }) => {
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={
+        pathname === "/dashboard/search"
+          ? handleSubmitOnSearchPage
+          : handleSubmitOnDashboardPage
+      }
       className={clsx("w-[300px] lg:w-[400px]", className)}
     >
       <div className="relative">

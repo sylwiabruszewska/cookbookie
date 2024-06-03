@@ -80,22 +80,33 @@ export async function getUserIdByEmail(email: string): Promise<string | null> {
 }
 
 // ***** USER RECIPES *****
-export async function fetchUserRecipes(): Promise<Recipe[]> {
+export async function fetchUserRecipes(currentPage: number) {
   noStore();
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
-    const userEmail = await getUserEmail();
+    const userId = await getUserId();
 
     const data = await sql<Recipe[]>`
       SELECT recipes.*
       FROM recipes
       JOIN users ON recipes.owner_id = users.id
-      WHERE users.email = ${userEmail}
+      WHERE users.id = ${userId}
       ORDER BY created_at DESC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
-    const recipes: Recipe[] = data.rows.flat();
-    return recipes;
+    const count = await sql`
+    SELECT COUNT(*) as count
+    FROM recipes
+    WHERE owner_id = ${userId}
+  `;
+
+    const recipes = data.rows.flat();
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    console.log("count", totalPages);
+    return { recipes, totalPages };
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch user recipes.");

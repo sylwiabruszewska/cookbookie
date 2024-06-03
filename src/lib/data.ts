@@ -178,8 +178,9 @@ export async function fetchRecipeById(
   }
 }
 
-export async function fetchUserFavorites(): Promise<Recipe[]> {
+export async function fetchUserFavorites(currentPage: number) {
   noStore();
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
     const userId = await getUserId();
@@ -191,10 +192,20 @@ export async function fetchUserFavorites(): Promise<Recipe[]> {
     WHERE UserFavorites.userId = ${userId}
       AND (recipes.owner_id = ${userId} OR recipes.is_public = true)
     ORDER BY UserFavorites.addedAt DESC
+    LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
   `;
 
-    const recipes: Recipe[] = data.rows.flat();
-    return recipes;
+    const count = await sql`
+      SELECT COUNT(*) AS count
+      FROM UserFavorites
+      WHERE userId = ${userId}
+    `;
+
+    const recipes = data.rows.flat();
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+
+    return { recipes, totalPages };
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch user recipes.");

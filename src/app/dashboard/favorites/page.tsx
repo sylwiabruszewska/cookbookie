@@ -1,15 +1,31 @@
 import { fetchUserFavorites } from "@lib/data";
 import { MyFavorites } from "@ui/components/favorites/my-favorites";
+import Pagination from "@ui/pagination";
 
-export default async function Page() {
-  const recipes = await fetchUserFavorites();
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: {
+    page?: string;
+  };
+}) {
+  const currentPage = Number(searchParams?.page) || 1;
+  const { recipes, totalPages } = await fetchUserFavorites(currentPage);
 
   return (
     <div>
       <h2 className="heading-l">Favorites</h2>
 
       {recipes && recipes.length > 0 ? (
-        <MyFavorites recipes={recipes} />
+        <>
+          <MyFavorites recipes={recipes} />
+
+          {totalPages > 0 && (
+            <div className="mt-20 flex justify-center">
+              <Pagination totalPages={totalPages} />
+            </div>
+          )}
+        </>
       ) : (
         <p>Add some recipes to favorites!</p>
       )}

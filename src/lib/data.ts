@@ -247,7 +247,7 @@ export async function fetchUserShoppingList() {
 }
 
 // FETCH FILTERED RECIPES
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 2;
 
 export async function fetchFilteredRecipes(query: string, currentPage: number) {
   noStore();
@@ -269,5 +269,25 @@ export async function fetchFilteredRecipes(query: string, currentPage: number) {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch recipes.");
+  }
+}
+
+// FETCH TOTAL PAGES
+export async function fetchRecipesPages(query: string) {
+  noStore();
+
+  try {
+    const count = await sql`SELECT COUNT(*)
+    FROM RECIPES
+    WHERE
+    recipes.title ILIKE ${`%${query}%`} OR
+    recipes.description ILIKE ${`%${query}%`}
+  `;
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of recipes.");
   }
 }

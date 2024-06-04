@@ -30,7 +30,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories, page }) => {
   const activeCategory = searchParams.get("category");
 
   return (
-    <ul className="flex flex-wrap gap-4 mb-12">
+    <ul className="flex flex-wrap gap-10 mb-12">
       {categories.map((category) => (
         <li key={category.id} className="mb-4">
           <Button

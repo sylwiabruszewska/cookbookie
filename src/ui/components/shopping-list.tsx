@@ -37,7 +37,7 @@ const ShoppingList: React.FC<ShoppingListProps> = ({ userShoppingList }) => {
           >
             <div className="w-1/2">{ingredient.ingredient}</div>
             <div className="w-1/4 flex justify-center">{`${ingredient.quantity} ${ingredient.quantityUnit}`}</div>
-            <div className="w-1/4 flex justify-center">
+            <div className="w-1/4 flex justify-end">
               <Button
                 className="btn-icon"
                 onClick={() => handleRemoveFromShoppingList(ingredient.id)}

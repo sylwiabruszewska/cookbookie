@@ -33,7 +33,7 @@ const ShoppingList: React.FC<ShoppingListProps> = ({ userShoppingList }) => {
         {userShoppingList.map((ingredient: Ingredient) => (
           <li
             key={ingredient.id}
-            className="flex justify-between space-x-2 items-center pb-2 border-b border-gray-300"
+            className="flex justify-between space-x-2 items-center border-b border-gray-300"
           >
             <div className="w-1/2">{ingredient.ingredient}</div>
             <div className="w-1/4 flex justify-center">{`${ingredient.quantity} ${ingredient.quantityUnit}`}</div>

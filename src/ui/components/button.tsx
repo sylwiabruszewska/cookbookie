@@ -14,7 +14,7 @@ export function Button({
   className,
 }: ButtonProps) {
   const baseClass =
-    "flex items-center justify-center text-sm font-medium h-10 transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2";
+    "flex items-center justify-center font-medium h-10 transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2";
 
   return (
     <button

@@ -129,7 +129,7 @@ export async function fetchRecentRecipes(categoryId: string) {
   noStore();
 
   try {
-    const recentRecipes = await sql<Recipe>`
+    const recentRecipes = await sql<RecipeWithFavoriteStatus>`
     SELECT recipes.id, recipes.title, recipes.description, recipes.images
     FROM recipes
     JOIN categories ON recipes.category_id = categories.id

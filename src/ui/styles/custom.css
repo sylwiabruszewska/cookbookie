@@ -28,11 +28,11 @@
 }
 
 .heading-l {
-  @apply text-xl font-semibold mb-8;
+  @apply text-2xl font-semibold mt-8 mb-16;
 }
 
 .hover-green {
-  @apply hover:text-[--primary-color];
+  @apply hover:text-[--primary-color] duration-300 transition-colors;
 }
 
 .custom-scroll::-webkit-scrollbar {
@@ -70,7 +70,7 @@
 }
 
 .btn-transparent {
-  @apply bg-transparent h-10 px-5  hover:underline hover:underline-offset-8 rounded-lg;
+  @apply bg-transparent h-10 hover:underline hover:underline-offset-8 rounded-lg;
 }
 
 .btn-rounded {

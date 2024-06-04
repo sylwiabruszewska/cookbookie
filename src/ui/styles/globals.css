@@ -6,7 +6,7 @@
 
 :root {
   --foreground: #000000;
-  --background-end: #ffffff;
+  --background: #ffffff;
   --primary-color: #8baa36;
   --green-light: #ebf3d4;
   --gray: #d9d9d9;
@@ -27,17 +27,8 @@ body {
   color: var(--foreground);
   background-color: var(--background);
   font-size: 14px;
+  color: var(--font);
 }
-
-/* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
 
 @layer utilities {
   .text-balance {
@@ -46,8 +37,8 @@ body {
 }
 
 /* NAVIGATION */
-nav a:hover {
-  color: var(--primary-color);
+nav a {
+  @apply hover:text-[--primary-color] duration-300 transition-colors;
 }
 
 .main-background {

@@ -183,7 +183,7 @@ export default function EditForm({
                   {form.values.ingredients.map(
                     (ingredient: Ingredient, index: number) => (
                       <div
-                        className="flex justify-between space-x-2 space-y-2 align-center"
+                        className="flex justify-between space-x-2 mb-2 align-center"
                         key={index}
                       >
                         <div>

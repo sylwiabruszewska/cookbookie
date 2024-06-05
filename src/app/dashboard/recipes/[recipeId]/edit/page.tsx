@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 import { fetchCategories, fetchRecipeById } from "@lib/data";
 import EditForm from "@ui/components/recipes/edit-form";
+import { Loader } from "@ui/components/loader";
 
 export default async function Page({
   params,
@@ -20,8 +22,8 @@ export default async function Page({
   }
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       <EditForm recipe={recipe} categories={categories} />
-    </>
+    </Suspense>
   );
 }

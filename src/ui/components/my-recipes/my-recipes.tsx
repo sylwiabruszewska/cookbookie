@@ -7,7 +7,7 @@ interface MyRecipesComponentProps {
 
 export const MyRecipes: React.FC<MyRecipesComponentProps> = ({ recipes }) => {
   return (
-    <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-12">
       {recipes.map((recipe) => (
         <li key={recipe.id} className="mb-4">
           <RecipeCardMedium

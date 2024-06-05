@@ -9,7 +9,7 @@ interface RecipeCardSmallProps {
 export default function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
   return (
     <Link href={`/dashboard/recipes/${recipe.id}`} className="group">
-      <div className="relative w-full h-[340px] md:h-[240px] lg:h-[340px] rounded-lg overflow-hidden">
+      <div className="relative w-full h-[340px] rounded-lg overflow-hidden">
         <Image
           src={recipe.images[0]}
           fill

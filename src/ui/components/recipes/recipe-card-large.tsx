@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "@/ui/components/button";
 import { Ingredient, RecipeWithFavoriteStatus } from "@lib/definitions";
@@ -99,43 +101,50 @@ export default function RecipeCardLarge({
   };
 
   return (
-    <div className="flex flex-col gap-4 justify-center">
-      <h2 className="heading-l text-[--primary-color] mt-4 mb-4 text-center">
-        {recipe.title}
-      </h2>
-      <p className="text-center">{recipe.description}</p>
+    <div className="flex flex-col gap-4 justify-center md:gap-12 lg:w-1/2 lg:mx-auto md:my-12">
+      <div className="flex flex-col justify-center gap-4">
+        <h2 className="heading-l text-[32px] text-[--primary-color] mt-4 mb-4 text-center">
+          {recipe.title}
+        </h2>
+        <p className="text-center">{recipe.description}</p>
 
-      <Button
-        onClick={handleToggleFavorites}
-        className="self-center btn-rounded"
-      >
-        {isFavorite
-          ? "Remove from favorite recipes"
-          : "Add to favorite recipes"}
-      </Button>
-      <div className="flex justify-center items-center gap-2">
-        <Image
-          src="/icons/clock.svg"
-          width={20}
-          height={20}
-          alt="Clock"
-          className="object-cover"
-        />
-        <span className="text-center">{recipe.cooking_time}</span>
+        <Button
+          onClick={handleToggleFavorites}
+          className="self-center btn-rounded"
+        >
+          <FontAwesomeIcon
+            icon={faStar}
+            aria-label="Add to favorites"
+            className="h-4 w-4 mr-4"
+          />
+          {isFavorite
+            ? "Remove from favorite recipes"
+            : "Add to favorite recipes"}
+        </Button>
+        <div className="flex justify-center items-center gap-2">
+          <Image
+            src="/icons/clock.svg"
+            width={20}
+            height={20}
+            alt="Clock"
+            className="object-cover"
+          />
+          <span className="text-center">{recipe.cooking_time}</span>
+        </div>
       </div>
 
-      <div className="relative w-[343px] h-[343px] rounded-lg overflow-hidden">
+      <div className="relative w-[343px] h-[343px] rounded-lg overflow-hidden md:mx-auto md:w-full md:h-[600px]">
         <Image
           src={recipe.images[0]}
           fill
           alt={recipe.title}
           className="object-cover"
-          sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+          sizes="(max-width: 768px) 100vw, 50vw"
         />
       </div>
 
       <div className="mb-4">
-        <div className="flex justify-between space-x-2 mb-4 bg-[--primary-color] text-white p-2 rounded-lg">
+        <div className="flex justify-between space-x-2 bg-[--primary-color] text-white p-2 rounded-lg">
           <div className="w-1/2">Ingredients</div>
           <div className="w-1/4 flex justify-center">Quantity</div>
           <div className="w-1/4 flex justify-center">Add to list</div>

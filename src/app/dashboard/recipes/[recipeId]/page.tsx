@@ -1,6 +1,9 @@
+import { Suspense } from "react";
+import { notFound } from "next/navigation";
+
 import RecipeCardLarge from "@ui/components/recipes/recipe-card-large";
 import { fetchRecipeById, fetchUserShoppingList } from "@lib/data";
-import { notFound } from "next/navigation";
+import { Loader } from "@ui/components/loader";
 
 export default async function Page({
   params,
@@ -16,9 +19,11 @@ export default async function Page({
     notFound();
   }
 
+  const keyString = `recipe-id-${params.recipeId}`;
+
   return (
-    <div>
+    <Suspense key={keyString} fallback={<Loader />}>
       <RecipeCardLarge recipe={recipe} userShoppingList={userShoppingList} />
-    </div>
+    </Suspense>
   );
 }

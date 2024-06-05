@@ -26,12 +26,15 @@ export async function CategoryRecipesContent({
   return (
     <div>
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {recipes.length > 0 &&
+        {recipes.length > 0 ? (
           recipes.map((recipe) => (
             <li key={recipe.id} className="w-full">
               <RecipeCardSmall recipe={recipe} />
             </li>
-          ))}
+          ))
+        ) : (
+          <div>No recipes found.</div>
+        )}
       </ul>
 
       {totalPages > 1 && (

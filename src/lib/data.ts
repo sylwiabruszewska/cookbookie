@@ -338,7 +338,7 @@ export async function fetchFilteredRecipes(query: string, currentPage: number) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
-    const recipes = await sql<Recipe>`
+    const recipes = await sql<RecipeWithFavoriteStatus>`
     SELECT recipes.*
     FROM recipes
       WHERE

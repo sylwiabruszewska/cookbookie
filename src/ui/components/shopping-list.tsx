@@ -12,7 +12,9 @@ interface ShoppingListProps {
   userShoppingList: Ingredient[];
 }
 
-const ShoppingList: React.FC<ShoppingListProps> = ({ userShoppingList }) => {
+export const ShoppingList: React.FC<ShoppingListProps> = ({
+  userShoppingList,
+}) => {
   const handleRemoveFromShoppingList = async (ingredientId: string) => {
     try {
       await removeFromShoppingList(ingredientId);
@@ -55,5 +57,3 @@ const ShoppingList: React.FC<ShoppingListProps> = ({ userShoppingList }) => {
     </>
   );
 };
-
-export default ShoppingList;

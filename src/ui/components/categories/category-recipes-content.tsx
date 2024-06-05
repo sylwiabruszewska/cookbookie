@@ -2,7 +2,7 @@ import RecipeCardSmall from "@/ui/components/recipe-card-small";
 import { fetchCategoryRecipes, fetchRecipes } from "@lib/data";
 import Pagination from "@/ui/components/pagination";
 
-export async function CategoryTable({
+export async function CategoryRecipesContent({
   category,
   page,
 }: {
@@ -22,9 +22,6 @@ export async function CategoryTable({
     recipes = allRecipes;
     totalPages = allTotalPages;
   }
-
-  //   const { recipes, totalPages } = await fetchCategoryRecipes(category, page);
-  // const allRecipes = await fetchRecipes();
 
   return (
     <div>

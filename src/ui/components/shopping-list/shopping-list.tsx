@@ -26,7 +26,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
 
   return (
     <>
-      <div className="flex justify-between space-x-2 mb-4 bg-[--primary-color] text-white p-2 rounded-lg">
+      <div className="flex justify-between space-x-2 bg-[--primary-color] text-white p-2 rounded-lg">
         <div className="w-1/2">Product</div>
         <div className="w-1/4 flex justify-center">Quantity</div>
         <div className="w-1/4 flex justify-center">Remove</div>

@@ -330,7 +330,7 @@ export async function fetchUserShoppingList() {
 }
 
 // FETCH FILTERED RECIPES
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE = 8;
 
 export async function fetchFilteredRecipes(query: string, currentPage: number) {
   noStore();

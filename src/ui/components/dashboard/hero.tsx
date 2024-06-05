@@ -7,7 +7,7 @@ import Background from "@/ui/components/dashboard/background";
 
 const HeroSection = () => {
   return (
-    <div className="h-[90vh] md:min-h-[500px] md:h-[50%] lg:h-[90vh] py-4 md:py-8 lg:px-14 ">
+    <div className="h-[90vh] md:min-h-[500px] md:h-[50%] lg:h-[90vh] py-4 md:py-8 lg:px-14 md:mb-12">
       <Background />
 
       <div className="flex flex-col md:flex-row gap-8 lg:gap-20 justify-between items-center">

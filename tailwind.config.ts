@@ -25,6 +25,8 @@ const config: Config = {
       },
       animation: {
         "checkmark-in": "checkmark-in 2s forwards",
+        "scale-up": "scale-up 2s ease-in-out infinite",
+        shimmer: "shimmer 2s infinite",
       },
       keyframes: {
         "checkmark-in": {
@@ -35,6 +37,17 @@ const config: Config = {
         shimmer: {
           "100%": {
             transform: "translateX(100%)",
+          },
+        },
+        "scale-up": {
+          "0%": {
+            transform: "scale(1)",
+          },
+          "50%": {
+            transform: "scale(1.3)",
+          },
+          "100%": {
+            transform: "scale(1)",
           },
         },
       },

@@ -84,3 +84,28 @@
 .btn-bordered {
   @apply bg-[--primary-color] text-white border-2 border-[--primary-color] hover:bg-transparent hover:border-white rounded-lg px-2;
 }
+
+/* LOADER */
+.loader-container {
+  @apply flex gap-4 justify-center items-center mt-12 mb-12;
+}
+
+.loader-icon:nth-child(1) {
+  animation-delay: 100ms;
+}
+
+.loader-icon:nth-child(2) {
+  animation-delay: 300ms;
+}
+
+.loader-icon:nth-child(4) {
+  animation-delay: 200ms;
+}
+
+.loader-icon:nth-child(5) {
+  animation-delay: 100ms;
+}
+
+.shimmer {
+  @apply before:absolute before:inset-0 before:-translate-x-full before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent;
+}

@@ -3,7 +3,14 @@ import { createEdgeStoreNextHandler } from "@edgestore/server/adapters/next/app"
 const es = initEdgeStore.create();
 
 const edgeStoreRouter = es.router({
-  publicFiles: es.fileBucket(),
+  publicFiles: es
+    .imageBucket()
+    .beforeUpload(() => {
+      return true;
+    })
+    .beforeDelete(() => {
+      return true;
+    }),
 });
 const handler = createEdgeStoreNextHandler({
   router: edgeStoreRouter,

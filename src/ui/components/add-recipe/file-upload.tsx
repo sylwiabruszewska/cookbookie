@@ -6,14 +6,25 @@ import { v4 as uuidv4 } from "uuid";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { useEdgeStore } from "@lib/edgestore";
 
 interface FileUploadProps {
   initialImages?: string[];
+  onFilesUploaded?: (urls: string[]) => void;
 }
 
-export const FileUpload: FC<FileUploadProps> = ({ initialImages = [] }) => {
+export const FileUpload: FC<FileUploadProps> = ({
+  initialImages = [],
+  onFilesUploaded,
+}) => {
   const [files, setFiles] = useState<
-    { id: string; file: File | null; preview: string; loaded: boolean }[]
+    {
+      id: string;
+      file: File | null;
+      preview: string;
+      loaded: boolean;
+      url?: string;
+    }[]
   >(
     initialImages.map((image) => ({
       id: uuidv4(),
@@ -23,9 +34,10 @@ export const FileUpload: FC<FileUploadProps> = ({ initialImages = [] }) => {
     }))
   );
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const { edgestore } = useEdgeStore();
 
   const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
+    async (acceptedFiles: File[]) => {
       setErrorMessage("");
 
       const newFiles = acceptedFiles.map((file) => ({
@@ -34,9 +46,34 @@ export const FileUpload: FC<FileUploadProps> = ({ initialImages = [] }) => {
         preview: URL.createObjectURL(file),
         loaded: false,
       }));
-      setFiles([...files, ...newFiles]);
+
+      const uploadFilesToServer = async (files: File[]) => {
+        const uploadedFiles = await Promise.all(
+          files.map(async (file) => {
+            const response = await edgestore.publicFiles.upload({ file });
+            return response.url;
+          })
+        );
+        return uploadedFiles;
+      };
+
+      try {
+        const urls = await uploadFilesToServer(acceptedFiles);
+        const updatedFiles = newFiles.map((file, index) => ({
+          ...file,
+          url: urls[index],
+        }));
+
+        setFiles((prevFiles) => [...prevFiles, ...updatedFiles]);
+
+        if (onFilesUploaded) {
+          onFilesUploaded(urls);
+        }
+      } catch (error) {
+        setErrorMessage("Failed to upload files. Please try again.");
+      }
     },
-    [files]
+    [edgestore.publicFiles, onFilesUploaded]
   );
 
   const handleImageLoad = (id: string) => {

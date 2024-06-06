@@ -24,9 +24,16 @@ import {
 } from "@/lib/definitions";
 import { recipeValidationSchema } from "@utils/validationSchemas";
 import { addRecipe } from "@lib/actions";
+import { useState } from "react";
 
 export default function AddRecipeForm({ categories }: CategoriesProps) {
   const router = useRouter();
+
+  const [fileUrls, setFileUrls] = useState<string[]>([]);
+
+  const handleFilesUploaded = (urls: string[]) => {
+    setFileUrls(urls);
+  };
 
   const initialValues: RecipeFormProps = {
     title: "",
@@ -55,7 +62,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
 
       const recipe = {
         ...values,
-        images: ["/pancakes.png"],
+        images: fileUrls,
         category: selectedCategory.id,
       };
 
@@ -85,7 +92,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
       >
         {({ isSubmitting }) => (
           <Form className="mb-8 flex flex-col gap-4">
-            <FileUpload />
+            <FileUpload onFilesUploaded={handleFilesUploaded} />
 
             <div>
               <Input

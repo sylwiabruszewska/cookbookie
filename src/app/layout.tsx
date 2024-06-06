@@ -4,6 +4,7 @@ import "@/ui/styles/globals.css";
 import Provider from "@ui/components/provider";
 import { Toaster } from "react-hot-toast";
 import { toasterConfig } from "@config/toaster";
+import { EdgeStoreProvider } from "@lib/edgestore";
 
 export const metadata: Metadata = {
   title: "CookBookie",
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Provider>{children}</Provider>
+        <Provider>
+          <EdgeStoreProvider>{children}</EdgeStoreProvider>
+        </Provider>
         <Toaster {...toasterConfig} />
       </body>
     </html>

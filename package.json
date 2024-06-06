@@ -10,6 +10,8 @@
     "init": "node -r dotenv/config ./src/scripts/init.js"
   },
   "dependencies": {
+    "@edgestore/react": "^0.1.6",
+    "@edgestore/server": "^0.1.6",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@vercel/postgres": "^0.8.0",

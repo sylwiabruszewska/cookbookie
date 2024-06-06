@@ -6,6 +6,7 @@ import { Formik, Form, FormikHelpers, FieldArray, ErrorMessage } from "formik";
 import { v4 as uuidv4 } from "uuid";
 import { notFound, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 import { Input } from "@ui/components/add-recipe/input";
 import { Select } from "@ui/components/add-recipe/select";
@@ -23,6 +24,7 @@ import {
 } from "@/lib/definitions";
 import { recipeValidationSchema } from "@utils/validationSchemas";
 import { updateRecipe } from "@lib/actions";
+import { useEdgeStore } from "@lib/edgestore";
 
 export default function EditForm({
   categories,
@@ -32,6 +34,13 @@ export default function EditForm({
   recipe: RecipeWithFavoriteStatus;
 }) {
   const router = useRouter();
+
+  const [fileUrls, setFileUrls] = useState<string[]>([]);
+  const { edgestore } = useEdgeStore();
+
+  const handleFilesUploaded = (urls: string[]) => {
+    setFileUrls(urls);
+  };
 
   const recipeId = recipe.id;
 
@@ -62,6 +71,18 @@ export default function EditForm({
     isPublic: recipe.is_public,
   };
 
+  const confirmUploads = async (fileUrls: string[]) => {
+    try {
+      for (const urlToConfirm of fileUrls) {
+        await edgestore.publicFiles.confirmUpload({ url: urlToConfirm });
+        console.log(`Confirmed upload for ${urlToConfirm}`);
+      }
+      console.log("All uploads confirmed successfully.");
+    } catch (error) {
+      console.error("Error confirming uploads:", error);
+    }
+  };
+
   const handleSubmit = async (
     values: RecipeFormProps,
     { setSubmitting, resetForm }: FormikHelpers<RecipeFormProps>
@@ -75,8 +96,17 @@ export default function EditForm({
         throw new Error("Selected category not found.");
       }
 
+      let recipeImages;
+
+      if (fileUrls.length > 0) {
+        confirmUploads(fileUrls);
+        recipeImages = fileUrls;
+      } else {
+        recipeImages = ["/placeholder.png"];
+      }
+
       const recipe = {
-        images: ["/pancakes.png"],
+        images: recipeImages,
         title: values.title,
         description: values.description,
         category: selectedCategory.id,
@@ -112,7 +142,10 @@ export default function EditForm({
       >
         {({ isSubmitting, values }) => (
           <Form className="mb-8 flex flex-col gap-4">
-            <FileUpload initialImages={recipe.images} />
+            <FileUpload
+              onFilesUploaded={handleFilesUploaded}
+              initialImages={recipe.images}
+            />
 
             <div>
               <Input

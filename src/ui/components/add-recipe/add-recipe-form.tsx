@@ -7,6 +7,7 @@ import { Formik, Form, FormikHelpers, FieldArray, ErrorMessage } from "formik";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 import { Input } from "@ui/components/add-recipe/input";
 import { Select } from "@ui/components/add-recipe/select";
@@ -24,12 +25,13 @@ import {
 } from "@/lib/definitions";
 import { recipeValidationSchema } from "@utils/validationSchemas";
 import { addRecipe } from "@lib/actions";
-import { useState } from "react";
+import { useEdgeStore } from "@lib/edgestore";
 
 export default function AddRecipeForm({ categories }: CategoriesProps) {
   const router = useRouter();
 
   const [fileUrls, setFileUrls] = useState<string[]>([]);
+  const { edgestore } = useEdgeStore();
 
   const handleFilesUploaded = (urls: string[]) => {
     setFileUrls(urls);
@@ -47,6 +49,18 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
     isPublic: true,
   };
 
+  const confirmUploads = async (fileUrls: string[]) => {
+    try {
+      for (const urlToConfirm of fileUrls) {
+        await edgestore.publicFiles.confirmUpload({ url: urlToConfirm });
+        console.log(`Confirmed upload for ${urlToConfirm}`);
+      }
+      console.log("All uploads confirmed successfully.");
+    } catch (error) {
+      console.error("Error confirming uploads:", error);
+    }
+  };
+
   const handleSubmit = async (
     values: RecipeFormProps,
     { setSubmitting, resetForm }: FormikHelpers<RecipeFormProps>
@@ -60,9 +74,18 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
         throw new Error("Selected category not found.");
       }
 
+      let recipeImages;
+
+      if (fileUrls.length > 0) {
+        confirmUploads(fileUrls);
+        recipeImages = fileUrls;
+      } else {
+        recipeImages = ["/placeholder.png"];
+      }
+
       const recipe = {
         ...values,
-        images: fileUrls,
+        images: recipeImages,
         category: selectedCategory.id,
       };
 
@@ -73,7 +96,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
       }
 
       toast.success("Recipe added successfully! Time to get cooking 👨‍🍳");
-      router.push("/dashboard/my-recipes");
+      // router.push("/dashboard/my-recipes");
     } catch (error) {
       toast.error("Oops! Something went wrong. Please try again soon.");
     } finally {

@@ -40,6 +40,11 @@ export const FileUpload: FC<FileUploadProps> = ({
     async (acceptedFiles: File[]) => {
       setErrorMessage("");
 
+      if (files.length + acceptedFiles.length > 4) {
+        setErrorMessage("You can upload max 4 files.");
+        return;
+      }
+
       const newFiles = acceptedFiles.map((file) => ({
         id: uuidv4(),
         file,
@@ -50,7 +55,12 @@ export const FileUpload: FC<FileUploadProps> = ({
       const uploadFilesToServer = async (files: File[]) => {
         const uploadedFiles = await Promise.all(
           files.map(async (file) => {
-            const response = await edgestore.publicFiles.upload({ file });
+            const response = await edgestore.publicFiles.upload({
+              file,
+              options: {
+                temporary: true,
+              },
+            });
             return response.url;
           })
         );
@@ -73,7 +83,7 @@ export const FileUpload: FC<FileUploadProps> = ({
         setErrorMessage("Failed to upload files. Please try again.");
       }
     },
-    [edgestore.publicFiles, onFilesUploaded]
+    [edgestore.publicFiles, files.length, onFilesUploaded]
   );
 
   const handleImageLoad = (id: string) => {
@@ -85,12 +95,16 @@ export const FileUpload: FC<FileUploadProps> = ({
   };
 
   const handleDropRejected = (fileRejections: FileRejection[]) => {
-    const rejectedFile = fileRejections[0].file;
-    if (rejectedFile.size > 4 * 1024 * 1024) {
+    const maxSizeError = fileRejections.find(
+      (rejection) => rejection.file.size > 4 * 1024 * 1024 // 4 MB
+    );
+    const maxFilesError = fileRejections.length > 4;
+
+    if (maxSizeError) {
       setErrorMessage(
         "The file size is too large. Maximum size allowed is 4MB."
       );
-    } else if (fileRejections.length > 4) {
+    } else if (maxFilesError) {
       setErrorMessage("You can upload max 4 files.");
     } else {
       setErrorMessage("File upload failed. Please try again.");
@@ -118,15 +132,27 @@ export const FileUpload: FC<FileUploadProps> = ({
     };
   }, [files]);
 
-  const removeFile = (
+  const removeFile = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: string
   ) => {
     event.preventDefault();
     event.stopPropagation();
 
+    const fileToRemove = files.find((file) => file.id === id);
+
     const newFiles = files.filter((file) => file.id !== id);
     setFiles(newFiles);
+
+    if (fileToRemove) {
+      try {
+        if (fileToRemove.url) {
+          await edgestore.publicFiles.delete({ url: fileToRemove.url });
+        }
+      } catch (error) {
+        console.error("Error deleting image:", error);
+      }
+    }
   };
 
   const getGridClass = () => {
@@ -177,7 +203,7 @@ export const FileUpload: FC<FileUploadProps> = ({
 
           {files.length > 0 && (
             <div
-              className={`grid gap-4 p-4 w-full h-full ${getGridClass()}`}
+              className={`bg-white rounded-[15px] overflow-hidden grid gap-4 p-4 w-full h-full ${getGridClass()}`}
               style={{ gridTemplateRows: files.length === 3 ? "1fr 1fr" : "" }}
             >
               {files.map((file) => (

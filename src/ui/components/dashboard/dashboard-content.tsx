@@ -32,7 +32,7 @@ export async function DashboardContent() {
             return (
               <li key={category.id} className="mb-8">
                 <CategoryCard
-                  title={category.name}
+                  name={category.name}
                   recentRecipes={recentRecipes}
                   totalRecipes={totalRecipes}
                 />

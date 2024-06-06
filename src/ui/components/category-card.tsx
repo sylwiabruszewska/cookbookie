@@ -1,21 +1,23 @@
+import Link from "next/link";
+
 import RecipeCardSmall from "./recipe-card-small";
 import { Button } from "@/ui/components/button";
 import { RecipeWithFavoriteStatus } from "@lib/definitions";
 
 interface CategoryCardProps {
-  title: string;
+  name: string;
   recentRecipes: RecipeWithFavoriteStatus[];
   totalRecipes: number;
 }
 
 export default function CategoryCard({
-  title,
+  name,
   recentRecipes,
   totalRecipes,
 }: CategoryCardProps) {
   return (
     <div>
-      <h3 className="text-xl font-semibold mb-4">{title}</h3>
+      <h3 className="text-xl font-semibold mb-4">{name}</h3>
       <div className="overflow-hidden">
         <ul className="flex gap-4 overflow-x-auto md:overflow-x-scroll scrollbar-hide snap-x snap-mandatory custom-scroll">
           {recentRecipes.length > 0 ? (
@@ -33,7 +35,9 @@ export default function CategoryCard({
         </ul>
       </div>
       {totalRecipes > 4 && (
-        <Button className="btn-green ml-auto">See all</Button>
+        <Link href={`/dashboard/categories?category=${name}&page=1`}>
+          <Button className="btn-green ml-auto">See all</Button>
+        </Link>
       )}
     </div>
   );

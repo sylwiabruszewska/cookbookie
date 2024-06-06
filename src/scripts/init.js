@@ -77,8 +77,8 @@ async function createUserFavoritesTable(client) {
           recipeId UUID NOT NULL,
           addedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
           PRIMARY KEY (userId, recipeId),
-          FOREIGN KEY (userId) REFERENCES Users(id),
-          FOREIGN KEY (recipeId) REFERENCES Recipes(id)
+          FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE,
+          FOREIGN KEY (recipeId) REFERENCES Recipes(id) ON DELETE CASCADE
     );
       `;
 
@@ -138,7 +138,7 @@ async function createUserShoppingListTable(client) {
 async function main() {
   const client = await db.connect();
 
-  await createUserShoppingListTable(client);
+  await createUserFavoritesTable(client);
 
   await client.end();
 }

@@ -73,7 +73,7 @@ export default function RecipeCardLarge({
   const handleRemoveFromShoppingList = async (ingredientId: string) => {
     try {
       await removeFromShoppingList(ingredientId);
-      toast.success("Ingredient deleted from your shopping list.");
+      toast("Ingredient deleted from your shopping list.");
     } catch (error) {
       toast.error("Oops! Something went wrong. Please try again soon.");
     }
@@ -93,7 +93,7 @@ export default function RecipeCardLarge({
       try {
         await removeFromFavorites(recipeId);
         setIsFavorite(false);
-        toast.success(`${recipe.title} has been removed from your favorites.`);
+        toast(`${recipe.title} has been removed from your favorites.`);
       } catch (error) {
         toast.error("Oops! Something went wrong. Please try again soon.");
       }

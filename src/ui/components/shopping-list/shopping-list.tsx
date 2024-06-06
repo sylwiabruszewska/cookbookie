@@ -18,7 +18,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
   const handleRemoveFromShoppingList = async (ingredientId: string) => {
     try {
       await removeFromShoppingList(ingredientId);
-      toast.success("Ingredient deleted from your shopping list.");
+      toast("Ingredient deleted from your shopping list.");
     } catch (error) {
       toast.error("Oops! Something went wrong. Please try again soon.");
     }

@@ -46,7 +46,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
   const handleRemoveFromFavorites = async () => {
     try {
       await removeFromFavorites(id);
-      toast.success(`${title} has been removed from your favorites.`);
+      toast(`${title} has been removed from your favorites.`);
     } catch (error) {
       toast.error("Oops! Something went wrong. Please try again soon.");
     }

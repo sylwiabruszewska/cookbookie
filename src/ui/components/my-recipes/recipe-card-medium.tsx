@@ -53,7 +53,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
   const handleDeleteRecipe = async () => {
     try {
       await deleteRecipe(id);
-      toast.success(`${title} has been removed from your recipes.`);
+      toast(`${title} has been removed from your recipes.`);
     } catch (error) {
       toast.error("Oops! Something went wrong. Please try again soon.");
     }

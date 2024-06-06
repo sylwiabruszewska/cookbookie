@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Suspense } from "react";
 
 import SearchForm from "@/ui/components/dashboard/search-form";
 import Background from "@/ui/components/dashboard/background";
@@ -21,7 +22,11 @@ const HeroSection = () => {
             fact, your cookbook. You can add your own recipes to save them for
             the future.
           </p>
-          <SearchForm />
+          <Suspense
+            fallback={<div className="h-16 lg:h-18 min-w-[300px]"></div>}
+          >
+            <SearchForm className="mx-auto mb-12" />
+          </Suspense>
         </div>
         <div className="relative w-[320px] h-[296px] md:w-[378px] md:h-[351px] lg:w-[578px] lg:h-[539px]">
           <Image

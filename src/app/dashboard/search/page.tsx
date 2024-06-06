@@ -25,7 +25,10 @@ export default async function Page({
     <div className="flex flex-col justify-center">
       <h2 className="heading-l">Search</h2>
 
-      <SearchForm className="mx-auto mb-12" />
+      <Suspense fallback={<div className="h-16 lg:h-18 min-w-[300px]"></div>}>
+        <SearchForm className="mx-auto mb-12" />
+      </Suspense>
+
       <Suspense key={keyString} fallback={<Loader />}>
         <SearchTable query={query} currentPage={currentPage} />
 

@@ -124,14 +124,23 @@ export async function fetchUserRecipes(currentPage: number) {
   }
 }
 
-// ***** CATEGORY - 3 RECENT RECIPES *****
+// ***** CATEGORY - 4 RECENT RECIPES *****
 export async function fetchRecentRecipes(categoryId: string) {
   noStore();
 
   try {
+    const userId = await getUserId();
+
     const recentRecipes = await sql<RecipeWithFavoriteStatus>`
-    SELECT recipes.id, recipes.title, recipes.description, recipes.images
-    FROM recipes
+    SELECT recipes.*, 
+        CASE 
+          WHEN UserFavorites.recipeId IS NOT NULL THEN TRUE 
+          ELSE FALSE 
+        END AS is_favorite
+      FROM recipes
+      LEFT JOIN UserFavorites 
+        ON recipes.id = UserFavorites.recipeId 
+        AND UserFavorites.userId = ${userId}
     JOIN categories ON recipes.category_id = categories.id
     WHERE recipes.is_public = true AND recipes.category_id = ${categoryId}
     ORDER BY recipes.created_at DESC 

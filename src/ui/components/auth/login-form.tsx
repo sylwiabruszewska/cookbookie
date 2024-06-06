@@ -58,7 +58,6 @@ const LoginForm = () => {
         initialValues={initialValues}
         validationSchema={loginValidationSchema}
         onSubmit={handleSubmit}
-        method="POST"
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col items-center" autoComplete="off">

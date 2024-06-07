@@ -65,7 +65,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
         <div className="flex gap-4 flex-grow">
           <div className="flex-shrink-0 w-[124px] h-[124px] lg:w-[224px] lg:h-[224px] relative rounded-lg overflow-hidden">
             <Image
-              src={images[0]}
+              src={images[0] || "/placeholder.png"}
               fill
               className="object-cover duration-500 transition-transform group-hover:scale-105"
               alt={title}

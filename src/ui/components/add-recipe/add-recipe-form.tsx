@@ -53,9 +53,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
     try {
       for (const urlToConfirm of fileUrls) {
         await edgestore.publicFiles.confirmUpload({ url: urlToConfirm });
-        console.log(`Confirmed upload for ${urlToConfirm}`);
       }
-      console.log("All uploads confirmed successfully.");
     } catch (error) {
       console.error("Error confirming uploads:", error);
     }
@@ -74,29 +72,24 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
         throw new Error("Selected category not found.");
       }
 
-      let recipeImages;
-
-      if (fileUrls.length > 0) {
-        confirmUploads(fileUrls);
-        recipeImages = fileUrls;
-      } else {
-        recipeImages = ["/placeholder.png"];
-      }
-
       const recipe = {
         ...values,
-        images: recipeImages,
+        images: fileUrls.length > 0 ? fileUrls : [],
         category: selectedCategory.id,
       };
 
       const response = await addRecipe(recipe);
+
+      if (fileUrls.length > 0) {
+        await confirmUploads(fileUrls);
+      }
 
       if (!response) {
         throw new Error("Failed to submit recipe");
       }
 
       toast.success("Recipe added successfully! Time to get cooking 👨‍🍳");
-      // router.push("/dashboard/my-recipes");
+      router.push("/dashboard/my-recipes");
     } catch (error) {
       toast.error("Oops! Something went wrong. Please try again soon.");
     } finally {

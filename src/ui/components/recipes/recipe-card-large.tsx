@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "@/ui/components/button";
 import { Ingredient, RecipeWithFavoriteStatus } from "@lib/definitions";
@@ -28,9 +28,35 @@ export default function RecipeCardLarge({
   const [isFavorite, setIsFavorite] = useState(recipe.is_favorite);
   const [shoppingListIds, setShoppingListIds] = useState<string[]>([]);
   const recipeId = recipe.id;
+  const allRecipeImages = recipe.images;
+  const mainPhoto =
+    allRecipeImages.length > 0 ? allRecipeImages[0] : "/placeholder.png";
+  let recipeGallery;
 
   if (!recipeId) {
     notFound();
+  }
+
+  if (allRecipeImages.length > 1) {
+    const recipeImagesWithoutMainPhoto = allRecipeImages.slice(1);
+
+    recipeGallery = recipeImagesWithoutMainPhoto.map((image, index) => {
+      return (
+        <Image
+          key={index}
+          src={image}
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
+          width={500}
+          height={500}
+          alt={recipe.title}
+          className="object-cover mb-8 rounded-lg"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+      );
+    });
   }
 
   useEffect(() => {
@@ -113,7 +139,7 @@ export default function RecipeCardLarge({
           className="self-center btn-rounded"
         >
           <FontAwesomeIcon
-            icon={faStar}
+            icon={faHeart}
             aria-label="Add to favorites"
             className="h-4 w-4 mr-4"
           />
@@ -133,10 +159,15 @@ export default function RecipeCardLarge({
         </div>
       </div>
 
-      <div className="relative w-[343px] h-[343px] rounded-lg overflow-hidden md:mx-auto md:w-full md:h-[600px]">
+      <div className="relative w-[343px] rounded-lg overflow-hidden md:mx-auto md:w-full">
         <Image
-          src={recipe.images[0]}
-          fill
+          src={mainPhoto}
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
+          width={500}
+          height={500}
           alt={recipe.title}
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 50vw"
@@ -186,6 +217,10 @@ export default function RecipeCardLarge({
           ))}
         </ul>
       </div>
+
+      {recipeGallery && (
+        <div className="md:mx-auto md:w-full">{recipeGallery}</div>
+      )}
     </div>
   );
 }

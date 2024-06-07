@@ -75,9 +75,7 @@ export default function EditForm({
     try {
       for (const urlToConfirm of fileUrls) {
         await edgestore.publicFiles.confirmUpload({ url: urlToConfirm });
-        console.log(`Confirmed upload for ${urlToConfirm}`);
       }
-      console.log("All uploads confirmed successfully.");
     } catch (error) {
       console.error("Error confirming uploads:", error);
     }
@@ -96,17 +94,8 @@ export default function EditForm({
         throw new Error("Selected category not found.");
       }
 
-      let recipeImages;
-
-      if (fileUrls.length > 0) {
-        confirmUploads(fileUrls);
-        recipeImages = fileUrls;
-      } else {
-        recipeImages = ["/placeholder.png"];
-      }
-
       const recipe = {
-        images: recipeImages,
+        images: fileUrls.length > 0 ? fileUrls : [],
         title: values.title,
         description: values.description,
         category: selectedCategory.id,
@@ -117,6 +106,10 @@ export default function EditForm({
       };
 
       const response = await updateRecipe(recipeId, recipe);
+
+      if (fileUrls.length > 0) {
+        await confirmUploads(fileUrls);
+      }
 
       if (!response) {
         throw new Error("Failed to submit recipe");

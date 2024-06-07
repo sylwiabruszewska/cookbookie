@@ -25,16 +25,23 @@ export const FileUpload: FC<FileUploadProps> = ({
       loaded: boolean;
       url?: string;
     }[]
-  >(
-    initialImages.map((image) => ({
-      id: uuidv4(),
-      file: null,
-      preview: image,
-      loaded: false,
-    }))
-  );
+  >([]);
+
   const [errorMessage, setErrorMessage] = useState<string>("");
   const { edgestore } = useEdgeStore();
+
+  useEffect(() => {
+    if (initialImages) {
+      const initialFiles = initialImages.map((image) => ({
+        id: uuidv4(),
+        file: null,
+        preview: image,
+        loaded: false,
+        url: image,
+      }));
+      setFiles(initialFiles);
+    }
+  }, [initialImages]);
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
@@ -69,21 +76,23 @@ export const FileUpload: FC<FileUploadProps> = ({
 
       try {
         const urls = await uploadFilesToServer(acceptedFiles);
+        const newUrls = urls.filter((url) => !initialImages.includes(url));
         const updatedFiles = newFiles.map((file, index) => ({
           ...file,
-          url: urls[index],
+          url: newUrls[index],
         }));
 
         setFiles((prevFiles) => [...prevFiles, ...updatedFiles]);
 
         if (onFilesUploaded) {
-          onFilesUploaded(urls);
+          const allUrls = [...initialImages, ...newUrls];
+          onFilesUploaded(allUrls);
         }
       } catch (error) {
         setErrorMessage("Failed to upload files. Please try again.");
       }
     },
-    [edgestore.publicFiles, files.length, onFilesUploaded]
+    [edgestore.publicFiles, files.length, onFilesUploaded, initialImages]
   );
 
   const handleImageLoad = (id: string) => {
@@ -139,19 +148,30 @@ export const FileUpload: FC<FileUploadProps> = ({
     event.preventDefault();
     event.stopPropagation();
 
-    const fileToRemove = files.find((file) => file.id === id);
-
-    const newFiles = files.filter((file) => file.id !== id);
-    setFiles(newFiles);
-
-    if (fileToRemove) {
-      try {
-        if (fileToRemove.url) {
-          await edgestore.publicFiles.delete({ url: fileToRemove.url });
-        }
-      } catch (error) {
-        console.error("Error deleting image:", error);
+    try {
+      const fileToRemove = files.find((file) => file.id === id);
+      if (!fileToRemove) {
+        console.error("File to remove not found");
+        return;
       }
+
+      if (fileToRemove.url) {
+        await edgestore.publicFiles.delete({ url: fileToRemove.url });
+      }
+
+      const updatedFiles = files.filter((file) => file.id !== id);
+
+      setFiles(updatedFiles);
+
+      const allUrls = updatedFiles
+        .map((file) => file.url)
+        .filter((url): url is string => typeof url === "string");
+
+      if (onFilesUploaded) {
+        onFilesUploaded(allUrls);
+      }
+    } catch (error) {
+      console.error("Error deleting image:", error);
     }
   };
 

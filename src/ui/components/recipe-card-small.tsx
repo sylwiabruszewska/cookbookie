@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as favoriteHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as notFavoriteHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/ui/components/button";
@@ -48,7 +49,7 @@ export default function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
     <div className="relative w-full h-[340px] rounded-lg overflow-hidden">
       <Link href={`/dashboard/recipes/${recipe.id}`} className="group">
         <Image
-          src={recipe.images[0]}
+          src={recipe.images[0] || "/placeholder.png"}
           fill
           className="object-cover transform duration-500 transition-transform group-hover:scale-105"
           alt={recipe.title}
@@ -60,21 +61,21 @@ export default function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
       </Link>
       <div className="absolute top-2 right-2 w-10 h-10 rounded-full z-40">
         <Button
-          className="btn-icon bg-[--gray-light] w-7 h-7 lg:w-10 lg:h-10 "
+          className="btn-icon bg-[--gray-light] w-7 h-7 lg:w-10 lg:h-10"
           onClick={handleToggleFavorites}
         >
-          <motion.div whileTap={{ scale: 1.3 }} className="inline-block">
+          <motion.div whileTap={{ scale: 1.5 }} className="inline-block">
             {isFavorite ? (
               <FontAwesomeIcon
-                icon={faStar}
+                icon={favoriteHeart}
                 aria-label="Options"
                 className="h-5 w-5 flex justify-center items-center text-[--primary-color]"
               />
             ) : (
               <FontAwesomeIcon
-                icon={faStar}
+                icon={notFavoriteHeart}
                 aria-label="Options"
-                className="h-5 w-5 flex justify-center items-center text-white"
+                className="h-5 w-5 flex justify-center items-center text-[--primary-color]"
               />
             )}
           </motion.div>

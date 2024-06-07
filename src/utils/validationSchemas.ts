@@ -50,12 +50,15 @@ export const recipeValidationSchema = Yup.object().shape({
         quantityUnit: Yup.string().required("Quantity unit is required"),
       })
     )
-    .required("Ingredients are required"),
-  steps: Yup.array().of(
-    Yup.object().shape({
-      step: Yup.string()
-        .required("Step description is required")
-        .min(1, "At least one step is required"),
-    })
-  ),
+    .required("Ingredients are required")
+    .min(1, "At least one ingredient is required"),
+  steps: Yup.array()
+    .of(
+      Yup.object().shape({
+        step: Yup.string()
+          .required("Step description is required")
+          .max(300, "Step should be at most 300 characters"),
+      })
+    )
+    .min(1, "At least one step is required"),
 });

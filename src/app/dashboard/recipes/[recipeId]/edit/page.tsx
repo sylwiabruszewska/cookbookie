@@ -22,8 +22,11 @@ export default async function Page({
   }
 
   return (
-    <Suspense fallback={<Loader />}>
-      <EditForm recipe={recipe} categories={categories} />
-    </Suspense>
+    <div>
+      <h2 className="heading-l">Edit recipe</h2>
+      <Suspense fallback={<Loader />}>
+        <EditForm recipe={recipe} categories={categories} />
+      </Suspense>
+    </div>
   );
 }

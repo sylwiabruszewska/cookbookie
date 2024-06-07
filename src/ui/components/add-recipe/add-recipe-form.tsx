@@ -99,139 +99,199 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
 
   return (
     <div>
-      <h2 className="heading-l">Add recipe</h2>
-
       <Formik
         initialValues={initialValues}
         validationSchema={recipeValidationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className="mb-8 flex flex-col gap-4">
-            <FileUpload onFilesUploaded={handleFilesUploaded} />
+          <Form className="mb-8 flex flex-col gap-4 lg:w-2/3 mx-auto">
+            <div className="lg:flex lg:gap-12 lg:items-center lg:mb-12">
+              <div className="flex justify-center lg:w-auto mb-12 lg:mb-0">
+                <FileUpload onFilesUploaded={handleFilesUploaded} />
+              </div>
 
-            <div>
-              <Input
-                id="title"
-                name="title"
-                type="text"
-                label="Enter item title"
-                placeholder="Enter item title"
-              />
-              <ErrorMessage
-                name="title"
-                component="div"
-                className="error-text"
-              />
-            </div>
-
-            <div>
-              <TextArea
-                id="description"
-                label="Enter about recipe"
-                placeholder="Enter about recipe"
-              />
-              <ErrorMessage
-                name="description"
-                component="div"
-                className="error-text"
-              />
-            </div>
-
-            <div>
-              {categories && (
-                <Select
-                  id="category"
-                  name="category"
-                  label="Category"
-                  options={categories.map((category: Category) => ({
-                    value: category.name,
-                    label: category.name,
-                  }))}
-                />
-              )}
-              <ErrorMessage
-                name="category"
-                component="div"
-                className="error-text"
-              />
-            </div>
-
-            <div>
-              <TimePicker
-                id="cookingTime"
-                name="cookingTime"
-                label="Cooking Time"
-                placeholder="Cooking Time"
-              />
-              <ErrorMessage
-                name="cookingTime"
-                component="div"
-                className="error-text"
-              />
-            </div>
-
-            <h3 className="text-l font-semibold mb-2">Ingredients</h3>
-
-            <FieldArray name="ingredients">
-              {({ push, remove, form }) => (
+              <div className="flex flex-col gap-4 lg:flex-grow">
                 <div>
-                  {form.values.ingredients.map(
-                    (ingredient: Ingredient, index: number) => (
+                  <Input
+                    id="title"
+                    name="title"
+                    type="text"
+                    label="Enter item title"
+                    placeholder="Enter item title"
+                  />
+                  <ErrorMessage
+                    name="title"
+                    component="div"
+                    className="error-text"
+                  />
+                </div>
+
+                <div>
+                  <TextArea
+                    id="description"
+                    label="Enter about recipe"
+                    placeholder="Enter about recipe"
+                  />
+                  <ErrorMessage
+                    name="description"
+                    component="div"
+                    className="error-text"
+                  />
+                </div>
+
+                <div>
+                  {categories && (
+                    <Select
+                      id="category"
+                      name="category"
+                      label="Category"
+                      options={categories.map((category: Category) => ({
+                        value: category.name,
+                        label: category.name,
+                      }))}
+                    />
+                  )}
+                  <ErrorMessage
+                    name="category"
+                    component="div"
+                    className="error-text"
+                  />
+                </div>
+
+                <div>
+                  <TimePicker
+                    id="cookingTime"
+                    name="cookingTime"
+                    label="Cooking Time"
+                    placeholder="Cooking Time"
+                  />
+                  <ErrorMessage
+                    name="cookingTime"
+                    component="div"
+                    className="error-text"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-l font-semibold mb-2">Ingredients</h3>
+              <FieldArray name="ingredients">
+                {({ push, remove, form }) => (
+                  <div className="space-y-4">
+                    {form.values.ingredients.map(
+                      (ingredient: Ingredient, index: number) => (
+                        <div
+                          className="flex justify-between space-x-2 mb-2 align-center w-full"
+                          key={index}
+                        >
+                          <div className="w-full">
+                            <div className="flex justify-between space-x-2 align-center">
+                              <div className="w-1/2 lg:w-2/3">
+                                <Input
+                                  id={`ingredients.${index}.ingredient`}
+                                  name={`ingredients.${index}.ingredient`}
+                                  type="text"
+                                  label="Ingredient"
+                                  placeholder="Ingredient"
+                                />
+                              </div>
+
+                              <div className="w-1/2 lg:w-1/3 flex items-center space-x-2">
+                                <Input
+                                  id={`ingredients.${index}.quantity`}
+                                  name={`ingredients.${index}.quantity`}
+                                  type="number"
+                                  label="Quantity"
+                                  placeholder="Quantity"
+                                />
+
+                                <Select
+                                  id={`ingredients.${index}.quantityUnit`}
+                                  name={`ingredients.${index}.quantityUnit`}
+                                  label="Unit"
+                                  options={[
+                                    { value: "tbs", label: "tbs" },
+                                    { value: "tsp", label: "tsp" },
+                                    { value: "kg", label: "kg" },
+                                    { value: "g", label: "g" },
+                                    { value: "piece", label: "piece" },
+                                  ]}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="error-text">
+                              <ErrorMessage
+                                name={`ingredients.${index}.ingredient`}
+                                component="div"
+                              />
+                              <ErrorMessage
+                                name={`ingredients.${index}.quantity`}
+                                component="div"
+                              />
+                              <ErrorMessage
+                                name={`ingredients.${index}.quantityUnit`}
+                                component="div"
+                              />
+                            </div>
+                          </div>
+
+                          <Button
+                            className="btn-icon"
+                            onClick={() => remove(index)}
+                          >
+                            <FontAwesomeIcon
+                              icon={faXmark}
+                              aria-label="Remove"
+                              className="h-4 w-4"
+                            />
+                          </Button>
+                        </div>
+                      )
+                    )}
+                    <Button
+                      className="btn-green mb-4 ml-auto h-10 w-10"
+                      onClick={() =>
+                        push({
+                          id: uuidv4(),
+                          ingredient: "",
+                          quantity: "",
+                          quantityUnit: "",
+                        })
+                      }
+                    >
+                      +
+                    </Button>
+                  </div>
+                )}
+              </FieldArray>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-l font-semibold mb-2">Recipe Preparation</h3>
+
+              <FieldArray name="steps">
+                {({ push, remove, form }) => (
+                  <div className="space-y-4">
+                    {form.values.steps.map((step: Step, index: number) => (
                       <div
-                        className="flex justify-between space-x-2 mb-2 align-center"
+                        className="flex justify-between space-x-2 items-start"
                         key={index}
                       >
-                        <div>
-                          <div className="flex justify-between space-x-2 align-center">
-                            <div className="w-1/2">
-                              <Input
-                                id={`ingredients.${index}.ingredient`}
-                                name={`ingredients.${index}.ingredient`}
-                                type="text"
-                                label="Ingredient"
-                                placeholder="Ingredient"
-                              />
-                            </div>
+                        <div className="w-full">
+                          <TextArea
+                            id={`steps.${index}.step`}
+                            label={`Step ${index + 1}`}
+                            placeholder={`Step ${index + 1}`}
+                          />
 
-                            <div className="w-1/2 flex items-center space-x-2">
-                              <Input
-                                id={`ingredients.${index}.quantity`}
-                                name={`ingredients.${index}.quantity`}
-                                type="number"
-                                label="Quantity"
-                                placeholder="Quantity"
-                              />
-
-                              <Select
-                                id={`ingredients.${index}.quantityUnit`}
-                                name={`ingredients.${index}.quantityUnit`}
-                                label="Unit"
-                                options={[
-                                  { value: "tbs", label: "tbs" },
-                                  { value: "tsp", label: "tsp" },
-                                  { value: "kg", label: "kg" },
-                                  { value: "g", label: "g" },
-                                  { value: "piece", label: "piece" },
-                                ]}
-                              />
-                            </div>
-                          </div>
-
-                          <div className="error-text">
-                            <ErrorMessage
-                              name={`ingredients.${index}.ingredient`}
-                              component="div"
-                            />
-                            <ErrorMessage
-                              name={`ingredients.${index}.quantity`}
-                              component="div"
-                            />
-                            <ErrorMessage
-                              name={`ingredients.${index}.quantityUnit`}
-                              component="div"
-                            />
-                          </div>
+                          <ErrorMessage
+                            name={`steps.${index}.step`}
+                            component="div"
+                            className="error-text"
+                          />
                         </div>
 
                         <Button
@@ -245,77 +305,26 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                           />
                         </Button>
                       </div>
-                    )
-                  )}
-                  <Button
-                    className="btn-green mb-4 ml-auto h-10 w-10"
-                    onClick={() =>
-                      push({
-                        id: uuidv4(),
-                        ingredient: "",
-                        quantity: "",
-                        quantityUnit: "",
-                      })
-                    }
-                  >
-                    +
-                  </Button>
-                </div>
-              )}
-            </FieldArray>
-
-            <h3 className="text-l font-semibold mb-2">Recipe Preparation</h3>
-
-            <FieldArray name="steps">
-              {({ push, remove, form }) => (
-                <div>
-                  {form.values.steps.map((step: Step, index: number) => (
-                    <div
-                      className="flex justify-between space-x-2 space-y-2 align-center"
-                      key={index}
+                    ))}
+                    <Button
+                      className="btn-green mb-4 ml-auto h-10 w-10"
+                      onClick={() =>
+                        push({
+                          id: uuidv4(),
+                          step: "",
+                        })
+                      }
                     >
-                      <div className="w-full">
-                        <TextArea
-                          id={`steps.${index}.step`}
-                          label={`Step ${index + 1}`}
-                          placeholder={`Step ${index + 1}`}
-                        />
+                      +
+                    </Button>
+                  </div>
+                )}
+              </FieldArray>
+            </div>
 
-                        <ErrorMessage
-                          name={`steps.${index}.step`}
-                          component="div"
-                          className="error-text"
-                        />
-                      </div>
-
-                      <Button
-                        className="btn-icon"
-                        onClick={() => remove(index)}
-                      >
-                        <FontAwesomeIcon
-                          icon={faXmark}
-                          aria-label="Remove"
-                          className="h-4 w-4"
-                        />
-                      </Button>
-                    </div>
-                  ))}
-                  <Button
-                    className="btn-green mb-4 ml-auto h-10 w-10"
-                    onClick={() =>
-                      push({
-                        id: uuidv4(),
-                        step: "",
-                      })
-                    }
-                  >
-                    +
-                  </Button>
-                </div>
-              )}
-            </FieldArray>
-
-            <Switch name="isPublic" />
+            <div className="self-start">
+              <Switch name="isPublic" />
+            </div>
 
             <Button
               className="mx-auto mt-10 btn-rounded"

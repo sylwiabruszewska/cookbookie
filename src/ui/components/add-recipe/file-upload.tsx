@@ -191,7 +191,7 @@ export const FileUpload: FC<FileUploadProps> = ({
   };
 
   return (
-    <div className="relative mb-12">
+    <div className="relative">
       <div className="w-[300px] h-[300px] p-2 bg-[--primary-color] flex flex-col justify-center items-center rounded-[30px] overflow-hidden">
         <div
           {...getRootProps()}

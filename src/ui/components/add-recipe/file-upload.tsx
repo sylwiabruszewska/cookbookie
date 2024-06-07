@@ -31,7 +31,7 @@ export const FileUpload: FC<FileUploadProps> = ({
   const { edgestore } = useEdgeStore();
 
   useEffect(() => {
-    if (initialImages) {
+    if (initialImages.length > 0) {
       const initialFiles = initialImages.map((image) => ({
         id: uuidv4(),
         file: null,
@@ -191,7 +191,7 @@ export const FileUpload: FC<FileUploadProps> = ({
   };
 
   return (
-    <div className="relative mx-auto mb-12">
+    <div className="relative mb-12">
       <div className="w-[300px] h-[300px] p-2 bg-[--primary-color] flex flex-col justify-center items-center rounded-[30px] overflow-hidden">
         <div
           {...getRootProps()}

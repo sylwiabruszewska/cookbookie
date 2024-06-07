@@ -64,18 +64,18 @@ export default function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
           className="btn-icon bg-[--gray-light] w-7 h-7 lg:w-10 lg:h-10"
           onClick={handleToggleFavorites}
         >
-          <motion.div whileTap={{ scale: 1.5 }} className="inline-block">
+          <motion.div whileTap={{ scale: 1.3 }} className="inline-block">
             {isFavorite ? (
               <FontAwesomeIcon
                 icon={favoriteHeart}
                 aria-label="Options"
-                className="h-5 w-5 flex justify-center items-center text-[--primary-color]"
+                className="h-5 w-5 flex justify-center items-center"
               />
             ) : (
               <FontAwesomeIcon
                 icon={notFavoriteHeart}
                 aria-label="Options"
-                className="h-5 w-5 flex justify-center items-center text-[--primary-color]"
+                className="h-5 w-5 flex justify-center items-center"
               />
             )}
           </motion.div>

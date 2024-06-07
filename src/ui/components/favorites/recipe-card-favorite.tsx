@@ -4,12 +4,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 
 import { Button } from "@ui/components/button";
 import { truncateDescription } from "@utils/recipes";
 import { removeFromFavorites } from "@lib/actions";
+import { motion } from "framer-motion";
 
 interface RecipeCardMediumProps {
   id: string;
@@ -96,11 +97,13 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
           className="btn-icon bg-[--gray-light] w-7 h-7 lg:w-10 lg:h-10"
           onClick={handleRemoveFromFavorites}
         >
-          <FontAwesomeIcon
-            icon={faTrash}
-            aria-label="Options"
-            className="h-4 w-4"
-          />
+          <motion.div whileTap={{ scale: 1.3 }} className="inline-block">
+            <FontAwesomeIcon
+              icon={faHeart}
+              aria-label="Delete from favorites"
+              className="h-5 w-5 flex justify-center items-center"
+            />
+          </motion.div>
         </Button>
       </div>
     </div>

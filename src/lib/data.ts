@@ -54,6 +54,7 @@ export async function fetchRecipes(currentPage: number) {
         ON recipes.id = UserFavorites.recipeId 
         AND UserFavorites.userId = ${userId}
       WHERE recipes.is_public = true
+      ORDER BY created_at DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 

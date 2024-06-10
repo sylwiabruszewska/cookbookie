@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 import { Button } from "@/ui/components/button";
 import { Ingredient, RecipeWithFavoriteStatus } from "@lib/definitions";
@@ -148,12 +149,10 @@ export default function RecipeCardLarge({
             : "Add to favorite recipes"}
         </Button>
         <div className="flex justify-center items-center gap-2">
-          <Image
-            src="/icons/clock.svg"
-            width={20}
-            height={20}
-            alt="Clock"
-            className="object-cover"
+          <FontAwesomeIcon
+            icon={faClock}
+            aria-label="Delete from favorites"
+            className="h-5 w-5 flex justify-center items-center text-[--font]"
           />
           <span className="text-center">{recipe.cooking_time}</span>
         </div>

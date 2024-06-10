@@ -48,39 +48,36 @@ export default function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
   return (
     <div className="relative w-full h-[340px] rounded-lg overflow-hidden">
       <Link href={`/dashboard/recipes/${recipe.id}`} className="group">
-        <Image
-          src={recipe.images[0] || "/placeholder.png"}
-          style={{
-            width: "100%",
-            height: "auto",
-          }}
-          width={500}
-          height={500}
-          className="object-cover transform duration-500 transition-transform group-hover:scale-105"
-          alt={recipe.title}
-          sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
-        />
+        <div className="relative w-full h-[340px]">
+          <Image
+            src={recipe.images[0] || "/placeholder.png"}
+            fill
+            className="object-cover transform duration-500 transition-transform group-hover:scale-105"
+            alt={recipe.title}
+            sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+          />
+        </div>
         <div className="absolute bottom-0 left-0 right-0 m-4 bg-[--background] rounded-lg p-4 shadow-sm">
           <h3 className="relative">{recipe.title}</h3>
         </div>
       </Link>
       <div className="absolute top-2 right-2 w-10 h-10 rounded-full z-40">
         <Button
-          className="btn-icon-menu w-7 h-7 lg:w-10 lg:h-10"
+          className="btn-icon-menu w-10 h-10"
           onClick={handleToggleFavorites}
         >
           <motion.div whileTap={{ scale: 1.3 }} className="inline-block">
             {isFavorite ? (
               <FontAwesomeIcon
                 icon={favoriteHeart}
-                aria-label="Options"
-                className="h-5 w-5 flex justify-center items-center"
+                aria-label="Delete from favorites"
+                className="h-5 w-5 flex justify-center items-center text-red-500"
               />
             ) : (
               <FontAwesomeIcon
                 icon={notFavoriteHeart}
-                aria-label="Options"
-                className="h-5 w-5 flex justify-center items-center"
+                aria-label="Add to favorites"
+                className="h-5 w-5 flex justify-center items-center text-red-500"
               />
             )}
           </motion.div>

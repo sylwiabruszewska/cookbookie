@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
 import toast from "react-hot-toast";
 
 import { Button } from "@ui/components/button";
@@ -60,12 +61,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
           <div className="flex-shrink-0 w-[124px] h-[124px] lg:w-[224px] lg:h-[224px] relative rounded-lg overflow-hidden">
             <Image
               src={images[0] || "/placeholder.png"}
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
-              width={500}
-              height={500}
+              fill
               className="object-cover duration-500 transition-transform group-hover:scale-105"
               alt={title}
               sizes="(max-width: 480px) 50vw, (max-width: 768px) 25vw, 25vw"
@@ -84,12 +80,10 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
             </div>
 
             <div className="flex justify-start items-end gap-2">
-              <Image
-                src="/icons/clock.svg"
-                width={20}
-                height={20}
-                alt="Clock"
-                className="object-cover"
+              <FontAwesomeIcon
+                icon={faClock}
+                aria-label="Delete from favorites"
+                className="h-5 w-5 flex justify-center items-center text-[--font]"
               />
               <span className="text-xs font-semibold">{cookingTime}</span>
             </div>
@@ -106,7 +100,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
             <FontAwesomeIcon
               icon={faHeart}
               aria-label="Delete from favorites"
-              className="h-5 w-5 flex justify-center items-center"
+              className="h-5 w-5 flex justify-center items-center text-red-500"
             />
           </motion.div>
         </Button>

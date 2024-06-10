@@ -82,11 +82,7 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
               href="/dashboard/search"
               className="flex items-center space-x-2"
             >
-              <FontAwesomeIcon
-                icon={faSearch}
-                className="text-sm w-[20px] h-[20px]"
-              />
-              <span>Search</span>
+              Search
             </Link>
           </li>
         </ul>

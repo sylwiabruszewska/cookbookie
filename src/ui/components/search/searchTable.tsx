@@ -8,6 +8,10 @@ export async function SearchTable({
   query: string;
   currentPage: number;
 }) {
+  if (!query.trim()) {
+    return null;
+  }
+
   const recipes = await fetchFilteredRecipes(query, currentPage);
 
   return (

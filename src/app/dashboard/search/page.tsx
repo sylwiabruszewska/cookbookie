@@ -32,7 +32,7 @@ export default async function Page({
       <Suspense key={keyString} fallback={<Loader />}>
         <SearchTable query={query} currentPage={currentPage} />
 
-        {totalPages > 1 && (
+        {query !== "" && totalPages > 1 && (
           <div className="mt-20 flex justify-center">
             <Pagination totalPages={totalPages} />
           </div>

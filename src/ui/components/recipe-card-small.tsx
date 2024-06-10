@@ -50,7 +50,12 @@ export default function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
       <Link href={`/dashboard/recipes/${recipe.id}`} className="group">
         <Image
           src={recipe.images[0] || "/placeholder.png"}
-          fill
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
+          width={500}
+          height={500}
           className="object-cover transform duration-500 transition-transform group-hover:scale-105"
           alt={recipe.title}
           sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"

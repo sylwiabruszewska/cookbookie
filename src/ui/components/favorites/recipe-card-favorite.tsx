@@ -60,7 +60,12 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
           <div className="flex-shrink-0 w-[124px] h-[124px] lg:w-[224px] lg:h-[224px] relative rounded-lg overflow-hidden">
             <Image
               src={images[0] || "/placeholder.png"}
-              fill
+              style={{
+                width: "100%",
+                height: "auto",
+              }}
+              width={500}
+              height={500}
               className="object-cover duration-500 transition-transform group-hover:scale-105"
               alt={title}
               sizes="(max-width: 480px) 50vw, (max-width: 768px) 25vw, 25vw"

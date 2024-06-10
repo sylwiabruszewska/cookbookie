@@ -236,7 +236,12 @@ export const FileUpload: FC<FileUploadProps> = ({
                   <Image
                     src={file.preview}
                     alt="Uploaded image"
-                    fill={true}
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                    }}
+                    width={500}
+                    height={500}
                     className="object-cover"
                     sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
                     onLoad={() => handleImageLoad(file.id)}

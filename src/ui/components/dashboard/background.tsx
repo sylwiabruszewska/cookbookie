@@ -15,9 +15,9 @@ const Background = () => {
       </div>
       {/* LARGE DEVICES */}
       <div className="hidden lg:block">
-        <div className="bg-top-left w-[742px] h-[800px] bg-lg-blob-left"></div>
+        <div className="bg-top-left w-[742px] h-[800px] bg-lg-blob-left dark:hidden"></div>
         <div className="bg-top-left w-[116px] h-[398px] bg-lg-left"></div>
-        <div className="bg-top-right w-[725px] h-[689px] bg-lg-blob-right"></div>
+        <div className="bg-top-right w-[725px] h-[689px] bg-lg-blob-right dark:hidden"></div>
         <div className="bg-top-right w-[913px] h-[800px] bg-lg-right"></div>
       </div>
     </div>

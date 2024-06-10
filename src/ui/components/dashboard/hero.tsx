@@ -15,7 +15,7 @@ const HeroSection = () => {
         <div className="w-full md:w-1/2 flex flex-col items-center md:items-start">
           <h1 className="text-[52px] md:text-[52px] lg:text-[82px]">
             <span className="text-[--primary-color]">Cook</span>
-            <span className="text-[--gray-dark]">Bookie</span>
+            <span className="text-[--font]">Bookie</span>
           </h1>
           <p className="md:text-base lg:text-xl text-center md:text-left mb-8 lg:mb-20">
             &ldquo;What to cook?&rdquo; is not only a recipe app, it is, in

@@ -71,7 +71,8 @@ function PaginationNumber({
   isActive: boolean;
 }) {
   const className = clsx("flex h-10 w-10 items-center justify-center text-sm", {
-    "bg-[--gray-dark] rounded-lg text-white": isActive,
+    "bg-[--gray-dark] dark:bg-[--primary-color] rounded-lg text-white":
+      isActive,
     "text-gray-300": position === "middle",
     "hover:underline hover:underline-offset-2":
       !isActive && position !== "middle",
@@ -98,7 +99,7 @@ function PaginationArrow({
   const className = clsx(
     "flex h-10 w-10 items-center justify-center rounded-md",
     {
-      "pointer-events-none text-gray-300": isDisabled,
+      "pointer-events-none text-gray-300 dark:text-gray-700": isDisabled,
     }
   );
 

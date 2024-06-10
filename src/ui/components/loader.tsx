@@ -3,10 +3,7 @@ export const Loaders = ({ svgPaths }: { svgPaths: string[] }) => {
     <div className="loader-container">
       {svgPaths.map((svgPath, index) => {
         return (
-          <div
-            className="relative shimmer overflow-hidden animate-scale-up loader-icon"
-            key={index}
-          >
+          <div className="animate-scale-up loader-icon" key={index}>
             <svg className="h-12 w-12 md:h-20 md:w-20" viewBox="0 0 20 20">
               <use
                 href={svgPath}

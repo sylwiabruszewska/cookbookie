@@ -74,7 +74,7 @@ const SearchForm = ({ className }: { className?: string }) => {
           type="text"
           id="search"
           placeholder="Search recipes"
-          className="w-full border border-[--gray] focus:outline-none focus:ring-2 focus:ring-[--gray-dark] focus:border-[--gray-dark] rounded-tl-[20px] rounded-bl-[40px] rounded-br-[20px] rounded-tr-[40px] h-10 p-6 lg:p-8 pr-24"
+          className="w-full bg-[--gray-light] border border-[--gray] focus:outline-none focus:ring-2 focus:ring-[--gray-dark] focus:border-[--gray-dark] rounded-tl-[20px] rounded-bl-[40px] rounded-br-[20px] rounded-tr-[40px] h-10 p-6 lg:p-8 pr-24 dark:focus:ring-[--primary-color] dark:focus:border-[--primary-color] dark:bg-[--gray-dark]"
           onChange={(e) => {
             handleOnInputChange(e.target.value);
           }}
@@ -82,7 +82,7 @@ const SearchForm = ({ className }: { className?: string }) => {
         />
         <Button
           type="submit"
-          className="btn-dark absolute top-0 end-0 text-sm font-medium h-full rounded-r rounded-l-none focus:outline-none focus:ring-2 focus:ring-[--primary-color] rounded-tl-[20px] rounded-bl-[40px] rounded-br-[20px] rounded-tr-[40px] p-2 px-8"
+          className="btn-dark absolute top-0 end-0 text-sm font-medium h-full rounded-r rounded-l-none focus:outline-none focus:ring-2 focus:ring-[--primary-color] rounded-tl-[20px] rounded-bl-[40px] rounded-br-[20px] rounded-tr-[40px] p-2 px-8 dark:bg-[--primary-color] dark:hover:text-[--gray-dark]"
         >
           <FontAwesomeIcon icon={faSearch} className="text-sm w-4 h-4" />
         </Button>

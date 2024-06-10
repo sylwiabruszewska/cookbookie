@@ -6,7 +6,7 @@ import NewsletterForm from "@/ui/components/newsletter-form";
 const Footer = () => {
   return (
     <footer className="relative w-full mt-28">
-      <div className="bg-[--gray-dark] text-white py-12 font-thin relative">
+      <div className="bg-[--gray-dark] dark:bg-[--primary-color] text-white py-12 font-thin relative">
         <div className="content-container">
           <div className="page-container flex flex-col items-center gap-y-8 md:flex-wrap md:gap-y-12 md:flex-row md:items-start lg:flex-nowrap lg:justify-between lg:items-start lg:gap-x-12">
             <div className="md:space-y-4 md:w-1/2 lg:w-1/3">
@@ -67,7 +67,7 @@ const Footer = () => {
 
         <div className="absolute top-[-70%] left-0 lg:top-[-100%] w-[315px] h-[486px] bg-cover bg-no-repeat negative-z-index bg-footer-left"></div>
       </div>
-      <div className="py-4 text-[--gray-dark] relative h-[66px] md:h-[78px] lg:h-[114px] flex items-center overflow-hidden">
+      <div className="py-4 text-font relative h-[66px] md:h-[78px] lg:h-[114px] flex items-center overflow-hidden">
         <div className="content-container">
           <div className="page-container flex justify-center space-x-4 text-xs">
             <span>© 2024 All Rights Reserved.</span>

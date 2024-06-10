@@ -50,7 +50,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="z-10 max-w-md w-[90vw] mx-auto p-6 bg-white rounded-lg shadow-md flex flex-col items-center">
+    <div className="z-10 max-w-md w-[90vw] mx-auto p-6 bg-[--background] rounded-lg shadow-md flex flex-col items-center">
       <Formik
         initialValues={initialValues}
         validationSchema={registrationValidationSchema}

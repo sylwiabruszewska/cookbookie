@@ -1,6 +1,6 @@
 /* BASE STYLES FOR ADD RECIPE FORM COMPONENTS */
 .recipe-form-components {
-  @apply w-full h-10 p-2 bg-[--gray-light] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray-dark];
+  @apply w-full h-10 p-2 bg-[--gray-light] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray-dark] dark:bg-[--gray-dark] dark:border dark:border-[--gray-light];
 }
 
 .error-text {
@@ -57,12 +57,12 @@
 }
 
 .dropdown {
-  @apply absolute right-0 top-full z-40 mt-3 w-auto p-5 rounded-lg bg-white shadow-md border border-[--gray-light] flex flex-col gap-2 justify-start items-start;
+  @apply absolute right-0 top-full z-40 mt-3 w-auto p-5 rounded-lg bg-[--background] shadow-md border border-[--gray-light] flex flex-col gap-2 justify-start items-start dark:border-[--gray-medium] text-[--font];
 }
 
 /* BUTTON STYLES */
 .btn-green {
-  @apply bg-[--primary-color] text-white hover:bg-[--gray-dark] hover:text-white px-2 rounded-lg;
+  @apply bg-[--primary-color] text-white hover:bg-[--gray-dark] hover:text-white px-2 rounded-lg dark:hover:bg-[--primary-color] dark:hover:text-[--gray-dark];
 }
 
 .btn-dark {
@@ -74,15 +74,23 @@
 }
 
 .btn-rounded {
-  @apply rounded-tl-[15px] rounded-bl-[40px] rounded-br-[15px] rounded-tr-[40px] bg-[--primary-color] text-white hover:bg-[--gray-dark] px-5;
+  @apply rounded-tl-[15px] rounded-bl-[40px] rounded-br-[15px] rounded-tr-[40px] bg-[--primary-color] text-white hover:bg-[--gray-dark] px-5 dark:border dark:border-[--primary-color] dark:hover:border-[--gray];
 }
 
 .btn-icon {
-  @apply w-10 h-10 bg-transparent text-[--gray-medium] hover:text-[black] flex items-center justify-center rounded-lg;
+  @apply w-10 h-10 bg-transparent text-[--gray-medium] hover:text-[black] flex items-center justify-center rounded-lg dark:hover:text-white;
+}
+
+.btn-icon-menu {
+  @apply w-10 h-10 hover:text-[black] flex items-center justify-center rounded-lg dark:hover:text-white bg-[--gray-light] dark:bg-[--gray-medium] text-[--gray-medium] dark:text-white;
 }
 
 .btn-bordered {
-  @apply bg-[--primary-color] text-white border-2 border-[--primary-color] hover:bg-transparent hover:border-white rounded-lg px-2;
+  @apply bg-[--primary-color] text-white border-2 border-[--primary-color] hover:bg-transparent hover:border-[--gray] rounded-lg px-2;
+}
+
+.btn-logout {
+  @apply rounded-tl-[15px] rounded-bl-[40px] rounded-br-[15px] rounded-tr-[40px] bg-[--gray-dark] text-white  dark:bg-[--primary-color];
 }
 
 /* LOADER */

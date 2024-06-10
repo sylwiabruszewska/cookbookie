@@ -112,7 +112,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
 
         <div className="relative flex items-start" ref={buttonRef}>
           <Button
-            className="btn-icon bg-[--gray-light] w-7 h-7 lg:w-10 lg:h-10"
+            className="btn-icon-menu w-7 h-7 lg:w-10 lg:h-10"
             onClick={toggleDropdown}
           >
             <FontAwesomeIcon

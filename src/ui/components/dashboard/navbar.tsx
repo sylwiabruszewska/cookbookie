@@ -37,7 +37,7 @@ const NavBar = () => {
   };
 
   return (
-    <header className="text-gray-800 py-4 w-full">
+    <header className="text-font py-4 w-full">
       <div className="content-container flex items-center justify-between">
         <Link href="/dashboard" className="flex items-center space-x-4">
           <Image
@@ -47,7 +47,7 @@ const NavBar = () => {
             height={44}
             priority
           />
-          <p className="max-md:hidden heading-brand font-semibold text-black">
+          <p className="max-md:hidden heading-brand font-semibold text-font">
             CookBookie
           </p>
         </Link>
@@ -118,7 +118,7 @@ const NavBar = () => {
                 Profile
               </Link>
               <Button
-                className="group mt-8 btn-rounded bg-[--gray-dark] border-2 border-white px-5"
+                className="group mt-8 btn-logout px-5"
                 onClick={() => signOut()}
               >
                 Log out

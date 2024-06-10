@@ -49,7 +49,7 @@ const IconInput: React.FC<TextInputProps> = ({
       <div className="relative w-full">
         <input
           id={id}
-          className={`w-full p-2 pl-10 border border-[--gray] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray] transition duration-150 ease-in-out`}
+          className={`w-full p-2 pl-10 border border-[--gray] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray] transition duration-150 ease-in-out bg-[--background] dark:bg-transparent dark:text-[--font] dark:placeholder-[--gray]`}
           placeholder={placeholder}
           required={required}
           type={inputType}

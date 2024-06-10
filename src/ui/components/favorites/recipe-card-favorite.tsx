@@ -94,7 +94,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
 
       <div className="relative flex items-start">
         <Button
-          className="btn-icon bg-[--gray-light] w-7 h-7 lg:w-10 lg:h-10"
+          className="btn-icon-menu w-7 h-7 lg:w-10 lg:h-10"
           onClick={handleRemoveFromFavorites}
         >
           <motion.div whileTap={{ scale: 1.3 }} className="inline-block">

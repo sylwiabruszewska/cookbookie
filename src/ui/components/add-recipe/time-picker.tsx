@@ -59,7 +59,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
           onClick={handleDecrement}
           disabled={time.hours === 0 && time.minutes <= 5}
           className={clsx("btn-green h-10 w-10 rounded-l-lg rounded-r-none", {
-            "bg-gray-300 cursor-not-allowed hover:bg-gray-300":
+            "bg-gray-300 cursor-not-allowed hover:bg-gray-300 dark:hover:bg-gray-300 dark:bg-gray-300 dark:hover:text-white":
               time.hours === 0 && time.minutes <= 5,
           })}
         >

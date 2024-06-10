@@ -20,7 +20,7 @@ export const Switch: React.FC<SwitchProps> = ({ name }) => {
             type="button"
             aria-pressed={isPublic}
             onClick={handleToggle}
-            className={`relative w-12 h-6 duration-300 rounded-full cursor-pointerfocus:outline-none focus:ring-2 focus:ring-[--gray-dark] inner-shadow ${
+            className={`relative w-12 h-6 duration-300 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-[--gray-dark] inner-shadow ${
               isPublic ? "bg-[--gray-light]" : "bg-[--primary-color]"
             }`}
           >

@@ -28,6 +28,8 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
 
   return (
     <nav className="fixed inset-0 w-[100vw] h-[100vh] bg-[--green-light] dark:bg-[--gray-dark] z-50">
+      <div className="absolute bottom-0 right-0 w-[321px] h-[343px] bg-cover bg-no-repeat bg-mobile-menu-bg"></div>
+
       <div className="relative content-container h-full mx-auto flex flex-col items-center justify-center">
         <div className="absolute top-4 left-0">
           <Link
@@ -82,15 +84,17 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
               href="/dashboard/search"
               className="flex items-center space-x-2"
             >
-              Search
+              <FontAwesomeIcon
+                icon={faSearch}
+                className="text-sm w-[20px] h-[20px]"
+              />
+              <span>Search</span>
             </Link>
           </li>
         </ul>
 
         <ModeToggle />
       </div>
-
-      <div className="absolute bottom-0 right-0 w-[321px] h-[343px] bg-cover bg-no-repeat bg-mobile-menu-bg"></div>
     </nav>
   );
 };

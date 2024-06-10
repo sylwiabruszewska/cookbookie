@@ -11,7 +11,7 @@ export async function SearchTable({
   const recipes = await fetchFilteredRecipes(query, currentPage);
 
   return (
-    <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {recipes.length > 0 &&
         recipes.map((recipe) => (
           <li key={recipe.id} className="w-full">

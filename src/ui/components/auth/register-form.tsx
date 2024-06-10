@@ -109,7 +109,6 @@ const RegistrationForm = () => {
         <Image
           src="/google/google_signup.svg"
           alt="Google Logo"
-          className="dark:invert"
           width={179}
           height={40}
           priority

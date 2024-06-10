@@ -15,7 +15,6 @@ const Footer = () => {
                   <Image
                     src="/logo-dark.svg"
                     alt="CookBookie Logo"
-                    className="dark:invert"
                     width={44}
                     height={44}
                     priority

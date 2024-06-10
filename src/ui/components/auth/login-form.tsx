@@ -101,7 +101,6 @@ const LoginForm = () => {
         <Image
           src="/google/google_signin.svg"
           alt="Google Logo"
-          className="dark:invert"
           width={175}
           height={40}
           priority

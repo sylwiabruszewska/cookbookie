@@ -37,7 +37,6 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
             <Image
               src="/logo.svg"
               alt="CookBookie Logo"
-              className="dark:invert"
               width={44}
               height={44}
               priority

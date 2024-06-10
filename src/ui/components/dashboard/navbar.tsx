@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MobileMenu from "@/ui/components/dashboard/mobile-menu";
 import { Button } from "@/ui/components/button";
 import useDropdown from "@/hooks/useDropdown";
+import { ModeToggle } from "@/ui/components/mode-toggle";
 
 const NavBar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -42,7 +43,6 @@ const NavBar = () => {
           <Image
             src="/logo.svg"
             alt="CookBookie Logo"
-            className="dark:invert"
             width={44}
             height={44}
             priority
@@ -140,6 +140,8 @@ const NavBar = () => {
               className="w-[28px] h-[28px]"
             />
           </button>
+
+          <ModeToggle />
         </div>
       </div>
     </header>

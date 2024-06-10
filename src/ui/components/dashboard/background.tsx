@@ -4,13 +4,13 @@ const Background = () => {
       {/* SMALL DEVICES */}
       <div className="md:hidden">
         <div className="bg-top-left w-[48px] h-[202px] bg-sm-left"></div>
-        <div className="bg-top-right w-[269px] h-[678px] bg-sm-blob-right"></div>
+        <div className="bg-top-right w-[269px] h-[678px] bg-sm-blob-right dark:hidden"></div>
         <div className="bg-top-right top-0 w-[375px] h-[814px] bg-sm-right"></div>
       </div>
       {/* MEDIUM DEVICES */}
       <div className="hidden md:block lg:hidden">
         <div className="bg-top-left w-[67px] h-[323px] bg-md-left"></div>
-        <div className="bg-top-right w-[332px] h-[640px] bg-md-blob-right"></div>
+        <div className="bg-top-right w-[332px] h-[640px] bg-md-blob-right dark:hidden"></div>
         <div className="bg-top-right w-[583px] h-[640px] bg-md-right"></div>
       </div>
       {/* LARGE DEVICES */}

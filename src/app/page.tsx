@@ -12,7 +12,7 @@ export default function Home() {
         <Image
           src="/logo.svg"
           alt="CookBookie Logo"
-          className="dark:invert lg:mb-10"
+          className="lg:mb-10"
           width={68}
           height={68}
           priority

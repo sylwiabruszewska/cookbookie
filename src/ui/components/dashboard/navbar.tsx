@@ -78,70 +78,74 @@ const NavBar = () => {
 
         {isNavOpen && <MobileMenu closeMenu={closeMenu} />}
 
-        <div className="relative flex items-center justify-end space-x-4 w-[300px]">
-          {session && (
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={handleDropdownClick}
-              ref={buttonRef}
-            >
-              <div className="w-[44px] h-[44px] flex-shrink-0">
-                <Image
-                  src={session.user?.image || "/salad.png"}
-                  alt="User avatar"
-                  className="object-cover rounded-full"
-                  width={578}
-                  height={539}
-                  priority
-                />
-              </div>
-
-              <span className="font-semibold md:max-w-[200px] max-md:hidden">
-                {session.user?.name}
-              </span>
-            </div>
-          )}
-
-          {isDropdownOpen && (
-            <motion.div
-              ref={dropdownRef}
-              className="dropdown"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Link
-                href="/dashboard/profile"
-                className="link-hover-underline"
-                onClick={() => toggleDropdown()}
+        <div className="flex gap-4 items-center">
+          <div className="relative flex items-center justify-end space-x-4 w-[300px]">
+            {session && (
+              <div
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={handleDropdownClick}
+                ref={buttonRef}
               >
-                Profile
-              </Link>
-              <Button
-                className="group mt-8 btn-logout px-5"
-                onClick={() => signOut()}
-              >
-                Log out
-                <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                  &gt;
+                <div className="w-[44px] h-[44px] flex-shrink-0">
+                  <Image
+                    src={session.user?.image || "/salad.png"}
+                    alt="User avatar"
+                    className="object-cover rounded-full"
+                    width={578}
+                    height={539}
+                    priority
+                  />
+                </div>
+
+                <span className="font-semibold md:max-w-[200px] max-md:hidden">
+                  {session.user?.name}
                 </span>
-              </Button>
-            </motion.div>
-          )}
+              </div>
+            )}
 
-          <button
-            type="button"
-            className="lg:hidden w-[28px] h-[28px]"
-            onClick={handleNavOpen}
-          >
-            <FontAwesomeIcon
-              icon={faBars}
-              aria-label="Menu"
-              className="w-[28px] h-[28px]"
-            />
-          </button>
+            {isDropdownOpen && (
+              <motion.div
+                ref={dropdownRef}
+                className="dropdown"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Link
+                  href="/dashboard/profile"
+                  className="link-hover-underline"
+                  onClick={() => toggleDropdown()}
+                >
+                  Profile
+                </Link>
+                <Button
+                  className="group mt-8 btn-logout px-5"
+                  onClick={() => signOut()}
+                >
+                  Log out
+                  <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                    &gt;
+                  </span>
+                </Button>
+              </motion.div>
+            )}
 
-          <ModeToggle />
+            <button
+              type="button"
+              className="lg:hidden w-[28px] h-[28px]"
+              onClick={handleNavOpen}
+            >
+              <FontAwesomeIcon
+                icon={faBars}
+                aria-label="Menu"
+                className="w-[28px] h-[28px]"
+              />
+            </button>
+          </div>
+
+          <div className="hidden lg:block">
+            <ModeToggle />
+          </div>
         </div>
       </div>
     </header>

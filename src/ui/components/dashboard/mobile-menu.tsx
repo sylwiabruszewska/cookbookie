@@ -7,6 +7,7 @@ import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 
 import { Button } from "@ui/components/button";
+import { ModeToggle } from "../mode-toggle";
 
 interface MobileMenuProps {
   closeMenu: () => void;
@@ -26,7 +27,7 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
   }, []);
 
   return (
-    <nav className="fixed inset-0 w-[100vw] h-[100vh] bg-[--green-light] z-50">
+    <nav className="fixed inset-0 w-[100vw] h-[100vh] bg-[--green-light] dark:bg-[--gray-dark] z-50">
       <div className="relative content-container h-full mx-auto flex flex-col items-center justify-center">
         <div className="absolute top-4 left-0">
           <Link
@@ -41,7 +42,7 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
               height={44}
               priority
             />
-            <p className="max-md:hidden heading-brand font-semibold text-black">
+            <p className="max-md:hidden heading-brand font-semibold text-[--font]">
               CookBookie
             </p>
           </Link>
@@ -89,6 +90,8 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
             </Link>
           </li>
         </ul>
+
+        <ModeToggle />
       </div>
 
       <div className="absolute bottom-0 right-0 w-[321px] h-[343px] bg-cover bg-no-repeat bg-mobile-menu-bg"></div>

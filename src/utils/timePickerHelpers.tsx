@@ -32,3 +32,12 @@ export const formatTime = (hours: number, minutes: number): string => {
     return `${hours}h ${minutes}min`;
   }
 };
+
+export const parseTimeString = (timeString: string) => {
+  const [hoursString, minutesString] = timeString
+    .split(" ")
+    .map((part) => part.trim());
+  const hours = parseInt(hoursString) || 0;
+  const minutes = parseInt(minutesString) || 0;
+  return { hours, minutes };
+};

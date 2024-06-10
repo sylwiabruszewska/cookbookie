@@ -195,6 +195,7 @@ export default function EditForm({
                     name="cookingTime"
                     label="Cooking Time"
                     placeholder="Cooking Time"
+                    initialTime={recipe.cooking_time}
                   />
                   <ErrorMessage
                     name="cookingTime"

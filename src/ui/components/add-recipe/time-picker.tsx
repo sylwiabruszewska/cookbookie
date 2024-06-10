@@ -1,12 +1,13 @@
 import clsx from "clsx";
 
 import { Field, useFormikContext } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   incrementTime,
   decrementTime,
   formatTime,
+  parseTimeString,
 } from "@/utils/timePickerHelpers";
 import { Input } from "@ui/components/add-recipe/input";
 import { Button } from "@ui/components/button";
@@ -16,6 +17,7 @@ interface TimePickerProps {
   name: string;
   label: string;
   placeholder: string;
+  initialTime?: string;
 }
 
 export const TimePicker: React.FC<TimePickerProps> = ({
@@ -23,9 +25,19 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   name,
   label,
   placeholder,
+  initialTime,
 }) => {
   const { setFieldValue } = useFormikContext<any>();
   const [time, setTime] = useState({ hours: 0, minutes: 0 });
+
+  useEffect(() => {
+    if (initialTime) {
+      const parsedTime = parseTimeString(initialTime);
+      setTime(parsedTime);
+      setFieldValue(name, formatTime(parsedTime.hours, parsedTime.minutes));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialTime]);
 
   const handleIncrement = () => {
     const updatedTime = incrementTime(time);

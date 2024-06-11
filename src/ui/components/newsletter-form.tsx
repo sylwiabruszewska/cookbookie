@@ -1,7 +1,6 @@
 "use client";
 
 import { Formik, Form, FormikHelpers } from "formik";
-import * as Yup from "yup";
 import { useState } from "react";
 
 import { Button } from "@/ui/components/button";

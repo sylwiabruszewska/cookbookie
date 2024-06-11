@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useEdgeStore } from "@lib/edgestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrash,
@@ -38,6 +39,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
     useDropdown();
   const [isLgScreen, setIsLgScreen] = useState(false);
   const { isOpen, openModal, closeModal, modalRef } = useModal();
+  const { edgestore } = useEdgeStore();
 
   useEffect(() => {
     const updateScreenSize = () => {
@@ -58,6 +60,11 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
     try {
       await deleteRecipe(id);
       toast(`${title} has been removed from your recipes.`);
+      if (images && images.length > 0) {
+        for (const imageUrl of images) {
+          await edgestore.publicFiles.delete({ url: imageUrl });
+        }
+      }
     } catch (error) {
       toast.error("Oops! Something went wrong. Please try again soon.");
     }

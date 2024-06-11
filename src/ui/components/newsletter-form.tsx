@@ -2,67 +2,94 @@
 
 import { Formik, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
+import { useState } from "react";
 
 import { Button } from "@/ui/components/button";
 import IconInput from "@/ui/components/icon-input";
+import useModal from "@hooks/useModal";
+import Modal from "@/ui/components/modal";
+import { addEmailToSubscribersTable } from "@lib/actions";
+import { newsletterValidationSchema } from "@utils/validationSchemas";
 
 interface FormValues {
-  email: string;
+  emailNewsletter: string;
 }
 
 export default function NewsletterForm() {
-  const validationSchema = Yup.object().shape({
-    newsletter: Yup.string()
-      .email("Invalid email")
-      .required("Email is required"),
-  });
+  const { isOpen, openModal, closeModal, modalRef } = useModal();
+  const [modalContent, setModalContent] = useState<string>("");
 
   const handleSubmit = async (
     values: FormValues,
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
     try {
-      const { email } = values;
+      const { emailNewsletter } = values;
 
-      console.log("newsletter");
+      const isNewEmail = await addEmailToSubscribersTable(emailNewsletter);
+      setModalContent(
+        isNewEmail
+          ? "Thank you for subscribing our newsletter!"
+          : "Email already exists in subscribers list!"
+      );
+
+      openModal();
       resetForm();
     } catch (error) {
-      console.error("Login fail:", error);
+      console.error("Fail to subscribe the newsletter", error);
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <Formik
-      initialValues={{ email: "" }}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    >
-      {() => (
-        <Form
-          className="text-black flex flex-col gap-0 md:flex-row md:items-start md:gap-4 lg:flex-col lg:gap-0 lg:items-center"
-          autoComplete="off"
-        >
-          <IconInput
-            id="newsletter"
-            name="newsletter"
-            type="email"
-            placeholder="Enter your email address"
-            required
-            iconID="icon-mail"
-            label="Email"
-            className="mb-0"
-          />
-
-          <Button
-            type="submit"
-            className="btn-bordered w-full md:px-10 md:w-auto dark:bg-[--gray-dark]"
+    <>
+      <Formik
+        initialValues={{ emailNewsletter: "" }}
+        validationSchema={newsletterValidationSchema}
+        onSubmit={handleSubmit}
+      >
+        {() => (
+          <Form
+            className="text-black flex flex-col gap-0 md:flex-row md:items-start md:gap-4 lg:flex-col lg:gap-0 lg:items-center"
+            autoComplete="off"
           >
-            Subscribe
-          </Button>
-        </Form>
+            <IconInput
+              id="emailNewsletter"
+              name="emailNewsletter"
+              type="email"
+              placeholder="Enter your email address"
+              required
+              iconID="icon-mail"
+              label="Email"
+              className="mb-0"
+            />
+
+            <Button
+              type="submit"
+              className="btn-bordered w-full md:px-10 md:w-auto dark:bg-[--gray-dark]"
+            >
+              Subscribe
+            </Button>
+          </Form>
+        )}
+      </Formik>
+
+      {isOpen && (
+        <Modal onClose={closeModal} modalRef={modalRef}>
+          <div className="flex flex-col gap-8 justify-center items-center text-[--font]">
+            <span className="text-center">{modalContent}</span>
+            <div className="flex gap-8">
+              <Button
+                onClick={closeModal}
+                className="btn-green bg-[--gray-medium]"
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </Modal>
       )}
-    </Formik>
+    </>
   );
 }

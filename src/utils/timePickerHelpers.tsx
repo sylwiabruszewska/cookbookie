@@ -34,10 +34,18 @@ export const formatTime = (hours: number, minutes: number): string => {
 };
 
 export const parseTimeString = (timeString: string) => {
-  const [hoursString, minutesString] = timeString
-    .split(" ")
-    .map((part) => part.trim());
-  const hours = parseInt(hoursString) || 0;
-  const minutes = parseInt(minutesString) || 0;
+  const timeParts = timeString.split(" ").map((part) => part.trim());
+  let hours = 0;
+  let minutes = 0;
+
+  for (let i = 0; i < timeParts.length; i++) {
+    const part = timeParts[i];
+    if (part.includes("h")) {
+      hours = parseInt(part);
+    } else if (part.includes("min")) {
+      minutes = parseInt(part);
+    }
+  }
+
   return { hours, minutes };
 };

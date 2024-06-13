@@ -58,10 +58,10 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
           </button>
         </div>
 
-        <ul className="flex flex-col items-center justify-center text-xl space-y-4 font-semibold mb-32">
+        <ul className="flex flex-col items-center justify-center text-l space-y-4 mb-32">
           <li onClick={handleLinkClick}>
             <Link href="/dashboard/add-recipe">
-              <Button className="btn-rounded text-xl h-12 mb-4">
+              <Button className="btn-rounded text-l mb-4">
                 {t("add_recipe")}
               </Button>
             </Link>

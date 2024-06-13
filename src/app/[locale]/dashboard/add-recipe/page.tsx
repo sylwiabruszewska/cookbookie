@@ -15,7 +15,6 @@ export default async function Page() {
   return (
     <div>
       <h2 className="heading-l">{t("add_recipe")}</h2>
-      <h2 className="heading-l">{t("add_recipe")}</h2>
       <Suspense fallback={<Loader />}>
         <AddRecipeForm categories={categories} />
       </Suspense>

@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import initTranslations from "@utils/i18n";
+import initTranslations from "@utils/i18n";
 
 import AddRecipeForm from "@/ui/components/add-recipe/add-recipe-form";
 import { fetchCategories } from "@/lib/data";
@@ -14,6 +15,7 @@ export default async function Page() {
 
   return (
     <div>
+      <h2 className="heading-l">{t("add_recipe")}</h2>
       <h2 className="heading-l">{t("add_recipe")}</h2>
       <Suspense fallback={<Loader />}>
         <AddRecipeForm categories={categories} />

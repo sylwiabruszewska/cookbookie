@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { notFound, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Input } from "@ui/components/add-recipe/input";
 import { Select } from "@ui/components/add-recipe/select";
@@ -33,6 +34,7 @@ export default function EditForm({
   categories: Category[];
   recipe: RecipeWithFavoriteStatus;
 }) {
+  const { t } = useTranslation(["dashboard"]);
   const router = useRouter();
 
   const [fileUrls, setFileUrls] = useState<string[]>([]);
@@ -115,10 +117,10 @@ export default function EditForm({
         throw new Error("Failed to submit recipe");
       }
 
-      toast.success("Recipe updated successfully! Time to get cooking 👨‍🍳");
+      toast.success(t("toast_update_recipe"));
       router.push(`/dashboard/recipes/${recipeId}`);
     } catch (error) {
-      toast.error("Oops! Something went wrong. Please try again soon.");
+      toast.error(t("toast_error"));
     } finally {
       setSubmitting(false);
     }
@@ -147,8 +149,7 @@ export default function EditForm({
                     id="title"
                     name="title"
                     type="text"
-                    label="Enter item title"
-                    placeholder="Enter item title"
+                    label={t("title")}
                   />
                   <ErrorMessage
                     name="title"
@@ -158,11 +159,7 @@ export default function EditForm({
                 </div>
 
                 <div>
-                  <TextArea
-                    id="description"
-                    label="Enter about recipe"
-                    placeholder="Enter about recipe"
-                  />
+                  <TextArea id="description" label={t("description")} />
                   <ErrorMessage
                     name="description"
                     component="div"
@@ -175,7 +172,7 @@ export default function EditForm({
                     <Select
                       id="category"
                       name="category"
-                      label="Category"
+                      label={t("category")}
                       options={categories.map((category: Category) => ({
                         value: category.name,
                         label: category.name,
@@ -193,8 +190,8 @@ export default function EditForm({
                   <TimePicker
                     id="cookingTime"
                     name="cookingTime"
-                    label="Cooking Time"
-                    placeholder="Cooking Time"
+                    label={t("cookingTime")}
+                    initialTime={recipe.cooking_time}
                   />
                   <ErrorMessage
                     name="cookingTime"
@@ -223,8 +220,7 @@ export default function EditForm({
                                   id={`ingredients.${index}.ingredient`}
                                   name={`ingredients.${index}.ingredient`}
                                   type="text"
-                                  label="Ingredient"
-                                  placeholder="Ingredient"
+                                  label={t("ingredient")}
                                 />
                               </div>
 
@@ -233,14 +229,13 @@ export default function EditForm({
                                   id={`ingredients.${index}.quantity`}
                                   name={`ingredients.${index}.quantity`}
                                   type="number"
-                                  label="Quantity"
-                                  placeholder="Quantity"
+                                  label={t("quantity")}
                                 />
 
                                 <Select
                                   id={`ingredients.${index}.quantityUnit`}
                                   name={`ingredients.${index}.quantityUnit`}
-                                  label="Unit"
+                                  label={t("unit")}
                                   options={[
                                     { value: "tbs", label: "tbs" },
                                     { value: "tsp", label: "tsp" },
@@ -271,10 +266,10 @@ export default function EditForm({
                           <Button
                             className="btn-icon"
                             onClick={() => remove(index)}
+                            ariaLabel={t("remove")}
                           >
                             <FontAwesomeIcon
                               icon={faXmark}
-                              aria-label="Remove"
                               className="h-4 w-4"
                             />
                           </Button>
@@ -283,6 +278,7 @@ export default function EditForm({
                     )}
                     <Button
                       className="btn-green mb-4 ml-auto h-10 w-10"
+                      ariaLabel={t("add_ingredient")}
                       onClick={() =>
                         push({
                           id: uuidv4(),
@@ -313,8 +309,7 @@ export default function EditForm({
                         <div className="w-full">
                           <TextArea
                             id={`steps.${index}.step`}
-                            label={`Step ${index + 1}`}
-                            placeholder={`Step ${index + 1}`}
+                            label={t("step_label", { stepNumber: index + 1 })}
                           />
 
                           <ErrorMessage
@@ -327,17 +322,15 @@ export default function EditForm({
                         <Button
                           className="btn-icon"
                           onClick={() => remove(index)}
+                          ariaLabel={t("remove")}
                         >
-                          <FontAwesomeIcon
-                            icon={faXmark}
-                            aria-label="Remove"
-                            className="h-4 w-4"
-                          />
+                          <FontAwesomeIcon icon={faXmark} className="h-4 w-4" />
                         </Button>
                       </div>
                     ))}
                     <Button
                       className="btn-green mb-4 ml-auto h-10 w-10"
+                      ariaLabel={t("add_step")}
                       onClick={() =>
                         push({
                           id: uuidv4(),
@@ -361,7 +354,9 @@ export default function EditForm({
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Updating recipe..." : "Edit recipe"}
+              {isSubmitting
+                ? t("action_in_progress_edit_recipe")
+                : t("edit_recipe")}
             </Button>
           </Form>
         )}

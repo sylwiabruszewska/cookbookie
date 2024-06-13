@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@ui/components/button";
 import { truncateDescription } from "@utils/recipes";
@@ -29,6 +30,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
   cookingTime,
 }) => {
   const [isLgScreen, setIsLgScreen] = useState(false);
+  const { t } = useTranslation(["dashboard"]);
 
   useEffect(() => {
     const updateScreenSize = () => {
@@ -50,7 +52,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
       await removeFromFavorites(id);
       toast(`${title} has been removed from your favorites.`);
     } catch (error) {
-      toast.error("Oops! Something went wrong. Please try again soon.");
+      toast.error(t("toast_error"));
     }
   };
 
@@ -82,7 +84,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
             <div className="flex justify-start items-end gap-2">
               <FontAwesomeIcon
                 icon={faClock}
-                aria-label="Delete from favorites"
+                aria-hidden="true"
                 className="h-5 w-5 flex justify-center items-center text-[--font]"
               />
               <span className="text-xs font-semibold">{cookingTime}</span>
@@ -95,11 +97,11 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
         <Button
           className="btn-icon-menu w-7 h-7 lg:w-10 lg:h-10"
           onClick={handleRemoveFromFavorites}
+          ariaLabel={t("delete_from_favorites")}
         >
           <motion.div whileTap={{ scale: 1.3 }} className="inline-block">
             <FontAwesomeIcon
               icon={faHeart}
-              aria-label="Delete from favorites"
               className="h-5 w-5 flex justify-center items-center text-red-500"
             />
           </motion.div>

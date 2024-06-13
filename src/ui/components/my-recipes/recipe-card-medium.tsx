@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useEdgeStore } from "@lib/edgestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrash,
@@ -11,6 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+
 import { Button } from "@ui/components/button";
 import { truncateDescription } from "@utils/recipes";
 import { deleteRecipe } from "@lib/actions";
@@ -38,6 +41,8 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
     useDropdown();
   const [isLgScreen, setIsLgScreen] = useState(false);
   const { isOpen, openModal, closeModal, modalRef } = useModal();
+  const { edgestore } = useEdgeStore();
+  const { t } = useTranslation(["dashboard"]);
 
   useEffect(() => {
     const updateScreenSize = () => {
@@ -57,9 +62,14 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
   const handleDeleteRecipe = async () => {
     try {
       await deleteRecipe(id);
-      toast(`${title} has been removed from your recipes.`);
+      toast(`${t("toast_remove_from_recipes", { title })}`);
+      if (images && images.length > 0) {
+        for (const imageUrl of images) {
+          await edgestore.publicFiles.delete({ url: imageUrl });
+        }
+      }
     } catch (error) {
-      toast.error("Oops! Something went wrong. Please try again soon.");
+      toast.error(t("toast_error"));
     }
   };
 
@@ -100,7 +110,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
               <div className="flex justify-start items-end gap-2">
                 <FontAwesomeIcon
                   icon={faClock}
-                  aria-label="Delete from favorites"
+                  aria-hidden="true"
                   className="h-5 w-5 flex justify-center items-center text-[--font]"
                 />
                 <span className="text-xs font-semibold">{cookingTime}</span>
@@ -113,12 +123,9 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
           <Button
             className="btn-icon-menu w-7 h-7 lg:w-10 lg:h-10"
             onClick={toggleDropdown}
+            ariaLabel={t("options")}
           >
-            <FontAwesomeIcon
-              icon={faEllipsisH}
-              aria-label="Options"
-              className="h-4 w-4"
-            />
+            <FontAwesomeIcon icon={faEllipsisH} className="h-4 w-4" />
           </Button>
 
           {isDropdownOpen && (
@@ -131,20 +138,16 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
             >
               <div className="flex flex-col items-start justify-center gap-4">
                 <Link href={`/dashboard/recipes/${id}/edit`}>
-                  <Button className="btn-icon h-6 w-6">
-                    <FontAwesomeIcon
-                      icon={faPencil}
-                      aria-label="Edit"
-                      className="h-4 w-4"
-                    />
+                  <Button className="btn-icon h-6 w-6" ariaLabel={t("edit")}>
+                    <FontAwesomeIcon icon={faPencil} className="h-4 w-4" />
                   </Button>
                 </Link>
-                <Button onClick={handleOpenModal} className="btn-icon h-6 w-6">
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    aria-label="Remove"
-                    className="h-4 w-4"
-                  />
+                <Button
+                  onClick={handleOpenModal}
+                  className="btn-icon h-6 w-6"
+                  ariaLabel={t("remove")}
+                >
+                  <FontAwesomeIcon icon={faTrash} className="h-4 w-4" />
                 </Button>
               </div>
             </motion.div>
@@ -163,12 +166,14 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
               <Button
                 className="btn-green bg-red-500"
                 onClick={handleDeleteRecipe}
+                ariaLabel={t("delete_recipe")}
               >
                 Delete
               </Button>
               <Button
                 onClick={closeModal}
                 className="btn-green bg-[--gray-medium]"
+                ariaLabel={t("close")}
               >
                 Cancel
               </Button>

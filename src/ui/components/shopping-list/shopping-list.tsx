@@ -3,6 +3,7 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/ui/components/button";
 import { Ingredient } from "@lib/definitions";
@@ -15,21 +16,23 @@ interface ShoppingListProps {
 export const ShoppingList: React.FC<ShoppingListProps> = ({
   userShoppingList,
 }) => {
+  const { t } = useTranslation(["dashboard"]);
+
   const handleRemoveFromShoppingList = async (ingredientId: string) => {
     try {
       await removeFromShoppingList(ingredientId);
-      toast("Ingredient deleted from your shopping list.");
+      toast(t("toast_remove_from_shopping_list"));
     } catch (error) {
-      toast.error("Oops! Something went wrong. Please try again soon.");
+      toast.error(t("toast_error"));
     }
   };
 
   return (
     <>
       <div className="flex justify-between space-x-2 bg-[--primary-color] text-white p-2 rounded-lg">
-        <div className="w-1/2">Product</div>
-        <div className="w-1/4 flex justify-center">Quantity</div>
-        <div className="w-1/4 flex justify-center">Remove</div>
+        <div className="w-1/2">{t("product")}</div>
+        <div className="w-1/4 flex justify-center">{t("quantity")}</div>
+        <div className="w-1/4 flex justify-center">{t("remove")}</div>
       </div>
       <ul className="px-2">
         {userShoppingList.map((ingredient: Ingredient) => (
@@ -39,16 +42,13 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
           >
             <div className="w-1/2">{ingredient.ingredient}</div>
             <div className="w-1/4 flex justify-center">{`${ingredient.quantity} ${ingredient.quantityUnit}`}</div>
-            <div className="w-1/4 flex justify-end">
+            <div className="w-1/4 flex justify-center">
               <Button
                 className="btn-icon"
                 onClick={() => handleRemoveFromShoppingList(ingredient.id)}
+                ariaLabel={t("remove")}
               >
-                <FontAwesomeIcon
-                  icon={faXmark}
-                  aria-label="Remove"
-                  className="h-4 w-4"
-                />
+                <FontAwesomeIcon icon={faXmark} className="h-4 w-4" />
               </Button>
             </div>
           </li>

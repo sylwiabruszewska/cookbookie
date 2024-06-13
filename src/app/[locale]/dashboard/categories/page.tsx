@@ -1,8 +1,10 @@
 import { Suspense } from "react";
+import initTranslations from "@utils/i18n";
 
 import { CategoryButtons } from "@ui/components/categories/category-buttons";
 import { CategoryRecipesContent } from "@ui/components/categories/category-recipes-content";
 import { Loader } from "@ui/components/loader";
+import { getLocale } from "@lib/getLocal";
 
 export default async function Page({
   searchParams,
@@ -12,6 +14,9 @@ export default async function Page({
     page?: string;
   };
 }) {
+  const locale = getLocale();
+  const { t } = await initTranslations(locale, ["dashboard"]);
+
   const categoryName = searchParams?.category || "";
   const currentPage = Number(searchParams?.page) || 1;
 
@@ -19,7 +24,7 @@ export default async function Page({
 
   return (
     <div>
-      <h2 className="heading-l">Categories</h2>
+      <h2 className="heading-l">{t("categories")}</h2>
       <Suspense fallback={""}>
         <CategoryButtons />
       </Suspense>

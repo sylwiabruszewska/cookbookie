@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -14,6 +15,7 @@ import useDropdown from "@/hooks/useDropdown";
 import { ModeToggle } from "@/ui/components/mode-toggle";
 
 const NavBar = () => {
+  const { t } = useTranslation(["dashboard"]);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const { data: session } = useSession();
   const {
@@ -56,21 +58,21 @@ const NavBar = () => {
         <nav className="hidden lg:flex flex-grow justify-center">
           <ul className="flex gap-10 items-center">
             <li>
-              <Link href="/dashboard/categories">Categories</Link>
+              <Link href="/dashboard/categories">{t("categories")}</Link>
             </li>
 
             <li>
-              <Link href="/dashboard/my-recipes">My recipes</Link>
+              <Link href="/dashboard/my-recipes">{t("my_recipes")}</Link>
             </li>
             <li>
-              <Link href="/dashboard/favorites">Favorites</Link>
+              <Link href="/dashboard/favorites">{t("favorites")}</Link>
             </li>
             <li>
-              <Link href="/dashboard/shopping-list">Shopping list</Link>
+              <Link href="/dashboard/shopping-list">{t("shopping_list")}</Link>
             </li>
             <li>
               <Link href="/dashboard/add-recipe">
-                <Button className="btn-rounded">Add recipe</Button>
+                <Button className="btn-rounded">{t("add_recipe")}</Button>
               </Link>
             </li>
           </ul>
@@ -122,7 +124,7 @@ const NavBar = () => {
                   className="group mt-8 btn-logout px-5"
                   onClick={() => signOut()}
                 >
-                  Log out
+                  {t("logout")}
                   <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                     &gt;
                   </span>
@@ -134,12 +136,9 @@ const NavBar = () => {
               type="button"
               className="lg:hidden w-[28px] h-[28px]"
               onClick={handleNavOpen}
+              aria-label="Menu"
             >
-              <FontAwesomeIcon
-                icon={faBars}
-                aria-label="Menu"
-                className="w-[28px] h-[28px]"
-              />
+              <FontAwesomeIcon icon={faBars} className="w-[28px] h-[28px]" />
             </button>
           </div>
 

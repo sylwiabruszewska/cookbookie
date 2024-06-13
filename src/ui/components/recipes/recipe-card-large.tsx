@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/ui/components/button";
 import { Ingredient, RecipeWithFavoriteStatus } from "@lib/definitions";
@@ -26,20 +27,28 @@ export default function RecipeCardLarge({
   recipe,
   userShoppingList,
 }: RecipeCardLargeProps) {
-  const [isFavorite, setIsFavorite] = useState(recipe.is_favorite);
+  const {
+    id,
+    title,
+    description,
+    is_favorite,
+    images,
+    cooking_time,
+    ingredients,
+    steps,
+  } = recipe;
+  const [isFavorite, setIsFavorite] = useState(is_favorite);
   const [shoppingListIds, setShoppingListIds] = useState<string[]>([]);
-  const recipeId = recipe.id;
-  const allRecipeImages = recipe.images;
-  const mainPhoto =
-    allRecipeImages.length > 0 ? allRecipeImages[0] : "/placeholder.png";
+  const mainPhoto = images.length > 0 ? images[0] : "/placeholder.png";
   let recipeGallery;
+  const { t } = useTranslation(["dashboard"]);
 
-  if (!recipeId) {
+  if (!id) {
     notFound();
   }
 
-  if (allRecipeImages.length > 1) {
-    const recipeImagesWithoutMainPhoto = allRecipeImages.slice(1);
+  if (images.length > 1) {
+    const recipeImagesWithoutMainPhoto = images.slice(1);
 
     recipeGallery = recipeImagesWithoutMainPhoto.map((image, index) => {
       return (
@@ -52,7 +61,7 @@ export default function RecipeCardLarge({
           }}
           width={500}
           height={500}
-          alt={recipe.title}
+          alt={title}
           className="object-cover mb-8 rounded-lg"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
@@ -61,8 +70,8 @@ export default function RecipeCardLarge({
   }
 
   useEffect(() => {
-    setIsFavorite(recipe.is_favorite);
-  }, [recipe, recipe.is_favorite]);
+    setIsFavorite(is_favorite);
+  }, [is_favorite]);
 
   useEffect(() => {
     const shoppingItemIds = userShoppingList.map((item) => item.id);
@@ -91,18 +100,22 @@ export default function RecipeCardLarge({
         quantity: ingredient.quantity,
         quantityUnit: ingredient.quantityUnit,
       });
-      toast.success(`${ingredient.ingredient} added to your shopping list.`);
+      toast.success(
+        `${t("toast_add_shopping_list", {
+          ingredient: ingredient.ingredient,
+        })}`
+      );
     } catch (error) {
-      toast.error("Oops! Something went wrong. Please try again soon.");
+      toast.error(t("toast_error"));
     }
   };
 
   const handleRemoveFromShoppingList = async (ingredientId: string) => {
     try {
       await removeFromShoppingList(ingredientId);
-      toast("Ingredient deleted from your shopping list.");
+      toast(t("toast_remove_from_shopping_list"));
     } catch (error) {
-      toast.error("Oops! Something went wrong. Please try again soon.");
+      toast.error(t("toast_error"));
     }
   };
 
@@ -110,19 +123,19 @@ export default function RecipeCardLarge({
   const handleToggleFavorites = async () => {
     if (!isFavorite) {
       try {
-        await addToFavorites(recipeId);
+        await addToFavorites(id);
         setIsFavorite(true);
-        toast.success(`${recipe.title} is now in your favorites.`);
+        toast.success(`${t("toast_add_to_favorites", { title })}`);
       } catch (error) {
-        toast.error("Oops! Something went wrong. Please try again soon.");
+        toast.error(t("toast_error"));
       }
     } else {
       try {
-        await removeFromFavorites(recipeId);
+        await removeFromFavorites(id);
         setIsFavorite(false);
-        toast(`${recipe.title} has been removed from your favorites.`);
+        toast(`${t("toast_remove_from_favorites", { title })}`);
       } catch (error) {
-        toast.error("Oops! Something went wrong. Please try again soon.");
+        toast.error(t("toast_error"));
       }
     }
   };
@@ -131,30 +144,25 @@ export default function RecipeCardLarge({
     <div className="flex flex-col gap-4 justify-center md:gap-12 lg:w-1/2 lg:mx-auto md:my-12">
       <div className="flex flex-col justify-center gap-4">
         <h2 className="heading-l text-[32px] text-[--primary-color] mt-4 mb-4 text-center">
-          {recipe.title}
+          {title}
         </h2>
-        <p className="text-center">{recipe.description}</p>
+        <p className="text-center">{description}</p>
 
         <Button
           onClick={handleToggleFavorites}
           className="self-center btn-rounded"
+          ariaLabel={t("delete_from_favorites")}
         >
-          <FontAwesomeIcon
-            icon={faHeart}
-            aria-label="Add to favorites"
-            className="h-4 w-4 mr-4"
-          />
-          {isFavorite
-            ? "Remove from favorite recipes"
-            : "Add to favorite recipes"}
+          <FontAwesomeIcon icon={faHeart} className="h-4 w-4 mr-4" />
+          {isFavorite ? t("delete_from_favorites") : t("add_to_favorites")}
         </Button>
         <div className="flex justify-center items-center gap-2">
           <FontAwesomeIcon
             icon={faClock}
-            aria-label="Delete from favorites"
+            aria-hidden="true"
             className="h-5 w-5 flex justify-center items-center text-[--font]"
           />
-          <span className="text-center">{recipe.cooking_time}</span>
+          <span className="text-center">{cooking_time}</span>
         </div>
       </div>
 
@@ -167,20 +175,22 @@ export default function RecipeCardLarge({
           }}
           width={500}
           height={500}
-          alt={recipe.title}
+          alt={title}
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
       </div>
 
       <div className="mb-4">
-        <div className="flex justify-between space-x-2 bg-[--primary-color] text-white p-2 rounded-lg">
-          <div className="w-1/2">Ingredients</div>
-          <div className="w-1/4 flex justify-center">Quantity</div>
-          <div className="w-1/4 flex justify-center">Add to list</div>
+        <div className="flex justify-between items-center space-x-2 bg-[--primary-color] text-white p-2 rounded-lg">
+          <div className="w-1/2">{t("ingredients")}</div>
+          <div className="w-1/4 flex justify-center">{t("quantity")}</div>
+          <div className="w-1/4 flex justify-center text-center">
+            {t("add_to_shopping_list")}
+          </div>
         </div>
         <ul className="px-2">
-          {recipe.ingredients.map((ingredient, index) => (
+          {ingredients.map((ingredient, index) => (
             <li
               key={index}
               className="flex justify-between space-x-2 items-center pt-2 pb-2 border-b border-gray-300"
@@ -201,9 +211,11 @@ export default function RecipeCardLarge({
       </div>
 
       <div>
-        <h3 className="text-xl font-semibold mb-4">Recipe Preparation</h3>
+        <h3 className="text-xl font-semibold mb-4">
+          {t("recipe_preparation")}
+        </h3>
         <ul>
-          {recipe.steps.map((step, index) => (
+          {steps.map((step, index) => (
             <li
               key={index}
               className="flex gap-4 justify-start items-start mb-4"

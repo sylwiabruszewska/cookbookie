@@ -7,7 +7,6 @@ interface InputProps {
   id: string;
   name: string;
   type: string;
-  placeholder: string;
   required?: boolean;
   label: string;
   className?: string;
@@ -18,7 +17,6 @@ export const Input: React.FC<InputProps> = ({
   id,
   name,
   type = "text",
-  placeholder,
   label,
   className,
   readOnly,
@@ -36,7 +34,7 @@ export const Input: React.FC<InputProps> = ({
         id={id}
         {...field}
         type={type}
-        placeholder={placeholder}
+        placeholder={label}
         className={clsx(baseClass, className)}
         readOnly={readOnly}
         onChange={handleChange}

@@ -62,3 +62,9 @@ export const recipeValidationSchema = Yup.object().shape({
     )
     .min(1, "At least one step is required"),
 });
+
+export const newsletterValidationSchema = Yup.object().shape({
+  emailNewsletter: Yup.string()
+    .email("Invalid email")
+    .required("Email is required"),
+});

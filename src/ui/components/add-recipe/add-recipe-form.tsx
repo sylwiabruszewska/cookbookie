@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Input } from "@ui/components/add-recipe/input";
 import { Select } from "@ui/components/add-recipe/select";
@@ -28,6 +29,7 @@ import { addRecipe } from "@lib/actions";
 import { useEdgeStore } from "@lib/edgestore";
 
 export default function AddRecipeForm({ categories }: CategoriesProps) {
+  const { t } = useTranslation(["dashboard"]);
   const router = useRouter();
 
   const [fileUrls, setFileUrls] = useState<string[]>([]);
@@ -88,10 +90,10 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
         throw new Error("Failed to submit recipe");
       }
 
-      toast.success("Recipe added successfully! Time to get cooking 👨‍🍳");
+      toast.success(t("toast_add_recipe"));
       router.push("/dashboard/my-recipes");
     } catch (error) {
-      toast.error("Oops! Something went wrong. Please try again soon.");
+      toast.error(t("toast_error"));
     } finally {
       setSubmitting(false);
     }
@@ -117,8 +119,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                     id="title"
                     name="title"
                     type="text"
-                    label="Enter item title"
-                    placeholder="Enter item title"
+                    label={t("title")}
                   />
                   <ErrorMessage
                     name="title"
@@ -128,11 +129,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                 </div>
 
                 <div>
-                  <TextArea
-                    id="description"
-                    label="Enter about recipe"
-                    placeholder="Enter about recipe"
-                  />
+                  <TextArea id="description" label={t("description")} />
                   <ErrorMessage
                     name="description"
                     component="div"
@@ -145,7 +142,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                     <Select
                       id="category"
                       name="category"
-                      label="Category"
+                      label={t("category")}
                       options={categories.map((category: Category) => ({
                         value: category.name,
                         label: category.name,
@@ -163,8 +160,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                   <TimePicker
                     id="cookingTime"
                     name="cookingTime"
-                    label="Cooking Time"
-                    placeholder="Cooking Time"
+                    label={t("cookingTime")}
                   />
                   <ErrorMessage
                     name="cookingTime"
@@ -193,8 +189,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                                   id={`ingredients.${index}.ingredient`}
                                   name={`ingredients.${index}.ingredient`}
                                   type="text"
-                                  label="Ingredient"
-                                  placeholder="Ingredient"
+                                  label={t("ingredient")}
                                 />
                               </div>
 
@@ -203,14 +198,13 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                                   id={`ingredients.${index}.quantity`}
                                   name={`ingredients.${index}.quantity`}
                                   type="number"
-                                  label="Quantity"
-                                  placeholder="Quantity"
+                                  label={t("quantity")}
                                 />
 
                                 <Select
                                   id={`ingredients.${index}.quantityUnit`}
                                   name={`ingredients.${index}.quantityUnit`}
-                                  label="Unit"
+                                  label={t("unit")}
                                   options={[
                                     { value: "tbs", label: "tbs" },
                                     { value: "tsp", label: "tsp" },
@@ -241,10 +235,10 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                           <Button
                             className="btn-icon"
                             onClick={() => remove(index)}
+                            ariaLabel={t("remove")}
                           >
                             <FontAwesomeIcon
                               icon={faXmark}
-                              aria-label="Remove"
                               className="h-4 w-4"
                             />
                           </Button>
@@ -253,6 +247,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                     )}
                     <Button
                       className="btn-green mb-4 ml-auto h-10 w-10"
+                      ariaLabel={t("add_ingredient")}
                       onClick={() =>
                         push({
                           id: uuidv4(),
@@ -283,8 +278,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                         <div className="w-full">
                           <TextArea
                             id={`steps.${index}.step`}
-                            label={`Step ${index + 1}`}
-                            placeholder={`Step ${index + 1}`}
+                            label={t("step_label", { stepNumber: index + 1 })}
                           />
 
                           <ErrorMessage
@@ -297,17 +291,15 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                         <Button
                           className="btn-icon"
                           onClick={() => remove(index)}
+                          ariaLabel={t("remove")}
                         >
-                          <FontAwesomeIcon
-                            icon={faXmark}
-                            aria-label="Remove"
-                            className="h-4 w-4"
-                          />
+                          <FontAwesomeIcon icon={faXmark} className="h-4 w-4" />
                         </Button>
                       </div>
                     ))}
                     <Button
                       className="btn-green mb-4 ml-auto h-10 w-10"
+                      ariaLabel={t("add_step")}
                       onClick={() =>
                         push({
                           id: uuidv4(),
@@ -331,7 +323,9 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Adding recipe..." : "Add recipe"}
+              {isSubmitting
+                ? t("action_in_progress_add_recipe")
+                : t("add_recipe")}
             </Button>
           </Form>
         )}

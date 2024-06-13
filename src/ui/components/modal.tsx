@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "./button";
+import { useTranslation } from "react-i18next";
 
 interface ModalProps {
   onClose: () => void;
@@ -10,6 +11,8 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ onClose, children, modalRef }) => {
+  const { t } = useTranslation(["dashboard"]);
+
   return (
     <div className="fixed inset-0 flex justify-center items-center z-40">
       <motion.div
@@ -28,12 +31,9 @@ const Modal: React.FC<ModalProps> = ({ onClose, children, modalRef }) => {
         <Button
           className="btn-icon bg-[--gray-light] w-7 h-7 absolute top-3 right-3"
           onClick={onClose}
+          ariaLabel={t("close")}
         >
-          <FontAwesomeIcon
-            icon={faXmark}
-            aria-label="Remove"
-            className="h-4 w-4"
-          />
+          <FontAwesomeIcon icon={faXmark} className="h-4 w-4" />
         </Button>
 
         {children}

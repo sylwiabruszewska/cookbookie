@@ -6,16 +6,10 @@ const baseClass = "recipe-form-components";
 interface TextAreaProps {
   id: string;
   label: string;
-  placeholder: string;
   className?: string;
 }
 
-export const TextArea: React.FC<TextAreaProps> = ({
-  id,
-  label,
-  placeholder,
-  className,
-}) => {
+export const TextArea: React.FC<TextAreaProps> = ({ id, label, className }) => {
   const [field, meta, helpers] = useField({ name: id });
 
   const handleChange = (
@@ -35,7 +29,7 @@ export const TextArea: React.FC<TextAreaProps> = ({
           className,
           "resize-none hover:resize-y min-h-10 h-20 max-h-[200px]"
         )}
-        placeholder={placeholder}
+        placeholder={label}
         onChange={handleChange}
       ></textarea>
     </label>

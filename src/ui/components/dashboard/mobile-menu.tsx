@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@ui/components/button";
 import { ModeToggle } from "../mode-toggle";
@@ -14,6 +15,8 @@ interface MobileMenuProps {
 }
 
 const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
+  const { t } = useTranslation(["dashboard"]);
+
   const handleLinkClick = () => {
     closeMenu();
   };
@@ -50,12 +53,8 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
           </Link>
         </div>
         <div className="absolute top-6 right-0">
-          <button onClick={closeMenu}>
-            <FontAwesomeIcon
-              icon={faXmark}
-              aria-label="Close"
-              className="w-[28px] h-[28px]"
-            />
+          <button onClick={closeMenu} aria-label={t("close")}>
+            <FontAwesomeIcon icon={faXmark} className="w-[28px] h-[28px]" />
           </button>
         </div>
 
@@ -63,21 +62,21 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
           <li onClick={handleLinkClick}>
             <Link href="/dashboard/add-recipe">
               <Button className="btn-rounded text-xl h-12 mb-4">
-                Add recipe
+                {t("add_recipe")}
               </Button>
             </Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link href="/dashboard/categories">Categories</Link>
+            <Link href="/dashboard/categories">{t("categories")}</Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link href="/dashboard/my-recipes">My recipes</Link>
+            <Link href="/dashboard/my-recipes">{t("my_recipes")}</Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link href="/dashboard/favorites">Favorites</Link>
+            <Link href="/dashboard/favorites">{t("favorites")}</Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link href="/dashboard/shopping-list">Shopping list</Link>
+            <Link href="/dashboard/shopping-list">{t("shopping_list")}</Link>
           </li>
           <li onClick={handleLinkClick}>
             <Link
@@ -88,7 +87,7 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
                 icon={faSearch}
                 className="text-sm w-[20px] h-[20px]"
               />
-              <span>Search</span>
+              <span>{t("search")}</span>
             </Link>
           </li>
         </ul>

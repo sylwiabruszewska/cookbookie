@@ -1,12 +1,14 @@
 import clsx from "clsx";
 
 import { Field, useFormikContext } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   incrementTime,
   decrementTime,
   formatTime,
+  parseTimeString,
 } from "@/utils/timePickerHelpers";
 import { Input } from "@ui/components/add-recipe/input";
 import { Button } from "@ui/components/button";
@@ -15,17 +17,27 @@ interface TimePickerProps {
   id: string;
   name: string;
   label: string;
-  placeholder: string;
+  initialTime?: string;
 }
 
 export const TimePicker: React.FC<TimePickerProps> = ({
   id,
   name,
   label,
-  placeholder,
+  initialTime,
 }) => {
+  const { t } = useTranslation(["dashboard"]);
   const { setFieldValue } = useFormikContext<any>();
   const [time, setTime] = useState({ hours: 0, minutes: 0 });
+
+  useEffect(() => {
+    if (initialTime) {
+      const parsedTime = parseTimeString(initialTime);
+      setTime(parsedTime);
+      setFieldValue(name, formatTime(parsedTime.hours, parsedTime.minutes));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialTime]);
 
   const handleIncrement = () => {
     const updatedTime = incrementTime(time);
@@ -47,7 +59,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
             {...field}
             type="text"
             label={label}
-            placeholder={placeholder}
+            placeholder={label}
             readOnly
             value={formatTime(time.hours, time.minutes)}
           />
@@ -62,12 +74,14 @@ export const TimePicker: React.FC<TimePickerProps> = ({
             "bg-[--gray] cursor-not-allowed hover:bg-[--gray] dark:hover:bg-[--gray-medium] dark:bg-[--gray-medium] dark:hover:text-white":
               time.hours === 0 && time.minutes <= 5,
           })}
+          ariaLabel={t("decrement_time")}
         >
           -
         </Button>
         <Button
           onClick={handleIncrement}
           className="btn-green h-10 w-10 rounded-l-none rounded-r-lg"
+          ariaLabel={t("increment_time")}
         >
           +
         </Button>

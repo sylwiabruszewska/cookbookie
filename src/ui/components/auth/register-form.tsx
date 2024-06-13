@@ -7,6 +7,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@ui/components/button";
 import IconInput from "@ui/components/icon-input";
@@ -19,6 +20,8 @@ interface FormValues {
 }
 
 const RegistrationForm = () => {
+  const { t } = useTranslation();
+
   const router = useRouter();
   const [globalError, setGlobalError] = useState<string | null>(null);
 
@@ -58,23 +61,21 @@ const RegistrationForm = () => {
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col items-center" autoComplete="off">
-            <h2 className="heading-l">Registration</h2>
+            <h2 className="heading-l">{t("register")}</h2>
 
             <IconInput
               id="text"
               name="name"
               type="text"
-              placeholder="Name"
               required
               iconID="icon-user"
-              label="Name"
+              label={t("name")}
             />
 
             <IconInput
               id="email"
               name="email"
               type="email"
-              placeholder="Email"
               required
               iconID="icon-mail"
               label="Email"
@@ -84,16 +85,17 @@ const RegistrationForm = () => {
               id="password"
               name="password"
               type="password"
-              placeholder="Password"
               required
               iconID="icon-lock"
-              label="Password"
+              label={t("password")}
             />
 
             {globalError && <div className="error-text">{globalError}</div>}
 
             <Button type="submit" className="btn-green w-full mt-4 mb-4">
-              {isSubmitting ? "Creating an account..." : "Register"}
+              {isSubmitting
+                ? t("action_in_progress_register")
+                : t("action_register")}
             </Button>
           </Form>
         )}
@@ -116,9 +118,9 @@ const RegistrationForm = () => {
       </button>
 
       <div className="mt-10">
-        <span>Have an account? </span>
+        <span>{t("account_exists")} </span>
         <Link href="/login" className="underline hover-green">
-          Sign in
+          {t("action_login")}
         </Link>
       </div>
     </div>

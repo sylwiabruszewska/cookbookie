@@ -3,12 +3,12 @@ import clsx from "clsx";
 import { useField } from "formik";
 import { useState } from "react";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
 interface TextInputProps {
   id: string;
   name: string;
   type: "text" | "email" | "password";
-  placeholder: string;
   required?: boolean;
   iconID?: string;
   label: string;
@@ -20,13 +20,14 @@ const IconInput: React.FC<TextInputProps> = ({
   id,
   name,
   type,
-  placeholder,
   required = true,
   iconID,
   label,
   autocomplete = "on",
   className,
 }) => {
+  const { t } = useTranslation(["dashboard"]);
+
   const [field, meta] = useField({ name, type });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -50,7 +51,7 @@ const IconInput: React.FC<TextInputProps> = ({
         <input
           id={id}
           className={`w-full p-2 pl-10 border border-[--gray] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray] transition duration-150 ease-in-out bg-[--background] dark:bg-transparent dark:text-[--font] dark:placeholder-[--gray]`}
-          placeholder={placeholder}
+          placeholder={label}
           required={required}
           type={inputType}
           autoComplete={autocomplete}
@@ -75,13 +76,13 @@ const IconInput: React.FC<TextInputProps> = ({
             {showPassword ? (
               <FontAwesomeIcon
                 icon={faEyeSlash}
-                aria-label="Hide"
+                aria-label={t("hide")}
                 className="h-4 w-4 text-[--gray-medium]"
               />
             ) : (
               <FontAwesomeIcon
                 icon={faEye}
-                aria-label="Show"
+                aria-label={t("show")}
                 className="h-4 w-4 text-[--gray-medium]"
               />
             )}

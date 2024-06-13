@@ -3,6 +3,7 @@ import { FileRejection, useDropzone } from "react-dropzone";
 import { useCallback, useEffect, useState } from "react";
 import { FC } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { useTranslation } from "react-i18next";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -17,6 +18,8 @@ export const FileUpload: FC<FileUploadProps> = ({
   initialImages = [],
   onFilesUploaded,
 }) => {
+  const { t } = useTranslation(["dashboard"]);
+
   const [files, setFiles] = useState<
     {
       id: string;
@@ -200,6 +203,7 @@ export const FileUpload: FC<FileUploadProps> = ({
               ? "border-2 border-dashed border-white"
               : "border-2 border-dashed border-[--primary-color]"
           }`}
+          aria-label={t("drop_files_here")}
         >
           <input {...getInputProps()} />
 
@@ -254,6 +258,7 @@ export const FileUpload: FC<FileUploadProps> = ({
                   <button
                     className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
                     onClick={(event) => removeFile(event, file.id)}
+                    aria-label={t("remove")}
                   >
                     &times;
                   </button>

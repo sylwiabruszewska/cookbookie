@@ -135,10 +135,27 @@ async function createUserShoppingListTable(client) {
   }
 }
 
+async function createSubscribersTable(client) {
+  try {
+    const createTable = await client.sql`
+          CREATE TABLE IF NOT EXISTS Subscribers (
+          email VARCHAR(255) UNIQUE NOT NULL
+    );
+      `;
+
+    console.log(`Created "Subscribers" table`);
+
+    return createTable;
+  } catch (error) {
+    console.error("Error creating Subscribers table:", error);
+    throw error;
+  }
+}
+
 async function main() {
   const client = await db.connect();
 
-  await createUserFavoritesTable(client);
+  await createSubscribersTable(client);
 
   await client.end();
 }

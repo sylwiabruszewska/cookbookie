@@ -274,3 +274,27 @@ export async function removeFromShoppingList(ingredientId: string) {
     throw new Error("Failed to remove ingredient from shopping list.");
   }
 }
+
+// ***** ADD USER EMAIL TO SUBSCRIBERS TABLE - NEWSLETTER *****
+export async function addEmailToSubscribersTable(email: string) {
+  noStore();
+  try {
+    const result = await sql`
+      INSERT INTO subscribers (email)
+      SELECT ${email}
+      WHERE NOT EXISTS (
+        SELECT 1 FROM subscribers WHERE email = ${email}
+      )`;
+
+    if (result.rowCount === 1) {
+      console.log("Email added successfully to subscribers list");
+      return true;
+    } else {
+      console.log("Email already exists in subscribers list");
+      return false;
+    }
+  } catch (error) {
+    console.error("Failed to add email to subscribers list:", error);
+    throw new Error("Failed to add email to subscribers list.");
+  }
+}

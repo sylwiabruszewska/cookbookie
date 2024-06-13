@@ -1,8 +1,10 @@
 import Link from "next/link";
+import initTranslations from "@utils/i18n";
 
 import RecipeCardSmall from "./recipe-card-small";
 import { Button } from "@/ui/components/button";
 import { RecipeWithFavoriteStatus } from "@lib/definitions";
+import { getLocale } from "@lib/getLocal";
 
 interface CategoryCardProps {
   name: string;
@@ -10,11 +12,14 @@ interface CategoryCardProps {
   totalRecipes: number;
 }
 
-export default function CategoryCard({
+export default async function CategoryCard({
   name,
   recentRecipes,
   totalRecipes,
 }: CategoryCardProps) {
+  const locale = getLocale();
+  const { t } = await initTranslations(locale, ["dashboard"]);
+
   return (
     <div>
       <h3 className="text-xl font-semibold mb-4">{name}</h3>
@@ -36,7 +41,7 @@ export default function CategoryCard({
       </div>
       {totalRecipes > 4 && (
         <Link href={`/dashboard/categories?category=${name}&page=1`}>
-          <Button className="btn-green ml-auto">See all</Button>
+          <Button className="btn-green ml-auto">{t("see_all")}</Button>
         </Link>
       )}
     </div>

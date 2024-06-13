@@ -1,11 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
-
 import HomepageLayout from "@/ui/layouts/homepage";
 import { Button } from "@/ui/components/button";
 import { poppins } from "@/ui/fonts";
+import initTranslations from "@utils/i18n";
 
-export default function Home() {
+interface HomeProps {
+  params: {
+    locale: string;
+  };
+}
+
+const i18nNamespaces = ["home"];
+
+export default async function Home({ params: { locale } }: HomeProps) {
+  const { t } = await initTranslations(locale, ["home"]);
+
   return (
     <HomepageLayout>
       <div className="z-10 text-white flex flex-col items-center gap-4">
@@ -17,32 +27,26 @@ export default function Home() {
           height={68}
           priority
         />
-
-        <h1 className="text-3xl font-bold text-center">
-          Welcome to the CookBookie App!
+        <h1 className="text-2xl font-semibold text-center tracking-wide">
+          {t("header")}
         </h1>
-
         <p
-          className={`text-center text-regular mb-10 w-3/4 lg:w-1/2 ${poppins.className}`}
+          className={`text-center text-base mb-10 w-3/4 lg:w-1/2 ${poppins.className}`}
         >
-          This app offers more than just a collection of recipes - it is
-          designed to be your very own digital cookbook. You can easily save and
-          retrieve your own recipes at any time.
+          {t("description")}
         </p>
-
-        <div className="flex flex-col gap-4 lg:flex-row">
+        <div className="flex flex-col gap-4 lg:flex-row items-center justify-center">
           <Link href="/register">
             <Button className="group btn-bordered px-5">
-              Registration
+              {t("register")}
               <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 &gt;
               </span>
             </Button>
           </Link>
-
           <Link href="/login">
             <Button className="group btn-bordered px-5">
-              Sign in
+              {t("login")}
               <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 &gt;
               </span>

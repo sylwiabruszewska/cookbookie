@@ -2,6 +2,7 @@
 
 import { Formik, Form, FormikHelpers } from "formik";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/ui/components/button";
 import IconInput from "@/ui/components/icon-input";
@@ -17,6 +18,7 @@ interface FormValues {
 export default function NewsletterForm() {
   const { isOpen, openModal, closeModal, modalRef } = useModal();
   const [modalContent, setModalContent] = useState<string>("");
+  const { t } = useTranslation(["dashboard"]);
 
   const handleSubmit = async (
     values: FormValues,
@@ -68,7 +70,7 @@ export default function NewsletterForm() {
               type="submit"
               className="btn-bordered w-full md:px-10 md:w-auto dark:bg-[--gray-dark]"
             >
-              Subscribe
+              {t("subscribe_b")}
             </Button>
           </Form>
         )}

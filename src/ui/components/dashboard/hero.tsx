@@ -2,11 +2,14 @@
 
 import Image from "next/image";
 import { Suspense } from "react";
+import { useTranslation } from "react-i18next";
 
 import SearchForm from "@/ui/components/dashboard/search-form";
 import Background from "@/ui/components/dashboard/background";
 
 const HeroSection = () => {
+  const { t } = useTranslation(["dashboard"]);
+
   return (
     <div className="h-[90vh] md:min-h-[500px] md:h-[50%] lg:h-[90vh] py-4 md:py-8 lg:px-14 md:mb-12 lg:max-h-[700px]">
       <Background />
@@ -18,9 +21,7 @@ const HeroSection = () => {
             <span className="text-[--font]">Bookie</span>
           </h1>
           <p className="md:text-base lg:text-xl text-center md:text-left mb-8 lg:mb-20">
-            &ldquo;What to cook?&rdquo; is not only a recipe app, it is, in
-            fact, your cookbook. You can add your own recipes to save them for
-            the future.
+            {t("hero_text")}
           </p>
           <Suspense
             fallback={<div className="h-16 lg:h-18 min-w-[300px]"></div>}

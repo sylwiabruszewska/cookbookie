@@ -1,9 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 import NewsletterForm from "@/ui/components/newsletter-form";
 
 const Footer = () => {
+  const { t } = useTranslation(["dashboard"]);
+
   return (
     <footer className="relative w-full mt-28">
       <div className="bg-[--gray-dark] dark:bg-[--primary-color] text-white py-12 font-thin relative">
@@ -25,40 +28,36 @@ const Footer = () => {
                 </h3>
               </div>
               <ul className="hidden md:block space-y-2 list-disc pl-5">
-                <li>Database of recipes that can be replenished </li>
-                <li>Flexible search for desired and unwanted ingredients</li>
-                <li>Ability to add your own recipes with photos</li>
-                <li>Convenient and easy to use</li>
+                <li>{t("footer_l1")}</li>
+                <li>{t("footer_l2")}</li>
+                <li>{t("footer_l3")}</li>
               </ul>
             </div>
 
             <ul className="flex flex-col items-center space-y-2 md:w-1/2 md:items-end lg:w-1/3 lg:items-center">
               <li>
-                <Link href="/dashboard/categories">Categories</Link>
+                <Link href="/dashboard/categories">{t("categories")}</Link>
               </li>
               <li>
-                <Link href="/dashboard/add-recipe">Add recipe</Link>
+                <Link href="/dashboard/add-recipe">{t("add_recipe")}</Link>
               </li>
               <li>
-                <Link href="/dashboard/my-recipes">My recipes</Link>
+                <Link href="/dashboard/my-recipes">{t("my_recipes")}</Link>
               </li>
               <li>
-                <Link href="/dashboard/favorites">Favorites</Link>
+                <Link href="/dashboard/favorites">{t("favorites")}</Link>
               </li>
               <li>
-                <Link href="/dashboard/shopping-list">Shopping list</Link>
+                <Link href="/dashboard/shopping-list">
+                  {t("shopping_list")}
+                </Link>
               </li>
             </ul>
 
             <div className="md:mx-auto md:w-2/3 lg:w-1/3">
               <div className="hidden lg:block">
-                <h3 className="mb-2 font-semibold">
-                  Subscribe to our Newsletter
-                </h3>
-                <p className="mb-6">
-                  Subscribe up to our newsletter. Be in touch with latest news
-                  and special offers, etc.
-                </p>
+                <h3 className="mb-2 font-semibold">{t("subscribe_h")}</h3>
+                <p className="mb-6">{t("subscribe_p")}</p>
               </div>
               <NewsletterForm />
             </div>
@@ -70,8 +69,8 @@ const Footer = () => {
       <div className="py-4 text-font relative h-[66px] md:h-[78px] lg:h-[114px] flex items-center overflow-hidden">
         <div className="content-container">
           <div className="page-container flex justify-center space-x-4 text-xs">
-            <span>© 2024 All Rights Reserved.</span>
-            <span>Terms of Service</span>
+            <span>{t("copywright")}</span>
+            <span>{t("terms")}</span>
           </div>
         </div>
         <div className="absolute bottom-[-100%] lg:bottom-[-50%] right-0 w-[260px] h-[320px] bg-cover bg-no-repeat negative-z-index bg-footer-right"></div>

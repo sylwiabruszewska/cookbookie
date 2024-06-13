@@ -3,6 +3,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/ui/components/button";
 import clsx from "clsx";
@@ -14,6 +15,7 @@ const SearchForm = ({ className }: { className?: string }) => {
   const pathname = usePathname();
   const { replace } = useRouter();
   const router = useRouter();
+  const { t } = useTranslation(["dashboard"]);
 
   useEffect(() => {
     const currentQuery = searchParams.get("query") || "";
@@ -35,12 +37,6 @@ const SearchForm = ({ className }: { className?: string }) => {
 
   const handleSubmitOnDashboardPage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    document
-      .getElementById("search-results")
-      ?.scrollIntoView({ behavior: "smooth" });
-    console.log("search dashboard");
-    console.log(query);
-
     const params = new URLSearchParams(searchParams);
     params.set("page", "1");
 
@@ -73,7 +69,7 @@ const SearchForm = ({ className }: { className?: string }) => {
         <input
           type="text"
           id="search"
-          placeholder="Search recipes"
+          placeholder={t("p_search")}
           className="w-full bg-[--gray-light] border border-[--gray] focus:outline-none focus:ring-2 focus:ring-[--gray-dark] focus:border-[--gray-dark] rounded-tl-[20px] rounded-bl-[40px] rounded-br-[20px] rounded-tr-[40px] h-10 p-6 lg:p-8 pr-24 dark:focus:ring-[--primary-color] dark:focus:border-[--primary-color] dark:bg-[--gray-dark]"
           onChange={(e) => {
             handleOnInputChange(e.target.value);

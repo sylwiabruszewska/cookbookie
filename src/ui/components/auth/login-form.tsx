@@ -6,6 +6,7 @@ import { Formik, Form, FormikHelpers } from "formik";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@ui/components/button";
 import IconInput from "@ui/components/icon-input";
@@ -17,6 +18,8 @@ interface FormValues {
 }
 
 const LoginForm = () => {
+  const { t } = useTranslation();
+
   const router = useRouter();
   const [globalError, setGlobalError] = useState<string | null>(null);
 
@@ -61,7 +64,7 @@ const LoginForm = () => {
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col items-center" autoComplete="off">
-            <h2 className="heading-l">Sign in</h2>
+            <h2 className="heading-l">{t("login")}</h2>
             <IconInput
               id="email"
               name="email"
@@ -85,7 +88,7 @@ const LoginForm = () => {
             {globalError && <div className="error-text">{globalError}</div>}
 
             <Button type="submit" className="btn-green w-full mt-6 mb-4">
-              {isSubmitting ? "Logging in..." : "Sign in"}
+              {isSubmitting ? t("action_in_progress_login") : t("action_login")}
             </Button>
           </Form>
         )}
@@ -93,7 +96,7 @@ const LoginForm = () => {
 
       <div className="flex justify-center w-full items-center gap-3 py-4">
         <div className="border-b border-[--gray] w-full" />
-        <div>or</div>
+        <div>{t("or")}</div>
         <div className="border-b border-[--gray] w-full" />
       </div>
 
@@ -108,9 +111,9 @@ const LoginForm = () => {
       </button>
 
       <div className="mt-10">
-        <span>Don&#39;t have an account? </span>
+        <span>{t("account_not_exists")} </span>
         <Link href="/register" className="underline hover-green">
-          Sign up
+          {t("action_register")}
         </Link>
       </div>
     </div>

@@ -1,22 +1,9 @@
-import { getToken } from "next-auth/jwt";
-import { NextRequest, NextResponse } from "next/server";
+import { chain } from "@/middlewares/chain";
+import { withI18nMiddleware } from "@/middlewares/withI18nMiddleware";
+import { withAuthMiddleware } from "@/middlewares/withAuthMiddleware";
 
-export async function middleware(req: NextRequest) {
-  const path = req.nextUrl.pathname;
-  const isOnDashboard = path.startsWith("/dashboard");
-  const token = await getToken({
-    req: req,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
-
-  if (!isOnDashboard && token) {
-    return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
-  }
-  if (isOnDashboard && !token) {
-    return NextResponse.redirect(new URL("/login", req.nextUrl));
-  }
-}
+export default chain([withI18nMiddleware, withAuthMiddleware]);
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/", "/login", "/register"],
+  matcher: ["/((?!api|static|.*\\..*|_next).*)"],
 };

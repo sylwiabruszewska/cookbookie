@@ -3,6 +3,7 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/ui/components/button";
 import { Ingredient } from "@lib/definitions";
@@ -15,6 +16,8 @@ interface ShoppingListProps {
 export const ShoppingList: React.FC<ShoppingListProps> = ({
   userShoppingList,
 }) => {
+  const { t } = useTranslation(["dashboard"]);
+
   const handleRemoveFromShoppingList = async (ingredientId: string) => {
     try {
       await removeFromShoppingList(ingredientId);
@@ -27,9 +30,9 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
   return (
     <>
       <div className="flex justify-between space-x-2 bg-[--primary-color] text-white p-2 rounded-lg">
-        <div className="w-1/2">Product</div>
-        <div className="w-1/4 flex justify-center">Quantity</div>
-        <div className="w-1/4 flex justify-center">Remove</div>
+        <div className="w-1/2">{t("product")}</div>
+        <div className="w-1/4 flex justify-center">{t("quantity")}</div>
+        <div className="w-1/4 flex justify-center">{t("remove")}</div>
       </div>
       <ul className="px-2">
         {userShoppingList.map((ingredient: Ingredient) => (

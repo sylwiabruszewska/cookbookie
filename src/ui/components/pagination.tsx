@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
 import { generatePagination } from "@utils/generatePagination";
 
@@ -70,6 +71,8 @@ function PaginationNumber({
   position?: "first" | "last" | "middle" | "single";
   isActive: boolean;
 }) {
+  const { t } = useTranslation(["dashboard"]);
+
   const className = clsx("flex h-10 w-10 items-center justify-center text-sm", {
     "bg-[--gray-dark] dark:bg-[--primary-color] rounded-lg text-white":
       isActive,
@@ -79,10 +82,14 @@ function PaginationNumber({
   });
 
   return isActive || position === "middle" ? (
-    <button className={className}>{page}</button>
+    <button className={className} aria-label={t("go_to_page", { page })}>
+      {page}
+    </button>
   ) : (
     <Link href={href}>
-      <button className={className}>{page}</button>
+      <button className={className} aria-label={t("go_to_page", { page })}>
+        {page}
+      </button>
     </Link>
   );
 }
@@ -96,6 +103,8 @@ function PaginationArrow({
   direction: "left" | "right";
   isDisabled?: boolean;
 }) {
+  const { t } = useTranslation(["dashboard"]);
+
   const className = clsx(
     "flex h-10 w-10 items-center justify-center rounded-md",
     {
@@ -110,11 +119,18 @@ function PaginationArrow({
       <FontAwesomeIcon icon={faAngleRight} className="w-5 h-5" />
     );
 
+  const ariaLabel =
+    direction === "left" ? t("go_to_previous_page") : t("go_to_next_page");
+
   return isDisabled ? (
-    <button className={className}>{icon}</button>
+    <button className={className} aria-label={ariaLabel}>
+      {icon}
+    </button>
   ) : (
     <Link href={href} className="flex items-center justify-center">
-      <button className={className}>{icon}</button>
+      <button className={className} aria-label={ariaLabel}>
+        {icon}
+      </button>
     </Link>
   );
 }

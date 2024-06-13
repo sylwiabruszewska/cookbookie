@@ -1,4 +1,5 @@
 import { Field, useFormikContext } from "formik";
+import { useTranslation } from "react-i18next";
 
 interface SwitchProps {
   name: string;
@@ -7,6 +8,7 @@ interface SwitchProps {
 export const Switch: React.FC<SwitchProps> = ({ name }) => {
   const { setFieldValue, values } = useFormikContext<any>();
   const isPublic = values[name];
+  const { t } = useTranslation(["dashboard"]);
 
   const handleToggle = () => {
     setFieldValue(name, !isPublic);
@@ -18,7 +20,7 @@ export const Switch: React.FC<SwitchProps> = ({ name }) => {
         <label className="cursor-pointer inline-flex items-center space-x-4 w-auto">
           <button
             type="button"
-            aria-pressed={isPublic}
+            aria-label={t("switch_public")}
             onClick={handleToggle}
             className={`relative w-12 h-6 duration-300 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-[--gray-dark] inner-shadow ${
               isPublic ? "bg-[--gray-light]" : "bg-[--primary-color]"

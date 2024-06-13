@@ -5,6 +5,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   type?: "submit" | "reset" | "button";
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
+  ariaLabel?: string;
 }
 
 export function Button({
@@ -12,6 +13,7 @@ export function Button({
   type = "button",
   onClick,
   className,
+  ariaLabel,
 }: ButtonProps) {
   const baseClass =
     "flex items-center justify-center font-medium h-10 transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2";
@@ -21,6 +23,7 @@ export function Button({
       type={type}
       onClick={onClick}
       className={clsx(baseClass, className)}
+      aria-label={ariaLabel}
     >
       {children}
     </button>

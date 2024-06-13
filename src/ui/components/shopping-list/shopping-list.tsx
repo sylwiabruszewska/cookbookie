@@ -21,9 +21,9 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
   const handleRemoveFromShoppingList = async (ingredientId: string) => {
     try {
       await removeFromShoppingList(ingredientId);
-      toast("Ingredient deleted from your shopping list.");
+      toast(t("toast_remove_from_shopping_list"));
     } catch (error) {
-      toast.error("Oops! Something went wrong. Please try again soon.");
+      toast.error(t("toast_error"));
     }
   };
 
@@ -42,16 +42,13 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
           >
             <div className="w-1/2">{ingredient.ingredient}</div>
             <div className="w-1/4 flex justify-center">{`${ingredient.quantity} ${ingredient.quantityUnit}`}</div>
-            <div className="w-1/4 flex justify-end">
+            <div className="w-1/4 flex justify-center">
               <Button
                 className="btn-icon"
                 onClick={() => handleRemoveFromShoppingList(ingredient.id)}
+                ariaLabel={t("remove")}
               >
-                <FontAwesomeIcon
-                  icon={faXmark}
-                  aria-label="Remove"
-                  className="h-4 w-4"
-                />
+                <FontAwesomeIcon icon={faXmark} className="h-4 w-4" />
               </Button>
             </div>
           </li>

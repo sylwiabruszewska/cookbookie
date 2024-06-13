@@ -67,17 +67,15 @@ const RegistrationForm = () => {
               id="text"
               name="name"
               type="text"
-              placeholder="Name"
               required
               iconID="icon-user"
-              label="Name"
+              label={t("name")}
             />
 
             <IconInput
               id="email"
               name="email"
               type="email"
-              placeholder="Email"
               required
               iconID="icon-mail"
               label="Email"
@@ -87,10 +85,9 @@ const RegistrationForm = () => {
               id="password"
               name="password"
               type="password"
-              placeholder="Password"
               required
               iconID="icon-lock"
-              label="Password"
+              label={t("password")}
             />
 
             {globalError && <div className="error-text">{globalError}</div>}

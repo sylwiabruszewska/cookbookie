@@ -1,9 +1,11 @@
 import { Suspense } from "react";
+import initTranslations from "@utils/i18n";
 
 import { fetchUserFavorites } from "@lib/data";
 import { MyFavorites } from "@ui/components/favorites/my-favorites";
 import { Loader } from "@ui/components/loader";
 import Pagination from "@/ui/components/pagination";
+import { getLocale } from "@lib/getLocal";
 
 export default async function Page({
   searchParams,
@@ -12,6 +14,8 @@ export default async function Page({
     page?: string;
   };
 }) {
+  const locale = getLocale();
+  const { t } = await initTranslations(locale, ["dashboard"]);
   const currentPage = Number(searchParams?.page) || 1;
   const { recipes, totalPages } = await fetchUserFavorites(currentPage);
 
@@ -19,7 +23,7 @@ export default async function Page({
 
   return (
     <div>
-      <h2 className="heading-l">Favorites</h2>
+      <h2 className="heading-l">{t("favorites")}</h2>
 
       <Suspense key={keyString} fallback={<Loader />}>
         {recipes && recipes.length > 0 ? (

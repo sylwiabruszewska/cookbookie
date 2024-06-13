@@ -7,6 +7,7 @@ import { i18nConfig } from "@config/i18n.config";
 import WorldFlag from "react-world-flags";
 
 const Languages: React.FC = () => {
+  const { t } = useTranslation(["dashboard"]);
   const { i18n } = useTranslation();
   const currentLocale = i18n.language;
   const router = useRouter();
@@ -39,7 +40,7 @@ const Languages: React.FC = () => {
       <button
         onClick={() => handleLanguageChange("pl")}
         className="w-6 h-6 rounded-full overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer"
-        aria-label="Switch to Polish"
+        aria-label={t("switch_to_pl")}
       >
         <WorldFlag
           code="PL"
@@ -52,7 +53,7 @@ const Languages: React.FC = () => {
       <button
         onClick={() => handleLanguageChange("en")}
         className="w-6 h-6 rounded-full overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer"
-        aria-label="Switch to English"
+        aria-label={t("switch_to_en")}
       >
         <WorldFlag
           code="GB"
@@ -65,7 +66,7 @@ const Languages: React.FC = () => {
       <button
         onClick={() => handleLanguageChange("es")}
         className="w-6 h-6 rounded-full overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer"
-        aria-label="Switch to Spanish"
+        aria-label={t("switch_to_es")}
       >
         <WorldFlag
           code="ES"

@@ -69,7 +69,6 @@ const LoginForm = () => {
               id="email"
               name="email"
               type="email"
-              placeholder="Email"
               required
               iconID="icon-user"
               label="Email"
@@ -79,10 +78,9 @@ const LoginForm = () => {
               id="password"
               name="password"
               type="password"
-              placeholder="Password"
               required
               iconID="icon-lock"
-              label="Password"
+              label={t("password")}
             />
 
             {globalError && <div className="error-text">{globalError}</div>}

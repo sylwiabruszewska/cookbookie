@@ -124,7 +124,7 @@ const NavBar = () => {
                   className="group mt-8 btn-logout px-5"
                   onClick={() => signOut()}
                 >
-                  Log out
+                  {t("logout")}
                   <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                     &gt;
                   </span>
@@ -136,12 +136,9 @@ const NavBar = () => {
               type="button"
               className="lg:hidden w-[28px] h-[28px]"
               onClick={handleNavOpen}
+              aria-label="Menu"
             >
-              <FontAwesomeIcon
-                icon={faBars}
-                aria-label="Menu"
-                className="w-[28px] h-[28px]"
-              />
+              <FontAwesomeIcon icon={faBars} className="w-[28px] h-[28px]" />
             </button>
           </div>
 

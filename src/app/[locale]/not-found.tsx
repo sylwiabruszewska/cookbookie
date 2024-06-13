@@ -1,10 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
+import initTranslations from "@utils/i18n";
 
 import { Button } from "@ui/components/button";
 import HomepageLayout from "@ui/layouts/homepage";
+import { getLocale } from "@lib/getLocal";
 
-const NotFound = () => {
+export default async function NotFound() {
+  const locale = getLocale();
+  const { t } = await initTranslations(locale, ["dashboard"]);
+
   return (
     <HomepageLayout>
       <div className="z-10 max-w-md w-[90vw] mx-auto p-6 bg-white rounded-lg shadow-md flex flex-col items-center">
@@ -16,14 +21,12 @@ const NotFound = () => {
           height={170}
           priority
         />
-        <h1 className="text-lg font-bold">We are sorry,</h1>
-        <span>but the page you were looking for can’t be found.</span>
+        <h1 className="text-lg font-bold">{t("not_found_h")}</h1>
+        <span>{t("not_found_t")}</span>
         <Link href="/" className="mt-4">
-          <Button className="btn-green">Go back to home</Button>
+          <Button className="btn-green">{t("not_found_b")}</Button>
         </Link>
       </div>
     </HomepageLayout>
   );
-};
-
-export default NotFound;
+}

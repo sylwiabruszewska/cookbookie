@@ -59,7 +59,6 @@ export default function NewsletterForm() {
               id="emailNewsletter"
               name="emailNewsletter"
               type="email"
-              placeholder="Enter your email address"
               required
               iconID="icon-mail"
               label="Email"
@@ -84,6 +83,7 @@ export default function NewsletterForm() {
               <Button
                 onClick={closeModal}
                 className="btn-green bg-[--gray-medium]"
+                ariaLabel={t("close")}
               >
                 Close
               </Button>

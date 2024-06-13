@@ -142,10 +142,10 @@ export async function fetchRecentRecipes(categoryId: string) {
       LEFT JOIN UserFavorites 
         ON recipes.id = UserFavorites.recipeId 
         AND UserFavorites.userId = ${userId}
-    JOIN categories ON recipes.category_id = categories.id
-    WHERE recipes.is_public = true AND recipes.category_id = ${categoryId}
-    ORDER BY recipes.created_at DESC 
-    LIMIT 4;
+      JOIN categories ON recipes.category_id = categories.id
+      WHERE recipes.is_public = true AND recipes.category_id = ${categoryId}
+      ORDER BY recipes.created_at DESC 
+      LIMIT 4;
     `;
 
     const totalRecipesResult = await sql`
@@ -181,18 +181,16 @@ export async function fetchCategoryRecipes(
     const categoryId = categoryIdResult.rows[0].id;
 
     const data = await sql<RecipeWithFavoriteStatus>`
-    SELECT recipes.id, recipes.title, recipes.description, recipes.images,
-      CASE 
-        WHEN UserFavorites.recipeId IS NOT NULL THEN TRUE 
-        ELSE FALSE 
-      END AS is_favorite
-    FROM recipes
-    JOIN categories ON recipes.category_id = categories.id
-    LEFT JOIN UserFavorites 
-      ON recipes.id = UserFavorites.recipeId 
-    WHERE recipes.is_public = true AND recipes.category_id = ${categoryId}
-    ORDER BY recipes.created_at DESC
-    LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+      SELECT recipes.id, recipes.title, recipes.description, recipes.images,
+        EXISTS (
+          SELECT 1 FROM UserFavorites 
+          WHERE UserFavorites.recipeId = recipes.id
+        ) AS is_favorite
+      FROM recipes
+      JOIN categories ON recipes.category_id = categories.id
+      WHERE recipes.is_public = true AND recipes.category_id = ${categoryId}
+      ORDER BY recipes.created_at DESC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
   `;
 
     const count = await sql`

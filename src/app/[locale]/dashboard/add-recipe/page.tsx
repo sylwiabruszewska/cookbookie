@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import initTranslations from "@utils/i18n";
-import initTranslations from "@utils/i18n";
 
 import AddRecipeForm from "@/ui/components/add-recipe/add-recipe-form";
 import { fetchCategories } from "@/lib/data";

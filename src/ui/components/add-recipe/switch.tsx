@@ -32,7 +32,7 @@ export const Switch: React.FC<SwitchProps> = ({ name }) => {
               }`}
             ></div>
           </button>
-          <span>{isPublic ? "Public" : "Private"}</span>
+          <span>{isPublic ? t("public") : t("private")}</span>
         </label>
       )}
     </Field>

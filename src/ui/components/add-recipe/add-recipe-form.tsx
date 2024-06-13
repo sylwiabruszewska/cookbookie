@@ -172,7 +172,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-l font-semibold mb-2">Ingredients</h3>
+              <h3 className="text-l font-semibold mb-2">{t("ingredients")}</h3>
               <FieldArray name="ingredients">
                 {({ push, remove, form }) => (
                   <div className="space-y-4">
@@ -265,7 +265,9 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-l font-semibold mb-2">Recipe Preparation</h3>
+              <h3 className="text-l font-semibold mb-2">
+                {t("recipe_preparation")}
+              </h3>
 
               <FieldArray name="steps">
                 {({ push, remove, form }) => (
@@ -278,7 +280,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                         <div className="w-full">
                           <TextArea
                             id={`steps.${index}.step`}
-                            label={t("step_label", { stepNumber: index + 1 })}
+                            label={t("step", { stepNumber: index + 1 })}
                           />
 
                           <ErrorMessage

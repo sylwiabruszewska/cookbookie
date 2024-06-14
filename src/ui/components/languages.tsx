@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { i18nConfig } from "@config/i18n.config";
 import WorldFlag from "react-world-flags";
 
 const Languages: React.FC = () => {
@@ -20,16 +19,10 @@ const Languages: React.FC = () => {
     const expires = date.toUTCString();
     document.cookie = `NEXT_LOCALE=${newLocale};expires=${expires};path=/`;
 
-    let newPath = "";
-
-    if (
-      currentLocale === i18nConfig.defaultLocale &&
-      !i18nConfig.defaultLocale
-    ) {
-      newPath = "/" + newLocale + currentPathname;
-    } else {
-      newPath = currentPathname.replace(`/${currentLocale}`, `/${newLocale}`);
-    }
+    const newPath = currentPathname.replace(
+      `/${currentLocale}`,
+      `/${newLocale}`
+    );
 
     router.push(newPath);
     router.refresh();

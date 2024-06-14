@@ -36,7 +36,7 @@ export async function DashboardContent() {
               ? matchingCategory.totalRecipes
               : 0;
 
-            return (
+            return totalRecipes > 0 ? (
               <li key={category.id} className="mb-8">
                 <CategoryCard
                   name={category.name}
@@ -44,7 +44,7 @@ export async function DashboardContent() {
                   totalRecipes={totalRecipes}
                 />
               </li>
-            );
+            ) : null;
           })}
         </ul>
       ) : (

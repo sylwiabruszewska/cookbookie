@@ -68,5 +68,19 @@
   "public": "Publiczny",
   "recipe_preparation": "Przygotowanie",
   "switch_public": "Przełącz na publiczny lub prywatny",
-  "toggle_favorite_status": "Przełącz status ulubionego"
+  "toggle_favorite_status": "Przełącz status ulubionego",
+  "categoriesArray": {
+    "breakfast": "Śniadania",
+    "lunch": "Lunch",
+    "dinner": "Kolacje",
+    "desserts": "Desery",
+    "soups": "Zupy",
+    "main_courses": "Dania główne",
+    "appetizers": "Przystawki",
+    "beverages": "Napoje",
+    "salads": "Sałatki",
+    "snacks": "Przekąski",
+    "cakes": "Ciasta",
+    "bread": "Pieczywo"
+  }
 }

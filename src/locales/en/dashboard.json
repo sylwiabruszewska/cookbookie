@@ -68,5 +68,19 @@
   "public": "Public",
   "recipe_preparation": "Recipe Preparation",
   "switch_public": "Switch to public or private",
-  "toggle_favorite_status": "Toggle favorite status"
+  "toggle_favorite_status": "Toggle favorite status",
+  "categoriesArray": {
+    "breakfast": "Breakfast",
+    "lunch": "Lunch",
+    "dinner": "Dinner",
+    "desserts": "Desserts",
+    "soups": "Soups",
+    "main_courses": "Main Courses",
+    "appetizers": "Appetizers",
+    "beverages": "Beverages",
+    "salads": "Salads",
+    "snacks": "Snacks",
+    "cakes": "Cakes",
+    "bread": "Bread"
+  }
 }

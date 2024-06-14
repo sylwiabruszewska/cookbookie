@@ -6,6 +6,7 @@ import { fetchCategories, fetchRecipeById } from "@lib/data";
 import EditForm from "@ui/components/recipes/edit-form";
 import { Loader } from "@ui/components/loader";
 import { getLocale } from "@lib/getLocal";
+import { translateCategories } from "@/utils/translateData";
 
 export default async function Page({
   params,
@@ -16,10 +17,12 @@ export default async function Page({
   const { t } = await initTranslations(locale, ["dashboard"]);
   const id = params.recipeId;
 
-  const [recipe, categories] = await Promise.all([
+  const [recipe, categoriesData] = await Promise.all([
     fetchRecipeById(id),
     fetchCategories(),
   ]);
+
+  const categories = translateCategories(categoriesData, t);
 
   if (!recipe) {
     notFound();

@@ -9,6 +9,7 @@ export type User = {
 export type Category = {
   id: string;
   name: string;
+  key: string;
 };
 
 export type Recipe = {

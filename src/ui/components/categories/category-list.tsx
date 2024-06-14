@@ -14,9 +14,9 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handleCategoryBtnClick = (categoryName: string) => {
+  const handleCategoryBtnClick = (categoryKey: string) => {
     const params = new URLSearchParams(searchParams);
-    params.set("category", categoryName);
+    params.set("category", categoryKey);
     params.set("page", "1");
 
     replace(`${pathname}?${params.toString()}`);
@@ -29,9 +29,9 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
       {categories.map((category) => (
         <li key={category.id} className="mb-4">
           <Button
-            onClick={() => handleCategoryBtnClick(category.name)}
+            onClick={() => handleCategoryBtnClick(category.key)}
             className={
-              activeCategory === category.name
+              activeCategory === category.key
                 ? "btn-dark hover:bg-[--gray-dark] rounded-lg text-base"
                 : "btn-transparent text-base px-2"
             }

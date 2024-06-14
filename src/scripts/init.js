@@ -7,6 +7,7 @@ async function createCategoriesTable(client) {
       CREATE TABLE IF NOT EXISTS categories (
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         name VARCHAR(255) NOT NULL
+        key VARCHAR(255) NOT NULL
       );
     `;
 

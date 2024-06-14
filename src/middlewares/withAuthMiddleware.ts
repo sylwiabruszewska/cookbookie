@@ -23,16 +23,12 @@ export function withAuthMiddleware(
     });
 
     if (!isOnDashboard && token) {
-      const locale = request.nextUrl.pathname.split("/")[1];
-      return NextResponse.redirect(
-        new URL(`/${locale}/dashboard`, request.nextUrl)
-      );
+      return NextResponse.redirect(new URL("/dashboard", request.url));
     }
     if (isOnDashboard && !token) {
-      const locale = request.nextUrl.pathname.split("/")[1];
-      return NextResponse.redirect(
-        new URL(`/${locale}/login`, request.nextUrl)
-      );
+      if (isOnDashboard) {
+        return NextResponse.redirect(new URL("/login", request.url));
+      }
     }
 
     return middleware(request, event, response);

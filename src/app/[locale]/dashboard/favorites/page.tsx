@@ -37,7 +37,7 @@ export default async function Page({
             )}
           </>
         ) : (
-          <p>Add some recipes to favorites!</p>
+          <p>{t("add_some_recipes_to_favorites")}</p>
         )}
       </Suspense>
     </div>

@@ -48,7 +48,7 @@ export async function DashboardContent() {
           })}
         </ul>
       ) : (
-        <p>No categories found.</p>
+        <p>{t("no_categories_found")}</p>
       )}
     </div>
   );

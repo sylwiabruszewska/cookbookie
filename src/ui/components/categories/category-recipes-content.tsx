@@ -1,6 +1,8 @@
 import RecipeCardSmall from "@/ui/components/recipe-card-small";
 import { fetchCategoryRecipes, fetchRecipes } from "@lib/data";
 import Pagination from "@/ui/components/pagination";
+import initTranslations from "@utils/i18n";
+import { getLocale } from "@lib/getLocal";
 
 export async function CategoryRecipesContent({
   category,
@@ -9,6 +11,9 @@ export async function CategoryRecipesContent({
   category: string;
   page: number;
 }) {
+  const locale = getLocale();
+  const { t } = await initTranslations(locale, ["dashboard"]);
+
   let recipes = [];
   let totalPages = 0;
 
@@ -34,7 +39,7 @@ export async function CategoryRecipesContent({
           ))}
         </ul>
       ) : (
-        <div>No recipes found.</div>
+        <div>{t("no_recipes_found")}</div>
       )}
 
       {totalPages > 1 && (

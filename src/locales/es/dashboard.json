@@ -82,5 +82,9 @@
     "snacks": "Tentempiés",
     "cakes": "Pasteles",
     "bread": "Pan"
-  }
+  },
+  "no_recipes_found": "No se encontraron recetas en esta categoría. ¿Quizás tienes tu propia idea?",
+  "no_categories_found": "No se encontraron categorías.",
+  "add_some_recipes": "¡Vacío! Agrega tu primera receta.",
+  "add_some_recipes_to_favorites": "¿Nada por aquí? ¡Explora y descubre deliciosas recetas en nuestra base de datos!"
 }

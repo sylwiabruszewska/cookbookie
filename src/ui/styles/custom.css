@@ -1,6 +1,22 @@
 /* BASE STYLES FOR ADD RECIPE FORM COMPONENTS */
 .recipe-form-components {
-  @apply w-full h-10 p-2 bg-[--gray-light] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray-dark] dark:bg-[--gray-dark] dark:border dark:border-[--gray-light];
+  @apply w-full h-10 p-2 bg-[--gray-light] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray-dark] dark:bg-[--gray-dark] dark:border dark:border-[--gray-light] placeholder-[--gray-medium] dark:placeholder-[--gray-light];
+}
+
+.react-select-container {
+  @apply w-full h-10 bg-[--gray-light] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray-dark] dark:bg-[--gray-dark] dark:border dark:border-[--gray-light];
+}
+
+.react-select__menu {
+  @apply bg-[--gray-light] rounded-md dark:bg-[--gray-dark] dark:border dark:border-[--gray-light];
+}
+
+.react-select__single-value {
+  @apply !text-[--font] dark:!text-[--font];
+}
+
+.react-select__placeholder {
+  @apply !text-[--gray-medium] dark:!text-[--gray-light];
 }
 
 .error-text {

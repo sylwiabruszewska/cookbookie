@@ -6,7 +6,7 @@ async function createCategoriesTable(client) {
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS categories (
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-        name VARCHAR(255) NOT NULL
+        name VARCHAR(255) NOT NULL,
         key VARCHAR(255) NOT NULL
       );
     `;
@@ -20,6 +20,25 @@ async function createCategoriesTable(client) {
   }
 }
 
+async function createIngredientsTable(client) {
+  try {
+    const createTable = await client.sql`
+      CREATE TABLE IF NOT EXISTS ingredients (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        key VARCHAR(255) NOT NULL UNIQUE
+      );
+    `;
+
+    console.log(`Created "ingredients" table`);
+
+    return createTable;
+  } catch (error) {
+    console.error("Error creating ingredients table:", error);
+    throw error;
+  }
+}
+
 async function createUsersTable(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -28,7 +47,7 @@ async function createUsersTable(client) {
           id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
           name VARCHAR(255) NOT NULL,
           email TEXT NOT NULL UNIQUE,
-          password TEXT NOT NULL
+          password TEXT NOT NULL,
           image TEXT NOT NULL
         );
       `;
@@ -156,7 +175,7 @@ async function createSubscribersTable(client) {
 async function main() {
   const client = await db.connect();
 
-  await createSubscribersTable(client);
+  await createIngredientsTable(client);
 
   await client.end();
 }

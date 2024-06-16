@@ -36,6 +36,17 @@ export interface Ingredient {
   quantityUnit: string;
 }
 
+export interface IngredientSelect {
+  id: string;
+  name: string;
+}
+
+export interface IngredientDb {
+  id: string;
+  name: string;
+  key: string;
+}
+
 export interface Step {
   id: string;
   step: string;

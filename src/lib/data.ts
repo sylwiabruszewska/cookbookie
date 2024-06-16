@@ -8,6 +8,7 @@ import {
   Category,
   Recipe,
   RecipeWithFavoriteStatus,
+  IngredientSelect,
 } from "@/lib/definitions";
 import { getUserEmail, getUserId } from "@utils/getUser";
 
@@ -380,5 +381,21 @@ export async function fetchRecipesPages(query: string) {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch total number of recipes.");
+  }
+}
+
+// FETCH INGREDIENTS
+export async function fetchIngredients() {
+  try {
+    const data = await sql<IngredientSelect[]>`
+      SELECT *
+      FROM ingredients
+    `;
+
+    const ingredients = data.rows.flat();
+    return ingredients;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch ingredients.");
   }
 }

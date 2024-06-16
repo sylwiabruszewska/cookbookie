@@ -5,7 +5,13 @@ import { unstable_noStore as noStore } from "next/cache";
 import { revalidatePath } from "next/cache";
 
 import { getUserId } from "@utils/getUser";
-import { Ingredient, Recipe, RecipeFormProps } from "@/lib/definitions";
+import {
+  Ingredient,
+  IngredientDb,
+  IngredientSelect,
+  Recipe,
+  RecipeFormProps,
+} from "@/lib/definitions";
 
 // ***** ADD RECIPE *****
 export async function addRecipe(formData: RecipeFormProps) {
@@ -296,5 +302,45 @@ export async function addEmailToSubscribersTable(email: string) {
   } catch (error) {
     console.error("Failed to add email to subscribers list:", error);
     throw new Error("Failed to add email to subscribers list.");
+  }
+}
+// ***** ADD NEW INGREDIENT *****
+export async function addNewIngredient(
+  ingredientName: string
+): Promise<IngredientDb> {
+  try {
+    const ingredientNameLower = ingredientName.toLowerCase();
+
+    const resultInsert = await sql<IngredientDb>`
+        INSERT INTO ingredients (name, key)
+        VALUES (${ingredientNameLower}, LOWER(${ingredientNameLower})) RETURNING *
+      `;
+
+    const newIngredient = resultInsert.rows[0];
+
+    return newIngredient;
+  } catch (error) {
+    console.error("Error adding new ingredient:", error);
+    throw new Error("Failed to add new ingredient");
+  }
+}
+
+// ***** GET EXISTING INGREDIENT *****
+export async function getExistingIngredient(
+  ingredientName: string
+): Promise<IngredientDb> {
+  try {
+    const ingredientNameLower = ingredientName.toLowerCase();
+
+    const existingIngredient = await sql<IngredientDb>`
+      SELECT id FROM ingredients WHERE key = ${ingredientNameLower}
+    `;
+
+    const newIngredient = existingIngredient.rows[0];
+
+    return newIngredient;
+  } catch (error) {
+    console.error("Error fetching ingredient:", error);
+    throw new Error("Failed to get ingredient");
   }
 }

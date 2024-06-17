@@ -19,21 +19,31 @@ import { Button } from "@/ui/components/button";
 import {
   Category,
   Ingredient,
+  IngredientSelect,
   RecipeFormProps,
   RecipeWithFavoriteStatus,
   Step,
 } from "@/lib/definitions";
 import { recipeValidationSchema } from "@utils/validationSchemas";
-import { updateRecipe } from "@lib/actions";
+import {
+  addNewIngredient,
+  updateRecipe,
+  getExistingIngredient,
+} from "@lib/actions";
 import { useEdgeStore } from "@lib/edgestore";
+import IngredientCreatableSelect from "@/ui/components/add-recipe/ingredients-select";
+
+interface EditRecipeFormProps {
+  categories: Category[];
+  ingredientsFromDb: IngredientSelect[];
+  recipe: RecipeWithFavoriteStatus;
+}
 
 export default function EditForm({
   categories,
   recipe,
-}: {
-  categories: Category[];
-  recipe: RecipeWithFavoriteStatus;
-}) {
+  ingredientsFromDb,
+}: EditRecipeFormProps) {
   const { t } = useTranslation(["dashboard"]);
   const router = useRouter();
 
@@ -56,7 +66,7 @@ export default function EditForm({
 
   const initialValues: RecipeFormProps = {
     title: `${recipe.title}`,
-    images: recipe.images.length > 0 ? [recipe.images[0]] : [],
+    images: recipe.images.length > 0 ? recipe.images : [],
     description: `${recipe.description}`,
     category: `${selectedCategoryName}`,
     cookingTime: `${recipe.cooking_time}`,
@@ -216,12 +226,56 @@ export default function EditForm({
                           <div className="w-full">
                             <div className="flex justify-between space-x-2 align-center">
                               <div className="w-1/2 lg:w-2/3">
-                                <Input
-                                  id={`ingredients.${index}.ingredient`}
-                                  name={`ingredients.${index}.ingredient`}
-                                  type="text"
-                                  label={t("ingredient")}
-                                />
+                                {ingredientsFromDb && (
+                                  <IngredientCreatableSelect
+                                    id={`ingredients.${index}.ingredient`}
+                                    name={`ingredients.${index}.ingredient`}
+                                    label={t("ingredient")}
+                                    options={ingredientsFromDb.map(
+                                      (ingredient: IngredientSelect) => ({
+                                        value: ingredient.name,
+                                        label: ingredient.name,
+                                      })
+                                    )}
+                                    initialState={
+                                      ingredient.ingredient
+                                        ? {
+                                            value: ingredient.ingredient,
+                                            label: ingredient.ingredient,
+                                          }
+                                        : null
+                                    }
+                                    onChange={async (selectedOption) => {
+                                      if (selectedOption) {
+                                        const ingredient =
+                                          await getExistingIngredient(
+                                            selectedOption.value
+                                          );
+                                        form.setFieldValue(
+                                          `ingredients.${index}.id`,
+                                          ingredient
+                                        );
+                                        form.setFieldValue(
+                                          `ingredients.${index}.ingredient`,
+                                          selectedOption.value
+                                        );
+                                      }
+                                    }}
+                                    onCreateOption={async (inputValue) => {
+                                      const ingredient = await addNewIngredient(
+                                        inputValue
+                                      );
+                                      form.setFieldValue(
+                                        `ingredients.${index}.id`,
+                                        ingredient.id
+                                      );
+                                      form.setFieldValue(
+                                        `ingredients.${index}.ingredient`,
+                                        inputValue
+                                      );
+                                    }}
+                                  />
+                                )}
                               </div>
 
                               <div className="w-1/2 lg:w-1/3 flex items-center space-x-2">
@@ -281,7 +335,7 @@ export default function EditForm({
                       ariaLabel={t("add_ingredient")}
                       onClick={() =>
                         push({
-                          id: uuidv4(),
+                          id: "",
                           ingredient: "",
                           quantity: "",
                           quantityUnit: "",

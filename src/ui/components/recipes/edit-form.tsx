@@ -85,7 +85,8 @@ export default function EditForm({
 
   const confirmUploads = async (fileUrls: string[]) => {
     try {
-      for (const urlToConfirm of fileUrls) {
+      const newUrls = fileUrls.filter((url) => !recipe.images.includes(url));
+      for (const urlToConfirm of newUrls) {
         await edgestore.publicFiles.confirmUpload({ url: urlToConfirm });
       }
     } catch (error) {

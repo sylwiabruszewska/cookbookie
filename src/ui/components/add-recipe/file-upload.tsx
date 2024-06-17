@@ -39,7 +39,7 @@ export const FileUpload: FC<FileUploadProps> = ({
         id: uuidv4(),
         file: null,
         preview: image,
-        loaded: false,
+        loaded: true,
         url: image,
       }));
       setFiles(initialFiles);
@@ -79,16 +79,15 @@ export const FileUpload: FC<FileUploadProps> = ({
 
       try {
         const urls = await uploadFilesToServer(acceptedFiles);
-        const newUrls = urls.filter((url) => !initialImages.includes(url));
         const updatedFiles = newFiles.map((file, index) => ({
           ...file,
-          url: newUrls[index],
+          url: urls[index],
         }));
 
         setFiles((prevFiles) => [...prevFiles, ...updatedFiles]);
 
         if (onFilesUploaded) {
-          const allUrls = [...initialImages, ...newUrls];
+          const allUrls = [...initialImages, ...urls];
           onFilesUploaded(allUrls);
         }
       } catch (error) {
@@ -168,7 +167,7 @@ export const FileUpload: FC<FileUploadProps> = ({
 
       const allUrls = updatedFiles
         .map((file) => file.url)
-        .filter((url): url is string => typeof url === "string");
+        .filter(Boolean) as string[];
 
       if (onFilesUploaded) {
         onFilesUploaded(allUrls);

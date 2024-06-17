@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import { useField } from "formik";
 
@@ -15,6 +15,7 @@ interface IngredientCreatableSelectProps {
   value?: OptionType | null;
   onChange?: (newValue: OptionType | null, actionMeta: any) => void;
   onCreateOption?: (inputValue: string) => void;
+  initialState?: OptionType | null;
 }
 
 const IngredientCreatableSelect: React.FC<IngredientCreatableSelectProps> = ({
@@ -25,10 +26,11 @@ const IngredientCreatableSelect: React.FC<IngredientCreatableSelectProps> = ({
   value,
   onChange,
   onCreateOption,
+  initialState = null,
 }) => {
   const [field, meta, helpers] = useField(name);
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(
-    value || null
+    value || initialState
   );
 
   const handleChangeSelect = (newValue: OptionType | null, actionMeta: any) => {

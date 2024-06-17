@@ -18,17 +18,30 @@ import { Switch } from "@ui/components/add-recipe/switch";
 import { FileUpload } from "@ui/components/add-recipe/file-upload";
 import { Button } from "@/ui/components/button";
 import {
-  CategoriesProps,
   Category,
   Ingredient,
+  IngredientSelect,
   RecipeFormProps,
   Step,
 } from "@/lib/definitions";
 import { recipeValidationSchema } from "@utils/validationSchemas";
-import { addRecipe } from "@lib/actions";
+import {
+  addNewIngredient,
+  addRecipe,
+  getExistingIngredient,
+} from "@lib/actions";
 import { useEdgeStore } from "@lib/edgestore";
+import IngredientCreatableSelect from "@/ui/components/add-recipe/ingredients-select";
 
-export default function AddRecipeForm({ categories }: CategoriesProps) {
+interface AddRecipeFormProps {
+  categories: Category[];
+  ingredientsFromDb: IngredientSelect[];
+}
+
+export default function AddRecipeForm({
+  categories,
+  ingredientsFromDb,
+}: AddRecipeFormProps) {
   const { t } = useTranslation(["dashboard"]);
   const router = useRouter();
 
@@ -44,9 +57,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
     description: "",
     category: "",
     cookingTime: "",
-    ingredients: [
-      { id: uuidv4(), ingredient: "", quantity: "", quantityUnit: "" },
-    ],
+    ingredients: [{ id: "", ingredient: "", quantity: "", quantityUnit: "" }],
     steps: [{ id: uuidv4(), step: "" }],
     isPublic: true,
   };
@@ -185,12 +196,48 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                           <div className="w-full">
                             <div className="flex justify-between space-x-2 align-center">
                               <div className="w-1/2 lg:w-2/3">
-                                <Input
-                                  id={`ingredients.${index}.ingredient`}
-                                  name={`ingredients.${index}.ingredient`}
-                                  type="text"
-                                  label={t("ingredient")}
-                                />
+                                {ingredientsFromDb && (
+                                  <IngredientCreatableSelect
+                                    id={`ingredients.${index}.ingredient`}
+                                    name={`ingredients.${index}.ingredient`}
+                                    label={t("ingredient")}
+                                    options={ingredientsFromDb.map(
+                                      (ingredient: IngredientSelect) => ({
+                                        value: ingredient.name,
+                                        label: ingredient.name,
+                                      })
+                                    )}
+                                    onChange={async (selectedOption) => {
+                                      if (selectedOption) {
+                                        const ingredient =
+                                          await getExistingIngredient(
+                                            selectedOption.value
+                                          );
+                                        form.setFieldValue(
+                                          `ingredients.${index}.id`,
+                                          ingredient
+                                        );
+                                        form.setFieldValue(
+                                          `ingredients.${index}.ingredient`,
+                                          selectedOption.value
+                                        );
+                                      }
+                                    }}
+                                    onCreateOption={async (inputValue) => {
+                                      const ingredient = await addNewIngredient(
+                                        inputValue
+                                      );
+                                      form.setFieldValue(
+                                        `ingredients.${index}.id`,
+                                        ingredient.id
+                                      );
+                                      form.setFieldValue(
+                                        `ingredients.${index}.ingredient`,
+                                        inputValue
+                                      );
+                                    }}
+                                  />
+                                )}
                               </div>
 
                               <div className="w-1/2 lg:w-1/3 flex items-center space-x-2">
@@ -250,7 +297,7 @@ export default function AddRecipeForm({ categories }: CategoriesProps) {
                       ariaLabel={t("add_ingredient")}
                       onClick={() =>
                         push({
-                          id: uuidv4(),
+                          id: "",
                           ingredient: "",
                           quantity: "",
                           quantityUnit: "",

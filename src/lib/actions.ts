@@ -223,38 +223,21 @@ export async function removeFromFavorites(recipeId: string) {
 // }
 
 // ***** ADD INGREDIENT TO SHOPPING LIST ***** SECOND VERSION - MORE COLUMNS
-export async function addToShoppingList(ingredient: Ingredient) {
+export async function addToShoppingList(
+  ingredient: Ingredient,
+  recipeId: string
+) {
   noStore();
 
   try {
     const userId = await getUserId();
 
-    const existingItem = await sql`
-      SELECT * FROM UserShoppingListItems 
-      WHERE user_id = ${userId} AND ingredient_id = ${ingredient.id}
-    `;
-
-    let newingredient;
-
-    if (existingItem.rows.length > 0) {
-      newingredient = await sql`
-        UPDATE UserShoppingListItems 
-        SET quantity = ${
-          parseFloat(existingItem.rows[0].quantity) +
-          parseFloat(ingredient.quantity)
-        }
-        WHERE user_id = ${userId} AND ingredient_id = ${
-        ingredient.id
-      } RETURNING*
+    const ingredientObj = await sql`
+        INSERT INTO UserShoppingList (user_id, recipe_id, ingredient_id, name, quantity)
+        VALUES (${userId}, ${recipeId}, ${ingredient.id}, ${ingredient.ingredient}, ${ingredient.quantity}) RETURNING*
       `;
-    } else {
-      newingredient = await sql`
-        INSERT INTO UserShoppingListItems (user_id, ingredient_id, name, quantity, quantity_unit)
-        VALUES (${userId}, ${ingredient.id}, ${ingredient.ingredient}, ${ingredient.quantity}, ${ingredient.quantityUnit}) RETURNING*
-      `;
-    }
 
-    console.log("Ingredient added to shopping list", newingredient);
+    console.log("Ingredient added to shopping list", ingredientObj);
     revalidatePath("/dashboard/shopping-list");
   } catch (error) {
     console.error("Database Error:", error);
@@ -263,17 +246,26 @@ export async function addToShoppingList(ingredient: Ingredient) {
 }
 
 // ***** REMOVE INGREDIENT FROM SHOPPING LIST ***** SECOND VERSION - MORE COLUMNS
-export async function removeFromShoppingList(ingredientId: string) {
+export async function removeFromShoppingList(
+  ingredient: Ingredient,
+  recipeId: string
+) {
   noStore();
 
   try {
     const userId = await getUserId();
 
-    const ingredient = await sql`
-      DELETE FROM UserShoppingListItems 
-      WHERE user_id = ${userId} AND ingredient_id = ${ingredientId} RETURNING*`;
+    const ingredientToDelete = await sql`
+      DELETE FROM UserShoppingList 
+      WHERE 
+        user_id = ${userId} AND 
+        recipe_id = ${recipeId} AND 
+        ingredient_id = ${ingredient.id} AND 
+        quantity = ${ingredient.quantity} 
+      RETURNING *
+    `;
 
-    console.log("Ingredient removed from shopping list", ingredient);
+    console.log("Ingredient removed from shopping list", ingredientToDelete);
     revalidatePath("/dashboard/shopping-list");
   } catch (error) {
     console.error("Database Error:", error);

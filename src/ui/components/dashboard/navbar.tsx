@@ -90,11 +90,12 @@ const NavBar = () => {
               >
                 <div className="w-[44px] h-[44px] flex-shrink-0">
                   <Image
-                    src={session.user?.image || "/salad.png"}
+                    src={session.user?.image}
                     alt="User avatar"
                     className="object-cover rounded-full"
-                    width={578}
-                    height={539}
+                    style={{ width: "44px", height: "44px" }}
+                    width={228}
+                    height={228}
                     priority
                   />
                 </div>

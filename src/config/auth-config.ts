@@ -88,11 +88,13 @@ export const authOptions = {
           token.id = dbUser.id;
           token.name = user.name;
           token.email = user.email;
+          token.image = dbUser.image;
         }
       } else if (user) {
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
+        token.image = user.image;
       }
       // console.log("token: ", token);
       return token;
@@ -103,6 +105,7 @@ export const authOptions = {
         session.user.id = token.id;
         session.user.email = token.email;
         session.user.name = token.name;
+        session.user.image = token.image;
       }
       // console.log("session: ", session);
       return session;

@@ -336,3 +336,27 @@ export async function getExistingIngredient(
     throw new Error("Failed to get ingredient");
   }
 }
+
+// ***** UPDATE USER PROFILE IMAGE *****
+
+export async function updateUserProfileImage(imageUrl: string) {
+  try {
+    const userId = await getUserId();
+
+    const result = await sql`
+      UPDATE users
+      SET
+        image = ${imageUrl}
+      WHERE
+        id = ${userId}
+      RETURNING *
+    `;
+
+    console.log("User image updated successfully");
+    revalidatePath("/dashboard/profile");
+    return result;
+  } catch (error) {
+    console.error("Error updating user image:", error);
+    throw new Error("Failed to update user image");
+  }
+}

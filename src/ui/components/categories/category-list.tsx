@@ -32,7 +32,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
             onClick={() => handleCategoryBtnClick(category.key)}
             className={
               activeCategory === category.key
-                ? "btn-dark hover:bg-[--gray-dark] rounded-lg text-base"
+                ? "btn-dark hover:bg-[--gray-dark] rounded-lg text-base dark:bg-[--gray-medium]"
                 : "btn-transparent text-base px-2"
             }
           >

@@ -8,12 +8,14 @@ import { getLocale } from "@lib/getLocal";
 
 interface CategoryCardProps {
   name: string;
+  categoryKey: string;
   recentRecipes: RecipeWithFavoriteStatus[];
   totalRecipes: number;
 }
 
 export default async function CategoryCard({
   name,
+  categoryKey,
   recentRecipes,
   totalRecipes,
 }: CategoryCardProps) {
@@ -40,7 +42,7 @@ export default async function CategoryCard({
         </ul>
       </div>
       {totalRecipes > 4 && (
-        <Link href={`/dashboard/categories?category=${name}&page=1`}>
+        <Link href={`/dashboard/categories?category=${categoryKey}&page=1`}>
           <Button className="btn-green ml-auto">{t("see_all")}</Button>
         </Link>
       )}

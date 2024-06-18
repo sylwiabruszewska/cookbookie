@@ -74,7 +74,6 @@ export default function EditForm({
       id: ingredient.id,
       ingredient: ingredient.ingredient,
       quantity: ingredient.quantity,
-      quantityUnit: ingredient.quantityUnit,
     })),
     steps: recipe.steps.map((step) => ({
       id: step.id,
@@ -254,7 +253,7 @@ export default function EditForm({
                                           );
                                         form.setFieldValue(
                                           `ingredients.${index}.id`,
-                                          ingredient
+                                          ingredient.id
                                         );
                                         form.setFieldValue(
                                           `ingredients.${index}.ingredient`,
@@ -283,21 +282,8 @@ export default function EditForm({
                                 <Input
                                   id={`ingredients.${index}.quantity`}
                                   name={`ingredients.${index}.quantity`}
-                                  type="number"
+                                  type="text"
                                   label={t("quantity")}
-                                />
-
-                                <Select
-                                  id={`ingredients.${index}.quantityUnit`}
-                                  name={`ingredients.${index}.quantityUnit`}
-                                  label={t("unit")}
-                                  options={[
-                                    { value: "tbs", label: "tbs" },
-                                    { value: "tsp", label: "tsp" },
-                                    { value: "kg", label: "kg" },
-                                    { value: "g", label: "g" },
-                                    { value: "piece", label: "piece" },
-                                  ]}
                                 />
                               </div>
                             </div>
@@ -309,10 +295,6 @@ export default function EditForm({
                               />
                               <ErrorMessage
                                 name={`ingredients.${index}.quantity`}
-                                component="div"
-                              />
-                              <ErrorMessage
-                                name={`ingredients.${index}.quantityUnit`}
                                 component="div"
                               />
                             </div>
@@ -339,7 +321,6 @@ export default function EditForm({
                           id: "",
                           ingredient: "",
                           quantity: "",
-                          quantityUnit: "",
                         })
                       }
                     >

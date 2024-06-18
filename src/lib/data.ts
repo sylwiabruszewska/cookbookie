@@ -319,16 +319,44 @@ export async function fetchUserShoppingList() {
     const userId = await getUserId();
 
     const data = await sql`
-      SELECT ingredient_id, name, quantity, quantity_unit
-      FROM UserShoppingListItems
+      SELECT ingredient_id, name, quantity, recipe_id
+      FROM UserShoppingList
       WHERE user_id = ${userId}
+      ORDER BY name ASC
     `;
 
     const ingredients = data.rows.map((row) => ({
       id: row.ingredient_id,
       ingredient: row.name,
       quantity: row.quantity,
-      quantityUnit: row.quantity_unit,
+      recipe_id: row.recipe_id,
+    }));
+
+    return ingredients;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch ingredients from shopping list.");
+  }
+}
+
+// ***** FETCH RECIPE INGREDIENTS FROM SHOPPING LIST *****
+export async function fetchrecipeIngredientsFromShoppingList(recipeId: string) {
+  noStore();
+
+  try {
+    const userId = await getUserId();
+
+    const data = await sql`
+      SELECT ingredient_id, name, quantity, recipe_id
+      FROM UserShoppingList
+      WHERE user_id = ${userId} AND recipe_id = ${recipeId}
+    `;
+
+    const ingredients = data.rows.map((row) => ({
+      id: row.ingredient_id,
+      ingredient: row.name,
+      quantity: row.quantity,
+      recipe_id: row.recipe_id,
     }));
 
     return ingredients;

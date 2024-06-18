@@ -9,7 +9,11 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/ui/components/button";
-import { Ingredient, RecipeWithFavoriteStatus } from "@lib/definitions";
+import {
+  Ingredient,
+  IngredientInShoppingList,
+  RecipeWithFavoriteStatus,
+} from "@lib/definitions";
 import {
   addToFavorites,
   addToShoppingList,
@@ -20,7 +24,7 @@ import { notFound } from "next/navigation";
 
 interface RecipeCardLargeProps {
   recipe: RecipeWithFavoriteStatus;
-  userShoppingList: Ingredient[];
+  userShoppingList: IngredientInShoppingList[];
 }
 
 export default function RecipeCardLarge({
@@ -38,7 +42,7 @@ export default function RecipeCardLarge({
     steps,
   } = recipe;
   const [isFavorite, setIsFavorite] = useState(is_favorite);
-  const [shoppingListIds, setShoppingListIds] = useState<string[]>([]);
+
   const mainPhoto = images.length > 0 ? images[0] : "/placeholder.png";
   let recipeGallery;
   const { t } = useTranslation(["dashboard"]);
@@ -73,20 +77,13 @@ export default function RecipeCardLarge({
     setIsFavorite(is_favorite);
   }, [is_favorite]);
 
-  useEffect(() => {
-    const shoppingItemIds = userShoppingList.map((item) => item.id);
-    setShoppingListIds(shoppingItemIds);
-  }, [userShoppingList]);
-
-  // HANDLER SHOPPING LIST
-  // second version with serialized data not very helpful
-  // not so good UX when clicking on checkbox, too slow response
-  // maybe one action for all changes?
   const handleToggleCheckbox = async (ingredient: Ingredient) => {
-    const isChecked = shoppingListIds.includes(ingredient.id);
+    const isInShoppingList = userShoppingList.some(
+      (item) => item.id === ingredient.id
+    );
 
-    if (isChecked) {
-      await handleRemoveFromShoppingList(ingredient.id);
+    if (isInShoppingList) {
+      await handleRemoveFromShoppingList(ingredient);
     } else {
       await handleAddToShoppingList(ingredient);
     }
@@ -94,12 +91,14 @@ export default function RecipeCardLarge({
 
   const handleAddToShoppingList = async (ingredient: Ingredient) => {
     try {
-      await addToShoppingList({
-        id: ingredient.id,
-        ingredient: ingredient.ingredient,
-        quantity: ingredient.quantity,
-        quantityUnit: ingredient.quantityUnit,
-      });
+      await addToShoppingList(
+        {
+          id: ingredient.id,
+          ingredient: ingredient.ingredient,
+          quantity: ingredient.quantity,
+        },
+        id
+      );
       toast.success(
         `${t("toast_add_shopping_list", {
           ingredient: ingredient.ingredient,
@@ -110,9 +109,9 @@ export default function RecipeCardLarge({
     }
   };
 
-  const handleRemoveFromShoppingList = async (ingredientId: string) => {
+  const handleRemoveFromShoppingList = async (ingredient: Ingredient) => {
     try {
-      await removeFromShoppingList(ingredientId);
+      await removeFromShoppingList(ingredient, id);
       toast(t("toast_remove_from_shopping_list"));
     } catch (error) {
       toast.error(t("toast_error"));
@@ -197,11 +196,13 @@ export default function RecipeCardLarge({
             >
               <div className="w-1/2">{ingredient.ingredient}</div>
               <div className="w-1/4 flex justify-center">
-                {ingredient.quantity} {ingredient.quantityUnit}
+                {ingredient.quantity}
               </div>
               <input
                 type="checkbox"
-                checked={shoppingListIds.includes(ingredient.id)}
+                checked={userShoppingList.some(
+                  (item) => item.id === ingredient.id
+                )}
                 className="w-1/4 flex justify-center"
                 onChange={() => handleToggleCheckbox(ingredient)}
               />

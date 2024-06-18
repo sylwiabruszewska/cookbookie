@@ -6,11 +6,11 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/ui/components/button";
-import { Ingredient } from "@lib/definitions";
+import { Ingredient, IngredientInShoppingList } from "@lib/definitions";
 import { removeFromShoppingList } from "@lib/actions";
 
 interface ShoppingListProps {
-  userShoppingList: Ingredient[];
+  userShoppingList: IngredientInShoppingList[];
 }
 
 export const ShoppingList: React.FC<ShoppingListProps> = ({
@@ -18,9 +18,12 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
 }) => {
   const { t } = useTranslation(["dashboard"]);
 
-  const handleRemoveFromShoppingList = async (ingredientId: string) => {
+  const handleRemoveFromShoppingList = async (
+    ingredient: IngredientInShoppingList
+  ) => {
     try {
-      await removeFromShoppingList(ingredientId);
+      const recipeId = ingredient.recipe_id;
+      await removeFromShoppingList(ingredient, recipeId);
       toast(t("toast_remove_from_shopping_list"));
     } catch (error) {
       toast.error(t("toast_error"));
@@ -35,17 +38,17 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
         <div className="w-1/4 flex justify-center">{t("remove")}</div>
       </div>
       <ul className="px-2">
-        {userShoppingList.map((ingredient: Ingredient) => (
+        {userShoppingList.map((ingredient: IngredientInShoppingList) => (
           <li
             key={ingredient.id}
             className="flex justify-between space-x-2 items-center border-b border-gray-300"
           >
             <div className="w-1/2">{ingredient.ingredient}</div>
-            <div className="w-1/4 flex justify-center">{`${ingredient.quantity} ${ingredient.quantityUnit}`}</div>
+            <div className="w-1/4 flex justify-center">{`${ingredient.quantity}`}</div>
             <div className="w-1/4 flex justify-center">
               <Button
                 className="btn-icon"
-                onClick={() => handleRemoveFromShoppingList(ingredient.id)}
+                onClick={() => handleRemoveFromShoppingList(ingredient)}
                 ariaLabel={t("remove")}
               >
                 <FontAwesomeIcon icon={faXmark} className="h-4 w-4" />

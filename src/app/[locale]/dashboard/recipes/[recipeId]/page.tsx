@@ -2,7 +2,10 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
 import RecipeCardLarge from "@ui/components/recipes/recipe-card-large";
-import { fetchRecipeById, fetchUserShoppingList } from "@lib/data";
+import {
+  fetchRecipeById,
+  fetchrecipeIngredientsFromShoppingList,
+} from "@lib/data";
 import { Loader } from "@ui/components/loader";
 
 export default async function Page({
@@ -12,7 +15,7 @@ export default async function Page({
 }) {
   const [recipe, userShoppingList] = await Promise.all([
     fetchRecipeById(params.recipeId),
-    fetchUserShoppingList(),
+    fetchrecipeIngredientsFromShoppingList(params.recipeId),
   ]);
 
   if (!recipe) {

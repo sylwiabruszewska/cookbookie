@@ -57,7 +57,7 @@ export default function AddRecipeForm({
     description: "",
     category: "",
     cookingTime: "",
-    ingredients: [{ id: "", ingredient: "", quantity: "", quantityUnit: "" }],
+    ingredients: [{ id: "", ingredient: "", quantity: "" }],
     steps: [{ id: uuidv4(), step: "" }],
     isPublic: true,
   };
@@ -195,7 +195,7 @@ export default function AddRecipeForm({
                         >
                           <div className="w-full">
                             <div className="flex justify-between space-x-2 align-center">
-                              <div className="w-1/2 lg:w-2/3">
+                              <div className="w-2/3">
                                 {ingredientsFromDb && (
                                   <IngredientCreatableSelect
                                     id={`ingredients.${index}.ingredient`}
@@ -215,7 +215,7 @@ export default function AddRecipeForm({
                                           );
                                         form.setFieldValue(
                                           `ingredients.${index}.id`,
-                                          ingredient
+                                          ingredient.id
                                         );
                                         form.setFieldValue(
                                           `ingredients.${index}.ingredient`,
@@ -240,25 +240,12 @@ export default function AddRecipeForm({
                                 )}
                               </div>
 
-                              <div className="w-1/2 lg:w-1/3 flex items-center space-x-2">
+                              <div className="w-1/3 flex items-center space-x-2">
                                 <Input
                                   id={`ingredients.${index}.quantity`}
                                   name={`ingredients.${index}.quantity`}
-                                  type="number"
+                                  type="text"
                                   label={t("quantity")}
-                                />
-
-                                <Select
-                                  id={`ingredients.${index}.quantityUnit`}
-                                  name={`ingredients.${index}.quantityUnit`}
-                                  label={t("unit")}
-                                  options={[
-                                    { value: "tbs", label: "tbs" },
-                                    { value: "tsp", label: "tsp" },
-                                    { value: "kg", label: "kg" },
-                                    { value: "g", label: "g" },
-                                    { value: "piece", label: "piece" },
-                                  ]}
                                 />
                               </div>
                             </div>
@@ -270,10 +257,6 @@ export default function AddRecipeForm({
                               />
                               <ErrorMessage
                                 name={`ingredients.${index}.quantity`}
-                                component="div"
-                              />
-                              <ErrorMessage
-                                name={`ingredients.${index}.quantityUnit`}
                                 component="div"
                               />
                             </div>
@@ -300,7 +283,6 @@ export default function AddRecipeForm({
                           id: "",
                           ingredient: "",
                           quantity: "",
-                          quantityUnit: "",
                         })
                       }
                     >

@@ -1,1 +1,16 @@
-{"account_exists":"¿Tener una cuenta?","account_not_exists":"¿No tienes una cuenta?","action_in_progress_login":"Iniciando sesión...","action_in_progress_register":"Creando una cuenta...","action_login":"Iniciar sesión","action_register":"Inscribirse","description":"Esta aplicación ofrece más que una simple colección de recetas: está diseñada para ser su propio libro de cocina digital. Puede guardar y recuperar fácilmente sus propias recetas en cualquier momento.","header":"¡Bienvenido a la aplicación CookBookie!","login":"Iniciar sesión","or":"o","register":"Registro"}
+{
+  "account_exists": "¿Tener una cuenta?",
+  "account_not_exists": "¿No tienes una cuenta?",
+  "action_in_progress_login": "Iniciando sesión...",
+  "action_in_progress_register": "Creando una cuenta...",
+  "action_login": "Iniciar sesión",
+  "action_register": "Inscribirse",
+  "description": "Esta aplicación ofrece más que una simple colección de recetas: está diseñada para ser su propio libro de cocina digital. Puede guardar y recuperar fácilmente sus propias recetas en cualquier momento.",
+  "header": "¡Bienvenido a la aplicación CookBookie!",
+  "login": "Iniciar sesión",
+  "or": "o",
+  "register": "Registro",
+  "vs_global_error_register": "No se pudo registrar. Inténtalo de nuevo.",
+  "vs_global_error_login": "No se pudo iniciar sesión. Inténtalo de nuevo.",
+  "vs_invalid_credentials": "Credenciales incorrectas."
+}

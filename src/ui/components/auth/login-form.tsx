@@ -42,14 +42,14 @@ const LoginForm = () => {
 
       if (res?.error) {
         // console.log(res);
-        setGlobalError("Invalid credentials");
+        setGlobalError(t("vs_invalid_credentials"));
       } else {
         console.log("Login successful");
         router.push("/dashboard");
       }
     } catch (error: any) {
       console.log(error);
-      setGlobalError("Login failed. Please try again.");
+      setGlobalError(t("vs_global_error_register"));
     } finally {
       actions.setSubmitting(false);
     }

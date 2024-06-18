@@ -45,7 +45,7 @@ const RegistrationForm = () => {
       if (error.response && error.response.data && error.response.data.error) {
         setGlobalError(error.response.data.error.toString());
       } else {
-        setGlobalError("Registration failed. Please try again.");
+        setGlobalError(t("vs_global_error_register"));
       }
     } finally {
       actions.setSubmitting(false);

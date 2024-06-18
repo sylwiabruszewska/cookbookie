@@ -9,5 +9,8 @@
   "header": "Witamy w aplikacji CookBookie!",
   "login": "Logowanie",
   "or": "Lub",
-  "register": "Rejestracja"
+  "register": "Rejestracja",
+  "vs_global_error_register": "Nie udało się zarejestrować. Spróbuj ponownie.",
+  "vs_global_error_login": "Nie udało się zalogować. Spróbuj ponownie.",
+  "vs_invalid_credentials": "Nieprawidłowe dane logowania."
 }

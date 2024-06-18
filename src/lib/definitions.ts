@@ -33,7 +33,13 @@ export interface Ingredient {
   id: string;
   ingredient: string;
   quantity: string;
-  quantityUnit: string;
+}
+
+export interface IngredientInShoppingList {
+  id: string;
+  recipe_id: string;
+  ingredient: string;
+  quantity: string;
 }
 
 export interface IngredientSelect {

@@ -82,12 +82,34 @@ export default function EditForm({
     isPublic: recipe.is_public,
   };
 
-  const confirmUploads = async (fileUrls: string[]) => {
+  const confirmUploads = async () => {
     try {
       const newUrls = fileUrls.filter((url) => !recipe.images.includes(url));
-      for (const urlToConfirm of newUrls) {
-        await edgestore.publicFiles.confirmUpload({ url: urlToConfirm });
+      if (newUrls.length > 0) {
+        await Promise.all(
+          newUrls.map(async (urlToConfirm) => {
+            await edgestore.publicFiles.confirmUpload({ url: urlToConfirm });
+          })
+        );
       }
+
+      const urlsToDelete = recipe.images.filter(
+        (url) => !fileUrls.includes(url)
+      );
+      if (urlsToDelete.length > 0) {
+        await Promise.all(
+          urlsToDelete.map(async (urlToDelete) => {
+            await edgestore.publicFiles.delete({ url: urlToDelete });
+          })
+        );
+      }
+
+      const existingUrls = recipe.images.filter((url) =>
+        fileUrls.includes(url)
+      );
+
+      const recipeImages = [...existingUrls, ...newUrls];
+      return recipeImages;
     } catch (error) {
       console.error("Error confirming uploads:", error);
     }
@@ -106,8 +128,10 @@ export default function EditForm({
         throw new Error("Selected category not found.");
       }
 
+      const recipeImages = await confirmUploads();
+
       const recipe = {
-        images: fileUrls.length > 0 ? fileUrls : [],
+        images: recipeImages ? recipeImages : [],
         title: values.title,
         description: values.description,
         category: selectedCategory.id,
@@ -118,10 +142,6 @@ export default function EditForm({
       };
 
       const response = await updateRecipe(recipeId, recipe);
-
-      if (fileUrls.length > 0) {
-        await confirmUploads(fileUrls);
-      }
 
       if (!response) {
         throw new Error("Failed to submit recipe");

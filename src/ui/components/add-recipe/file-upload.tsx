@@ -157,10 +157,6 @@ export const FileUpload: FC<FileUploadProps> = ({
         return;
       }
 
-      if (fileToRemove.url) {
-        await edgestore.publicFiles.delete({ url: fileToRemove.url });
-      }
-
       const updatedFiles = files.filter((file) => file.id !== id);
 
       setFiles(updatedFiles);

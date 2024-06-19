@@ -86,6 +86,9 @@ const UserProfile = () => {
 
     try {
       const tempImageUrl = URL.createObjectURL(file);
+
+      // add image resizing before setting it in the future
+
       setImageUrl(tempImageUrl);
       setSelectedFile(file);
     } catch (error) {

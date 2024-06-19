@@ -7,10 +7,11 @@ import { useSession } from "next-auth/react";
 import { Button } from "@/ui/components/button";
 import { useEdgeStore } from "@lib/edgestore";
 import { updateUserProfileImage } from "@lib/actions";
+import { Loader } from "@/ui/components/loader";
 
 const UserProfile = () => {
   const { edgestore } = useEdgeStore();
-  const { data: session } = useSession();
+  const { data: session, status: sessionStatus } = useSession();
   const [imageUrl, setImageUrl] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -19,9 +20,10 @@ const UserProfile = () => {
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
   useEffect(() => {
-    const currentUserImage = session?.user?.image;
-    setImageUrl(currentUserImage);
-  }, [session?.user?.image]);
+    if (sessionStatus === "authenticated" && session?.user?.image) {
+      setImageUrl(session.user.image);
+    }
+  }, [sessionStatus, session]);
 
   const saveChanges = async () => {
     setLoading(true);
@@ -91,13 +93,17 @@ const UserProfile = () => {
     }
   };
 
+  if (sessionStatus === "loading") {
+    return <Loader />;
+  }
+
   return (
     <div>
       {session && (
         <div className="flex flex-col items-center gap-12">
           <div className="relative w-[80px] h-[80px]">
             <Image
-              src={imageUrl || "/defaultUserPhoto.png"}
+              src={imageUrl}
               alt="Avatar"
               className="object-cover rounded-full bg-[--gray-light]"
               style={{ width: "80px", height: "80px" }}

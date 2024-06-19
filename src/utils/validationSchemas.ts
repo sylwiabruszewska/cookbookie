@@ -47,7 +47,6 @@ export const recipeValidationSchema = Yup.object().shape({
       Yup.object().shape({
         ingredient: Yup.string().required("Ingredient name is required"),
         quantity: Yup.string().required("Quantity is required"),
-        quantityUnit: Yup.string().required("Quantity unit is required"),
       })
     )
     .required("Ingredients are required")

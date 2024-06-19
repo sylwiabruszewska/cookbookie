@@ -141,8 +141,8 @@ async function createUserShoppingListTable(client) {
       ingredient_id UUID NOT NULL,
       name VARCHAR(255) NOT NULL,
       quantity VARCHAR(255) NOT NULL,
-      FOREIGN KEY (user_id) REFERENCES Users(id),
-      FOREIGN KEY (recipe_id) REFERENCES Recipes(id)
+      FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
+      FOREIGN KEY (recipe_id) REFERENCES Recipes(id) ON DELETE CASCADE
     )
     `;
 

@@ -1,5 +1,6 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+
+import { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 
@@ -10,56 +11,67 @@ import { updateUserProfileImage } from "@lib/actions";
 const UserProfile = () => {
   const { edgestore } = useEdgeStore();
   const { data: session } = useSession();
-  const currentUserImage = session?.user?.image;
-  const [imageUrl, setImageUrl] = useState(currentUserImage);
+  const [imageUrl, setImageUrl] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
+  useEffect(() => {
+    const currentUserImage = session?.user?.image;
+    setImageUrl(currentUserImage);
+  }, [session?.user?.image]);
+
   const saveChanges = async () => {
     setLoading(true);
-    console.log("newImageUrl", imageUrl);
     try {
-      await confirmUpload(imageUrl);
-      await updateUserProfileImage(imageUrl);
+      let currentUserImage = await session?.user?.image;
+      let newUserImage = "";
+
+      if (!selectedFile) {
+        return;
+      }
+
+      if (selectedFile) {
+        let res;
+
+        if (currentUserImage.startsWith("https://files.edgestore.dev")) {
+          res = await edgestore.publicFiles.upload({
+            file: selectedFile,
+            options: {
+              replaceTargetUrl: currentUserImage,
+            },
+          });
+          newUserImage = res.url;
+        } else {
+          res = await edgestore.publicFiles.upload({
+            file: selectedFile,
+          });
+          newUserImage = res.url;
+        }
+      }
+
+      await updateUserProfileImage(newUserImage);
+
       const updatedSession = { ...session };
-      updatedSession.user.image = imageUrl;
+      updatedSession.user.image = newUserImage;
     } catch (error) {
-      console.error("Error saving changes:", error);
       setErrorMessage("Failed saving new photo. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  const uploadFilesToServer = async (file: File) => {
-    const uploadedFile = await edgestore.publicFiles.upload({
-      file,
-      options: {
-        temporary: true,
-      },
-    });
-
-    return uploadedFile.url;
-  };
-
-  const confirmUpload = async (fileUrl: string) => {
-    try {
-      await edgestore.publicFiles.confirmUpload({ url: fileUrl });
-    } catch (error) {
-      console.error("Error confirming upload:", error);
-    }
-  };
-
   const handleEditPhoto = async (event: ChangeEvent<HTMLInputElement>) => {
     setErrorMessage("");
+
     const file = event.target.files?.[0];
     if (!file) return;
 
-    const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+    const validImageTypes = ["image/jpeg", "image/png"];
     if (!validImageTypes.includes(file.type)) {
-      setErrorMessage("Only JPEG, PNG, or GIF images are allowed.");
+      setErrorMessage("Only JPEG or PNG images are allowed.");
       return;
     }
 
@@ -67,20 +79,14 @@ const UserProfile = () => {
       setErrorMessage(
         "File size exceeds the 5MB limit. Please choose a smaller file."
       );
-      setImageUrl(currentUserImage);
       return;
     }
 
     try {
       const tempImageUrl = URL.createObjectURL(file);
-      console.log("tempImageUrl", tempImageUrl);
       setImageUrl(tempImageUrl);
-
-      const newImageUrl = await uploadFilesToServer(file);
-      console.log("newImageUrl", newImageUrl);
-      setImageUrl(newImageUrl);
+      setSelectedFile(file);
     } catch (error) {
-      console.error("Error uploading image:", error);
       setErrorMessage("Error uploading image.");
     }
   };
@@ -91,7 +97,7 @@ const UserProfile = () => {
         <div className="flex flex-col items-center gap-12">
           <div className="relative w-[80px] h-[80px]">
             <Image
-              src={imageUrl}
+              src={imageUrl || "/defaultUserPhoto.png"}
               alt="Avatar"
               className="object-cover rounded-full bg-[--gray-light]"
               style={{ width: "80px", height: "80px" }}
@@ -117,7 +123,7 @@ const UserProfile = () => {
             className="btn-green self-center"
             onClick={() => saveChanges()}
           >
-            {loading ? "Loading..." : "Save new photo"}
+            {loading ? "Saving..." : "Save new photo"}
           </Button>
 
           <div className="space-y-4">

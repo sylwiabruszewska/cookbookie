@@ -26,10 +26,10 @@ const Modal: React.FC<ModalProps> = ({ onClose, children, modalRef }) => {
         id="modal"
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="relative bg-white p-12 rounded-lg shadow-md w-[80vw] md:w-[30vw] h-auto z-50 flex items-center justify-center"
+        className="relative bg-white dark:bg-[--gray-dark] p-12 rounded-lg shadow-md w-[80vw] md:w-[30vw] h-auto z-50 flex items-center justify-center"
       >
         <Button
-          className="btn-icon bg-[--gray-light] w-7 h-7 absolute top-3 right-3"
+          className="btn-icon bg-[--gray-light] dark:bg-[--gray-medium] text-[--font] w-7 h-7 absolute top-3 right-3"
           onClick={onClose}
           ariaLabel={t("close")}
         >

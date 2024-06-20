@@ -9,7 +9,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Input } from "@ui/components/add-recipe/input";
-import { Select } from "@ui/components/add-recipe/select";
 import { TextArea } from "@ui/components/add-recipe/textarea";
 import { TimePicker } from "@ui/components/add-recipe/time-picker";
 import { Switch } from "@ui/components/add-recipe/switch";
@@ -30,7 +29,7 @@ import {
   getExistingIngredient,
 } from "@lib/actions";
 import { useEdgeStore } from "@lib/edgestore";
-import IngredientCreatableSelect from "@/ui/components/add-recipe/ingredients-select";
+import ReactSelect from "@ui/components/add-recipe/react-select";
 
 interface EditRecipeFormProps {
   categories: Category[];
@@ -198,7 +197,7 @@ export default function EditForm({
 
                 <div>
                   {categories && (
-                    <Select
+                    <ReactSelect
                       id="category"
                       name="category"
                       label={t("category")}
@@ -246,7 +245,8 @@ export default function EditForm({
                             <div className="flex justify-between space-x-2 align-center">
                               <div className="w-1/2 lg:w-2/3">
                                 {ingredientsFromDb && (
-                                  <IngredientCreatableSelect
+                                  <ReactSelect
+                                    isCreatable={true}
                                     id={`ingredients.${index}.ingredient`}
                                     name={`ingredients.${index}.ingredient`}
                                     label={t("ingredient")}

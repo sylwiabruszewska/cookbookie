@@ -1,13 +1,15 @@
 import { useState } from "react";
+import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { useField } from "formik";
+import { useTranslation } from "react-i18next";
 
 export interface OptionType {
   value: string;
   label: string;
 }
 
-interface IngredientCreatableSelectProps {
+interface SelectProps {
   id: string;
   name: string;
   label: string;
@@ -16,9 +18,10 @@ interface IngredientCreatableSelectProps {
   onChange?: (newValue: OptionType | null, actionMeta: any) => void;
   onCreateOption?: (inputValue: string) => void;
   initialState?: OptionType | null;
+  isCreatable?: boolean;
 }
 
-const IngredientCreatableSelect: React.FC<IngredientCreatableSelectProps> = ({
+const ReactSelect: React.FC<SelectProps> = ({
   id,
   name,
   label,
@@ -27,7 +30,9 @@ const IngredientCreatableSelect: React.FC<IngredientCreatableSelectProps> = ({
   onChange,
   onCreateOption,
   initialState = null,
+  isCreatable = false,
 }) => {
+  const { t } = useTranslation(["dashboard"]);
   const [field, meta, helpers] = useField(name);
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(
     value || initialState
@@ -53,8 +58,14 @@ const IngredientCreatableSelect: React.FC<IngredientCreatableSelectProps> = ({
     helpers.setValue(inputValue);
   };
 
+  const customNoOptionsMessage = () => t("no_options");
+  const formatCreateLabel = (inputValue: string) =>
+    `${t("add")} "${inputValue}"`;
+
+  const SelectComponent = isCreatable ? CreatableSelect : Select;
+
   return (
-    <CreatableSelect
+    <SelectComponent
       {...field}
       id={id}
       name={name}
@@ -66,6 +77,8 @@ const IngredientCreatableSelect: React.FC<IngredientCreatableSelectProps> = ({
       isClearable
       className="react-select-container"
       classNamePrefix="react-select"
+      formatCreateLabel={formatCreateLabel}
+      noOptionsMessage={customNoOptionsMessage}
       styles={{
         control: (base, state) => ({
           ...base,
@@ -92,4 +105,4 @@ const IngredientCreatableSelect: React.FC<IngredientCreatableSelectProps> = ({
   );
 };
 
-export default IngredientCreatableSelect;
+export default ReactSelect;

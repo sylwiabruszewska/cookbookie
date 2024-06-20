@@ -12,5 +12,13 @@
   "register": "Registration",
   "vs_global_error_register": "Registration failed. Please try again.",
   "vs_global_error_login": "Login failed. Please try again.",
-  "vs_invalid_credentials": "Invalid login credentials."
+  "vs_invalid_credentials": "Invalid login credentials.",
+  "name": "Name",
+  "password": "Password",
+  "confirm_password": "Confirm password",
+  "hide": "Hide",
+  "show": "Show",
+  "switch_to_en": "Switch to English",
+  "switch_to_es": "Switch to Spanish",
+  "switch_to_pl": "Switch to Polish"
 }

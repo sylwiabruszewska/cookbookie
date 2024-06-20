@@ -12,5 +12,13 @@
   "register": "Registro",
   "vs_global_error_register": "No se pudo registrar. Inténtalo de nuevo.",
   "vs_global_error_login": "No se pudo iniciar sesión. Inténtalo de nuevo.",
-  "vs_invalid_credentials": "Credenciales incorrectas."
+  "vs_invalid_credentials": "Credenciales incorrectas.",
+  "name": "Nombre",
+  "password": "Contraseña",
+  "confirm_password": "Confirma contraseña",
+  "show": "Espectáculo",
+  "hide": "Esconder",
+  "switch_to_en": "Cambiar a inglés",
+  "switch_to_es": "Cambiar al español",
+  "switch_to_pl": "Cambiar al polaco"
 }

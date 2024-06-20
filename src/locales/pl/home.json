@@ -12,5 +12,13 @@
   "register": "Rejestracja",
   "vs_global_error_register": "Nie udało się zarejestrować. Spróbuj ponownie.",
   "vs_global_error_login": "Nie udało się zalogować. Spróbuj ponownie.",
-  "vs_invalid_credentials": "Nieprawidłowe dane logowania."
+  "vs_invalid_credentials": "Nieprawidłowe dane logowania.",
+  "name": "Imię",
+  "password": "Hasło",
+  "confirm_password": "Potwierdź hasło",
+  "show": "Pokaż",
+  "hide": "Ukryj",
+  "switch_to_en": "Przełącz język na angielski",
+  "switch_to_es": "Przełącz język na hiszpański",
+  "switch_to_pl": "Przełącz język na polski"
 }

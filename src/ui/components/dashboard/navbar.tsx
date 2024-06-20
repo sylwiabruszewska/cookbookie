@@ -13,6 +13,7 @@ import MobileMenu from "@/ui/components/dashboard/mobile-menu";
 import { Button } from "@/ui/components/button";
 import useDropdown from "@/hooks/useDropdown";
 import { ModeToggle } from "@/ui/components/mode-toggle";
+import Languages from "@/ui/components/languages";
 
 const NavBar = () => {
   const { t } = useTranslation(["dashboard"]);
@@ -130,6 +131,10 @@ const NavBar = () => {
                     &gt;
                   </span>
                 </Button>
+
+                <div className="mx-auto mt-4">
+                  <Languages />
+                </div>
               </motion.div>
             )}
 

@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { getUser } from "@lib/data";
 export const authOptions = {
   providers: [
+    // change credentials provider to email provider in the future
     CredentialsProvider({
       name: "credentials",
       credentials: {},

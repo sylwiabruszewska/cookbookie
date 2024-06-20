@@ -105,15 +105,16 @@ const UserProfile = () => {
       {session && (
         <div className="flex flex-col items-center gap-12">
           <div className="relative w-[80px] h-[80px]">
-            <Image
-              src={imageUrl}
-              alt="Avatar"
-              className="object-cover rounded-full bg-[--gray-light]"
-              style={{ width: "80px", height: "80px" }}
-              width={80}
-              height={80}
-              priority
-            />
+            {imageUrl && (
+              <Image
+                src={imageUrl}
+                alt="Avatar"
+                className="object-cover rounded-full bg-[--gray-light]"
+                style={{ width: "80px", height: "80px" }}
+                width={80}
+                height={80}
+              />
+            )}
             <label className="absolute bottom-0 right-0 w-6 h-6 bg-[--primary-color] text-white text-xl rounded-full flex justify-center items-center cursor-pointer">
               <input
                 type="file"

@@ -119,7 +119,7 @@ const NavBar = () => {
                   className="link-hover-underline"
                   onClick={() => toggleDropdown()}
                 >
-                  Profile
+                  {t("profile")}
                 </Link>
                 <Button
                   className="group mt-8 btn-logout px-5"

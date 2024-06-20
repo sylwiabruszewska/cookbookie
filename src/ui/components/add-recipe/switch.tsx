@@ -23,11 +23,13 @@ export const Switch: React.FC<SwitchProps> = ({ name }) => {
             aria-label={t("switch_public")}
             onClick={handleToggle}
             className={`relative w-12 h-6 duration-300 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-[--gray-dark] inner-shadow ${
-              isPublic ? "bg-[--gray-light]" : "bg-[--primary-color]"
+              isPublic
+                ? "bg-[--gray-light] dark:bg-[--gray-medium]"
+                : "bg-[--primary-color]"
             }`}
           >
             <div
-              className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full outer-shadow transform duration-300 ${
+              className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full outer-shadow ${
                 isPublic ? "translate-x-0" : "translate-x-6"
               }`}
             ></div>

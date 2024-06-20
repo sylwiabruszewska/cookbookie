@@ -68,7 +68,7 @@ const Footer = () => {
       </div>
       <div className="py-4 text-font relative h-[66px] md:h-[78px] lg:h-[114px] flex items-center overflow-hidden">
         <div className="content-container">
-          <div className="page-container flex justify-center space-x-4 text-xs">
+          <div className="page-container flex justify-center space-x-4 text-xs text-center">
             <span>{t("copywright")}</span>
             <span>{t("terms")}</span>
           </div>

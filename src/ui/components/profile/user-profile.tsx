@@ -20,7 +20,7 @@ const UserProfile = () => {
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
   useEffect(() => {
-    if (sessionStatus === "authenticated" && session?.user?.image) {
+    if (session && session?.user?.image) {
       setImageUrl(session.user.image);
     }
   }, [sessionStatus, session]);
@@ -96,7 +96,7 @@ const UserProfile = () => {
     }
   };
 
-  if (sessionStatus === "loading") {
+  if (!session) {
     return <Loader />;
   }
 

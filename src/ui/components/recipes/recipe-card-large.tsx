@@ -155,7 +155,7 @@ export default function RecipeCardLarge({
         </Button>
         <div className="flex justify-center items-center gap-2">
           <FontAwesomeIcon
-            icon="sun"
+            icon={["far", "clock"]}
             aria-hidden="true"
             className="h-5 w-5 flex justify-center items-center text-[--font]"
           />

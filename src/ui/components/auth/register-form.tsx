@@ -17,6 +17,7 @@ interface FormValues {
   name: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 const RegistrationForm = () => {
@@ -29,14 +30,16 @@ const RegistrationForm = () => {
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   };
 
   const handleSubmit = async (
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
+    const { name, email, password } = values;
     try {
-      const res = await axios.post("/api/register", values);
+      const res = await axios.post("/api/register", { name, email, password });
       // console.log(res.data);
       console.log("Registration successful");
       actions.resetForm();
@@ -90,6 +93,15 @@ const RegistrationForm = () => {
               label={t("password")}
             />
 
+            <IconInput
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              required
+              iconID="icon-lock"
+              label={t("confirm_password")}
+            />
+
             {globalError && <div className="error-text">{globalError}</div>}
 
             <Button type="submit" className="btn-green w-full mt-4 mb-4">
@@ -103,7 +115,7 @@ const RegistrationForm = () => {
 
       <div className="flex justify-center w-full items-center gap-3 py-4">
         <div className="border-b border-[--gray] w-full" />
-        <div>or</div>
+        <div>{t("or")}</div>
         <div className="border-b border-[--gray] w-full" />
       </div>
 

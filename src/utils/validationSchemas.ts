@@ -17,6 +17,9 @@ export const registrationValidationSchema = Yup.object().shape({
     .required("Password is required")
     .min(6, "Password should be at least 6 characters")
     .max(20, "Password should be at most 20 characters"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password")], "Passwords must match")
+    .required("Confirm password is required"),
 });
 
 export const loginValidationSchema = Yup.object().shape({

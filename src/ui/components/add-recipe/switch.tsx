@@ -5,6 +5,7 @@ interface SwitchProps {
   name: string;
 }
 
+// mark private as draft in the future and change card display in user recipes page
 export const Switch: React.FC<SwitchProps> = ({ name }) => {
   const { setFieldValue, values } = useFormikContext<any>();
   const isPublic = values[name];

@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 import { useTranslation } from "react-i18next";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useEdgeStore } from "@lib/edgestore";
 
 interface FileUploadProps {
@@ -247,7 +246,7 @@ export const FileUpload: FC<FileUploadProps> = ({
                   />
                   {file.loaded && !initialImages.includes(file.preview) && (
                     <div className="bg-white text-[--transparent] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full w-10 h-10 flex items-center justify-center opacity-0 animate-checkmark-in">
-                      <FontAwesomeIcon icon={faCheck} />
+                      <FontAwesomeIcon icon="check" />
                     </div>
                   )}
                   <button

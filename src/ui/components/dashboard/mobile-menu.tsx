@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -54,7 +53,7 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
         </div>
         <div className="absolute top-6 right-0">
           <button onClick={closeMenu} aria-label={t("close")}>
-            <FontAwesomeIcon icon={faXmark} className="w-[28px] h-[28px]" />
+            <FontAwesomeIcon icon="xmark" className="w-[28px] h-[28px]" />
           </button>
         </div>
 
@@ -84,7 +83,7 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
               className="flex items-center space-x-2"
             >
               <FontAwesomeIcon
-                icon={faSearch}
+                icon="search"
                 className="text-sm w-[20px] h-[20px]"
               />
               <span>{t("search")}</span>

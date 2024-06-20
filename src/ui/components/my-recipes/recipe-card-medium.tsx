@@ -5,12 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEdgeStore } from "@lib/edgestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTrash,
-  faPencil,
-  faEllipsisH,
-} from "@fortawesome/free-solid-svg-icons";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
@@ -109,7 +103,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
 
               <div className="flex justify-start items-end gap-2">
                 <FontAwesomeIcon
-                  icon={faClock}
+                  icon={["far", "clock"]}
                   aria-hidden="true"
                   className="h-5 w-5 flex justify-center items-center text-[--font]"
                 />
@@ -125,7 +119,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
             onClick={toggleDropdown}
             ariaLabel={t("options")}
           >
-            <FontAwesomeIcon icon={faEllipsisH} className="h-4 w-4" />
+            <FontAwesomeIcon icon="ellipsis" className="h-4 w-4" />
           </Button>
 
           {isDropdownOpen && (
@@ -139,7 +133,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
               <div className="flex flex-col items-start justify-center gap-4">
                 <Link href={`/dashboard/recipes/${id}/edit`}>
                   <Button className="btn-icon h-6 w-6" ariaLabel={t("edit")}>
-                    <FontAwesomeIcon icon={faPencil} className="h-4 w-4" />
+                    <FontAwesomeIcon icon="pencil" className="h-4 w-4" />
                   </Button>
                 </Link>
                 <Button
@@ -147,7 +141,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
                   className="btn-icon h-6 w-6"
                   ariaLabel={t("remove")}
                 >
-                  <FontAwesomeIcon icon={faTrash} className="h-4 w-4" />
+                  <FontAwesomeIcon icon="trash" className="h-4 w-4" />
                 </Button>
               </div>
             </motion.div>

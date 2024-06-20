@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MobileMenu from "@/ui/components/dashboard/mobile-menu";
 import { Button } from "@/ui/components/button";
@@ -144,7 +143,7 @@ const NavBar = () => {
               onClick={handleNavOpen}
               aria-label="Menu"
             >
-              <FontAwesomeIcon icon={faBars} className="w-[28px] h-[28px]" />
+              <FontAwesomeIcon icon="bars" className="w-[28px] h-[28px]" />
             </button>
           </div>
 

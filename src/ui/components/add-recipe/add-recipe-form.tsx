@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik, Form, FormikHelpers, FieldArray, ErrorMessage } from "formik";
 import { v4 as uuidv4 } from "uuid";
@@ -267,10 +266,7 @@ export default function AddRecipeForm({
                             onClick={() => remove(index)}
                             ariaLabel={t("remove")}
                           >
-                            <FontAwesomeIcon
-                              icon={faXmark}
-                              className="h-4 w-4"
-                            />
+                            <FontAwesomeIcon icon="xmark" className="h-4 w-4" />
                           </Button>
                         </div>
                       )
@@ -324,7 +320,7 @@ export default function AddRecipeForm({
                           onClick={() => remove(index)}
                           ariaLabel={t("remove")}
                         >
-                          <FontAwesomeIcon icon={faXmark} className="h-4 w-4" />
+                          <FontAwesomeIcon icon="xmark" className="h-4 w-4" />
                         </Button>
                       </div>
                     ))}

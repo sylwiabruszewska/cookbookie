@@ -2,6 +2,7 @@
 
 import NavBar from "@ui/components/dashboard/navbar";
 import Footer from "@ui/components/dashboard/footer";
+import "@/lib/faIcons";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,7 +1,6 @@
 "use client";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
@@ -81,7 +80,7 @@ const SearchForm = ({ className }: { className?: string }) => {
           className="btn-dark absolute top-0 end-0 text-sm font-medium h-full rounded-r rounded-l-none focus:outline-none focus:ring-2 focus:ring-[--primary-color] rounded-tl-[20px] rounded-bl-[40px] rounded-br-[20px] rounded-tr-[40px] p-2 px-8 dark:bg-[--primary-color] dark:hover:text-[--gray-dark]"
           ariaLabel={t("search")}
         >
-          <FontAwesomeIcon icon={faSearch} className="text-sm w-4 h-4" />
+          <FontAwesomeIcon icon="search" className="text-sm w-4 h-4" />
         </Button>
       </div>
     </form>

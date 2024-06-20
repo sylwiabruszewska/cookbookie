@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
-import { faHeart as favoriteHeart } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as notFavoriteHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslation } from "react-i18next";
 
@@ -73,13 +71,13 @@ export default function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
           <motion.div whileTap={{ scale: 1.3 }} className="inline-block">
             {isFavorite ? (
               <FontAwesomeIcon
-                icon={favoriteHeart}
+                icon={["fas", "heart"]}
                 aria-label={t("delete_from_favorites")}
                 className="h-5 w-5 flex justify-center items-center text-red-500"
               />
             ) : (
               <FontAwesomeIcon
-                icon={notFavoriteHeart}
+                icon={["far", "heart"]}
                 aria-label={t("add_to_favorites")}
                 className="h-5 w-5 flex justify-center items-center text-red-500"
               />

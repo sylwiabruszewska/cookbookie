@@ -1,6 +1,5 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function ModeToggle() {
@@ -36,7 +35,7 @@ export function ModeToggle() {
         >
           <div className="absolute left-1 top-1">
             <FontAwesomeIcon
-              icon={faMoon}
+              icon="moon"
               className={`w-4 h-4 text-[--font] ${
                 isDarkMode ? "block" : "hidden"
               }`}
@@ -49,7 +48,7 @@ export function ModeToggle() {
           ></div>
           <div className="absolute right-1 top-1">
             <FontAwesomeIcon
-              icon={faSun}
+              icon="sun"
               className={`w-4 h-4 text-yellow-400 ${
                 isDarkMode ? "hidden" : "block"
               }`}

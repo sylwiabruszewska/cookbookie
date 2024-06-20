@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "./button";
 import { useTranslation } from "react-i18next";
@@ -33,7 +32,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, children, modalRef }) => {
           onClick={onClose}
           ariaLabel={t("close")}
         >
-          <FontAwesomeIcon icon={faXmark} className="h-4 w-4" />
+          <FontAwesomeIcon icon="xmark" className="h-4 w-4" />
         </Button>
 
         {children}

@@ -1,6 +1,5 @@
 "use client";
 
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
@@ -51,7 +50,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
                 onClick={() => handleRemoveFromShoppingList(ingredient)}
                 ariaLabel={t("remove")}
               >
-                <FontAwesomeIcon icon={faXmark} className="h-4 w-4" />
+                <FontAwesomeIcon icon="xmark" className="h-4 w-4" />
               </Button>
             </div>
           </li>

@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
@@ -83,7 +81,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
 
             <div className="flex justify-start items-end gap-2">
               <FontAwesomeIcon
-                icon={faClock}
+                icon={["far", "clock"]}
                 aria-hidden="true"
                 className="h-5 w-5 flex justify-center items-center text-[--font]"
               />
@@ -101,7 +99,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
         >
           <motion.div whileTap={{ scale: 1.3 }} className="inline-block">
             <FontAwesomeIcon
-              icon={faHeart}
+              icon={["fas", "heart"]}
               className="h-5 w-5 flex justify-center items-center text-red-500"
             />
           </motion.div>

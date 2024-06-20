@@ -4,8 +4,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/ui/components/button";
@@ -152,12 +150,12 @@ export default function RecipeCardLarge({
           className="self-center btn-rounded"
           ariaLabel={t("delete_from_favorites")}
         >
-          <FontAwesomeIcon icon={faHeart} className="h-4 w-4 mr-4" />
+          <FontAwesomeIcon icon="heart" className="h-4 w-4 mr-4" />
           {isFavorite ? t("delete_from_favorites") : t("add_to_favorites")}
         </Button>
         <div className="flex justify-center items-center gap-2">
           <FontAwesomeIcon
-            icon={faClock}
+            icon="sun"
             aria-hidden="true"
             className="h-5 w-5 flex justify-center items-center text-[--font]"
           />

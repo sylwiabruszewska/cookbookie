@@ -4,7 +4,6 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
 import { generatePagination } from "@utils/generatePagination";
@@ -114,9 +113,9 @@ function PaginationArrow({
 
   const icon =
     direction === "left" ? (
-      <FontAwesomeIcon icon={faAngleLeft} className="w-5 h-5" />
+      <FontAwesomeIcon icon="angle-right" className="w-5 h-5" />
     ) : (
-      <FontAwesomeIcon icon={faAngleRight} className="w-5 h-5" />
+      <FontAwesomeIcon icon="angle-left" className="w-5 h-5" />
     );
 
   const ariaLabel =

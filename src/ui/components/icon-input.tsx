@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { useField } from "formik";
 import { useState } from "react";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
 interface TextInputProps {
@@ -75,13 +74,13 @@ const IconInput: React.FC<TextInputProps> = ({
           >
             {showPassword ? (
               <FontAwesomeIcon
-                icon={faEyeSlash}
+                icon="eye-slash"
                 aria-label={t("hide")}
                 className="h-4 w-4 text-[--gray-medium]"
               />
             ) : (
               <FontAwesomeIcon
-                icon={faEye}
+                icon="eye"
                 aria-label={t("show")}
                 className="h-4 w-4 text-[--gray-medium]"
               />

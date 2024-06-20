@@ -51,7 +51,7 @@ export const authOptions = {
     async signIn({ user, account }: { user: any; account: any }) {
       if (account.provider === "google") {
         try {
-          const { name, email } = user;
+          const { name, email, image } = user;
           const ifUserExists = await getUser(email);
           if (ifUserExists) {
             return user;
@@ -61,8 +61,8 @@ export const authOptions = {
 
           try {
             await sql`
-                    INSERT INTO users (id, name, email, password)
-                    VALUES (${id}, ${name}, ${email}, ${""})
+                    INSERT INTO users (id, name, email, password, image)
+                    VALUES (${id}, ${name}, ${email}, ${""}, ${image})
                   `;
           } catch (error) {
             return "Database Error: Failed to Create Account.";
@@ -73,39 +73,22 @@ export const authOptions = {
       }
       return user;
     },
-    async jwt({
-      token,
-      user,
-      account,
-    }: {
-      user: any;
-      token: any;
-      account: any;
-    }) {
-      if (account && account.provider === "google") {
-        const dbUser = await getUser(token.email);
-        if (dbUser) {
-          token.id = dbUser.id;
-          token.name = user.name;
-          token.email = user.email;
-          token.image = dbUser.image;
-        }
-      } else if (user) {
-        token.id = user.id;
-        token.name = user.name;
+    async jwt({ token, user }: { user: any; token: any }) {
+      if (user) {
         token.email = user.email;
-        token.image = user.image;
+        token.name = user.name;
       }
       // console.log("token: ", token);
       return token;
     },
 
     async session({ session, token }: { session: any; token: any }) {
-      if (session.user) {
-        session.user.id = token.id;
-        session.user.email = token.email;
-        session.user.name = token.name;
-        session.user.image = token.image;
+      const dbUser = await getUser(token.email);
+      if (session.user && dbUser) {
+        session.user.id = dbUser.id;
+        session.user.email = dbUser.email;
+        session.user.name = dbUser.name;
+        session.user.image = dbUser.image;
       }
       // console.log("session: ", session);
       return session;

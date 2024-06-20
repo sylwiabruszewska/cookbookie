@@ -1,16 +1,16 @@
 "use client";
 
-// import { useRouter } from "next/navigation";
-// import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import WorldFlag from "react-world-flags";
 
 const Languages: React.FC = () => {
   const { t } = useTranslation(["dashboard"]);
   const { i18n } = useTranslation();
-  // const currentLocale = i18n.language;
-  // const router = useRouter();
-  // const currentPathname = usePathname();
+  const currentLocale = i18n.language;
+  const router = useRouter();
+  const currentPathname = usePathname();
 
   const handleLanguageChange = (newLocale: string) => {
     const days = 30;
@@ -19,14 +19,16 @@ const Languages: React.FC = () => {
     const expires = date.toUTCString();
     document.cookie = `NEXT_LOCALE=${newLocale};expires=${expires};path=/`;
 
-    // const newPath = currentPathname.replace(
-    //   `/${currentLocale}`,
-    //   `/${newLocale}`
-    // );
+    const newPath = currentPathname.replace(
+      `/${currentLocale}`,
+      `/${newLocale}`
+    );
 
-    i18n.changeLanguage(newLocale);
-    // router.push(newPath);
-    // router.refresh();
+    // server components don't react to language changes made by calling i18n.changeLanguage(newLocale)
+    // i18n.changeLanguage(newLocale);
+    // need to refresh page
+    router.push(newPath);
+    router.refresh();
   };
 
   return (

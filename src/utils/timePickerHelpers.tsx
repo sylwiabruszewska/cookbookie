@@ -15,11 +15,17 @@ export const decrementTime = (time: Time): Time => {
   let updatedHours = time.hours;
 
   if (updatedMinutes < 0) {
-    updatedMinutes += 60;
-    updatedHours -= 1;
-    if (updatedHours < 0) {
-      updatedHours = 0;
+    if (updatedHours > 0) {
+      updatedMinutes += 60;
+      updatedHours -= 1;
+    } else {
+      updatedMinutes = 0;
     }
+  }
+
+  // min accepted value is 5 minutes
+  if (updatedHours === 0 && updatedMinutes < 5) {
+    updatedMinutes = 5;
   }
 
   return { hours: updatedHours, minutes: updatedMinutes };

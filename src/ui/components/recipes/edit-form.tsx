@@ -28,7 +28,7 @@ import {
   updateRecipe,
   getExistingIngredient,
 } from "@lib/actions";
-import { useEdgeStore } from "@lib/edgestore";
+import { useEdgeStore } from "@ui/components/providers/edgestore";
 import ReactSelect from "@ui/components/add-recipe/react-select";
 
 interface EditRecipeFormProps {

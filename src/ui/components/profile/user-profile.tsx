@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/ui/components/button";
-import { useEdgeStore } from "@lib/edgestore";
+import { useEdgeStore } from "@ui/components/providers/edgestore";
 import { updateUserProfileImage } from "@lib/actions";
 import { Loader } from "@/ui/components/loader";
 

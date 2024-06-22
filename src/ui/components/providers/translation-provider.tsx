@@ -11,7 +11,7 @@ interface TranslationsProviderProps {
   resources?: Resource;
 }
 
-export default function TranslationsProvider({
+export function TranslationsProvider({
   children,
   locale,
   namespaces,

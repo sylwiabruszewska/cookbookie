@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useTranslation } from "react-i18next";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEdgeStore } from "@lib/edgestore";
+import { useEdgeStore } from "@ui/components/providers/edgestore";
 
 interface FileUploadProps {
   initialImages?: string[];

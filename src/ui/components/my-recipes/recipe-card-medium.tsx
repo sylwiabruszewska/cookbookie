@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useEdgeStore } from "@lib/edgestore";
+import { useEdgeStore } from "@ui/components/providers/edgestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";

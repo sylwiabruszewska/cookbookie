@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { poppins } from "@/ui/fonts";
-import "@/ui/styles/globals.css";
-import Provider from "@ui/components/provider";
 import { Toaster } from "react-hot-toast";
-import { toasterConfig } from "@config/toaster";
-import { EdgeStoreProvider } from "@lib/edgestore";
-import { ThemeProvider } from "@ui/components/theme-provider";
-import TranslationsProvider from "@ui/components/translation-provider";
+
+import "@/ui/styles/globals.css";
+import { poppins } from "@/ui/fonts";
 import initTranslations from "@utils/i18n";
+import { toasterConfig } from "@config/toaster";
+import { AuthProvider } from "@ui/components/providers/provider";
+import { EdgeStoreProvider } from "@ui/components/providers/edgestore";
+import { ThemeProvider } from "@ui/components/providers/theme-provider";
+import { TranslationsProvider } from "@ui/components/providers/translation-provider";
 
 export const metadata: Metadata = {
   title: "CookBookie",
@@ -30,7 +31,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={poppins.className}>
-        <Provider>
+        <AuthProvider>
           <TranslationsProvider
             namespaces={i18nNamespaces}
             locale={locale}
@@ -41,7 +42,7 @@ export default async function RootLayout({
               <Toaster {...toasterConfig} />
             </ThemeProvider>
           </TranslationsProvider>
-        </Provider>
+        </AuthProvider>
       </body>
     </html>
   );

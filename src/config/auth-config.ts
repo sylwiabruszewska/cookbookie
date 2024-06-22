@@ -5,6 +5,7 @@ import { sql } from "@vercel/postgres";
 import { v4 as uuidv4 } from "uuid";
 
 import { getUser } from "@lib/data";
+import { loginValidationSchemaBackend } from "@utils/validationSchemas";
 export const authOptions = {
   providers: [
     // change credentials provider to email provider in the future
@@ -19,6 +20,16 @@ export const authOptions = {
           email: string;
           password: string;
         };
+
+        const validatedFields = loginValidationSchemaBackend.safeParse({
+          email,
+          password,
+        });
+
+        if (!validatedFields.success) {
+          throw new Error("Login validation failed.");
+        }
+
         try {
           const user = await getUser(email);
           if (!user) {

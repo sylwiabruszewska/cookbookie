@@ -106,3 +106,21 @@ export const recipeValidationSchemaBackend = z.object({
     .nonempty({ message: "Steps are required" }),
   isPublic: z.boolean(),
 });
+
+export const newsletterValidationSchemaBackend = z.object({
+  emailNewsletter: z.string().email(),
+});
+
+export const loginValidationSchemaBackend = z.object({
+  email: z.string().email(),
+  password: z.string().regex(passwordPattern).min(6).max(20),
+});
+
+export const registrationValidationSchemaBackend = z
+  .object({
+    name: z.string().regex(namePattern).min(3).max(20),
+    email: z.string().email(),
+    password: z.string().regex(passwordPattern).min(6).max(20),
+    confirmPassword: z.string().regex(passwordPattern).min(6).max(20),
+  })
+  .refine((data) => data.confirmPassword === data.password);

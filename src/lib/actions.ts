@@ -3,11 +3,13 @@
 import { sql } from "@vercel/postgres";
 import { unstable_noStore as noStore } from "next/cache";
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
 
 import { getUserId } from "@utils/getUser";
 import { Ingredient, IngredientDb, RecipeFormProps } from "@/lib/definitions";
-import { recipeValidationSchemaBackend } from "@utils/validationSchemas";
+import {
+  newsletterValidationSchemaBackend,
+  recipeValidationSchemaBackend,
+} from "@utils/validationSchemas";
 
 // ***** ADD RECIPE *****
 export async function addRecipe(formData: RecipeFormProps) {
@@ -24,7 +26,7 @@ export async function addRecipe(formData: RecipeFormProps) {
     });
 
     if (!validatedFields.success) {
-      throw new Error("Failed to add recipe.");
+      throw new Error("Recipe validation failed.");
     }
 
     const {
@@ -82,7 +84,7 @@ export async function updateRecipe(
     });
 
     if (!validatedFields.success) {
-      throw new Error("Failed to add recipe.");
+      throw new Error("Recipe validation failed.");
     }
 
     const {
@@ -209,7 +211,6 @@ export async function removeFromShoppingList(
         recipe_id = ${recipeId} AND 
         id = ${ingredient.id} AND 
         quantity = ${ingredient.quantity} 
-      RETURNING *
     `;
 
     revalidatePath("/dashboard/shopping-list");
@@ -223,11 +224,21 @@ export async function removeFromShoppingList(
 export async function addEmailToSubscribersTable(email: string) {
   noStore();
   try {
+    const validatedFields = newsletterValidationSchemaBackend.safeParse({
+      emailNewsletter: email,
+    });
+
+    if (!validatedFields.success) {
+      throw new Error("Newsletter validation failed.");
+    }
+
+    const { emailNewsletter } = validatedFields.data;
+
     const result = await sql`
       INSERT INTO subscribers (email)
-      SELECT ${email}
+      SELECT ${emailNewsletter}
       WHERE NOT EXISTS (
-        SELECT 1 FROM subscribers WHERE email = ${email}
+        SELECT 1 FROM subscribers WHERE email = ${emailNewsletter}
       )`;
 
     if (result.rowCount === 1) {
@@ -242,6 +253,7 @@ export async function addEmailToSubscribersTable(email: string) {
     throw new Error("Failed to add email to subscribers list.");
   }
 }
+
 // ***** ADD NEW INGREDIENT *****
 export async function addNewIngredient(
   ingredientName: string

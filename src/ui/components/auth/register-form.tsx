@@ -37,12 +37,9 @@ const RegistrationForm = () => {
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
-    const { name, email, password } = values;
     try {
-      const res = await axios.post("/api/register", { name, email, password });
-      // console.log(res.data);
-      console.log("Registration successful");
-      actions.resetForm();
+      await axios.post("/api/register", values);
+
       router.push("/login");
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.error) {

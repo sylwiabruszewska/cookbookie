@@ -5,10 +5,24 @@ import { sql } from "@vercel/postgres";
 import gravatar from "gravatar";
 
 import { getUser } from "@lib/data";
+import { registrationValidationSchemaBackend } from "@utils/validationSchemas";
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, password } = await request.json();
+    const registerFormData = await request.json();
+
+    const validatedFields = registrationValidationSchemaBackend.safeParse({
+      name: registerFormData.name,
+      email: registerFormData.email,
+      password: registerFormData.password,
+      confirmPassword: registerFormData.confirmPassword,
+    });
+
+    if (!validatedFields.success) {
+      throw new Error("Register validation failed");
+    }
+
+    const { name, email, password } = validatedFields.data;
 
     const user = await getUser(email);
 

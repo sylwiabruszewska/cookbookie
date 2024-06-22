@@ -41,10 +41,8 @@ const LoginForm = () => {
       });
 
       if (res?.error) {
-        // console.log(res);
         setGlobalError(t("vs_invalid_credentials"));
       } else {
-        console.log("Login successful");
         router.push("/dashboard");
       }
     } catch (error: any) {

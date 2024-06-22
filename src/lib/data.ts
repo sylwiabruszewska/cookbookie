@@ -9,21 +9,23 @@ import {
   Recipe,
   RecipeWithFavoriteStatus,
   IngredientSelect,
+  IngredientInShoppingList,
 } from "@/lib/definitions";
-import { getUserEmail, getUserId } from "@utils/getUser";
+import { getUserId } from "@utils/getUser";
 
 // ***** GET USER *****
-export async function getUser(email: string): Promise<User | undefined> {
+export async function getUser(email: string) {
   try {
     const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
-    return user.rows[0] as User | undefined;
+
+    return user.rows[0];
   } catch (error) {
-    console.error("Failed to fetch user:", error);
+    console.error("Database Error:", error);
     throw new Error("Failed to fetch user.");
   }
 }
 
-// ***** CATEGORIES *****
+// ***** FETCH CATEGORIES *****
 export async function fetchCategories() {
   noStore();
 
@@ -39,6 +41,7 @@ export async function fetchCategories() {
 // ***** FETCH ALL RECIPES *****
 export async function fetchRecipes(currentPage: number) {
   noStore();
+
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
@@ -58,6 +61,23 @@ export async function fetchRecipes(currentPage: number) {
       ORDER BY created_at DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
+
+    // remove duplicates
+    //   const data = await sql<RecipeWithFavoriteStatus>`
+    //   SELECT recipes.*,
+    //     MAX(CASE
+    //         WHEN UserFavorites.recipeId IS NOT NULL THEN TRUE
+    //         ELSE FALSE
+    //       END) AS is_favorite
+    //   FROM recipes
+    //   LEFT JOIN UserFavorites
+    //     ON recipes.id = UserFavorites.recipeId
+    //     AND UserFavorites.userId = ${userId}
+    //   WHERE recipes.is_public = true
+    //   GROUP BY recipes.id
+    //   ORDER BY created_at DESC
+    //   LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    // `;
 
     const count = await sql`
       SELECT COUNT(*) AS count
@@ -76,33 +96,17 @@ export async function fetchRecipes(currentPage: number) {
   }
 }
 
-export async function getUserIdByEmail(email: string): Promise<string | null> {
-  try {
-    const userResult = await sql`
-      SELECT id FROM users WHERE email = ${email}
-    `;
-
-    if (userResult.rowCount === 0) {
-      return null;
-    }
-
-    return userResult.rows[0].id;
-  } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch user ID from database.");
-  }
-}
-
-// ***** USER RECIPES *****
+// ***** FETCH USER RECIPES *****
 export async function fetchUserRecipes(currentPage: number) {
   noStore();
+
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
     const userId = await getUserId();
 
     const data = await sql<Recipe[]>`
-      SELECT recipes.*
+      SELECT recipes.id, recipes.title, recipes.description, images, recipes.cooking_time, recipes.created_at
       FROM recipes
       JOIN users ON recipes.owner_id = users.id
       WHERE users.id = ${userId}
@@ -111,14 +115,15 @@ export async function fetchUserRecipes(currentPage: number) {
     `;
 
     const count = await sql`
-    SELECT COUNT(*) as count
-    FROM recipes
-    WHERE owner_id = ${userId}
+      SELECT COUNT(*) as count
+      FROM recipes
+      WHERE owner_id = ${userId}
   `;
 
     const recipes = data.rows.flat();
 
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+
     return { recipes, totalPages };
   } catch (error) {
     console.error("Database Error:", error);
@@ -126,15 +131,16 @@ export async function fetchUserRecipes(currentPage: number) {
   }
 }
 
-// ***** CATEGORY - 4 RECENT RECIPES *****
+// ***** FETCH 4 RECENT RECIPES FROM CATEGORY *****
 export async function fetchRecentRecipes(categoryId: string) {
   noStore();
+  throw new Error("Failed to fetch ingredients.");
 
   try {
     const userId = await getUserId();
 
     const recentRecipes = await sql<RecipeWithFavoriteStatus>`
-    SELECT recipes.*, 
+      SELECT DISTINCT recipes.id, recipes.title, recipes.images, recipes.created_at,
         CASE 
           WHEN UserFavorites.recipeId IS NOT NULL THEN TRUE 
           ELSE FALSE 
@@ -150,42 +156,48 @@ export async function fetchRecentRecipes(categoryId: string) {
     `;
 
     const totalRecipesResult = await sql`
-    SELECT COUNT(*) FROM recipes 
-    WHERE recipes.is_public = true AND recipes.category_id = ${categoryId}
+      SELECT COUNT(*) 
+      FROM recipes 
+      WHERE recipes.is_public = true AND recipes.category_id = ${categoryId}
   `;
+
     const totalRecipes = totalRecipesResult.rows[0].count;
 
     return { recentRecipes: recentRecipes.rows, totalRecipes };
   } catch (error) {
-    console.error("Error fetching recent recipes:", error);
+    console.error("Database Error:", error);
     throw new Error("Failed to fetch recent recipes for the category.");
   }
 }
 
 // ***** FETCH RECIPES FROM CATEGORY *****
 export async function fetchCategoryRecipes(
-  categoryName: string,
+  categoryKey: string,
   currentPage: number
 ) {
   noStore();
+
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
-    const categoryIdResult = await sql`
-      SELECT id FROM categories WHERE name = ${categoryName}
+    const userId = await getUserId();
+
+    const result = await sql`
+      SELECT id FROM categories WHERE key = ${categoryKey}
     `;
 
-    if (categoryIdResult.rows.length === 0) {
+    if (result.rows.length === 0) {
       throw new Error("Category not found");
     }
 
-    const categoryId = categoryIdResult.rows[0].id;
+    const categoryId = result.rows[0].id;
 
     const data = await sql<RecipeWithFavoriteStatus>`
-      SELECT recipes.id, recipes.title, recipes.description, recipes.images,
+      SELECT recipes.id, recipes.title, recipes.images, recipes.created_at,
         EXISTS (
           SELECT 1 FROM UserFavorites 
           WHERE UserFavorites.recipeId = recipes.id
+          AND UserFavorites.userId = ${userId}
         ) AS is_favorite
       FROM recipes
       JOIN categories ON recipes.category_id = categories.id
@@ -195,17 +207,18 @@ export async function fetchCategoryRecipes(
   `;
 
     const count = await sql`
-    SELECT COUNT(*) AS count
-    FROM recipes
-    WHERE recipes.is_public = true AND recipes.category_id = ${categoryId}
+      SELECT COUNT(*) AS count
+      FROM recipes
+      WHERE recipes.is_public = true AND recipes.category_id = ${categoryId}
   `;
 
     const recipes = data.rows.flat();
+
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
 
     return { recipes, totalPages };
   } catch (error) {
-    console.error("Error fetching recent recipes:", error);
+    console.error("Database Error:", error);
     throw new Error("Failed to fetch recipes for the category.");
   }
 }
@@ -219,43 +232,25 @@ export async function fetchRecipeById(
   try {
     const userId = await getUserId();
 
-    const result = await sql`
+    const result = await sql<RecipeWithFavoriteStatus>`
       SELECT recipes.*, 
-        CASE 
-          WHEN UserFavorites.recipeId IS NOT NULL THEN TRUE 
-          ELSE FALSE 
-        END AS is_favorite
-      FROM recipes
-      LEFT JOIN UserFavorites 
-        ON recipes.id = UserFavorites.recipeId 
+      EXISTS (
+        SELECT 1 
+        FROM UserFavorites 
+        WHERE UserFavorites.recipeId = recipes.id 
         AND UserFavorites.userId = ${userId}
+      ) AS is_favorite
+      FROM recipes
       WHERE recipes.id = ${id}
-    `;
+`;
 
-    if (result.rows.length === 0) {
-      return null;
-    }
-
-    const data = result.rows[0];
-
-    const recipe: RecipeWithFavoriteStatus = {
-      id: data.id,
-      images: data.images,
-      title: data.title,
-      description: data.description,
-      category_id: data.category_id,
-      cooking_time: data.cooking_time,
-      ingredients: data.ingredients,
-      steps: data.steps,
-      is_public: data.is_public,
-      owner_id: data.owner_id,
-      is_favorite: data.is_favorite,
-    };
+    const recipe = result.rows[0];
 
     return recipe;
   } catch (error) {
     console.error("Database Error:", error);
-    return null;
+    console.error("Error fetching recipe:", error);
+    throw new Error("Failed to fetch recipes for the category.");
   }
 }
 
@@ -289,7 +284,7 @@ export async function fetchUserFavorites(currentPage: number) {
     return { recipes, totalPages };
   } catch (error) {
     console.error("Database Error:", error);
-    throw new Error("Failed to fetch user recipes.");
+    throw new Error("Failed to fetch recipe.");
   }
 }
 
@@ -318,19 +313,15 @@ export async function fetchUserShoppingList() {
   try {
     const userId = await getUserId();
 
-    const data = await sql`
-      SELECT ingredient_id, name, quantity, recipe_id
+    const data = await sql<IngredientInShoppingList[]>`
+      SELECT *
       FROM UserShoppingList
       WHERE user_id = ${userId}
-      ORDER BY name ASC
+      ORDER BY ingredient ASC
     `;
 
-    const ingredients = data.rows.map((row) => ({
-      id: row.ingredient_id,
-      ingredient: row.name,
-      quantity: row.quantity,
-      recipe_id: row.recipe_id,
-    }));
+    const ingredients = data.rows.flat();
+    console.log("shoppinglist"), ingredients;
 
     return ingredients;
   } catch (error) {
@@ -340,24 +331,19 @@ export async function fetchUserShoppingList() {
 }
 
 // ***** FETCH RECIPE INGREDIENTS FROM SHOPPING LIST *****
-export async function fetchrecipeIngredientsFromShoppingList(recipeId: string) {
+export async function fetchRecipeIngredientsFromShoppingList(recipeId: string) {
   noStore();
 
   try {
     const userId = await getUserId();
 
-    const data = await sql`
-      SELECT ingredient_id, name, quantity, recipe_id
+    const data = await sql<IngredientInShoppingList[]>`
+      SELECT *
       FROM UserShoppingList
       WHERE user_id = ${userId} AND recipe_id = ${recipeId}
     `;
 
-    const ingredients = data.rows.map((row) => ({
-      id: row.ingredient_id,
-      ingredient: row.name,
-      quantity: row.quantity,
-      recipe_id: row.recipe_id,
-    }));
+    const ingredients = data.rows.flat();
 
     return ingredients;
   } catch (error) {
@@ -376,7 +362,7 @@ export async function fetchFilteredRecipes(query: string, currentPage: number) {
 
   try {
     const recipes = await sql<RecipeWithFavoriteStatus>`
-    SELECT recipes.*
+    SELECT recipes.id, recipes.title, recipes.images, recipes.created_at, recipes.is_favorite
     FROM recipes
       WHERE
       recipes.title ILIKE ${`%${query}%`} OR
@@ -405,6 +391,7 @@ export async function fetchRecipesPages(query: string) {
   `;
 
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+
     return totalPages;
   } catch (error) {
     console.error("Database Error:", error);
@@ -421,6 +408,7 @@ export async function fetchIngredients() {
     `;
 
     const ingredients = data.rows.flat();
+
     return ingredients;
   } catch (error) {
     console.error("Database Error:", error);

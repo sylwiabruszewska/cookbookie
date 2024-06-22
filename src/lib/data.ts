@@ -134,7 +134,6 @@ export async function fetchUserRecipes(currentPage: number) {
 // ***** FETCH 4 RECENT RECIPES FROM CATEGORY *****
 export async function fetchRecentRecipes(categoryId: string) {
   noStore();
-  throw new Error("Failed to fetch ingredients.");
 
   try {
     const userId = await getUserId();

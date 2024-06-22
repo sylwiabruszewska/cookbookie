@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import RecipeCardLarge from "@ui/components/recipes/recipe-card-large";
 import {
   fetchRecipeById,
-  fetchrecipeIngredientsFromShoppingList,
+  fetchRecipeIngredientsFromShoppingList,
 } from "@lib/data";
 import { Loader } from "@ui/components/loader";
 
@@ -15,7 +15,7 @@ export default async function Page({
 }) {
   const [recipe, userShoppingList] = await Promise.all([
     fetchRecipeById(params.recipeId),
-    fetchrecipeIngredientsFromShoppingList(params.recipeId),
+    fetchRecipeIngredientsFromShoppingList(params.recipeId),
   ]);
 
   if (!recipe) {

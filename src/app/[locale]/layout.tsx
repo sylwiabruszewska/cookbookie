@@ -28,7 +28,7 @@ export default async function RootLayout({
   const { resources } = await initTranslations(locale, i18nNamespaces);
 
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={poppins.className}>
         <Provider>
           <TranslationsProvider

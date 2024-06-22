@@ -3,6 +3,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/ui/components/button";
 import { useEdgeStore } from "@lib/edgestore";
@@ -16,6 +17,7 @@ const UserProfile = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation(["dashboard"]);
 
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
@@ -32,6 +34,7 @@ const UserProfile = () => {
       let newUserImage = "";
 
       if (!selectedFile) {
+        setErrorMessage(t("error_profile_missing"));
         return;
       }
 
@@ -59,7 +62,7 @@ const UserProfile = () => {
       const updatedSession = { ...session };
       updatedSession.user.image = newUserImage;
     } catch (error) {
-      setErrorMessage("Failed saving new photo. Please try again.");
+      setErrorMessage(t("error_profile_save"));
     } finally {
       setLoading(false);
     }
@@ -69,18 +72,18 @@ const UserProfile = () => {
     setErrorMessage("");
 
     const file = event.target.files?.[0];
-    if (!file) return;
+    if (!file) {
+      return;
+    }
 
     const validImageTypes = ["image/jpeg", "image/png"];
     if (!validImageTypes.includes(file.type)) {
-      setErrorMessage("Only JPEG or PNG images are allowed.");
+      setErrorMessage(t("error_profile_format"));
       return;
     }
 
     if (file.size > MAX_FILE_SIZE) {
-      setErrorMessage(
-        "File size exceeds the 5MB limit. Please choose a smaller file."
-      );
+      setErrorMessage(t("error_profile_size"));
       return;
     }
 
@@ -92,7 +95,7 @@ const UserProfile = () => {
       setImageUrl(tempImageUrl);
       setSelectedFile(file);
     } catch (error) {
-      setErrorMessage("Error uploading image.");
+      setErrorMessage(t("error_profile_upload"));
     }
   };
 
@@ -121,7 +124,7 @@ const UserProfile = () => {
                 accept="image/*"
                 className="hidden"
                 onChange={handleEditPhoto}
-                aria-label="Choose new photo"
+                aria-label={t("profile_label")}
               />
               +
             </label>
@@ -133,12 +136,12 @@ const UserProfile = () => {
             className="btn-green self-center"
             onClick={() => saveChanges()}
           >
-            {loading ? "Saving..." : "Save new photo"}
+            {loading ? t("action_saving") : t("save_new_photo")}
           </Button>
 
           <div className="space-y-4">
             <p>
-              <span className="font-semibold">Name: </span>{" "}
+              <span className="font-semibold">{t("name")}: </span>{" "}
               <span>{session.user?.name}</span>
             </p>
             <p>

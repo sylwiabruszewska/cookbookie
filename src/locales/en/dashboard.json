@@ -89,5 +89,14 @@
   "add": "Add",
   "try_again": "Try again",
   "sth_went_wrong": "Something went wrong!",
-  "see_recipes": "See recipes"
+  "see_recipes": "See recipes",
+  "error_profile_save": "Failed saving new photo. Please try again.",
+  "error_profile_format": "Only JPEG or PNG images are allowed.",
+  "error_profile_size": "File size exceeds the 5MB limit. Please choose a smaller file.",
+  "error_profile_upload": "Error uploading image.",
+  "error_profile_missing": "Choose a photo",
+  "profile_label": "Choose new photo",
+  "action_saving": "Saving...",
+  "save_new_photo": "Save new photo",
+  "name": "Name"
 }

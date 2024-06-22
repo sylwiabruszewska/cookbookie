@@ -89,5 +89,14 @@
   "add": "Dodaj",
   "try_again": "Spróbuj ponownie",
   "sth_went_wrong": "Coś poszło nie tak.",
-  "see_recipes": "Zobacz przepisy"
+  "see_recipes": "Zobacz przepisy",
+  "error_profile_save": "Nie udało się zapisać nowego zdjęcia. Proszę spróbować ponownie.",
+  "error_profile_format": "Dozwolone są tylko obrazy w formacie JPEG lub PNG.",
+  "error_profile_size": "Rozmiar pliku przekracza limit 5 MB. Proszę wybrać mniejszy plik.",
+  "error_profile_upload": "Błąd podczas przesyłania obrazu.",
+  "error_profile_missing": "Wybierz zdjęcie",
+  "profile_label": "Wybierz nowe zdjęcie",
+  "action_saving": "Zapisywanie...",
+  "save_new_photo": "Zapisz nowe zdjęcie",
+  "name": "Imię"
 }

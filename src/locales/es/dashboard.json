@@ -86,5 +86,7 @@
   "add_some_recipes_to_favorites": "¿Nada por aquí? ¡Explora y descubre deliciosas recetas en nuestra base de datos!",
   "no_shopping_list": "Añade ingredientes a tu lista de compras.",
   "no_options": "No hay opciones disponibles",
-  "add": "Añadir"
+  "add": "Añadir",
+  "try_again": "Inténtalo de nuevo",
+  "sth_went_wrong": "¡Algo salió mal!"
 }

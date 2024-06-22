@@ -233,7 +233,7 @@ export async function addToShoppingList(
     const userId = await getUserId();
 
     const ingredientObj = await sql`
-        INSERT INTO UserShoppingList (user_id, recipe_id, ingredient_id, name, quantity)
+        INSERT INTO UserShoppingList (user_id, recipe_id, id, ingredient, quantity)
         VALUES (${userId}, ${recipeId}, ${ingredient.id}, ${ingredient.ingredient}, ${ingredient.quantity}) RETURNING*
       `;
 
@@ -260,7 +260,7 @@ export async function removeFromShoppingList(
       WHERE 
         user_id = ${userId} AND 
         recipe_id = ${recipeId} AND 
-        ingredient_id = ${ingredient.id} AND 
+        id = ${ingredient.id} AND 
         quantity = ${ingredient.quantity} 
       RETURNING *
     `;

@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import * as z from "zod";
 
 import { namePattern, passwordPattern } from "@/utils/patterns";
 
@@ -69,4 +70,39 @@ export const newsletterValidationSchema = Yup.object().shape({
   emailNewsletter: Yup.string()
     .email("Invalid email")
     .required("Email is required"),
+});
+
+// BACKEND USING ZOD
+export const recipeValidationSchemaBackend = z.object({
+  images: z.array(z.string()),
+  title: z
+    .string()
+    .min(6, { message: "Title should be at least 6 characters" })
+    .max(60, { message: "Title should be at most 60 characters" }),
+  description: z
+    .string()
+    .max(300, { message: "Description should be at most 300 characters" }),
+  category: z.string().min(1, { message: "Category is required" }),
+  cookingTime: z.string().min(1, { message: "Cooking time is required" }),
+  ingredients: z
+    .array(
+      z.object({
+        ingredient: z
+          .string()
+          .min(1, { message: "Ingredient name is required" }),
+        quantity: z.string().min(1, { message: "Quantity is required" }),
+      })
+    )
+    .nonempty({ message: "Ingredients are required" }),
+  steps: z
+    .array(
+      z.object({
+        step: z
+          .string()
+          .min(1, { message: "Step description is required" })
+          .max(300, { message: "Step should be at most 300 characters" }),
+      })
+    )
+    .nonempty({ message: "Steps are required" }),
+  isPublic: z.boolean(),
 });

@@ -115,7 +115,7 @@ export default function EditForm({
 
   const handleSubmit = async (
     values: RecipeFormProps,
-    { setSubmitting, resetForm }: FormikHelpers<RecipeFormProps>
+    { setSubmitting }: FormikHelpers<RecipeFormProps>
   ) => {
     try {
       const selectedCategory = categories.find(
@@ -129,21 +129,12 @@ export default function EditForm({
       const recipeImages = await confirmUploads();
 
       const recipe = {
+        ...values,
         images: recipeImages ? recipeImages : [],
-        title: values.title,
-        description: values.description,
         category: selectedCategory.id,
-        cookingTime: values.cookingTime,
-        ingredients: values.ingredients,
-        steps: values.steps,
-        isPublic: values.isPublic,
       };
 
-      const response = await updateRecipe(recipeId, recipe);
-
-      if (!response) {
-        throw new Error("Failed to submit recipe");
-      }
+      await updateRecipe(recipeId, recipe);
 
       toast.success(t("toast_update_recipe"));
       router.push(`/dashboard/recipes/${recipeId}`);

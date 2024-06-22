@@ -72,7 +72,7 @@ export default function AddRecipeForm({
 
   const handleSubmit = async (
     values: RecipeFormProps,
-    { setSubmitting, resetForm }: FormikHelpers<RecipeFormProps>
+    { setSubmitting }: FormikHelpers<RecipeFormProps>
   ) => {
     try {
       const selectedCategory = categories.find(
@@ -89,14 +89,10 @@ export default function AddRecipeForm({
         category: selectedCategory.id,
       };
 
-      const response = await addRecipe(recipe);
+      await addRecipe(recipe);
 
       if (fileUrls.length > 0) {
         await confirmUploads(fileUrls);
-      }
-
-      if (!response) {
-        throw new Error("Failed to submit recipe");
       }
 
       toast.success(t("toast_add_recipe"));

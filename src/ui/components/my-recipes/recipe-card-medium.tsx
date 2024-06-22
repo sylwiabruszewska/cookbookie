@@ -158,18 +158,19 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
             </span>
             <div className="flex gap-8">
               <Button
-                className="btn-green bg-red-500"
-                onClick={handleDeleteRecipe}
-                ariaLabel={t("delete_recipe")}
-              >
-                Delete
-              </Button>
-              <Button
                 onClick={closeModal}
                 className="btn-green bg-[--gray-medium]"
                 ariaLabel={t("close")}
               >
                 Cancel
+              </Button>
+
+              <Button
+                className="btn-green bg-red-500"
+                onClick={handleDeleteRecipe}
+                ariaLabel={t("delete_recipe")}
+              >
+                Delete
               </Button>
             </div>
           </div>

@@ -138,8 +138,8 @@ async function createUserShoppingListTable(client) {
     CREATE TABLE IF NOT EXISTS UserShoppingList (
       user_id UUID NOT NULL,
       recipe_id UUID NOT NULL,
-      ingredient_id UUID NOT NULL,
-      name VARCHAR(255) NOT NULL,
+      id UUID NOT NULL,
+      ingredient VARCHAR(255) NOT NULL,
       quantity VARCHAR(255) NOT NULL,
       FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
       FOREIGN KEY (recipe_id) REFERENCES Recipes(id) ON DELETE CASCADE

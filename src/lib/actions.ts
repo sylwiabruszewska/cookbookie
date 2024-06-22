@@ -3,6 +3,7 @@
 import { sql } from "@vercel/postgres";
 import { unstable_noStore as noStore } from "next/cache";
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 
 import { getUserId } from "@utils/getUser";
 import { Ingredient, IngredientDb, RecipeFormProps } from "@/lib/definitions";
@@ -314,4 +315,11 @@ export async function updateUserProfileImage(imageUrl: string) {
     console.error("Error updating user image:", error);
     throw new Error("Failed to update user image");
   }
+}
+
+// ***** SET COOKIE *****
+export async function setLocale(value: string) {
+  const maxAge = 30 * 24 * 60 * 60;
+
+  cookies().set("NEXT_LOCALE", value, { maxAge: maxAge });
 }

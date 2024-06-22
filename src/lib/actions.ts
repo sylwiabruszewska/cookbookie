@@ -3,45 +3,60 @@
 import { sql } from "@vercel/postgres";
 import { unstable_noStore as noStore } from "next/cache";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 
 import { getUserId } from "@utils/getUser";
-import {
-  Ingredient,
-  IngredientDb,
-  IngredientSelect,
-  Recipe,
-  RecipeFormProps,
-} from "@/lib/definitions";
+import { Ingredient, IngredientDb, RecipeFormProps } from "@/lib/definitions";
+import { recipeValidationSchemaBackend } from "@utils/validationSchemas";
 
 // ***** ADD RECIPE *****
 export async function addRecipe(formData: RecipeFormProps) {
-  const {
-    images,
-    title,
-    description,
-    category,
-    cookingTime,
-    ingredients,
-    steps,
-    isPublic,
-  } = formData;
-
   try {
+    const validatedFields = recipeValidationSchemaBackend.safeParse({
+      images: formData.images,
+      title: formData.title,
+      description: formData.description,
+      category: formData.category,
+      cookingTime: formData.cookingTime,
+      ingredients: formData.ingredients,
+      steps: formData.steps,
+      isPublic: formData.isPublic,
+    });
+
+    if (!validatedFields.success) {
+      throw new Error("Failed to add recipe.");
+    }
+
+    const {
+      images,
+      title,
+      description,
+      category,
+      cookingTime,
+      ingredients,
+      steps,
+      isPublic,
+    } = validatedFields.data;
+
     const userId = await getUserId();
 
     const result = await sql`
     INSERT INTO recipes (
       images, title, description, category_id, cooking_time, ingredients, steps, is_public, owner_id
     ) VALUES (
-      ${JSON.stringify(
-        images
-      )}, ${title}, ${description}, ${category}, ${cookingTime}, ${JSON.stringify(
-      ingredients
-    )}, ${JSON.stringify(steps)}, ${isPublic}, ${userId}
+      ${JSON.stringify(images)}, 
+      ${title}, 
+      ${description}, 
+      ${category}, 
+      ${cookingTime}, 
+      ${JSON.stringify(ingredients)}, 
+      ${JSON.stringify(steps)}, 
+      ${isPublic}, 
+      ${userId}
     ) RETURNING *`;
 
-    console.log("Recipe added successfully");
     revalidatePath("/dashboard/my-recipes");
+
     return result;
   } catch (error) {
     console.error("Failed to add recipe:", error);
@@ -54,18 +69,33 @@ export async function updateRecipe(
   recipeId: string,
   formData: RecipeFormProps
 ) {
-  const {
-    images,
-    title,
-    description,
-    category,
-    cookingTime,
-    ingredients,
-    steps,
-    isPublic,
-  } = formData;
-
   try {
+    const validatedFields = recipeValidationSchemaBackend.safeParse({
+      images: formData.images,
+      title: formData.title,
+      description: formData.description,
+      category: formData.category,
+      cookingTime: formData.cookingTime,
+      ingredients: formData.ingredients,
+      steps: formData.steps,
+      isPublic: formData.isPublic,
+    });
+
+    if (!validatedFields.success) {
+      throw new Error("Failed to add recipe.");
+    }
+
+    const {
+      images,
+      title,
+      description,
+      category,
+      cookingTime,
+      ingredients,
+      steps,
+      isPublic,
+    } = validatedFields.data;
+
     const userId = await getUserId();
 
     const result = await sql`
@@ -84,8 +114,8 @@ export async function updateRecipe(
       RETURNING *
     `;
 
-    console.log("Recipe updated successfully");
     revalidatePath(`/dashboard/recipes/${recipeId}`);
+
     return result;
   } catch (error) {
     console.error("Failed to update recipe:", error);
@@ -100,7 +130,6 @@ export async function deleteRecipe(recipeId: string) {
 
     await sql`DELETE FROM recipes WHERE owner_id = ${userId} AND id = ${recipeId}`;
 
-    console.log("Recipe has been deleted");
     revalidatePath("/dashboard/my-recipes");
   } catch (error) {
     console.error("Failed to delete recipe:", error);
@@ -118,7 +147,6 @@ export async function addToFavorites(recipeId: string) {
     await sql`INSERT INTO UserFavorites (userId, recipeId) VALUES (${userId}, ${recipeId})
     `;
 
-    console.log("Recipe added to favorites");
     revalidatePath("/dashboard/favorites");
   } catch (error) {
     console.error("Database Error:", error);
@@ -135,7 +163,6 @@ export async function removeFromFavorites(recipeId: string) {
 
     await sql`DELETE FROM UserFavorites WHERE userId = ${userId} AND recipeId = ${recipeId}`;
 
-    console.log("Recipe removed from favorites");
     revalidatePath("/dashboard/favorites");
   } catch (error) {
     console.error("Database Error:", error);
@@ -143,86 +170,7 @@ export async function removeFromFavorites(recipeId: string) {
   }
 }
 
-// ***** ADD INGREDIENT TO SHOPPING LIST ***** FIRST VERSION - COLUMN INGREDIENTS
-// export async function addToShoppingList(ingredient: any) {
-//   noStore();
-
-//   try {
-//     const userId = await getUserId();
-
-//     const currentList =
-//       await sql`SELECT ingredients FROM UserShoppingList WHERE user_id = ${userId}`;
-
-//     const newIngredient = {
-//       id: ingredient.id,
-//       name: ingredient.name,
-//       quantity: ingredient.quantity,
-//       checked: ingredient.checked,
-//     };
-
-//     let newList = [];
-//     if (currentList.rows.length > 0) {
-//       const existingIngredientIndex = currentList.rows[0].ingredients.findIndex(
-//         (i: { id: string }) => i.id === newIngredient.id
-//       );
-
-//       if (existingIngredientIndex !== -1) {
-//         newList = [...currentList.rows[0].ingredients];
-//         newList[existingIngredientIndex].quantity =
-//           parseFloat(newList[existingIngredientIndex].quantity) +
-//           parseFloat(newIngredient.quantity);
-//       } else {
-//         newList = [...currentList.rows[0].ingredients, newIngredient];
-//       }
-//       await sql`UPDATE UserShoppingList SET ingredients = ${JSON.stringify(
-//         newList
-//       )} WHERE user_id = ${userId}`;
-//     } else {
-//       newList = [newIngredient];
-//       await sql`INSERT INTO UserShoppingList (user_id, ingredients) VALUES (${userId}, ${JSON.stringify(
-//         newList
-//       )})`;
-//     }
-
-//     console.log("added actions", newIngredient);
-//     console.log("Ingredient added to shopping list");
-//     revalidatePath("/dashboard/shopping-list");
-//   } catch (error) {
-//     console.error("Database Error:", error);
-//     throw new Error("Failed to add ingredient to shopping list.");
-//   }
-// }
-
-// ***** ADD INGREDIENT TO SHOPPING LIST ***** FIRST VERSION - COLUMN INGREDIENTS
-// export async function removeFromShoppingList(id: string) {
-//   noStore();
-
-//   try {
-//     const userId = await getUserId();
-
-//     const currentList =
-//       await sql`SELECT ingredients FROM UserShoppingList WHERE user_id = ${userId}`;
-
-//     if (currentList.rows.length > 0) {
-//       const newList = currentList.rows[0].ingredients.filter(
-//         (ingredient: any) => ingredient.id !== id
-//       );
-
-//       await sql`UPDATE UserShoppingList SET ingredients = ${JSON.stringify(
-//         newList
-//       )} WHERE user_id = ${userId}`;
-
-//       console.log("removed actions", currentList.rows[0]);
-//       console.log("Ingredient removed from shopping list");
-//       revalidatePath("/dashboard/shopping-list");
-//     }
-//   } catch (error) {
-//     console.error("Database Error:", error);
-//     throw new Error("Failed to remove ingredient from shopping list.");
-//   }
-// }
-
-// ***** ADD INGREDIENT TO SHOPPING LIST ***** SECOND VERSION - MORE COLUMNS
+// ***** ADD INGREDIENT TO SHOPPING LIST *****
 export async function addToShoppingList(
   ingredient: Ingredient,
   recipeId: string
@@ -232,12 +180,11 @@ export async function addToShoppingList(
   try {
     const userId = await getUserId();
 
-    const ingredientObj = await sql`
+    await sql`
         INSERT INTO UserShoppingList (user_id, recipe_id, id, ingredient, quantity)
-        VALUES (${userId}, ${recipeId}, ${ingredient.id}, ${ingredient.ingredient}, ${ingredient.quantity}) RETURNING*
+        VALUES (${userId}, ${recipeId}, ${ingredient.id}, ${ingredient.ingredient}, ${ingredient.quantity})
       `;
 
-    console.log("Ingredient added to shopping list", ingredientObj);
     revalidatePath("/dashboard/shopping-list");
   } catch (error) {
     console.error("Database Error:", error);
@@ -245,7 +192,7 @@ export async function addToShoppingList(
   }
 }
 
-// ***** REMOVE INGREDIENT FROM SHOPPING LIST ***** SECOND VERSION - MORE COLUMNS
+// ***** REMOVE INGREDIENT FROM SHOPPING LIST *****
 export async function removeFromShoppingList(
   ingredient: Ingredient,
   recipeId: string
@@ -255,7 +202,7 @@ export async function removeFromShoppingList(
   try {
     const userId = await getUserId();
 
-    const ingredientToDelete = await sql`
+    await sql`
       DELETE FROM UserShoppingList 
       WHERE 
         user_id = ${userId} AND 
@@ -265,7 +212,6 @@ export async function removeFromShoppingList(
       RETURNING *
     `;
 
-    console.log("Ingredient removed from shopping list", ingredientToDelete);
     revalidatePath("/dashboard/shopping-list");
   } catch (error) {
     console.error("Database Error:", error);
@@ -285,10 +231,10 @@ export async function addEmailToSubscribersTable(email: string) {
       )`;
 
     if (result.rowCount === 1) {
-      console.log("Email added successfully to subscribers list");
+      // Email added successfully to subscribers list
       return true;
     } else {
-      console.log("Email already exists in subscribers list");
+      // Email already exists in subscribers list
       return false;
     }
   } catch (error) {
@@ -343,18 +289,15 @@ export async function updateUserProfileImage(imageUrl: string) {
   try {
     const userId = await getUserId();
 
-    const result = await sql`
+    await sql`
       UPDATE users
       SET
         image = ${imageUrl}
       WHERE
         id = ${userId}
-      RETURNING *
     `;
 
-    console.log("User image updated successfully");
     revalidatePath("/dashboard/profile");
-    return result;
   } catch (error) {
     console.error("Error updating user image:", error);
     throw new Error("Failed to update user image");

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Suspense } from "react";
 import initTranslations from "@utils/i18n";
 
@@ -6,6 +7,7 @@ import { MyRecipes } from "@ui/components/my-recipes/my-recipes";
 import { Loader } from "@ui/components/loader";
 import Pagination from "@/ui/components/pagination";
 import { getLocale } from "@lib/getLocal";
+import { Button } from "@ui/components/button";
 
 export default async function Page({
   searchParams,
@@ -37,7 +39,12 @@ export default async function Page({
             )}
           </>
         ) : (
-          <p>{t("add_some_recipes")}</p>
+          <div className="flex flex-col gap-4 items-center">
+            <p>{t("add_some_recipes")}</p>
+            <Link href="/dashboard/add-recipe">
+              <Button className="btn-green">{t("add_recipe")}</Button>
+            </Link>
+          </div>
         )}
       </Suspense>
     </div>

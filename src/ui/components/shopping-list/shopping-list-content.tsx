@@ -18,7 +18,10 @@ export async function ShoppingListContent() {
           <ShoppingList userShoppingList={userShoppingList} />
         </Suspense>
       ) : (
-        <p>{t("no_shopping_list")}</p>
+        <div className="flex flex-col gap-4 items-center">
+          <p>{t("no_shopping_list")}</p>
+          {/* add form with inputs */}
+        </div>
       )}
     </>
   );

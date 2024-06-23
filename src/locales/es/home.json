@@ -20,5 +20,17 @@
   "hide": "Esconder",
   "switch_to_en": "Cambiar a inglés",
   "switch_to_es": "Cambiar al español",
-  "switch_to_pl": "Cambiar al polaco"
+  "switch_to_pl": "Cambiar al polaco",
+  "vs_auth_name_type": "El nombre solo debe contener letras",
+  "vs_auth_name_required": "El nombre es obligatorio",
+  "vs_auth_name_min": "El nombre debe tener al menos 3 caracteres",
+  "vs_auth_name_max": "El nombre debe tener como máximo 20 caracteres",
+  "vs_auth_email_type": "Correo electrónico no válido",
+  "vs_auth_email_required": "Correo electrónico es obligatorio",
+  "vs_auth_password_type": "La contraseña debe contener al menos una: letra mayúscula, carácter especial, dígito.",
+  "vs_auth_password_required": "La contraseña es obligatoria",
+  "vs_auth_password_min": "La contraseña debe tener al menos 6 caracteres",
+  "vs_auth_password_max": "La contraseña debe tener como máximo 20 caracteres",
+  "vs_auth_confirm_type": "Las contraseñas deben coincidir",
+  "vs_auth_confirm_required": "Confirmar la contraseña es obligatorio"
 }

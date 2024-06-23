@@ -98,5 +98,20 @@
   "profile_label": "Choose new photo",
   "action_saving": "Saving...",
   "save_new_photo": "Save new photo",
-  "name": "Name"
+  "name": "Name",
+  "vs_recipe_title_required": "Title is required",
+  "vs_recipe_title_min": "Title should be at least 6 characters",
+  "vs_recipe_title_max": "Title should be at most 60 characters",
+  "vs_recipe_description_max": "Description should be at most 300 characters",
+  "vs_recipe_category_required": "Category is required",
+  "vs_recipe_cookingtime_required": "Cooking time is required",
+  "vs_recipe_ingredient_required": "Ingredient name is required",
+  "vs_recipe_quantity_required": "Quantity is required",
+  "vs_recipe_ingredients_required": "Ingredients are required",
+  "vs_recipe_ingredients_count": "At least one ingredient is required",
+  "vs_recipe_step_required": "Step description is required",
+  "vs_recipe_step_max": "Step should be at most 300 characters",
+  "vs_recipe_step_count": "At least one step is required",
+  "vs_email_type": "Invalid email",
+  "vs_email_required": "Email is required"
 }

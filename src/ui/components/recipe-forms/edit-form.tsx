@@ -150,7 +150,7 @@ export function EditForm({
     <div>
       <Formik
         initialValues={initialValues}
-        validationSchema={recipeValidationSchema}
+        validationSchema={recipeValidationSchema(t)}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting, values }) => (

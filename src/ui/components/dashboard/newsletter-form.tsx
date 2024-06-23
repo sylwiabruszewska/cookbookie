@@ -48,7 +48,7 @@ export function NewsletterForm() {
     <>
       <Formik
         initialValues={{ emailNewsletter: "" }}
-        validationSchema={newsletterValidationSchema}
+        validationSchema={newsletterValidationSchema(t)}
         onSubmit={handleSubmit}
       >
         {() => (

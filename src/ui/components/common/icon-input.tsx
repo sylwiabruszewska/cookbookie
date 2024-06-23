@@ -51,7 +51,6 @@ export const IconInput: React.FC<TextInputProps> = ({
           id={id}
           className={`w-full p-2 pl-10 border border-[--gray] rounded-md focus:outline-none focus:ring-2 focus:ring-[--gray] transition duration-150 ease-in-out bg-[--background] dark:bg-transparent dark:text-[--font] dark:placeholder-[--gray]`}
           placeholder={label}
-          required={required}
           type={inputType}
           autoComplete={autocomplete}
           {...field}

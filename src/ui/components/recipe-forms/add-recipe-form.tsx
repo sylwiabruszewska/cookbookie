@@ -108,7 +108,7 @@ export function AddRecipeForm({
     <div>
       <Formik
         initialValues={initialValues}
-        validationSchema={recipeValidationSchema}
+        validationSchema={recipeValidationSchema(t)}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (

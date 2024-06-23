@@ -20,5 +20,17 @@
   "hide": "Ukryj",
   "switch_to_en": "Przełącz język na angielski",
   "switch_to_es": "Przełącz język na hiszpański",
-  "switch_to_pl": "Przełącz język na polski"
+  "switch_to_pl": "Przełącz język na polski",
+  "vs_auth_name_type": "Imię powinno zawierać tylko litery",
+  "vs_auth_name_required": "Imię jest wymagane",
+  "vs_auth_name_min": "Imię powinno mieć co najmniej 3 znaki",
+  "vs_auth_name_max": "Imię powinno mieć maksymalnie 20 znaków",
+  "vs_auth_email_type": "Nieprawidłowy adres e-mail",
+  "vs_auth_email_required": "Adres e-mail jest wymagany",
+  "vs_auth_password_type": "Hasło musi zawierać co najmniej jedną: wielką literę, znak specjalny, cyfrę.",
+  "vs_auth_password_required": "Hasło jest wymagane",
+  "vs_auth_password_min": "Hasło powinno mieć co najmniej 6 znaków",
+  "vs_auth_password_max": "Hasło powinno mieć maksymalnie 20 znaków",
+  "vs_auth_confirm_type": "Hasła muszą się zgadzać",
+  "vs_auth_confirm_required": "Potwierdzenie hasła jest wymagane"
 }

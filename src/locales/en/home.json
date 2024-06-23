@@ -20,5 +20,17 @@
   "show": "Show",
   "switch_to_en": "Switch to English",
   "switch_to_es": "Switch to Spanish",
-  "switch_to_pl": "Switch to Polish"
+  "switch_to_pl": "Switch to Polish",
+  "vs_auth_name_type": "The name should contain only letters",
+  "vs_auth_name_required": "Name is required",
+  "vs_auth_name_min": "Name should be at least 3 characters",
+  "vs_auth_name_max": "Name should be at most 20 characters",
+  "vs_auth_email_type": "Invalid email",
+  "vs_auth_email_required": "Email is required",
+  "vs_auth_password_type": "Password requires at least one: uppercase, special character, digit.",
+  "vs_auth_password_required": "Password is required",
+  "vs_auth_password_min": "Password should be at least 6 characters",
+  "vs_auth_password_max": "Password should be at most 20 characters",
+  "vs_auth_confirm_type": "Passwords must match",
+  "vs_auth_confirm_required": "Confirm password is required"
 }

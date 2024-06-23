@@ -98,5 +98,20 @@
   "profile_label": "Elige nueva foto",
   "action_saving": "Guardando...",
   "save_new_photo": "Guardar nueva foto",
-  "name": "Nombre"
+  "name": "Nombre",
+  "vs_recipe_title_required": "El título es obligatorio",
+  "vs_recipe_title_min": "El título debe tener al menos 6 caracteres",
+  "vs_recipe_title_max": "El título debe tener como máximo 60 caracteres",
+  "vs_recipe_description_max": "La descripción debe tener como máximo 300 caracteres",
+  "vs_recipe_category_required": "La categoría es obligatoria",
+  "vs_recipe_cookingtime_required": "El tiempo de cocción es obligatorio",
+  "vs_recipe_ingredient_required": "El nombre del ingrediente es obligatorio",
+  "vs_recipe_quantity_required": "La cantidad es obligatoria",
+  "vs_recipe_ingredients_required": "Los ingredientes son obligatorios",
+  "vs_recipe_ingredients_count": "Se requiere al menos un ingrediente",
+  "vs_recipe_step_required": "La descripción del paso es obligatoria",
+  "vs_recipe_step_max": "El paso debe tener como máximo 300 caracteres",
+  "vs_recipe_step_count": "Se requiere al menos un paso",
+  "vs_email_type": "Dirección de correo electrónico no válida",
+  "vs_email_required": "El correo electrónico es obligatorio"
 }

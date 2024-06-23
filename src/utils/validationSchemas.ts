@@ -2,75 +2,79 @@ import * as z from "zod";
 import * as Yup from "yup";
 
 import { namePattern, passwordPattern } from "@/utils/patterns";
+import { TFunction } from "i18next";
 
-export const registrationValidationSchema = Yup.object().shape({
-  name: Yup.string()
-    .matches(namePattern, "The name should contain only letters")
-    .required("Name is required")
-    .min(3, "Name should be at least 3 characters")
-    .max(20, "Name should be at most 20 characters"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string()
-    .matches(
-      passwordPattern,
-      "Password requires at least one: uppercase, special character, digit."
-    )
-    .required("Password is required")
-    .min(6, "Password should be at least 6 characters")
-    .max(20, "Password should be at most 20 characters"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords must match")
-    .required("Confirm password is required"),
-});
+export const registrationValidationSchema = (t: TFunction) => {
+  return Yup.object().shape({
+    name: Yup.string()
+      .matches(namePattern, t("vs_auth_name_type"))
+      .required(t("vs_auth_name_required"))
+      .min(3, t("vs_auth_name_min"))
+      .max(20, t("vs_auth_name_max")),
+    email: Yup.string()
+      .email(t("vs_auth_email_type"))
+      .required(t("vs_auth_email_required")),
+    password: Yup.string()
+      .matches(passwordPattern, t("vs_auth_password_type"))
+      .required(t("vs_auth_password_required"))
+      .min(6, t("vs_auth_password_min"))
+      .max(20, t("vs_auth_password_max")),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password")], t("vs_auth_confirm_type"))
+      .required(t("vs_auth_confirm_required")),
+  });
+};
 
-export const loginValidationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string()
-    .matches(
-      passwordPattern,
-      "Password requires at least one: uppercase, special character, digit."
-    )
-    .required("Password is required")
-    .min(6, "Password should be at least 6 characters")
-    .max(20, "Password should be at most 20 characters"),
-});
+export const loginValidationSchema = (t: TFunction) => {
+  return Yup.object().shape({
+    email: Yup.string()
+      .email(t("vs_auth_email_type"))
+      .required(t("vs_auth_email_required")),
+    password: Yup.string()
+      .matches(passwordPattern, t("vs_auth_password_type"))
+      .required(t("vs_auth_password_required"))
+      .min(6, t("vs_auth_password_min"))
+      .max(20, t("vs_auth_password_max")),
+  });
+};
 
-export const recipeValidationSchema = Yup.object().shape({
-  title: Yup.string()
-    .required("Title is required")
-    .min(6, "Title should be at least 6 characters")
-    .max(60, "Title should be at most 60 characters"),
-  description: Yup.string().max(
-    300,
-    "Description should be at most 300 characters"
-  ),
-  category: Yup.string().required("Category is required"),
-  cookingTime: Yup.string().required("Cooking time is required"),
-  ingredients: Yup.array()
-    .of(
-      Yup.object().shape({
-        ingredient: Yup.string().required("Ingredient name is required"),
-        quantity: Yup.string().required("Quantity is required"),
-      })
-    )
-    .required("Ingredients are required")
-    .min(1, "At least one ingredient is required"),
-  steps: Yup.array()
-    .of(
-      Yup.object().shape({
-        step: Yup.string()
-          .required("Step description is required")
-          .max(300, "Step should be at most 300 characters"),
-      })
-    )
-    .min(1, "At least one step is required"),
-});
+export const recipeValidationSchema = (t: TFunction) => {
+  return Yup.object().shape({
+    title: Yup.string()
+      .required(t("vs_recipe_title_required"))
+      .min(6, t("vs_recipe_title_min"))
+      .max(60, t("vs_recipe_title_max")),
+    description: Yup.string().max(300, t("vs_recipe_description_max")),
+    category: Yup.string().required(t("vs_recipe_category_required")),
+    cookingTime: Yup.string().required(t("vs_recipe_cookingtime_required")),
+    ingredients: Yup.array()
+      .of(
+        Yup.object().shape({
+          ingredient: Yup.string().required(t("vs_recipe_ingredient_required")),
+          quantity: Yup.string().required(t("vs_recipe_quantity_required")),
+        })
+      )
+      .required(t("vs_recipe_ingredients_required"))
+      .min(1, t("vs_recipe_ingredients_count")),
+    steps: Yup.array()
+      .of(
+        Yup.object().shape({
+          step: Yup.string()
+            .required(t("vs_recipe_step_required"))
+            .max(300, t("vs_recipe_step_max")),
+        })
+      )
+      .min(1, t("vs_recipe_step_count")),
+  });
+};
 
-export const newsletterValidationSchema = Yup.object().shape({
-  emailNewsletter: Yup.string()
-    .email("Invalid email")
-    .required("Email is required"),
-});
+export const newsletterValidationSchema = (t: TFunction) => {
+  return Yup.object().shape({
+    emailNewsletter: Yup.string()
+      .email(t("vs_email_type"))
+      .required(t("vs_email_required")),
+  });
+};
 
 // BACKEND USING ZOD
 export const recipeValidationSchemaBackend = z.object({

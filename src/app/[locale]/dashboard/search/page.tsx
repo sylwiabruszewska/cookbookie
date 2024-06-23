@@ -1,12 +1,13 @@
 import { Suspense } from "react";
-import initTranslations from "@utils/i18n";
 
-import SearchForm from "@/ui/components/dashboard/search-form";
+import getLocale from "@utils/getLocale";
+import initTranslations from "@utils/i18n";
 import { fetchRecipesPages } from "@lib/data";
-import { SearchTable } from "@ui/components/search/searchTable";
-import Pagination from "@/ui/components/pagination";
-import { Loader } from "@ui/components/loader";
-import { getLocale } from "@lib/getLocal";
+
+import { Loader } from "@ui/components/common/loader";
+import { SearchTable } from "@ui/components/pages/search";
+import { Pagination } from "@ui/components/dashboard/pagination";
+import { SearchForm } from "@/ui/components/dashboard/search-form";
 
 export default async function Page({
   searchParams,
@@ -18,6 +19,7 @@ export default async function Page({
 }) {
   const locale = getLocale();
   const { t } = await initTranslations(locale, ["dashboard"]);
+
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 

@@ -1,10 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+
+import getLocale from "@utils/getLocale";
 import initTranslations from "@utils/i18n";
 
-import { Button } from "@ui/components/button";
-import HomepageLayout from "@ui/layouts/homepage";
-import { getLocale } from "@lib/getLocal";
+import { Button } from "@ui/components/common/button";
 
 export default async function NotFound() {
   const locale = getLocale();
@@ -20,9 +20,11 @@ export default async function NotFound() {
         height={170}
         priority
       />
+
       <h1 className="text-[50px]">404</h1>
       <h2 className="text-lg font-bold">{t("not_found_h")}</h2>
       <span>{t("not_found_t")}</span>
+
       <Link href="/" className="mt-4">
         <Button className="btn-green">{t("not_found_b")}</Button>
       </Link>

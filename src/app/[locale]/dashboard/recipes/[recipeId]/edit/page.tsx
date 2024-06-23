@@ -1,12 +1,13 @@
-import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import initTranslations from "@utils/i18n";
+import { notFound } from "next/navigation";
 
+import getLocale from "@utils/getLocale";
+import initTranslations from "@utils/i18n";
+import translateCategories from "@/utils/translateData";
 import { fetchCategories, fetchIngredients, fetchRecipeById } from "@lib/data";
-import EditForm from "@ui/components/recipes/edit-form";
-import { Loader } from "@ui/components/loader";
-import { getLocale } from "@lib/getLocal";
-import { translateCategories } from "@/utils/translateData";
+
+import { Loader } from "@ui/components/common/loader";
+import { EditForm } from "@ui/components/recipe-forms/edit-form";
 
 export default async function Page({
   params,
@@ -15,6 +16,7 @@ export default async function Page({
 }) {
   const locale = getLocale();
   const { t } = await initTranslations(locale, ["dashboard"]);
+
   const id = params.recipeId;
 
   const [recipe, categoriesData] = await Promise.all([
@@ -32,6 +34,7 @@ export default async function Page({
   return (
     <div>
       <h2 className="heading-l">{t("edit_recipe")}</h2>
+
       <Suspense fallback={<Loader />}>
         <EditForm
           recipe={recipe}

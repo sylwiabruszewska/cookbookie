@@ -1,6 +1,6 @@
-import Languages from "@ui/components/languages";
+import { Languages } from "@ui/components/common/languages";
 
-export default function HomepageLayout({
+export function HomepageLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

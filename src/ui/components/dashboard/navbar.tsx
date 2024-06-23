@@ -1,20 +1,21 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-
-import Link from "next/link";
-import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import MobileMenu from "@/ui/components/dashboard/mobile-menu";
-import { Button } from "@/ui/components/button";
-import useDropdown from "@/hooks/useDropdown";
-import { ModeToggle } from "@/ui/components/mode-toggle";
-import Languages from "@/ui/components/languages";
 
-const NavBar = () => {
+import useDropdown from "@/hooks/useDropdown";
+
+import { Button } from "@ui/components/common/button";
+import { Languages } from "@ui/components/common/languages";
+import { ModeToggle } from "@ui/components/dashboard/mode-toggle";
+import { MobileMenu } from "@/ui/components/dashboard/mobile-menu";
+
+export const NavBar = () => {
   const { t } = useTranslation(["dashboard"]);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const { data: session } = useSession();
@@ -155,5 +156,3 @@ const NavBar = () => {
     </header>
   );
 };
-
-export default NavBar;

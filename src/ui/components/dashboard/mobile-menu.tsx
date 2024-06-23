@@ -2,18 +2,18 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Button } from "@ui/components/button";
-import { ModeToggle } from "../mode-toggle";
+import { Button } from "@ui/components/common/button";
+import { ModeToggle } from "@ui/components/dashboard/mode-toggle";
 
 interface MobileMenuProps {
   closeMenu: () => void;
 }
 
-const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
+export const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
   const { t } = useTranslation(["dashboard"]);
 
   const handleLinkClick = () => {
@@ -96,5 +96,3 @@ const MobileMenu = ({ closeMenu }: MobileMenuProps) => {
     </nav>
   );
 };
-
-export default MobileMenu;

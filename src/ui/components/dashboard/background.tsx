@@ -1,4 +1,4 @@
-const Background = () => {
+export const Background = () => {
   return (
     <div className="absolute top-0 left-0 w-full h-full negative-z-index">
       {/* SMALL DEVICES */}
@@ -23,5 +23,3 @@ const Background = () => {
     </div>
   );
 };
-
-export default Background;

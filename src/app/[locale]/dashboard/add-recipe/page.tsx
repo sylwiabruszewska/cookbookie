@@ -1,11 +1,12 @@
 import { Suspense } from "react";
 
-import AddRecipeForm from "@/ui/components/add-recipe/add-recipe-form";
-import { fetchCategories, fetchIngredients } from "@/lib/data";
-import { Loader } from "@ui/components/loader";
+import getLocale from "@utils/getLocale";
 import initTranslations from "@utils/i18n";
-import { getLocale } from "@lib/getLocal";
-import { translateCategories } from "@/utils/translateData";
+import translateCategories from "@/utils/translateData";
+import { fetchCategories, fetchIngredients } from "@/lib/data";
+
+import { Loader } from "@ui/components/common/loader";
+import { AddRecipeForm } from "@ui/components/recipe-forms/add-recipe-form";
 
 export default async function Page() {
   const locale = getLocale();
@@ -18,6 +19,7 @@ export default async function Page() {
   return (
     <div>
       <h2 className="heading-l">{t("add_recipe")}</h2>
+
       <Suspense fallback={<Loader />}>
         <AddRecipeForm
           categories={categories}

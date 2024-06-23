@@ -4,10 +4,10 @@ import Image from "next/image";
 import { Suspense } from "react";
 import { useTranslation } from "react-i18next";
 
-import SearchForm from "@/ui/components/dashboard/search-form";
-import Background from "@/ui/components/dashboard/background";
+import { Background } from "@/ui/components/dashboard/background";
+import { SearchForm } from "@/ui/components/dashboard/search-form";
 
-const HeroSection = () => {
+export const HeroSection = () => {
   const { t } = useTranslation(["dashboard"]);
 
   return (
@@ -43,5 +43,3 @@ const HeroSection = () => {
     </div>
   );
 };
-
-export default HeroSection;

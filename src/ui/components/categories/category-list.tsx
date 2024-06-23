@@ -3,13 +3,13 @@
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import { Category } from "@lib/definitions";
-import { Button } from "@ui/components/button";
+import { Button } from "@ui/components/common/button";
 
 interface CategoryListProps {
   categories: Category[];
 }
 
-const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
+export const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -43,5 +43,3 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
     </ul>
   );
 };
-
-export default CategoryList;

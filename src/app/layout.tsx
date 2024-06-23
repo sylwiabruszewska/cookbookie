@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
+
 import "@/lib/faIcons";
 import { setLocale } from "@lib/actions";
-import { useEffect } from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   // set cookie for server components

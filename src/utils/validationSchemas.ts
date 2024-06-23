@@ -1,5 +1,5 @@
-import * as Yup from "yup";
 import * as z from "zod";
+import * as Yup from "yup";
 
 import { namePattern, passwordPattern } from "@/utils/patterns";
 

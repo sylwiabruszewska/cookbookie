@@ -1,8 +1,8 @@
-import { NextResponse, NextRequest } from "next/server";
-import { v4 as uuidv4 } from "uuid";
 import bcryptjs from "bcryptjs";
-import { sql } from "@vercel/postgres";
 import gravatar from "gravatar";
+import { v4 as uuidv4 } from "uuid";
+import { sql } from "@vercel/postgres";
+import { NextResponse, NextRequest } from "next/server";
 
 import { getUser } from "@lib/data";
 import { registrationValidationSchemaBackend } from "@utils/validationSchemas";
@@ -35,7 +35,9 @@ export async function POST(request: NextRequest) {
 
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
+
     const id = uuidv4();
+
     const avatarURL = `https:${gravatar.url(email, {
       s: "250",
       d: "identicon",

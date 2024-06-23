@@ -5,6 +5,7 @@ import "@/ui/styles/globals.css";
 import { poppins } from "@/ui/fonts";
 import initTranslations from "@utils/i18n";
 import { toasterConfig } from "@config/toaster";
+
 import { AuthProvider } from "@ui/components/providers/provider";
 import { EdgeStoreProvider } from "@ui/components/providers/edgestore";
 import { ThemeProvider } from "@ui/components/providers/theme-provider";

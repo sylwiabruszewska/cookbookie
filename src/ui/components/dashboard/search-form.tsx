@@ -1,14 +1,14 @@
 "use client";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { useTranslation } from "react-i18next";
-
-import { Button } from "@/ui/components/button";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-const SearchForm = ({ className }: { className?: string }) => {
+import { Button } from "@ui/components/common/button";
+
+export const SearchForm = ({ className }: { className?: string }) => {
   const [query, setQuery] = useState("");
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -86,5 +86,3 @@ const SearchForm = ({ className }: { className?: string }) => {
     </form>
   );
 };
-
-export default SearchForm;

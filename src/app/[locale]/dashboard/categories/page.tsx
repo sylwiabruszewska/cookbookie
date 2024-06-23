@@ -1,10 +1,13 @@
 import { Suspense } from "react";
-import initTranslations from "@utils/i18n";
 
-import { CategoryButtons } from "@ui/components/categories/category-buttons";
-import { CategoryRecipesContent } from "@ui/components/categories/category-recipes-content";
-import { Loader } from "@ui/components/loader";
-import { getLocale } from "@lib/getLocal";
+import getLocale from "@utils/getLocale";
+import initTranslations from "@utils/i18n";
+import { fetchCategories } from "@lib/data";
+import translateCategories from "@/utils/translateData";
+
+import { Loader } from "@ui/components/common/loader";
+import { CategoryList } from "@ui/components/categories/category-list";
+import { CategoryRecipes } from "@ui/components/categories/category-recipes";
 
 export default async function Page({
   searchParams,
@@ -17,19 +20,26 @@ export default async function Page({
   const locale = getLocale();
   const { t } = await initTranslations(locale, ["dashboard"]);
 
+  // for category recipes
   const categoryName = searchParams?.category || "";
   const currentPage = Number(searchParams?.page) || 1;
+
+  // for category list
+  const categoriesData = await fetchCategories();
+  const categories = translateCategories(categoriesData, t);
 
   const keyString = `search=${searchParams?.category}${searchParams?.page}`;
 
   return (
     <div>
       <h2 className="heading-l">{t("categories")}</h2>
+
       <Suspense fallback={""}>
-        <CategoryButtons />
+        <CategoryList categories={categories} />
       </Suspense>
+
       <Suspense key={keyString} fallback={<Loader />}>
-        <CategoryRecipesContent category={categoryName} page={currentPage} />
+        <CategoryRecipes category={categoryName} page={currentPage} />
       </Suspense>
     </div>
   );

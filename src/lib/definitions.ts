@@ -58,10 +58,6 @@ export interface Step {
   step: string;
 }
 
-export interface CategoriesProps {
-  categories: Category[];
-}
-
 export interface RecipeFormProps {
   images?: string[];
   title: string;

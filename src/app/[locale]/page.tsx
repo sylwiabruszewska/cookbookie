@@ -1,9 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
-import HomepageLayout from "@/ui/layouts/homepage";
-import { Button } from "@/ui/components/button";
-import { poppins } from "@/ui/fonts";
+import Image from "next/image";
+
 import initTranslations from "@utils/i18n";
+
+import { poppins } from "@/ui/fonts";
+import { Button } from "@ui/components/common/button";
+import { HomepageLayout } from "@/ui/layouts/homepage";
 
 interface HomeProps {
   params: {

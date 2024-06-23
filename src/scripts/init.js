@@ -111,27 +111,6 @@ async function createUserFavoritesTable(client) {
   }
 }
 
-// FIRST VERSION
-// async function createUserShoppingListTable(client) {
-//   try {
-//     const createTable = await client.sql`
-//       CREATE TABLE IF NOT EXISTS UserShoppingList (
-//         user_id UUID NOT NULL,
-//         ingredients JSONB NOT NULL,
-//         FOREIGN KEY (user_id) REFERENCES Users(id)
-//       )
-//     `;
-
-//     console.log(`Created "UserShoppingList" table`);
-
-//     return createTable;
-//   } catch (error) {
-//     console.error("Error creating UserShoppingList table:", error);
-//     throw error;
-//   }
-// }
-
-// SECOND VERSION
 async function createUserShoppingListTable(client) {
   try {
     const createTable = await client.sql`

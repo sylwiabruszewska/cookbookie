@@ -1,6 +1,7 @@
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import type { NextFetchEvent, NextRequest } from "next/server";
+
 import { CustomMiddleware } from "./chain";
 
 function stripLocaleFromPath(path: string): string {

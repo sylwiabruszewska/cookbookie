@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 
-import HeroSection from "@/ui/components/dashboard/hero";
-import { DashboardContent } from "@ui/components/dashboard/dashboard-content";
-import { Loader } from "@ui/components/loader";
+import { Loader } from "@ui/components/common/loader";
+import { HeroSection } from "@/ui/components/dashboard/hero";
+import { DashboardContent } from "@ui/components/pages/dashboard";
 
 export default async function Page() {
   return (

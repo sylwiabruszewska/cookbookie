@@ -1,11 +1,7 @@
 import { NavBar } from "@ui/components/dashboard/navbar";
 import { Footer } from "@ui/components/dashboard/footer";
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen ">
       <NavBar />

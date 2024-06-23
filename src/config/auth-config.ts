@@ -1,11 +1,12 @@
-import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
 import bycrptjs from "bcryptjs";
-import { sql } from "@vercel/postgres";
 import { v4 as uuidv4 } from "uuid";
+import { sql } from "@vercel/postgres";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 import { getUser } from "@lib/data";
 import { loginValidationSchemaBackend } from "@utils/validationSchemas";
+
 export const authOptions = {
   providers: [
     // change credentials provider to email provider in the future
@@ -32,16 +33,20 @@ export const authOptions = {
 
         try {
           const user = await getUser(email);
+
           if (!user) {
             return null;
           }
+
           const passwordsMatch = await bycrptjs.compare(
             password,
             user.password
           );
+
           if (!passwordsMatch) {
             return null;
           }
+
           return user;
         } catch (error) {
           console.error("Error fetching user:", error);
@@ -65,6 +70,7 @@ export const authOptions = {
         try {
           const { name, email, image } = user;
           const ifUserExists = await getUser(email);
+
           if (ifUserExists) {
             return user;
           }
@@ -83,6 +89,7 @@ export const authOptions = {
           console.log(err);
         }
       }
+
       return user;
     },
     async jwt({ token, user }: { user: any; token: any }) {
@@ -90,6 +97,7 @@ export const authOptions = {
         token.email = user.email;
         token.name = user.name;
       }
+
       // console.log("token: ", token);
       return token;
     },
@@ -102,6 +110,7 @@ export const authOptions = {
         session.user.name = dbUser.name;
         session.user.image = dbUser.image;
       }
+
       // console.log("session: ", session);
       return session;
     },

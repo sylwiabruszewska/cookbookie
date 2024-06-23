@@ -1,22 +1,22 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { useTranslation } from "react-i18next";
 
-import NewsletterForm from "@/ui/components/newsletter-form";
+import { NewsletterForm } from "@ui/components/dashboard/newsletter-form";
 
-const Footer = () => {
+export const Footer = () => {
   const { t } = useTranslation(["dashboard"]);
 
   return (
     <footer className="relative w-full mt-28">
-      <div className="bg-[--gray-dark] dark:bg-[--primary-color] text-white py-12 font-thin relative">
+      <div className="relative bg-[--gray-dark] dark:bg-[--primary-color] text-white py-12 font-thin">
         <div className="content-container">
           <div className="page-container flex flex-col items-center gap-y-8 md:flex-wrap md:gap-y-12 md:flex-row md:items-start lg:flex-nowrap lg:justify-between lg:items-start lg:gap-x-12">
             <div className="md:space-y-4 md:w-1/2 lg:w-1/3">
               <div className="flex items-center space-x-4">
                 <Link href="/dashboard">
                   <Image
-                    src="/logo-dark.svg"
+                    src="/logo-light.svg"
                     alt="CookBookie Logo"
                     width={44}
                     height={44}
@@ -78,5 +78,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;

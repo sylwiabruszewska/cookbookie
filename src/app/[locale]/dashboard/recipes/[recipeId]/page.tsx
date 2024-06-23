@@ -1,12 +1,13 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
-import RecipeCardLarge from "@ui/components/recipes/recipe-card-large";
 import {
   fetchRecipeById,
   fetchRecipeIngredientsFromShoppingList,
 } from "@lib/data";
-import { Loader } from "@ui/components/loader";
+
+import { Loader } from "@ui/components/common/loader";
+import { RecipeCardLarge } from "@ui/components/cards/recipe-card-large";
 
 export default async function Page({
   params,

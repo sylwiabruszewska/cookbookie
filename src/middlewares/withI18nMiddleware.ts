@@ -1,10 +1,10 @@
+import Negotiator from "negotiator";
 import { NextResponse } from "next/server";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
-import Negotiator from "negotiator";
 
-import { CustomMiddleware } from "@/middlewares/chain";
 import { i18nConfig } from "@config/i18n.config";
+import { CustomMiddleware } from "@/middlewares/chain";
 
 function getLocaleFromCookies(request: NextRequest): string {
   return request.cookies.get("NEXT_LOCALE")?.value || "";

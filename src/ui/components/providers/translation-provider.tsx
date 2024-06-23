@@ -1,8 +1,9 @@
 "use client";
 
 import { I18nextProvider } from "react-i18next";
-import initTranslations from "@utils/i18n";
 import { createInstance, i18n, Resource } from "i18next";
+
+import initTranslations from "@utils/i18n";
 
 interface TranslationsProviderProps {
   children: React.ReactNode;

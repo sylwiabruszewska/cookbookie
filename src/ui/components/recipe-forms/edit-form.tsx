@@ -197,6 +197,14 @@ export function EditForm({
                         value: category.name,
                         label: category.name,
                       }))}
+                      initialState={
+                        selectedCategoryName
+                          ? {
+                              value: selectedCategoryName,
+                              label: selectedCategoryName,
+                            }
+                          : null
+                      }
                     />
                   )}
                   <ErrorMessage

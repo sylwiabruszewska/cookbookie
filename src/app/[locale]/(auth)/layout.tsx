@@ -1,4 +1,4 @@
-import HomepageLayout from "@/ui/layouts/homepage";
+import { HomepageLayout } from "@/ui/layouts/homepage";
 
 export default function Layout({
   children,

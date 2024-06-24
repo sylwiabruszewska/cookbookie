@@ -12,6 +12,7 @@ import { Formik, Form, FormikHelpers } from "formik";
 import { Button } from "@ui/components/common/button";
 import { IconInput } from "@ui/components/common/icon-input";
 import { loginValidationSchema } from "@utils/validationSchemas";
+import { CustomErrorMessage } from "@/ui/components/common/custom-error";
 
 interface FormValues {
   email: string;
@@ -48,7 +49,6 @@ const LoginForm = () => {
       }
     } catch (error: any) {
       console.log(error);
-      setGlobalError(t("vs_global_error_register"));
     } finally {
       actions.setSubmitting(false);
     }
@@ -62,29 +62,40 @@ const LoginForm = () => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className="flex flex-col items-center" autoComplete="off">
-            <h2 className="heading-l">{t("login")}</h2>
-            <IconInput
-              id="email"
-              name="email"
-              type="email"
-              required
-              iconID="icon-user"
-              label="Email"
-            />
+          <Form
+            className="flex flex-col items-center gap-8 w-full py-4 px-4 md:px-8"
+            autoComplete="on"
+          >
+            <h2 className="text-2xl font-semibold">{t("login")}</h2>
 
-            <IconInput
-              id="password"
-              name="password"
-              type="password"
-              required
-              iconID="icon-lock"
-              label={t("password")}
-            />
+            <div className="relative w-full">
+              <IconInput
+                name="email"
+                type="email"
+                iconID="icon-user"
+                label="Email"
+                autocomplete="on"
+              />
 
-            {globalError && <div className="error-text">{globalError}</div>}
+              <CustomErrorMessage name="email" className="absolute" />
+            </div>
 
-            <Button type="submit" className="btn-green w-full mt-6 mb-4">
+            <div className="relative w-full">
+              <IconInput
+                name="password"
+                type="password"
+                iconID="icon-lock"
+                label={t("password")}
+                autocomplete="on"
+              />
+              <CustomErrorMessage name="password" className="absolute" />
+            </div>
+
+            {globalError && (
+              <div className="error-text mt-4 self-start">{globalError}</div>
+            )}
+
+            <Button type="submit" className="btn-green px-6">
               {isSubmitting ? t("action_in_progress_login") : t("action_login")}
             </Button>
           </Form>

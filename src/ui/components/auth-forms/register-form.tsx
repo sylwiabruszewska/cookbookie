@@ -12,6 +12,7 @@ import { Formik, Form, FormikHelpers } from "formik";
 import { Button } from "@ui/components/common/button";
 import { IconInput } from "@ui/components/common/icon-input";
 import { registrationValidationSchema } from "@utils/validationSchemas";
+import { CustomErrorMessage } from "@/ui/components/common/custom-error";
 
 interface FormValues {
   name: string;
@@ -60,48 +61,55 @@ const RegistrationForm = () => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className="flex flex-col items-center" autoComplete="off">
-            <h2 className="heading-l">{t("register")}</h2>
+          <Form
+            className="flex flex-col items-center gap-8 w-full py-4 px-4 md:px-8"
+            autoComplete="off"
+          >
+            <h2 className="text-2xl font-semibold">{t("register")}</h2>
 
-            <IconInput
-              id="text"
-              name="name"
-              type="text"
-              required
-              iconID="icon-user"
-              label={t("name")}
-            />
+            <div className="relative w-full">
+              <IconInput
+                name="name"
+                type="text"
+                iconID="icon-user"
+                label={t("name")}
+              />
+              <CustomErrorMessage name="name" className="absolute" />
+            </div>
 
-            <IconInput
-              id="email"
-              name="email"
-              type="email"
-              required
-              iconID="icon-mail"
-              label="Email"
-            />
+            <div className="relative w-full">
+              <IconInput
+                name="email"
+                type="email"
+                iconID="icon-mail"
+                label="Email"
+              />
+              <CustomErrorMessage name="email" className="absolute" />
+            </div>
 
-            <IconInput
-              id="password"
-              name="password"
-              type="password"
-              required
-              iconID="icon-lock"
-              label={t("password")}
-            />
+            <div className="relative w-full">
+              <IconInput
+                name="password"
+                type="password"
+                iconID="icon-lock"
+                label={t("password")}
+              />
+              <CustomErrorMessage name="password" className="absolute" />
+            </div>
 
-            <IconInput
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              required
-              iconID="icon-lock"
-              label={t("confirm_password")}
-            />
+            <div className="relative w-full">
+              <IconInput
+                name="confirmPassword"
+                type="password"
+                iconID="icon-lock"
+                label={t("confirm_password")}
+              />
+              <CustomErrorMessage name="confirmPassword" className="absolute" />
+            </div>
 
             {globalError && <div className="error-text">{globalError}</div>}
 
-            <Button type="submit" className="btn-green w-full mt-4 mb-4">
+            <Button type="submit" className="btn-green px-6">
               {isSubmitting
                 ? t("action_in_progress_register")
                 : t("action_register")}

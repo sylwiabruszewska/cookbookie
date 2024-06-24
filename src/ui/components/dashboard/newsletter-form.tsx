@@ -11,6 +11,7 @@ import { newsletterValidationSchema } from "@utils/validationSchemas";
 import { Button } from "@ui/components/common/button";
 import { Modal } from "@/ui/components/dashboard/modal";
 import { IconInput } from "@ui/components/common/icon-input";
+import { CustomErrorMessage } from "@/ui/components/common/custom-error";
 
 interface FormValues {
   emailNewsletter: string;
@@ -53,18 +54,20 @@ export function NewsletterForm() {
       >
         {() => (
           <Form
-            className="text-black flex flex-col gap-0 md:flex-row md:items-start md:gap-4 lg:flex-col lg:gap-0 lg:items-center"
+            className="text-black flex flex-col gap-4 md:flex-row md:items-start lg:flex-col lg:items-center"
             autoComplete="off"
           >
-            <IconInput
-              id="emailNewsletter"
-              name="emailNewsletter"
-              type="email"
-              required
-              iconID="icon-mail"
-              label="Email"
-              className="mb-0"
-            />
+            <div className="relative w-full">
+              <IconInput
+                name="emailNewsletter"
+                type="email"
+                iconID="icon-mail"
+                label="Email"
+                className="mb-0"
+              />
+
+              <CustomErrorMessage name="emailNewsletter" className="absolute" />
+            </div>
 
             <Button
               type="submit"

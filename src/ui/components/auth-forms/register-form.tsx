@@ -2,7 +2,6 @@
 
 import axios from "axios";
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -11,6 +10,7 @@ import { Formik, Form, FormikHelpers } from "formik";
 
 import { Button } from "@ui/components/common/button";
 import { IconInput } from "@ui/components/common/icon-input";
+import { GoogleButton } from "@/ui/components/auth-forms/google-btn";
 import { registrationValidationSchema } from "@utils/validationSchemas";
 import { CustomErrorMessage } from "@/ui/components/common/custom-error";
 
@@ -118,21 +118,13 @@ const RegistrationForm = () => {
         )}
       </Formik>
 
-      <div className="flex justify-center w-full items-center gap-3 py-4">
+      <div className="flex justify-center w-full items-center gap-3 py-4 mb-4">
         <div className="border-b border-[--gray] w-full" />
-        <div>{t("or")}</div>
+        <div className="text-xs">{t("or")}</div>
         <div className="border-b border-[--gray] w-full" />
       </div>
 
-      <button onClick={() => signIn("google")}>
-        <Image
-          src="/google/google_signup.svg"
-          alt="Google Logo"
-          width={179}
-          height={40}
-          priority
-        />
-      </button>
+      <GoogleButton onClick={() => signIn("google")} />
 
       <div className="mt-10">
         <span>{t("account_exists")} </span>

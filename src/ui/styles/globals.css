@@ -41,6 +41,10 @@ nav a {
   @apply hover:text-[--primary-color] duration-300 transition-colors;
 }
 
+footer a {
+  @apply hover:underline;
+}
+
 .main-background {
   background-image: url("/bg.jpg");
 }

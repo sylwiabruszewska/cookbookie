@@ -32,5 +32,6 @@
   "vs_auth_password_min": "La contraseña debe tener al menos 6 caracteres",
   "vs_auth_password_max": "La contraseña debe tener como máximo 20 caracteres",
   "vs_auth_confirm_type": "Las contraseñas deben coincidir",
-  "vs_auth_confirm_required": "Confirmar la contraseña es obligatorio"
+  "vs_auth_confirm_required": "Confirmar la contraseña es obligatorio",
+  "continue_with_google": "Continuar con Google"
 }

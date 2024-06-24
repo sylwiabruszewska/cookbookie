@@ -32,5 +32,6 @@
   "vs_auth_password_min": "Password should be at least 6 characters",
   "vs_auth_password_max": "Password should be at most 20 characters",
   "vs_auth_confirm_type": "Passwords must match",
-  "vs_auth_confirm_required": "Confirm password is required"
+  "vs_auth_confirm_required": "Confirm password is required",
+  "continue_with_google": "Continue with Google"
 }

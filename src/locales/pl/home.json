@@ -8,7 +8,7 @@
   "description": "Ta aplikacja oferuje więcej niż tylko zbiór przepisów — została zaprojektowana jako Twoja własna cyfrowa książka kucharska. Możesz łatwo zapisywać i odtwarzać własne przepisy w dowolnym momencie.",
   "header": "Witamy w aplikacji CookBookie!",
   "login": "Logowanie",
-  "or": "Lub",
+  "or": "lub",
   "register": "Rejestracja",
   "vs_global_error_register": "Nie udało się zarejestrować. Spróbuj ponownie.",
   "vs_global_error_login": "Nie udało się zalogować. Spróbuj ponownie.",
@@ -32,5 +32,6 @@
   "vs_auth_password_min": "Hasło powinno mieć co najmniej 6 znaków",
   "vs_auth_password_max": "Hasło powinno mieć maksymalnie 20 znaków",
   "vs_auth_confirm_type": "Hasła muszą się zgadzać",
-  "vs_auth_confirm_required": "Potwierdzenie hasła jest wymagane"
+  "vs_auth_confirm_required": "Potwierdzenie hasła jest wymagane",
+  "continue_with_google": "Kontynuuj z Google"
 }

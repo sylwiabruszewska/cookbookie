@@ -37,6 +37,7 @@ export const Input: React.FC<InputProps> = ({
         className={clsx(baseClass, className)}
         readOnly={readOnly}
         onChange={handleChange}
+        aria-describedby={`${name}-error`}
       />
     </label>
   );

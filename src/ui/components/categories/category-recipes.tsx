@@ -1,7 +1,9 @@
+import Link from "next/link";
 import getLocale from "@utils/getLocale";
 import initTranslations from "@utils/i18n";
 import { fetchCategoryRecipes, fetchRecipes } from "@lib/data";
 
+import { Button } from "@ui/components/common/button";
 import { Pagination } from "@ui/components/dashboard/pagination";
 import { RecipeCardSmall } from "@ui/components/cards/recipe-card-small";
 
@@ -40,7 +42,12 @@ export async function CategoryRecipes({
           ))}
         </ul>
       ) : (
-        <div>{t("no_recipes_found")}</div>
+        <div className="flex flex-col gap-4 items-center">
+          <div>{t("no_recipes_found")}</div>
+          <Link href="/dashboard/add-recipe">
+            <Button className="btn-green">{t("add_recipe")}</Button>
+          </Link>
+        </div>
       )}
 
       {totalPages > 1 && (

@@ -235,7 +235,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                     alt="Uploaded image"
                     style={{
                       width: "100%",
-                      height: "auto",
+                      height: "100%",
                     }}
                     width={500}
                     height={500}

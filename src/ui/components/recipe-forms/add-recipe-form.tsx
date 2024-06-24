@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Formik, Form, FormikHelpers, FieldArray, ErrorMessage } from "formik";
+import { Formik, Form, FormikHelpers, FieldArray } from "formik";
 
 import {
   addRecipe,
@@ -26,6 +26,7 @@ import {
 import { Button } from "@ui/components/common/button";
 import { Input } from "@ui/components/recipe-forms-components/input";
 import { Switch } from "@ui/components/recipe-forms-components/switch";
+import { CustomErrorMessage } from "@/ui/components/common/custom-error";
 import { TextArea } from "@ui/components/recipe-forms-components/textarea";
 import { TimePicker } from "@ui/components/recipe-forms-components/time-picker";
 import { FileUpload } from "@ui/components/recipe-forms-components/file-upload";
@@ -126,20 +127,14 @@ export function AddRecipeForm({
                     type="text"
                     label={t("title")}
                   />
-                  <ErrorMessage
-                    name="title"
-                    component="div"
-                    className="error-text"
-                  />
+
+                  <CustomErrorMessage name="title" />
                 </div>
 
                 <div>
                   <TextArea id="description" label={t("description")} />
-                  <ErrorMessage
-                    name="description"
-                    component="div"
-                    className="error-text"
-                  />
+
+                  <CustomErrorMessage name="description" />
                 </div>
 
                 <div>
@@ -154,11 +149,8 @@ export function AddRecipeForm({
                       }))}
                     />
                   )}
-                  <ErrorMessage
-                    name="category"
-                    component="div"
-                    className="error-text"
-                  />
+
+                  <CustomErrorMessage name="category" />
                 </div>
 
                 <div>
@@ -167,11 +159,8 @@ export function AddRecipeForm({
                     name="cookingTime"
                     label={t("cookingTime")}
                   />
-                  <ErrorMessage
-                    name="cookingTime"
-                    component="div"
-                    className="error-text"
-                  />
+
+                  <CustomErrorMessage name="cookingTime" />
                 </div>
               </div>
             </div>
@@ -246,13 +235,11 @@ export function AddRecipeForm({
                             </div>
 
                             <div className="error-text">
-                              <ErrorMessage
+                              <CustomErrorMessage
                                 name={`ingredients.${index}.ingredient`}
-                                component="div"
                               />
-                              <ErrorMessage
+                              <CustomErrorMessage
                                 name={`ingredients.${index}.quantity`}
-                                component="div"
                               />
                             </div>
                           </div>
@@ -304,11 +291,7 @@ export function AddRecipeForm({
                             label={t("step", { stepNumber: index + 1 })}
                           />
 
-                          <ErrorMessage
-                            name={`steps.${index}.step`}
-                            component="div"
-                            className="error-text"
-                          />
+                          <CustomErrorMessage name={`steps.${index}.step`} />
                         </div>
 
                         <Button

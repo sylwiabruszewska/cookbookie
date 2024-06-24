@@ -20,7 +20,7 @@
 }
 
 .error-text {
-  @apply text-xs text-[#E74A3B];
+  @apply text-xs text-[#E74A3B] leading-tight;
 }
 
 .no-scroll {

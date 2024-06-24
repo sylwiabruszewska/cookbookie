@@ -56,7 +56,7 @@ export function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
             fill
             className="object-cover transform duration-500 transition-transform group-hover:scale-105"
             alt={title}
-            sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+            sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 33vw"
           />
         </div>
         <div className="absolute bottom-0 left-0 right-0 m-4 bg-[--background] rounded-lg p-4 shadow-sm">

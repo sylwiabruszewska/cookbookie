@@ -37,9 +37,9 @@ export default async function Home({ params: { locale } }: HomeProps) {
         >
           {t("description")}
         </p>
-        <div className="flex flex-col gap-4 lg:flex-row items-center justify-center">
+        <div className="flex gap-4 flex-row items-center justify-center">
           <Link href="/register">
-            <Button className="group btn-bordered px-5">
+            <Button className="group btn-home px-5 h-14">
               {t("register")}
               <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 &gt;
@@ -47,7 +47,7 @@ export default async function Home({ params: { locale } }: HomeProps) {
             </Button>
           </Link>
           <Link href="/login">
-            <Button className="group btn-bordered px-5">
+            <Button className="group btn-home px-5 h-14">
               {t("login")}
               <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 &gt;

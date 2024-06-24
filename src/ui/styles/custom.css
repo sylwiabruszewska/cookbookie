@@ -93,6 +93,10 @@
   @apply rounded-tl-[15px] rounded-bl-[40px] rounded-br-[15px] rounded-tr-[40px] bg-[--primary-color] text-white hover:bg-[--gray-dark] px-5 dark:border dark:border-[--primary-color] dark:hover:border-[--gray];
 }
 
+.btn-home {
+  @apply rounded-tl-[15px] rounded-bl-[40px] rounded-br-[15px] rounded-tr-[40px] bg-[--primary-color] text-white hover:bg-transparent border-2 border-[--primary-color] hover:border-white px-5;
+}
+
 .btn-icon {
   @apply w-10 h-10 bg-transparent text-[--gray-medium] hover:text-[black] flex items-center justify-center rounded-lg dark:hover:text-white;
 }

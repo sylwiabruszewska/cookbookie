@@ -11,22 +11,33 @@ import { EdgeStoreProvider } from "@ui/components/providers/edgestore";
 import { ThemeProvider } from "@ui/components/providers/theme-provider";
 import { TranslationsProvider } from "@ui/components/providers/translation-provider";
 
-export const metadata: Metadata = {
-  title: "CookBookie",
-  description: "Your own digital cookbook",
+type PageProps = {
+  params: { locale: string };
+  children?: React.ReactNode;
 };
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const locale = params.locale;
+  const { t } = await initTranslations(locale, ["home"]);
+
+  const pageTitle = t("page_title");
+  const pageDescription = t("page_description");
+
+  return {
+    title: {
+      template: `%s | CookBookie`,
+      default: `${pageTitle}`,
+    },
+    description: pageDescription,
+  };
+}
 
 const i18nNamespaces = ["home", "dashboard"];
 
-export default async function RootLayout({
-  children,
-  params: { locale },
-}: {
-  children: React.ReactNode;
-  params: {
-    locale: string;
-  };
-}) {
+export default async function Page({ params, children }: PageProps) {
+  const locale = params.locale;
   const { resources } = await initTranslations(locale, i18nNamespaces);
 
   return (

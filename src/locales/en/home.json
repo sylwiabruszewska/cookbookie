@@ -33,5 +33,7 @@
   "vs_auth_password_max": "Password should be at most 20 characters",
   "vs_auth_confirm_type": "Passwords must match",
   "vs_auth_confirm_required": "Confirm password is required",
-  "continue_with_google": "Continue with Google"
+  "continue_with_google": "Continue with Google",
+  "page_title": "CookBookie - Your Own Digital Cookbook",
+  "page_description": "CookBookie is your ultimate digital cookbook, where you can store, organize, and share your favorite recipes. Discover new dishes, manage your culinary creations, and enjoy a seamless cooking experience."
 }

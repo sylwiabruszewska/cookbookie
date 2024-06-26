@@ -33,5 +33,7 @@
   "vs_auth_password_max": "Hasło powinno mieć maksymalnie 20 znaków",
   "vs_auth_confirm_type": "Hasła muszą się zgadzać",
   "vs_auth_confirm_required": "Potwierdzenie hasła jest wymagane",
-  "continue_with_google": "Kontynuuj z Google"
+  "continue_with_google": "Kontynuuj z Google",
+  "page_title": "CookBookie - Twoja własna cyfrowa książka kucharska",
+  "page_description": " CookBookie to Twoja osobista książka kucharska w wersji cyfrowej. Przechowuj i porządkuj ulubione przepisy, odkrywaj nowe smaki i dziel się kulinarnymi inspiracjami. Gotowanie nigdy nie było łatwiejsze i przyjemniejsze."
 }

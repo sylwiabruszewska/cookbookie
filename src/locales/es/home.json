@@ -33,5 +33,7 @@
   "vs_auth_password_max": "La contraseña debe tener como máximo 20 caracteres",
   "vs_auth_confirm_type": "Las contraseñas deben coincidir",
   "vs_auth_confirm_required": "Confirmar la contraseña es obligatorio",
-  "continue_with_google": "Continuar con Google"
+  "continue_with_google": "Continuar con Google",
+  "page_title": "CookBookie - Tu Propio Libro de Cocina Digital",
+  "page_description": "CookBookie es tu libro de cocina personal en versión digital. Almacena y organiza tus recetas favoritas, descubre nuevos sabores y comparte tus inspiraciones culinarias. Cocinar nunca ha sido tan fácil y agradable."
 }

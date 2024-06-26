@@ -248,8 +248,7 @@ export async function fetchRecipeById(
     return recipe;
   } catch (error) {
     console.error("Database Error:", error);
-    console.error("Error fetching recipe:", error);
-    throw new Error("Failed to fetch recipes for the category.");
+    throw new Error("Failed to fetch recipe.");
   }
 }
 
@@ -283,7 +282,7 @@ export async function fetchUserFavorites(currentPage: number) {
     return { recipes, totalPages };
   } catch (error) {
     console.error("Database Error:", error);
-    throw new Error("Failed to fetch recipe.");
+    throw new Error("Failed to fetch user favorites.");
   }
 }
 
@@ -412,5 +411,23 @@ export async function fetchIngredients() {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch ingredients.");
+  }
+}
+
+// ***** FETCH RECIPE TITLE BY ID *****
+export async function fetchRecipeTitleById(id: string) {
+  noStore();
+
+  try {
+    const result = await sql`
+      SELECT title FROM recipes WHERE recipes.id = ${id}
+`;
+
+    const recipeTitle = result.rows[0].title;
+
+    return recipeTitle;
+  } catch (error) {
+    console.error("Error fetching recipe title:", error);
+    throw new Error("Failed to fetch recipe title.");
   }
 }

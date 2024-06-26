@@ -1,6 +1,6 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 
-import getLocale from "@utils/getLocale";
 import initTranslations from "@utils/i18n";
 import translateCategories from "@/utils/translateData";
 import { fetchCategories, fetchIngredients } from "@/lib/data";
@@ -8,13 +8,33 @@ import { fetchCategories, fetchIngredients } from "@/lib/data";
 import { Loader } from "@ui/components/common/loader";
 import { AddRecipeForm } from "@ui/components/recipe-forms/add-recipe-form";
 
-export default async function Page() {
-  const locale = getLocale();
+type PageProps = {
+  params: { locale: string };
+};
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const locale = params.locale;
   const { t } = await initTranslations(locale, ["dashboard"]);
 
-  const categoriesData = await fetchCategories();
+  const pageTitle = t("add_recipe");
+
+  return {
+    title: `${pageTitle}`,
+  };
+}
+
+export default async function Page({ params }: PageProps) {
+  const locale = params.locale;
+  const { t } = await initTranslations(locale, ["dashboard"]);
+
+  const [ingredients, categoriesData] = await Promise.all([
+    fetchIngredients(),
+    fetchCategories(),
+  ]);
+
   const categories = translateCategories(categoriesData, t);
-  const ingredients = await fetchIngredients();
 
   return (
     <div>

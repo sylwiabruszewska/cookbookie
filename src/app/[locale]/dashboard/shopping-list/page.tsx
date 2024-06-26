@@ -1,14 +1,31 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 
-import getLocale from "@utils/getLocale";
 import initTranslations from "@utils/i18n";
 import { fetchUserShoppingList } from "@lib/data";
 
 import { Loader } from "@ui/components/common/loader";
 import { ShoppingList } from "@ui/components/pages/shopping-list";
 
-export default async function Page() {
-  const locale = getLocale();
+type PageProps = {
+  params: { locale: string };
+};
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const locale = params.locale;
+  const { t } = await initTranslations(locale, ["dashboard"]);
+
+  const pageTitle = t("shopping_list");
+
+  return {
+    title: `${pageTitle}`,
+  };
+}
+
+export default async function Page({ params }: PageProps) {
+  const locale = params.locale;
   const { t } = await initTranslations(locale, ["dashboard"]);
 
   const userShoppingList = await fetchUserShoppingList();

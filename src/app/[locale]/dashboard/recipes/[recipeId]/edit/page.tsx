@@ -1,7 +1,7 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
-import getLocale from "@utils/getLocale";
 import initTranslations from "@utils/i18n";
 import translateCategories from "@/utils/translateData";
 import { fetchCategories, fetchIngredients, fetchRecipeById } from "@lib/data";
@@ -9,15 +9,27 @@ import { fetchCategories, fetchIngredients, fetchRecipeById } from "@lib/data";
 import { Loader } from "@ui/components/common/loader";
 import { EditForm } from "@ui/components/recipe-forms/edit-form";
 
-export default async function Page({
+type PageProps = {
+  params: { recipeId: string; locale: string };
+};
+
+export async function generateMetadata({
   params,
-}: {
-  params: { recipeId: string };
-}) {
-  const locale = getLocale();
+}: PageProps): Promise<Metadata> {
+  const locale = params.locale;
   const { t } = await initTranslations(locale, ["dashboard"]);
 
+  const pageTitle = t("edit_recipe");
+
+  return {
+    title: `${pageTitle}`,
+  };
+}
+
+export default async function Page({ params }: PageProps) {
   const id = params.recipeId;
+  const locale = params.locale;
+  const { t } = await initTranslations(locale, ["dashboard"]);
 
   const [recipe, categoriesData] = await Promise.all([
     fetchRecipeById(id),

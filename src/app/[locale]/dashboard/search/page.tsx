@@ -1,6 +1,6 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 
-import getLocale from "@utils/getLocale";
 import initTranslations from "@utils/i18n";
 import { fetchRecipesPages } from "@lib/data";
 
@@ -9,15 +9,29 @@ import { SearchTable } from "@ui/components/pages/search";
 import { Pagination } from "@ui/components/dashboard/pagination";
 import { SearchForm } from "@/ui/components/dashboard/search-form";
 
-export default async function Page({
-  searchParams,
-}: {
+type PageProps = {
+  params: { locale: string };
   searchParams?: {
     query?: string;
     page?: string;
   };
-}) {
-  const locale = getLocale();
+};
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const locale = params.locale;
+  const { t } = await initTranslations(locale, ["dashboard"]);
+
+  const pageTitle = t("search");
+
+  return {
+    title: `${pageTitle}`,
+  };
+}
+
+export default async function Page({ params, searchParams }: PageProps) {
+  const locale = params.locale;
   const { t } = await initTranslations(locale, ["dashboard"]);
 
   const query = searchParams?.query || "";

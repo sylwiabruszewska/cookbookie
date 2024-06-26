@@ -1,7 +1,7 @@
 import Link from "next/link";
+import { Metadata } from "next";
 import { Suspense } from "react";
 
-import getLocale from "@utils/getLocale";
 import initTranslations from "@utils/i18n";
 import { fetchUserRecipes } from "@lib/data";
 
@@ -10,14 +10,29 @@ import { Button } from "@ui/components/common/button";
 import { MyRecipes } from "@ui/components/pages/my-recipes";
 import { Pagination } from "@ui/components/dashboard/pagination";
 
-export default async function Page({
-  searchParams,
-}: {
+type PageProps = {
+  params: { locale: string };
   searchParams?: {
+    category?: string;
     page?: string;
   };
-}) {
-  const locale = getLocale();
+};
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const locale = params.locale;
+  const { t } = await initTranslations(locale, ["dashboard"]);
+
+  const pageTitle = t("my_recipes");
+
+  return {
+    title: `${pageTitle}`,
+  };
+}
+
+export default async function Page({ params, searchParams }: PageProps) {
+  const locale = params.locale;
   const { t } = await initTranslations(locale, ["dashboard"]);
 
   const currentPage = Number(searchParams?.page) || 1;

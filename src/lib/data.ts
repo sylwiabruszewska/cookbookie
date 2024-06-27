@@ -319,7 +319,6 @@ export async function fetchUserShoppingList() {
     `;
 
     const ingredients = data.rows.flat();
-    console.log("shoppinglist"), ingredients;
 
     return ingredients;
   } catch (error) {

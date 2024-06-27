@@ -345,7 +345,7 @@ export async function fetchRecipeIngredientsFromShoppingList(recipeId: string) {
     return ingredients;
   } catch (error) {
     console.error("Database Error:", error);
-    throw new Error("Failed to fetch ingredients from shopping list.");
+    throw new Error("Failed to fetch recipe ingredients from shopping list.");
   }
 }
 

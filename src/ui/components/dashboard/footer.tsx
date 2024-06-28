@@ -52,6 +52,9 @@ export const Footer = () => {
                   {t("shopping_list")}
                 </Link>
               </li>
+              <li>
+                <Link href="/dashboard/search">{t("search")}</Link>
+              </li>
             </ul>
 
             <div className="md:mx-auto md:w-2/3 lg:w-1/3">

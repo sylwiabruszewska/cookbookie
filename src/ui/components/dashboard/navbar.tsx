@@ -41,7 +41,7 @@ export const NavBar = () => {
 
   return (
     <header className="text-font py-4 w-full">
-      <div className="content-container flex items-center justify-between">
+      <div className="content-container flex items-center justify-between lg:justify-start lg:gap-8">
         <Link href="/dashboard" className="flex items-center space-x-4">
           <Image
             src="/logo.svg"
@@ -56,7 +56,7 @@ export const NavBar = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex flex-grow justify-center">
+        <nav className="hidden lg:flex justify-center">
           <ul className="flex gap-10 items-center">
             <li>
               <Link href="/dashboard/categories">{t("categories")}</Link>
@@ -81,8 +81,8 @@ export const NavBar = () => {
 
         {isNavOpen && <MobileMenu closeMenu={closeMenu} />}
 
-        <div className="flex gap-4 items-center">
-          <div className="relative flex items-center justify-end space-x-4 w-[300px]">
+        <div className="flex gap-4 items-center lg:ml-auto">
+          <div className="relative flex items-center justify-end space-x-4 w-[200px]">
             {session && (
               <div
                 className="flex items-center gap-2 cursor-pointer"

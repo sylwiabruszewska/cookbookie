@@ -235,7 +235,7 @@ export function EditForm({
                       (ingredient: Ingredient, index: number) => (
                         <div
                           className="flex justify-between space-x-2 mb-2 align-center w-full"
-                          key={index}
+                          key={ingredient.id}
                         >
                           <div className="w-full">
                             <div className="flex justify-between space-x-2 align-center">
@@ -352,7 +352,7 @@ export function EditForm({
                     {form.values.steps.map((step: Step, index: number) => (
                       <div
                         className="flex justify-between space-x-2 items-start"
-                        key={index}
+                        key={step.id}
                       >
                         <div className="w-full">
                           <TextArea

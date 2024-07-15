@@ -83,6 +83,14 @@ export function EditForm({
   };
 
   const confirmUploads = async () => {
+    let recipeImages;
+
+    if (fileUrls.length === 0) {
+      recipeImages = recipe.images;
+
+      return recipeImages;
+    }
+
     try {
       const newUrls = fileUrls.filter((url) => !recipe.images.includes(url));
       if (newUrls.length > 0) {
@@ -108,7 +116,7 @@ export function EditForm({
         fileUrls.includes(url)
       );
 
-      const recipeImages = [...existingUrls, ...newUrls];
+      recipeImages = [...existingUrls, ...newUrls];
       return recipeImages;
     } catch (error) {
       console.error("Error confirming uploads:", error);

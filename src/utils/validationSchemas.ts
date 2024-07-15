@@ -50,6 +50,7 @@ export const recipeValidationSchema = (t: TFunction) => {
     ingredients: Yup.array()
       .of(
         Yup.object().shape({
+          id: Yup.string(),
           ingredient: Yup.string().required(t("vs_recipe_ingredient_required")),
           quantity: Yup.string().required(t("vs_recipe_quantity_required")),
         })
@@ -59,6 +60,7 @@ export const recipeValidationSchema = (t: TFunction) => {
     steps: Yup.array()
       .of(
         Yup.object().shape({
+          id: Yup.string(),
           step: Yup.string()
             .required(t("vs_recipe_step_required"))
             .max(300, t("vs_recipe_step_max")),
@@ -91,6 +93,7 @@ export const recipeValidationSchemaBackend = z.object({
   ingredients: z
     .array(
       z.object({
+        id: z.string(),
         ingredient: z
           .string()
           .min(1, { message: "Ingredient name is required" }),
@@ -101,6 +104,7 @@ export const recipeValidationSchemaBackend = z.object({
   steps: z
     .array(
       z.object({
+        id: z.string(),
         step: z
           .string()
           .min(1, { message: "Step description is required" })

@@ -174,7 +174,7 @@ export function AddRecipeForm({
                       (ingredient: Ingredient, index: number) => (
                         <div
                           className="flex justify-between space-x-2 mb-2 align-center w-full"
-                          key={index}
+                          key={ingredient.id}
                         >
                           <div className="w-full">
                             <div className="flex justify-between space-x-2 align-center">
@@ -220,6 +220,14 @@ export function AddRecipeForm({
                                         inputValue
                                       );
                                     }}
+                                    value={
+                                      ingredient.ingredient
+                                        ? {
+                                            value: ingredient.ingredient,
+                                            label: ingredient.ingredient,
+                                          }
+                                        : null
+                                    }
                                   />
                                 )}
                               </div>

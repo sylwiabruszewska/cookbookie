@@ -59,7 +59,7 @@ export default async function Page({ params, searchParams }: PageProps) {
           <div className="flex flex-col gap-4 items-center">
             <p>{t("add_some_recipes_to_favorites")}</p>
 
-            <Link href="/dashboard/add-recipe">
+            <Link href="/dashboard/categories">
               <Button className="btn-green">{t("see_recipes")}</Button>
             </Link>
           </div>

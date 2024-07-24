@@ -10,10 +10,11 @@ import { IngredientInShoppingList } from "@lib/definitions";
 import { generateRecipeUrl } from "@utils/generateRecipeUrl";
 
 import { Button } from "@ui/components/common/button";
-
 interface ShoppingListProps {
   userShoppingList: IngredientInShoppingList[];
 }
+
+// save shopping list items in state management
 
 export const ShoppingList: React.FC<ShoppingListProps> = ({
   userShoppingList,
@@ -24,7 +25,8 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
     ingredient: IngredientInShoppingList
   ) => {
     try {
-      const recipeId = ingredient.recipe_id;
+      const recipeId = ingredient.recipe_id!;
+
       await removeFromShoppingList(ingredient, recipeId);
       toast(t("toast_remove_from_shopping_list"));
     } catch (error) {
@@ -41,10 +43,13 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
       </div>
       <ul className="px-2">
         {userShoppingList.map(async (ingredient: IngredientInShoppingList) => {
-          const recipeUrl = generateRecipeUrl(
-            ingredient.recipe_title,
-            ingredient.recipe_id
-          );
+          let recipeUrl: string = "";
+          if (ingredient.recipe_id) {
+            recipeUrl = generateRecipeUrl(
+              ingredient.recipe_title!,
+              ingredient.recipe_id!
+            );
+          }
 
           return (
             <li
@@ -53,7 +58,18 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
             >
               <div className="w-1/2">{ingredient.ingredient}</div>
               <div className="w-1/4 flex justify-center text-center">{`${ingredient.quantity}`}</div>
-              <div className="w-1/4 flex justify-center">
+              <div className="w-1/4 flex justify-end">
+                {ingredient.recipe_id ? (
+                  <Link href={`/dashboard/recipes/${recipeUrl}`}>
+                    <Button className="btn-icon" ariaLabel={t("go_to_recipe")}>
+                      <FontAwesomeIcon
+                        icon="arrow-up-right-from-square"
+                        className="h-4 w-4"
+                      />
+                    </Button>
+                  </Link>
+                ) : null}
+
                 <Button
                   className="btn-icon"
                   onClick={() => handleRemoveFromShoppingList(ingredient)}
@@ -61,15 +77,6 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
                 >
                   <FontAwesomeIcon icon="xmark" className="h-4 w-4" />
                 </Button>
-
-                <Link href={`/dashboard/recipes/${recipeUrl}`}>
-                  <Button className="btn-icon" ariaLabel={t("go_to_recipe")}>
-                    <FontAwesomeIcon
-                      icon="arrow-up-right-from-square"
-                      className="h-4 w-4"
-                    />
-                  </Button>
-                </Link>
               </div>
             </li>
           );

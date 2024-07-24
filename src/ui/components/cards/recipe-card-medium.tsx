@@ -80,7 +80,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
     <div>
       <div className="flex justify-between gap-2 lg:gap-6 h-30">
         <Link
-          href={`/dashboard/recipes/${id}`}
+          href={`/dashboard/recipes/${recipeUrl}`}
           className="group flex flex-grow"
         >
           <div className="flex gap-4 flex-grow">

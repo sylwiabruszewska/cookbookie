@@ -10,16 +10,17 @@ import { fetchRecipeTitleById } from "@lib/data";
 
 import { Loader } from "@ui/components/common/loader";
 import { RecipeCardLarge } from "@ui/components/cards/recipe-card-large";
+import { parseRecipeUrl } from "@utils/parseRecipeUrl";
 
 type PageProps = {
-  params: { recipeId: string };
+  params: { recipeUrl: string };
 };
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const id = params.recipeId;
-  const recipeTitle = await fetchRecipeTitleById(id);
+  const recipeId = parseRecipeUrl(params.recipeUrl);
+  const recipeTitle = await fetchRecipeTitleById(recipeId);
 
   return {
     title: `${recipeTitle}`,
@@ -27,16 +28,18 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: PageProps) {
+  const recipeId = parseRecipeUrl(params.recipeUrl);
+
   const [recipe, userShoppingList] = await Promise.all([
-    fetchRecipeById(params.recipeId),
-    fetchRecipeIngredientsFromShoppingList(params.recipeId),
+    fetchRecipeById(recipeId),
+    fetchRecipeIngredientsFromShoppingList(recipeId),
   ]);
 
   if (!recipe) {
     notFound();
   }
 
-  const keyString = `recipe-id-${params.recipeId}`;
+  const keyString = `recipe-id-${params.recipeUrl}`;
 
   return (
     <Suspense key={keyString} fallback={<Loader />}>

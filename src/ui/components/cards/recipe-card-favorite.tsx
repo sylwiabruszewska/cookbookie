@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { removeFromFavorites } from "@lib/actions";
 import truncateDescription from "@utils/truncateDescription";
+import { generateRecipeUrl } from "@utils/generateRecipeUrl";
 
 import { Button } from "@ui/components/common/button";
 
@@ -30,6 +31,8 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
 }) => {
   const [isLgScreen, setIsLgScreen] = useState(false);
   const { t } = useTranslation(["dashboard"]);
+
+  const recipeUrl = generateRecipeUrl(title, id);
 
   useEffect(() => {
     const updateScreenSize = () => {
@@ -57,7 +60,10 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
 
   return (
     <div className="flex justify-between gap-2 lg:gap-6 h-30">
-      <Link href={`/dashboard/recipes/${id}`} className="group flex flex-grow">
+      <Link
+        href={`/dashboard/recipes/${recipeUrl}`}
+        className="group flex flex-grow"
+      >
         <div className="flex gap-4 flex-grow">
           <div className="flex-shrink-0 w-[124px] h-[124px] lg:w-[224px] lg:h-[224px] relative rounded-lg overflow-hidden">
             <Image

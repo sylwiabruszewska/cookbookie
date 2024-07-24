@@ -13,6 +13,7 @@ import useModal from "@hooks/useModal";
 import { deleteRecipe } from "@lib/actions";
 import useDropdown from "@/hooks/useDropdown";
 import truncateDescription from "@utils/truncateDescription";
+import { generateRecipeUrl } from "@utils/generateRecipeUrl";
 
 import { Button } from "@ui/components/common/button";
 import { Modal } from "@/ui/components/dashboard/modal";
@@ -38,6 +39,8 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
   const { isOpen, openModal, closeModal, modalRef } = useModal();
   const { edgestore } = useEdgeStore();
   const { t } = useTranslation(["dashboard"]);
+
+  const recipeUrl = generateRecipeUrl(title, id);
 
   useEffect(() => {
     const updateScreenSize = () => {
@@ -77,7 +80,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
     <div>
       <div className="flex justify-between gap-2 lg:gap-6 h-30">
         <Link
-          href={`/dashboard/recipes/${id}`}
+          href={`/dashboard/recipes/${recipeUrl}`}
           className="group flex flex-grow"
         >
           <div className="flex gap-4 flex-grow">
@@ -132,7 +135,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
               transition={{ duration: 0.3 }}
             >
               <div className="flex flex-col items-start justify-center gap-4">
-                <Link href={`/dashboard/recipes/${id}/edit`}>
+                <Link href={`/dashboard/recipes/${recipeUrl}/edit`}>
                   <Button className="btn-icon h-6 w-6" ariaLabel={t("edit")}>
                     <FontAwesomeIcon icon="pencil" className="h-4 w-4" />
                   </Button>

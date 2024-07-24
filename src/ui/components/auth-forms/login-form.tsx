@@ -63,7 +63,7 @@ const LoginForm = () => {
       >
         {({ isSubmitting }) => (
           <Form
-            className="flex flex-col items-center gap-8 w-full py-4 px-4 md:px-8"
+            className="flex flex-col items-center gap-4 w-full py-4 px-4 md:px-8"
             autoComplete="on"
           >
             <h2 className="text-2xl font-semibold">{t("login")}</h2>
@@ -77,7 +77,7 @@ const LoginForm = () => {
                 autocomplete="on"
               />
 
-              <CustomErrorMessage name="email" className="absolute" />
+              <CustomErrorMessage name="email" />
             </div>
 
             <div className="relative w-full">
@@ -88,14 +88,14 @@ const LoginForm = () => {
                 label={t("password")}
                 autocomplete="on"
               />
-              <CustomErrorMessage name="password" className="absolute" />
+              <CustomErrorMessage name="password" />
             </div>
 
             {globalError && (
               <div className="error-text mt-4 self-start">{globalError}</div>
             )}
 
-            <Button type="submit" className="btn-green px-6">
+            <Button type="submit" className="btn-green px-6 mt-4">
               {isSubmitting ? t("action_in_progress_login") : t("action_login")}
             </Button>
           </Form>

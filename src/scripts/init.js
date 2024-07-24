@@ -116,8 +116,8 @@ async function createUserShoppingListTable(client) {
     const createTable = await client.sql`
     CREATE TABLE IF NOT EXISTS UserShoppingList (
       user_id UUID NOT NULL,
-      recipe_id UUID NOT NULL,
-      recipe_title VARCHAR(255) NOT NULL,
+      recipe_id UUID,
+      recipe_title VARCHAR(255),
       id UUID NOT NULL,
       ingredient VARCHAR(255) NOT NULL,
       quantity VARCHAR(255) NOT NULL,

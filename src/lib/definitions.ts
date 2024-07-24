@@ -37,8 +37,8 @@ export interface Ingredient {
 
 export interface IngredientInShoppingList {
   id: string;
-  recipe_id: string;
-  recipe_title: string;
+  recipe_id?: string;
+  recipe_title?: string;
   ingredient: string;
   quantity: string;
 }

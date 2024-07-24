@@ -1,9 +1,7 @@
+import slugify from "slugify";
+
 export function generateRecipeUrl(title: string, id: string): string {
-  const sanitizedTitle = title
-    .toLowerCase()
-    .replace(/[^a-z0-9\s]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
+  const sanitizedTitle = slugify(title, { lower: true, strict: true });
 
   const url = `${sanitizedTitle}-${id}`;
 

@@ -113,9 +113,9 @@ function PaginationArrow({
 
   const icon =
     direction === "left" ? (
-      <FontAwesomeIcon icon="angle-right" className="w-5 h-5" />
-    ) : (
       <FontAwesomeIcon icon="angle-left" className="w-5 h-5" />
+    ) : (
+      <FontAwesomeIcon icon="angle-right" className="w-5 h-5" />
     );
 
   const ariaLabel =

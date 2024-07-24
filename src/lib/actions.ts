@@ -262,6 +262,14 @@ export async function addNewIngredient(
   try {
     const ingredientNameLower = ingredientName.toLowerCase();
 
+    const existingIngredient = await sql<IngredientDb>`
+    SELECT * FROM ingredients WHERE LOWER(name) = LOWER(${ingredientNameLower})
+  `;
+
+    if (existingIngredient.rows.length > 0) {
+      return existingIngredient.rows[0];
+    }
+
     const resultInsert = await sql<IngredientDb>`
         INSERT INTO ingredients (name, key)
         VALUES (${ingredientNameLower}, LOWER(${ingredientNameLower})) RETURNING *
@@ -287,9 +295,9 @@ export async function getExistingIngredient(
       SELECT id FROM ingredients WHERE key = ${ingredientNameLower}
     `;
 
-    const newIngredient = existingIngredient.rows[0];
+    const ingredient = existingIngredient.rows[0];
 
-    return newIngredient;
+    return ingredient;
   } catch (error) {
     console.error("Error fetching ingredient:", error);
     throw new Error("Failed to get ingredient");

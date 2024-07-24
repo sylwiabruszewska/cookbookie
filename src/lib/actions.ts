@@ -176,7 +176,8 @@ export async function removeFromFavorites(recipeId: string) {
 // ***** ADD INGREDIENT TO SHOPPING LIST *****
 export async function addToShoppingList(
   ingredient: Ingredient,
-  recipeId: string
+  recipeId: string,
+  recipeTitle: string
 ) {
   noStore();
 
@@ -184,8 +185,8 @@ export async function addToShoppingList(
     const userId = await getUserId();
 
     await sql`
-        INSERT INTO UserShoppingList (user_id, recipe_id, id, ingredient, quantity)
-        VALUES (${userId}, ${recipeId}, ${ingredient.id}, ${ingredient.ingredient}, ${ingredient.quantity})
+        INSERT INTO UserShoppingList (user_id, recipe_id, recipe_title, id, ingredient, quantity)
+        VALUES (${userId}, ${recipeId}, ${recipeTitle}, ${ingredient.id}, ${ingredient.ingredient}, ${ingredient.quantity})
       `;
 
     revalidatePath("/dashboard/shopping-list");

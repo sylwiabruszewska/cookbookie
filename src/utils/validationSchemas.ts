@@ -70,6 +70,13 @@ export const recipeValidationSchema = (t: TFunction) => {
   });
 };
 
+export const shoppingListValidationSchema = (t: TFunction) => {
+  return Yup.object().shape({
+    ingredientName: Yup.string().required(t("vs_recipe_ingredient_required")),
+    ingredientQuantity: Yup.string().required(t("vs_recipe_quantity_required")),
+  });
+};
+
 export const newsletterValidationSchema = (t: TFunction) => {
   return Yup.object().shape({
     emailNewsletter: Yup.string()
@@ -113,6 +120,11 @@ export const recipeValidationSchemaBackend = z.object({
     )
     .nonempty({ message: "Steps are required" }),
   isPublic: z.boolean(),
+});
+
+export const shoppingListValidationSchemaBackend = z.object({
+  ingredient: z.string(),
+  quantity: z.string(),
 });
 
 export const newsletterValidationSchemaBackend = z.object({

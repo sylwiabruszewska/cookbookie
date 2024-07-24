@@ -8,6 +8,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import {
   newsletterValidationSchemaBackend,
   recipeValidationSchemaBackend,
+  shoppingListValidationSchemaBackend,
 } from "@utils/validationSchemas";
 import { getUserId } from "@utils/getUser";
 import { Ingredient, IngredientDb, RecipeFormProps } from "@/lib/definitions";
@@ -173,6 +174,40 @@ export async function removeFromFavorites(recipeId: string) {
   }
 }
 
+// ***** ADD NEW INGREDIENT TO SHOPPING LIST *****
+export async function addNewIngredientToShoppingList(
+  ingredientId: string,
+  ingredientName: string,
+  ingredientQuantity: string
+) {
+  noStore();
+
+  try {
+    const userId = await getUserId();
+
+    const validatedFields = shoppingListValidationSchemaBackend.safeParse({
+      ingredient: ingredientName,
+      quantity: ingredientQuantity,
+    });
+
+    if (!validatedFields.success) {
+      throw new Error("Shopping list validation failed.");
+    }
+
+    const { ingredient, quantity } = validatedFields.data;
+
+    await sql`
+        INSERT INTO UserShoppingList (user_id, id, ingredient, quantity)
+        VALUES (${userId}, ${ingredientId}, ${ingredientName}, ${ingredientQuantity})
+      `;
+
+    revalidatePath("/dashboard/shopping-list");
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to add ingredient to shopping list.");
+  }
+}
+
 // ***** ADD INGREDIENT TO SHOPPING LIST *****
 export async function addToShoppingList(
   ingredient: Ingredient,
@@ -206,7 +241,8 @@ export async function removeFromShoppingList(
   try {
     const userId = await getUserId();
 
-    await sql`
+    if (recipeId) {
+      await sql`
       DELETE FROM UserShoppingList 
       WHERE 
         user_id = ${userId} AND 
@@ -214,6 +250,15 @@ export async function removeFromShoppingList(
         id = ${ingredient.id} AND 
         quantity = ${ingredient.quantity} 
     `;
+    } else {
+      await sql`
+      DELETE FROM UserShoppingList 
+      WHERE 
+        user_id = ${userId} AND 
+        id = ${ingredient.id} AND 
+        quantity = ${ingredient.quantity} 
+    `;
+    }
 
     revalidatePath("/dashboard/shopping-list");
   } catch (error) {

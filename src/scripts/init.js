@@ -154,7 +154,13 @@ async function createSubscribersTable(client) {
 async function main() {
   const client = await db.connect();
 
+  await createCategoriesTable(client);
   await createUserShoppingListTable(client);
+  await createIngredientsTable(client);
+  await createUsersTable(client);
+  await createRecipesTable(client);
+  await createUserFavoritesTable(client);
+  await createSubscribersTable(client);
 
   await client.end();
 }

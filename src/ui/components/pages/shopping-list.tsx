@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { removeFromShoppingList } from "@lib/actions";
 import { IngredientInShoppingList } from "@lib/definitions";
+import { generateRecipeUrl } from "@utils/generateRecipeUrl";
 
 import { Button } from "@ui/components/common/button";
 
@@ -35,27 +37,43 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
       <div className="flex justify-between space-x-2 bg-[--primary-color] text-white p-2 rounded-lg">
         <div className="w-1/2">{t("product")}</div>
         <div className="w-1/4 flex justify-center">{t("quantity")}</div>
-        <div className="w-1/4 flex justify-center">{t("remove")}</div>
+        <div className="w-1/4 flex justify-center"></div>
       </div>
       <ul className="px-2">
-        {userShoppingList.map((ingredient: IngredientInShoppingList) => (
-          <li
-            key={ingredient.id}
-            className="flex justify-between space-x-2 items-center border-b border-gray-300"
-          >
-            <div className="w-1/2">{ingredient.ingredient}</div>
-            <div className="w-1/4 flex justify-center">{`${ingredient.quantity}`}</div>
-            <div className="w-1/4 flex justify-center">
-              <Button
-                className="btn-icon"
-                onClick={() => handleRemoveFromShoppingList(ingredient)}
-                ariaLabel={t("remove")}
-              >
-                <FontAwesomeIcon icon="xmark" className="h-4 w-4" />
-              </Button>
-            </div>
-          </li>
-        ))}
+        {userShoppingList.map(async (ingredient: IngredientInShoppingList) => {
+          const recipeUrl = generateRecipeUrl(
+            ingredient.recipe_title,
+            ingredient.recipe_id
+          );
+
+          return (
+            <li
+              key={ingredient.id}
+              className="flex justify-between space-x-2 items-center border-b border-gray-300"
+            >
+              <div className="w-1/2">{ingredient.ingredient}</div>
+              <div className="w-1/4 flex justify-center text-center">{`${ingredient.quantity}`}</div>
+              <div className="w-1/4 flex justify-center">
+                <Button
+                  className="btn-icon"
+                  onClick={() => handleRemoveFromShoppingList(ingredient)}
+                  ariaLabel={t("remove")}
+                >
+                  <FontAwesomeIcon icon="xmark" className="h-4 w-4" />
+                </Button>
+
+                <Link href={`/dashboard/recipes/${recipeUrl}`}>
+                  <Button className="btn-icon" ariaLabel={t("go_to_recipe")}>
+                    <FontAwesomeIcon
+                      icon="arrow-up-right-from-square"
+                      className="h-4 w-4"
+                    />
+                  </Button>
+                </Link>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </>
   );

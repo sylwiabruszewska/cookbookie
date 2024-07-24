@@ -35,5 +35,8 @@
   "vs_auth_confirm_required": "Confirmar la contraseña es obligatorio",
   "continue_with_google": "Continuar con Google",
   "page_title": "CookBookie - Tu Propio Libro de Cocina Digital",
-  "page_description": "CookBookie es tu libro de cocina personal en versión digital. Almacena y organiza tus recetas favoritas, descubre nuevos sabores y comparte tus inspiraciones culinarias. Cocinar nunca ha sido tan fácil y agradable."
+  "page_description": "CookBookie es tu libro de cocina personal en versión digital. Almacena y organiza tus recetas favoritas, descubre nuevos sabores y comparte tus inspiraciones culinarias. Cocinar nunca ha sido tan fácil y agradable.",
+  "privacy_policy_text": "He leído y acepto la ",
+  "privacy_policy": "Política de Privacidad",
+  "privacy_policy_required": "Debes aceptar nuestra Política de Privacidad antes de continuar."
 }

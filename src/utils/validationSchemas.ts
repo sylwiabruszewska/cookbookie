@@ -22,6 +22,10 @@ export const registrationValidationSchema = (t: TFunction) => {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], t("vs_auth_confirm_type"))
       .required(t("vs_auth_confirm_required")),
+    privacyPolicyAccepted: Yup.boolean().oneOf(
+      [true],
+      t("privacy_policy_required")
+    ),
   });
 };
 

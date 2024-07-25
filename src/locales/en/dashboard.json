@@ -22,6 +22,7 @@
   "subscribe_h": "Subscribe to our Newsletter",
   "subscribe_p": "Subscribe up to our newsletter. Be in touch with latest news and special offers, etc.",
   "terms": "Terms of Service",
+  "privacy_policy": "Privacy Policy",
   "add_to_favorites": "Add to favorites",
   "category": "Category",
   "close": "Close",
@@ -114,5 +115,10 @@
   "vs_recipe_step_max": "Step should be at most 300 characters",
   "vs_recipe_step_count": "At least one step is required",
   "vs_email_type": "Invalid email",
-  "vs_email_required": "Email is required"
+  "vs_email_required": "Email is required",
+  "cookies_text": "This website uses essential cookies that are necessary for the site to function properly. By continuing to use the site, you agree to our use of these cookies. For more details, please see our ",
+  "accept": "I accept",
+  "modal_text": "Are you sure you want to delete ",
+  "delete": "Delete",
+  "cancel": "Cancel"
 }

@@ -22,6 +22,7 @@
   "subscribe_h": "Suscríbete a nuestro boletín",
   "subscribe_p": "Suscríbete a nuestra newsletter. Estar en contacto con las últimas novedades y ofertas especiales, etc.",
   "terms": "Términos de servicio",
+  "privacy_policy": "Política de Privacidad",
   "add_to_favorites": "Agregar a los favoritos",
   "category": "Categoría",
   "close": "Cerca",
@@ -114,5 +115,10 @@
   "vs_recipe_step_max": "El paso debe tener como máximo 300 caracteres",
   "vs_recipe_step_count": "Se requiere al menos un paso",
   "vs_email_type": "Dirección de correo electrónico no válida",
-  "vs_email_required": "El correo electrónico es obligatorio"
+  "vs_email_required": "El correo electrónico es obligatorio",
+  "cookies_text": "Este sitio web utiliza cookies esenciales que son necesarias para el funcionamiento adecuado del sitio. Al continuar usando el sitio, aceptas nuestro uso de estas cookies. Para más detalles, por favor consulta nuestra ",
+  "accept": "Acepto",
+  "modal_text": "¿Estás seguro de que deseas eliminar ",
+  "delete": "Eliminar",
+  "cancel": "Cancelar"
 }

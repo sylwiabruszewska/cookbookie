@@ -11,14 +11,14 @@ import {
   Ingredient,
   IngredientInShoppingList,
   RecipeWithFavoriteStatus,
-} from "@lib/definitions";
+} from "@/lib/definitions";
 import {
   addToFavorites,
   addToShoppingList,
   removeFromFavorites,
   removeFromShoppingList,
-} from "@lib/actions";
-import { Button } from "@ui/components/common/button";
+} from "@/lib/actions";
+import { Button } from "@/ui/components/common/button";
 
 interface RecipeCardLargeProps {
   recipe: RecipeWithFavoriteStatus;

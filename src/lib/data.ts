@@ -11,7 +11,7 @@ import {
   IngredientSelect,
   IngredientInShoppingList,
 } from "@/lib/definitions";
-import { getUserId } from "@utils/getUser";
+import { getUserId } from "@/utils/getUser";
 
 // ***** GET USER *****
 export async function getUser(email: string) {

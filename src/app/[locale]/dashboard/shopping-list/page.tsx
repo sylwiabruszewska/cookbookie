@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-import initTranslations from "@utils/i18n";
-import { fetchUserShoppingList } from "@lib/data";
+import initTranslations from "@/utils/i18n";
+import { fetchUserShoppingList } from "@/lib/data";
 
-import { Loader } from "@ui/components/common/loader";
-import { ShoppingList } from "@ui/components/pages/shopping-list";
+import { Loader } from "@/ui/components/common/loader";
+import { ShoppingList } from "@/ui/components/pages/shopping-list";
 
 type PageProps = {
   params: { locale: string };

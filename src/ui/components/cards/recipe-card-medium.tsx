@@ -7,14 +7,14 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEdgeStore } from "@ui/components/providers/edgestore";
+import { useEdgeStore } from "@/ui/components/providers/edgestore";
 
-import useModal from "@hooks/useModal";
-import { deleteRecipe } from "@lib/actions";
+import useModal from "@/hooks/useModal";
+import { deleteRecipe } from "@/lib/actions";
 import useDropdown from "@/hooks/useDropdown";
-import truncateDescription from "@utils/truncateDescription";
+import truncateDescription from "@/utils/truncateDescription";
 
-import { Button } from "@ui/components/common/button";
+import { Button } from "@/ui/components/common/button";
 import { Modal } from "@/ui/components/dashboard/modal";
 
 interface RecipeCardMediumProps {

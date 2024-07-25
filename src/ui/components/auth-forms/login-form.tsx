@@ -8,9 +8,9 @@ import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { Formik, Form, FormikHelpers } from "formik";
 
-import { Button } from "@ui/components/common/button";
-import { IconInput } from "@ui/components/common/icon-input";
-import { loginValidationSchema } from "@utils/validationSchemas";
+import { Button } from "@/ui/components/common/button";
+import { IconInput } from "@/ui/components/common/icon-input";
+import { loginValidationSchema } from "@/utils/validationSchemas";
 import { GoogleButton } from "@/ui/components/auth-forms/google-btn";
 import { CustomErrorMessage } from "@/ui/components/common/custom-error";
 

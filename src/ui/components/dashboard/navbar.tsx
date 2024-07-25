@@ -10,9 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import useDropdown from "@/hooks/useDropdown";
 
-import { Button } from "@ui/components/common/button";
-import { Languages } from "@ui/components/common/languages";
-import { ModeToggle } from "@ui/components/dashboard/mode-toggle";
+import { Button } from "@/ui/components/common/button";
+import { Languages } from "@/ui/components/common/languages";
+import { ModeToggle } from "@/ui/components/dashboard/mode-toggle";
 import { MobileMenu } from "@/ui/components/dashboard/mobile-menu";
 
 export const NavBar = () => {

@@ -5,11 +5,11 @@ import { notFound } from "next/navigation";
 import {
   fetchRecipeById,
   fetchRecipeIngredientsFromShoppingList,
-} from "@lib/data";
-import { fetchRecipeTitleById } from "@lib/data";
+} from "@/lib/data";
+import { fetchRecipeTitleById } from "@/lib/data";
 
-import { Loader } from "@ui/components/common/loader";
-import { RecipeCardLarge } from "@ui/components/cards/recipe-card-large";
+import { Loader } from "@/ui/components/common/loader";
+import { RecipeCardLarge } from "@/ui/components/cards/recipe-card-large";
 
 type PageProps = {
   params: { recipeId: string };

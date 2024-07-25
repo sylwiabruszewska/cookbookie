@@ -11,8 +11,8 @@ import {
   parseTimeString,
 } from "@/utils/timePickerHelpers";
 
-import { Button } from "@ui/components/common/button";
-import { Input } from "@ui/components/recipe-forms-components/input";
+import { Button } from "@/ui/components/common/button";
+import { Input } from "@/ui/components/recipe-forms-components/input";
 
 interface TimePickerProps {
   id: string;

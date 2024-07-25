@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 
-import { i18nConfig } from "@config/i18n.config";
+import { i18nConfig } from "@/config/i18n.config";
 import { CustomMiddleware } from "@/middlewares/chain";
 
 function getLocaleFromCookies(request: NextRequest): string {

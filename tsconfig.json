@@ -18,7 +18,7 @@
       }
     ],
     "paths": {
-      "@*": ["./src/*"]
+      "@/*": ["./src/*"]
     },
     "typeRoots": ["src/types/**/*.ts", "./node_modules/@types"]
   },

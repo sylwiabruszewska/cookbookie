@@ -8,10 +8,10 @@ import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { Formik, Form, FormikHelpers } from "formik";
 
-import { Button } from "@ui/components/common/button";
-import { IconInput } from "@ui/components/common/icon-input";
+import { Button } from "@/ui/components/common/button";
+import { IconInput } from "@/ui/components/common/icon-input";
 import { GoogleButton } from "@/ui/components/auth-forms/google-btn";
-import { registrationValidationSchema } from "@utils/validationSchemas";
+import { registrationValidationSchema } from "@/utils/validationSchemas";
 import { CustomErrorMessage } from "@/ui/components/common/custom-error";
 
 interface FormValues {

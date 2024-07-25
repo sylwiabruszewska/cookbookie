@@ -6,7 +6,7 @@ import type {
 import { getServerSession } from "next-auth";
 import type { NextAuthOptions } from "next-auth";
 
-import { authOptions } from "@config/auth-config";
+import { authOptions } from "@/config/auth-config";
 
 export const config = {
   ...authOptions,

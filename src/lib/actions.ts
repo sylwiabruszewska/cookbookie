@@ -8,8 +8,8 @@ import { unstable_noStore as noStore } from "next/cache";
 import {
   newsletterValidationSchemaBackend,
   recipeValidationSchemaBackend,
-} from "@utils/validationSchemas";
-import { getUserId } from "@utils/getUser";
+} from "@/utils/validationSchemas";
+import { getUserId } from "@/utils/getUser";
 import { Ingredient, IngredientDb, RecipeFormProps } from "@/lib/definitions";
 
 // ***** ADD RECIPE *****

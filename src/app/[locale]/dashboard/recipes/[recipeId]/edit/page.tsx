@@ -2,12 +2,12 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
-import initTranslations from "@utils/i18n";
+import initTranslations from "@/utils/i18n";
 import translateCategories from "@/utils/translateData";
-import { fetchCategories, fetchIngredients, fetchRecipeById } from "@lib/data";
+import { fetchCategories, fetchIngredients, fetchRecipeById } from "@/lib/data";
 
-import { Loader } from "@ui/components/common/loader";
-import { EditForm } from "@ui/components/recipe-forms/edit-form";
+import { Loader } from "@/ui/components/common/loader";
+import { EditForm } from "@/ui/components/recipe-forms/edit-form";
 
 type PageProps = {
   params: { recipeId: string; locale: string };

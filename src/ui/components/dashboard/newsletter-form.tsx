@@ -4,13 +4,13 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Formik, Form, FormikHelpers } from "formik";
 
-import useModal from "@hooks/useModal";
-import { addEmailToSubscribersTable } from "@lib/actions";
-import { newsletterValidationSchema } from "@utils/validationSchemas";
+import useModal from "@/hooks/useModal";
+import { addEmailToSubscribersTable } from "@/lib/actions";
+import { newsletterValidationSchema } from "@/utils/validationSchemas";
 
-import { Button } from "@ui/components/common/button";
+import { Button } from "@/ui/components/common/button";
 import { Modal } from "@/ui/components/dashboard/modal";
-import { IconInput } from "@ui/components/common/icon-input";
+import { IconInput } from "@/ui/components/common/icon-input";
 import { CustomErrorMessage } from "@/ui/components/common/custom-error";
 
 interface FormValues {

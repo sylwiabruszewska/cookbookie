@@ -12,9 +12,9 @@ import {
   addRecipe,
   addNewIngredient,
   getExistingIngredient,
-} from "@lib/actions";
-import { useEdgeStore } from "@ui/components/providers/edgestore";
-import { recipeValidationSchema } from "@utils/validationSchemas";
+} from "@/lib/actions";
+import { useEdgeStore } from "@/ui/components/providers/edgestore";
+import { recipeValidationSchema } from "@/utils/validationSchemas";
 
 import {
   Step,
@@ -23,14 +23,14 @@ import {
   IngredientSelect,
   RecipeFormProps,
 } from "@/lib/definitions";
-import { Button } from "@ui/components/common/button";
-import { Input } from "@ui/components/recipe-forms-components/input";
-import { Switch } from "@ui/components/recipe-forms-components/switch";
+import { Button } from "@/ui/components/common/button";
+import { Input } from "@/ui/components/recipe-forms-components/input";
+import { Switch } from "@/ui/components/recipe-forms-components/switch";
 import { CustomErrorMessage } from "@/ui/components/common/custom-error";
-import { TextArea } from "@ui/components/recipe-forms-components/textarea";
-import { TimePicker } from "@ui/components/recipe-forms-components/time-picker";
-import { FileUpload } from "@ui/components/recipe-forms-components/file-upload";
-import { ReactSelect } from "@ui/components/recipe-forms-components/react-select";
+import { TextArea } from "@/ui/components/recipe-forms-components/textarea";
+import { TimePicker } from "@/ui/components/recipe-forms-components/time-picker";
+import { FileUpload } from "@/ui/components/recipe-forms-components/file-upload";
+import { ReactSelect } from "@/ui/components/recipe-forms-components/react-select";
 
 interface AddRecipeFormProps {
   categories: Category[];

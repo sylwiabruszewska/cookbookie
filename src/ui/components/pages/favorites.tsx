@@ -1,5 +1,5 @@
-import { Recipe } from "@lib/definitions";
-import { RecipeCardFavorite } from "@ui/components/cards/recipe-card-favorite";
+import { Recipe } from "@/lib/definitions";
+import { RecipeCardFavorite } from "@/ui/components/cards/recipe-card-favorite";
 
 interface MyFavoritesComponentProps {
   recipes: Recipe[];

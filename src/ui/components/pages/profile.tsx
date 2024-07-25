@@ -5,11 +5,11 @@ import { useSession } from "next-auth/react";
 import { useTranslation } from "react-i18next";
 import { ChangeEvent, useEffect, useState } from "react";
 
-import { updateUserProfileImage } from "@lib/actions";
-import { useEdgeStore } from "@ui/components/providers/edgestore";
+import { updateUserProfileImage } from "@/lib/actions";
+import { useEdgeStore } from "@/ui/components/providers/edgestore";
 
-import { Button } from "@ui/components/common/button";
-import { Loader } from "@ui/components/common/loader";
+import { Button } from "@/ui/components/common/button";
+import { Loader } from "@/ui/components/common/loader";
 
 export const UserProfile = () => {
   const { edgestore } = useEdgeStore();

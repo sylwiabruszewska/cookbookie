@@ -1,5 +1,5 @@
 import { TFunction } from "i18next";
-import { Category } from "@lib/definitions";
+import { Category } from "@/lib/definitions";
 
 export default function translateCategories(
   categories: Category[],

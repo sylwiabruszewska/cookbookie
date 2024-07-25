@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEdgeStore } from "@ui/components/providers/edgestore";
+import { useEdgeStore } from "@/ui/components/providers/edgestore";
 
 interface FileUploadProps {
   initialImages?: string[];

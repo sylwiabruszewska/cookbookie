@@ -73,7 +73,14 @@ export const Footer = () => {
         <div className="content-container">
           <div className="page-container flex justify-center space-x-4 text-xs text-center">
             <span>{t("copywright")}</span>
-            <span>{t("terms")}</span>
+            <Link
+              className="text-[--primary-color] hover:underline cursor-pointer"
+              href="/privacy-policy.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t("privacy_policy")}
+            </Link>
           </div>
         </div>
         <div className="absolute bottom-[-100%] lg:bottom-[-50%] right-0 w-[260px] h-[320px] bg-cover bg-no-repeat negative-z-index bg-footer-right"></div>

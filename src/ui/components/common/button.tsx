@@ -24,6 +24,7 @@ export function Button({
       onClick={onClick}
       className={clsx(baseClass, className)}
       aria-label={ariaLabel}
+      data-testid="button-component"
     >
       {children}
     </button>

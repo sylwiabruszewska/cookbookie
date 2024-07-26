@@ -9,7 +9,8 @@
     "lint": "next lint",
     "init": "node -r dotenv/config ./src/scripts/init.js",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:single": "jest ./src/ui/components/common/button.test.tsx"
   },
   "dependencies": {
     "@edgestore/react": "^0.1.6",
@@ -49,6 +50,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/dropzone": "^5.7.8",
     "@types/gravatar": "^1.8.6",
+    "@types/jest": "^29.5.12",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
     "@types/react": "^18",

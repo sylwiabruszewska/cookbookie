@@ -37,6 +37,7 @@ export const Languages: React.FC = () => {
         onClick={() => handleLanguageChange("pl")}
         className="w-6 h-6 rounded-full overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer"
         aria-label={t("switch_to_pl")}
+        data-testid="switch-to-pl-btn"
       >
         <WorldFlag
           code="PL"
@@ -50,6 +51,7 @@ export const Languages: React.FC = () => {
         onClick={() => handleLanguageChange("en")}
         className="w-6 h-6 rounded-full overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer"
         aria-label={t("switch_to_en")}
+        data-testid="switch-to-en-btn"
       >
         <WorldFlag
           code="GB"
@@ -63,6 +65,7 @@ export const Languages: React.FC = () => {
         onClick={() => handleLanguageChange("es")}
         className="w-6 h-6 rounded-full overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer"
         aria-label={t("switch_to_es")}
+        data-testid="switch-to-es-btn"
       >
         <WorldFlag
           code="ES"

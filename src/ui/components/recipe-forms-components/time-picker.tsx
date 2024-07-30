@@ -52,7 +52,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     setFieldValue(name, formatTime(updatedTime.hours, updatedTime.minutes));
   };
   return (
-    <div className="flex space-x-2">
+    <div className="flex space-x-2" data-testid="time-picker">
       <Field name={name}>
         {({ field }: { field: any }) => (
           <Input

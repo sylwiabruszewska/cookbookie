@@ -38,6 +38,7 @@ export const Input: React.FC<InputProps> = ({
         readOnly={readOnly}
         onChange={handleChange}
         aria-describedby={`${name}-error`}
+        data-testid="input"
       />
     </label>
   );

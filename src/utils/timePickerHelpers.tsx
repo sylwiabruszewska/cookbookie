@@ -18,8 +18,6 @@ export const decrementTime = (time: Time): Time => {
     if (updatedHours > 0) {
       updatedMinutes += 60;
       updatedHours -= 1;
-    } else {
-      updatedMinutes = 0;
     }
   }
 

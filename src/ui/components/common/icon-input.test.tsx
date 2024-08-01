@@ -38,7 +38,7 @@ describe("IconInput component", () => {
         validate={validate}
       >
         <Form data-testid="test-form">
-          <IconInput name="name" {...props} />
+          <IconInput name="name" {...props} data-testid="icon-input-field" />
           <ErrorMessage name="name">
             {(msg) => <div data-testid="error-message">{msg}</div>}
           </ErrorMessage>

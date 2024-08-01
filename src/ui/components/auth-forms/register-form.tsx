@@ -73,6 +73,7 @@ const RegistrationForm = () => {
                 type="text"
                 iconID="icon-user"
                 label={t("name")}
+                data-testid="register-username-input"
               />
               <CustomErrorMessage name="name" className="absolute" />
             </div>
@@ -83,6 +84,7 @@ const RegistrationForm = () => {
                 type="email"
                 iconID="icon-mail"
                 label="Email"
+                data-testid="register-email-input"
               />
               <CustomErrorMessage name="email" className="absolute" />
             </div>
@@ -93,6 +95,7 @@ const RegistrationForm = () => {
                 type="password"
                 iconID="icon-lock"
                 label={t("password")}
+                data-testid="register-password-input"
               />
               <CustomErrorMessage name="password" className="absolute" />
             </div>
@@ -103,13 +106,18 @@ const RegistrationForm = () => {
                 type="password"
                 iconID="icon-lock"
                 label={t("confirm_password")}
+                data-testid="register-confirmpassword-input"
               />
               <CustomErrorMessage name="confirmPassword" className="absolute" />
             </div>
 
             {globalError && <div className="error-text">{globalError}</div>}
 
-            <Button type="submit" className="btn-green px-6">
+            <Button
+              data-testid="register-submit-button"
+              type="submit"
+              className="btn-green px-6"
+            >
               {isSubmitting
                 ? t("action_in_progress_register")
                 : t("action_register")}

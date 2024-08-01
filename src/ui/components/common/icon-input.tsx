@@ -14,6 +14,7 @@ interface TextInputProps {
   label: string;
   autocomplete?: "on" | "off";
   className?: string;
+  "data-testid"?: string;
 }
 
 export const IconInput: React.FC<TextInputProps> = ({
@@ -23,6 +24,7 @@ export const IconInput: React.FC<TextInputProps> = ({
   label,
   autocomplete = "off",
   className,
+  "data-testid": dataTestId,
 }) => {
   const { t } = useTranslation(["dashboard"]);
 
@@ -57,7 +59,7 @@ export const IconInput: React.FC<TextInputProps> = ({
           type={inputType}
           autoComplete={autocomplete}
           aria-describedby={`${name}-error`}
-          data-testid="icon-input-field"
+          data-testid={dataTestId}
         />
         <div className="absolute inset-y-0 left-0 flex items-center pl-3">
           <svg

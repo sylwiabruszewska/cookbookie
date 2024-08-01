@@ -6,6 +6,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   ariaLabel?: string;
+  "data-testid"?: string;
 }
 
 export function Button({
@@ -14,6 +15,7 @@ export function Button({
   onClick,
   className,
   ariaLabel,
+  "data-testid": dataTestId,
 }: ButtonProps) {
   const baseClass =
     "flex items-center justify-center font-medium h-10 transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2";
@@ -24,7 +26,7 @@ export function Button({
       onClick={onClick}
       className={clsx(baseClass, className)}
       aria-label={ariaLabel}
-      data-testid="button-component"
+      data-testid={dataTestId}
     >
       {children}
     </button>

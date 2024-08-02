@@ -75,6 +75,7 @@ const LoginForm = () => {
                 iconID="icon-user"
                 label="Email"
                 autocomplete="on"
+                data-testid="login-email-input"
               />
 
               <CustomErrorMessage name="email" className="absolute" />
@@ -87,6 +88,7 @@ const LoginForm = () => {
                 iconID="icon-lock"
                 label={t("password")}
                 autocomplete="on"
+                data-testid="login-password-input"
               />
               <CustomErrorMessage name="password" className="absolute" />
             </div>
@@ -95,7 +97,11 @@ const LoginForm = () => {
               <div className="error-text mt-4 self-start">{globalError}</div>
             )}
 
-            <Button type="submit" className="btn-green px-6">
+            <Button
+              data-testid="login-submit-button"
+              type="submit"
+              className="btn-green px-6"
+            >
               {isSubmitting ? t("action_in_progress_login") : t("action_login")}
             </Button>
           </Form>

@@ -73,7 +73,9 @@ export const NavBar = () => {
             </li>
             <li>
               <Link href="/dashboard/add-recipe">
-                <Button className="btn-rounded">{t("add_recipe")}</Button>
+                <Button data-testid="add-recipe-btn" className="btn-rounded">
+                  {t("add_recipe")}
+                </Button>
               </Link>
             </li>
           </ul>

@@ -10,6 +10,7 @@ interface InputProps {
   label: string;
   className?: string;
   readOnly?: boolean;
+  "data-testid"?: string;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -19,6 +20,7 @@ export const Input: React.FC<InputProps> = ({
   label,
   className,
   readOnly,
+  "data-testid": dataTestId,
 }) => {
   const [field, meta, helpers] = useField(name);
 
@@ -38,7 +40,7 @@ export const Input: React.FC<InputProps> = ({
         readOnly={readOnly}
         onChange={handleChange}
         aria-describedby={`${name}-error`}
-        data-testid="input"
+        data-testid={dataTestId}
       />
     </label>
   );

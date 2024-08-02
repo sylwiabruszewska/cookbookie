@@ -106,7 +106,7 @@ export function AddRecipeForm({
   };
 
   return (
-    <div>
+    <div data-testid="add-recipe-form">
       <Formik
         initialValues={initialValues}
         validationSchema={recipeValidationSchema(t)}
@@ -126,13 +126,18 @@ export function AddRecipeForm({
                     name="title"
                     type="text"
                     label={t("title")}
+                    data-testid="add-recipe-form-title-input"
                   />
 
                   <CustomErrorMessage name="title" />
                 </div>
 
                 <div>
-                  <TextArea id="description" label={t("description")} />
+                  <TextArea
+                    id="description"
+                    label={t("description")}
+                    data-testid="add-recipe-form-title-description"
+                  />
 
                   <CustomErrorMessage name="description" />
                 </div>
@@ -140,6 +145,7 @@ export function AddRecipeForm({
                 <div>
                   {categories && (
                     <ReactSelect
+                      data-testid="category-select"
                       id="category"
                       name="category"
                       label={t("category")}
@@ -165,7 +171,7 @@ export function AddRecipeForm({
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4" data-testid="ingredients-select">
               <h3 className="text-l font-semibold mb-2">{t("ingredients")}</h3>
               <FieldArray name="ingredients">
                 {({ push, remove, form }) => (
@@ -181,6 +187,7 @@ export function AddRecipeForm({
                               <div className="w-2/3">
                                 {ingredientsFromDb && (
                                   <ReactSelect
+                                    data-testid={`ingredients.${index}.ingredient`}
                                     isCreatable={true}
                                     id={`ingredients.${index}.ingredient`}
                                     name={`ingredients.${index}.ingredient`}
@@ -238,6 +245,7 @@ export function AddRecipeForm({
                                   name={`ingredients.${index}.quantity`}
                                   type="text"
                                   label={t("quantity")}
+                                  data-testid={`ingredients.${index}.quantity`}
                                 />
                               </div>
                             </div>
@@ -263,6 +271,7 @@ export function AddRecipeForm({
                       )
                     )}
                     <Button
+                      data-testid="add-ingredient-btn"
                       className="btn-green mb-4 ml-auto h-10 w-10"
                       ariaLabel={t("add_ingredient")}
                       onClick={() =>
@@ -295,6 +304,7 @@ export function AddRecipeForm({
                       >
                         <div className="w-full">
                           <TextArea
+                            data-testid={`steps.${index}.step`}
                             id={`steps.${index}.step`}
                             label={t("step", { stepNumber: index + 1 })}
                           />
@@ -312,6 +322,7 @@ export function AddRecipeForm({
                       </div>
                     ))}
                     <Button
+                      data-testid="add-step-btn"
                       className="btn-green mb-4 ml-auto h-10 w-10"
                       ariaLabel={t("add_step")}
                       onClick={() =>
@@ -333,6 +344,7 @@ export function AddRecipeForm({
             </div>
 
             <Button
+              data-testid="add-recipe-submit-btn"
               className="mx-auto mt-10 btn-rounded"
               type="submit"
               disabled={isSubmitting}

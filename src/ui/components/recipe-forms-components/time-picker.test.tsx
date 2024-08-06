@@ -4,9 +4,8 @@ import {
   render,
   screen,
   fireEvent,
-  within,
-  act,
   waitFor,
+  act,
 } from "@testing-library/react";
 import { TimePicker } from "@/ui/components/recipe-forms-components/time-picker";
 
@@ -37,16 +36,11 @@ const renderTimePicker = () => {
 };
 
 describe("TimePicker Component", () => {
-  let timePickerContainer: HTMLElement;
   let input: HTMLInputElement;
 
   beforeEach(() => {
     renderTimePicker();
-
-    timePickerContainer = screen.getByTestId("time-picker");
-    input = within(timePickerContainer).getByRole(
-      "textbox"
-    ) as HTMLInputElement;
+    input = screen.getByTestId("time-picker");
   });
 
   it("should display initial time", () => {
@@ -54,9 +48,7 @@ describe("TimePicker Component", () => {
   });
 
   it("should increment time", async () => {
-    const incrementButton = within(timePickerContainer).getByRole("button", {
-      name: /increment_time/,
-    });
+    const incrementButton = screen.getByTestId("increment-btn");
 
     act(() => {
       fireEvent.click(incrementButton);
@@ -67,9 +59,7 @@ describe("TimePicker Component", () => {
   });
 
   it("should decrement time", async () => {
-    const decrementButton = within(timePickerContainer).getByRole("button", {
-      name: /decrement_time/,
-    });
+    const decrementButton = screen.getByTestId("decrement-btn");
 
     act(() => {
       fireEvent.click(decrementButton);

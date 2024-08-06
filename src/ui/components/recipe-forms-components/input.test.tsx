@@ -17,7 +17,12 @@ describe("Input Component", () => {
         onSubmit={jest.fn()}
       >
         <Form data-testid="test-form">
-          <Input name="test-name" label="Test Label" {...props} />
+          <Input
+            name="test-name"
+            label="Test Label"
+            {...props}
+            data-testid="input"
+          />
         </Form>
       </Formik>
     );

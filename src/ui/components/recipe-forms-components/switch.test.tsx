@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Formik, Form } from "formik";
 import { Switch } from "@/ui/components/recipe-forms-components/switch";
@@ -20,26 +20,31 @@ describe("Switch Component", () => {
     );
   };
 
-  it("should display 'public' when switch is initially true", () => {
+  it("should display 'public' when switch is initially true", async () => {
     renderWithFormik({ switchValue: true });
-
-    expect(screen.getByText("public")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("public")).toBeInTheDocument();
+    });
   });
 
-  it("should toggle the switch between 'public' and 'private'", () => {
+  it("should toggle the switch between 'public' and 'private'", async () => {
     renderWithFormik();
 
     // Initially, it should display 'public'
-    expect(screen.getByText("public")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("public")).toBeInTheDocument();
+    });
 
     // Click to toggle the switch
     fireEvent.click(screen.getByRole("button"));
 
     // Check if the switch now displays 'private'
-    expect(screen.getByText("private")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("private")).toBeInTheDocument();
+    });
   });
 
-  it("should apply the correct CSS classes based on the switch state", () => {
+  it("should apply the correct CSS classes based on the switch state", async () => {
     renderWithFormik();
 
     // Check initial CSS classes
@@ -49,8 +54,9 @@ describe("Switch Component", () => {
     // Click to toggle the switch
     fireEvent.click(button);
 
-    // Check if classes has changed
-    const updatedButton = screen.getByRole("button");
-    expect(updatedButton).toHaveClass("bg-[--primary-color]");
+    // Check if classes have changed
+    await waitFor(() => {
+      expect(button).toHaveClass("bg-[--primary-color]");
+    });
   });
 });

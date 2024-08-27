@@ -4,6 +4,7 @@
   "action_in_progress_login": "Iniciando sesión...",
   "action_in_progress_register": "Creando una cuenta...",
   "action_login": "Iniciar sesión",
+  "action_login_test": "Iniciar sesión con una cuenta de prueba",
   "action_register": "Inscribirse",
   "description": "Esta aplicación ofrece más que una simple colección de recetas: está diseñada para ser su propio libro de cocina digital. Puede guardar y recuperar fácilmente sus propias recetas en cualquier momento.",
   "header": "¡Bienvenido a la aplicación CookBookie",

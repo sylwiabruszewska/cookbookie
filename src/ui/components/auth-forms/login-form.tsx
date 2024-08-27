@@ -8,9 +8,9 @@ import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { Formik, Form, FormikHelpers } from "formik";
 
-import { Button } from "@ui/components/common/button";
-import { IconInput } from "@ui/components/common/icon-input";
-import { loginValidationSchema } from "@utils/validationSchemas";
+import { Button } from "@/ui/components/common/button";
+import { IconInput } from "@/ui/components/common/icon-input";
+import { loginValidationSchema } from "@/utils/validationSchemas";
 import { GoogleButton } from "@/ui/components/auth-forms/google-btn";
 import { CustomErrorMessage } from "@/ui/components/common/custom-error";
 
@@ -30,11 +30,7 @@ const LoginForm = () => {
     password: "",
   };
 
-  const handleSubmit = async (
-    values: FormValues,
-    actions: FormikHelpers<FormValues>
-  ) => {
-    const { email, password } = values;
+  const performSignIn = async (email: string, password: string) => {
     try {
       const res = await signIn("credentials", {
         email,
@@ -49,9 +45,19 @@ const LoginForm = () => {
       }
     } catch (error: any) {
       console.log(error);
-    } finally {
-      actions.setSubmitting(false);
     }
+  };
+
+  const handleSubmit = async (values: FormValues) => {
+    const { email, password } = values;
+    await performSignIn(email, password);
+  };
+
+  const handleSubmitTest = async () => {
+    const email = process.env.NEXT_PUBLIC_TEST_EMAIL as string;
+    const password = process.env.NEXT_PUBLIC_TEST_PASSWORD as string;
+
+    await performSignIn(email, password);
   };
 
   return (
@@ -63,7 +69,7 @@ const LoginForm = () => {
       >
         {({ isSubmitting }) => (
           <Form
-            className="flex flex-col items-center gap-4 w-full py-4 px-4 md:px-8"
+            className="flex flex-col items-center gap-8 w-full py-4 px-4 md:px-8"
             autoComplete="on"
           >
             <h2 className="text-2xl font-semibold">{t("login")}</h2>
@@ -75,9 +81,10 @@ const LoginForm = () => {
                 iconID="icon-user"
                 label="Email"
                 autocomplete="on"
+                data-testid="login-email-input"
               />
 
-              <CustomErrorMessage name="email" />
+              <CustomErrorMessage name="email" className="absolute" />
             </div>
 
             <div className="relative w-full">
@@ -87,15 +94,20 @@ const LoginForm = () => {
                 iconID="icon-lock"
                 label={t("password")}
                 autocomplete="on"
+                data-testid="login-password-input"
               />
-              <CustomErrorMessage name="password" />
+              <CustomErrorMessage name="password" className="absolute" />
             </div>
 
             {globalError && (
               <div className="error-text mt-4 self-start">{globalError}</div>
             )}
 
-            <Button type="submit" className="btn-green px-6 mt-4">
+            <Button
+              data-testid="login-submit-button"
+              type="submit"
+              className="btn-green px-6"
+            >
               {isSubmitting ? t("action_in_progress_login") : t("action_login")}
             </Button>
           </Form>
@@ -109,6 +121,15 @@ const LoginForm = () => {
       </div>
 
       <GoogleButton onClick={() => signIn("google")} />
+
+      <Button
+        data-testid="login-test-button"
+        type="submit"
+        onClick={() => handleSubmitTest()}
+        className="btn-green px-6 mt-6"
+      >
+        {t("action_login_test")}
+      </Button>
 
       <div className="mt-10">
         <span>{t("account_not_exists")} </span>

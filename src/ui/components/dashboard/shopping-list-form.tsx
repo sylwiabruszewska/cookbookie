@@ -4,11 +4,11 @@ import { v4 as uuidv4 } from "uuid";
 import { useTranslation } from "react-i18next";
 import { Formik, Form, FormikHelpers } from "formik";
 
-import { addNewIngredientToShoppingList } from "@lib/actions";
-import { shoppingListValidationSchema } from "@utils/validationSchemas";
+import { addNewIngredientToShoppingList } from "@/lib/actions";
+import { shoppingListValidationSchema } from "@/utils/validationSchemas";
 
-import { Button } from "@ui/components/common/button";
-import { Input } from "@ui/components/recipe-forms-components/input";
+import { Button } from "@/ui/components/common/button";
+import { Input } from "@/ui/components/recipe-forms-components/input";
 import { CustomErrorMessage } from "@/ui/components/common/custom-error";
 
 interface FormValues {

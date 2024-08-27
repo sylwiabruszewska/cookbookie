@@ -1,5 +1,5 @@
-import { fetchFilteredRecipes } from "@lib/data";
-import { RecipeCardSmall } from "@ui/components/cards/recipe-card-small";
+import { fetchFilteredRecipes } from "@/lib/data";
+import { RecipeCardSmall } from "@/ui/components/cards/recipe-card-small";
 
 export async function SearchTable({
   query,

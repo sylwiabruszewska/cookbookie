@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 
-import { NewsletterForm } from "@ui/components/dashboard/newsletter-form";
+import { NewsletterForm } from "@/ui/components/dashboard/newsletter-form";
 
 export const Footer = () => {
   const { t } = useTranslation(["dashboard"]);

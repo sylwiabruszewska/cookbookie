@@ -3,14 +3,15 @@ import { Toaster } from "react-hot-toast";
 
 import "@/ui/styles/globals.css";
 import { poppins } from "@/ui/fonts";
-import initTranslations from "@utils/i18n";
-import { toasterConfig } from "@config/toaster";
+import initTranslations from "@/utils/i18n";
+import { toasterConfig } from "@/config/toaster";
 
-import { AuthProvider } from "@ui/components/providers/provider";
-import { EdgeStoreProvider } from "@ui/components/providers/edgestore";
-import { ThemeProvider } from "@ui/components/providers/theme-provider";
-import { TranslationsProvider } from "@ui/components/providers/translation-provider";
-import { ClientCookieConsent } from "@ui/components/common/cookie-consent";
+import { AuthProvider } from "@/ui/components/providers/provider";
+import { EdgeStoreProvider } from "@/ui/components/providers/edgestore";
+import { ThemeProvider } from "@/ui/components/providers/theme-provider";
+import { ClientCookieConsent } from "@/ui/components/common/cookie-consent";
+import { TranslationsProvider } from "@/ui/components/providers/translation-provider";
+
 
 type PageProps = {
   params: { locale: string };

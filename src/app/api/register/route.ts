@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import { sql } from "@vercel/postgres";
 import { NextResponse, NextRequest } from "next/server";
 
-import { getUser } from "@lib/data";
-import { registrationValidationSchemaBackend } from "@utils/validationSchemas";
+import { getUser } from "@/lib/data";
+import { registrationValidationSchemaBackend } from "@/utils/validationSchemas";
 
 export async function POST(request: NextRequest) {
   try {

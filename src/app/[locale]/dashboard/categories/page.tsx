@@ -1,13 +1,13 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-import initTranslations from "@utils/i18n";
-import { fetchCategories } from "@lib/data";
+import initTranslations from "@/utils/i18n";
+import { fetchCategories } from "@/lib/data";
 import translateCategories from "@/utils/translateData";
 
-import { Loader } from "@ui/components/common/loader";
-import { CategoryList } from "@ui/components/categories/category-list";
-import { CategoryRecipes } from "@ui/components/categories/category-recipes";
+import { Loader } from "@/ui/components/common/loader";
+import { CategoryList } from "@/ui/components/categories/category-list";
+import { CategoryRecipes } from "@/ui/components/categories/category-recipes";
 
 type PageProps = {
   params: { locale: string };

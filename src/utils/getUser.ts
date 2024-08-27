@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "@config/auth";
+import { auth } from "@/config/auth";
 
 export async function getUserEmail(): Promise<string> {
   try {

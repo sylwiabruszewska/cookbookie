@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Button } from "@ui/components/common/button";
+import { Button } from "@/ui/components/common/button";
 
 interface ModalProps {
   onClose: () => void;

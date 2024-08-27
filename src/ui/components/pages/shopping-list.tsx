@@ -5,11 +5,12 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { removeFromShoppingList } from "@lib/actions";
-import { IngredientInShoppingList } from "@lib/definitions";
-import { generateRecipeUrl } from "@utils/generateRecipeUrl";
+import { removeFromShoppingList } from "@/lib/actions";
+import { IngredientInShoppingList } from "@/lib/definitions";
+import { generateRecipeUrl } from "@/utils/generateRecipeUrl";
 
-import { Button } from "@ui/components/common/button";
+import { Button } from "@/ui/components/common/button";
+
 interface ShoppingListProps {
   userShoppingList: IngredientInShoppingList[];
 }

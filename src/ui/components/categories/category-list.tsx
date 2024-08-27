@@ -2,8 +2,8 @@
 
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-import { Category } from "@lib/definitions";
-import { Button } from "@ui/components/common/button";
+import { Category } from "@/lib/definitions";
+import { Button } from "@/ui/components/common/button";
 
 interface CategoryListProps {
   categories: Category[];

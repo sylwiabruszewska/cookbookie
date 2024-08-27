@@ -1,4 +1,4 @@
-import { Languages } from "@ui/components/common/languages";
+import { Languages } from "@/ui/components/common/languages";
 
 export function HomepageLayout({
   children,

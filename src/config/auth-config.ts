@@ -4,8 +4,8 @@ import { sql } from "@vercel/postgres";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import { getUser } from "@lib/data";
-import { loginValidationSchemaBackend } from "@utils/validationSchemas";
+import { getUser } from "@/lib/data";
+import { loginValidationSchemaBackend } from "@/utils/validationSchemas";
 
 export const authOptions = {
   providers: [

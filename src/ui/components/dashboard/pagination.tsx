@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { usePathname, useSearchParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { generatePagination } from "@utils/generatePagination";
+import { generatePagination } from "@/utils/generatePagination";
 
 export function Pagination({ totalPages }: { totalPages: number }) {
   const pathname = usePathname();

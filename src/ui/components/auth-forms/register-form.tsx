@@ -8,10 +8,10 @@ import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { Formik, Form, FormikHelpers } from "formik";
 
-import { Button } from "@ui/components/common/button";
-import { IconInput } from "@ui/components/common/icon-input";
+import { Button } from "@/ui/components/common/button";
+import { IconInput } from "@/ui/components/common/icon-input";
 import { GoogleButton } from "@/ui/components/auth-forms/google-btn";
-import { registrationValidationSchema } from "@utils/validationSchemas";
+import { registrationValidationSchema } from "@/utils/validationSchemas";
 import { CustomErrorMessage } from "@/ui/components/common/custom-error";
 
 interface FormValues {
@@ -90,6 +90,7 @@ const RegistrationForm = () => {
                 type="text"
                 iconID="icon-user"
                 label={t("name")}
+                data-testid="register-username-input"
               />
               <CustomErrorMessage name="name" />
             </div>
@@ -100,6 +101,7 @@ const RegistrationForm = () => {
                 type="email"
                 iconID="icon-mail"
                 label="Email"
+                data-testid="register-email-input"
               />
               <CustomErrorMessage name="email" />
             </div>
@@ -110,6 +112,7 @@ const RegistrationForm = () => {
                 type="password"
                 iconID="icon-lock"
                 label={t("password")}
+                data-testid="register-password-input"
               />
               <CustomErrorMessage name="password" />
             </div>
@@ -120,6 +123,7 @@ const RegistrationForm = () => {
                 type="password"
                 iconID="icon-lock"
                 label={t("confirm_password")}
+                data-testid="register-confirmpassword-input"
               />
               <CustomErrorMessage name="confirmPassword" />
             </div>
@@ -153,7 +157,11 @@ const RegistrationForm = () => {
 
             {globalError && <div className="error-text">{globalError}</div>}
 
-            <Button type="submit" className="btn-green px-6 mt-4">
+            <Button
+              data-testid="register-submit-button"
+              type="submit"
+              className="btn-green px-6 mt-4"
+            >
               {isSubmitting
                 ? t("action_in_progress_register")
                 : t("action_register")}

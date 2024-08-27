@@ -11,8 +11,8 @@ import {
   parseTimeString,
 } from "@/utils/timePickerHelpers";
 
-import { Button } from "@ui/components/common/button";
-import { Input } from "@ui/components/recipe-forms-components/input";
+import { Button } from "@/ui/components/common/button";
+import { Input } from "@/ui/components/recipe-forms-components/input";
 
 interface TimePickerProps {
   id: string;
@@ -63,6 +63,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
             placeholder={label}
             readOnly
             value={formatTime(time.hours, time.minutes)}
+            data-testid="time-picker"
           />
         )}
       </Field>
@@ -76,6 +77,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
               time.hours === 0 && time.minutes <= 5,
           })}
           ariaLabel={t("decrement_time")}
+          data-testid="decrement-btn"
         >
           -
         </Button>
@@ -83,6 +85,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
           onClick={handleIncrement}
           className="btn-green h-10 w-10 rounded-l-none rounded-r-lg"
           ariaLabel={t("increment_time")}
+          data-testid="increment-btn"
         >
           +
         </Button>

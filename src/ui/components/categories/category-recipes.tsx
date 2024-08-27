@@ -1,11 +1,11 @@
 import Link from "next/link";
-import getLocale from "@utils/getLocale";
-import initTranslations from "@utils/i18n";
-import { fetchCategoryRecipes, fetchRecipes } from "@lib/data";
+import getLocale from "@/utils/getLocale";
+import initTranslations from "@/utils/i18n";
+import { fetchCategoryRecipes, fetchRecipes } from "@/lib/data";
 
-import { Button } from "@ui/components/common/button";
-import { Pagination } from "@ui/components/dashboard/pagination";
-import { RecipeCardSmall } from "@ui/components/cards/recipe-card-small";
+import { Button } from "@/ui/components/common/button";
+import { Pagination } from "@/ui/components/dashboard/pagination";
+import { RecipeCardSmall } from "@/ui/components/cards/recipe-card-small";
 
 export async function CategoryRecipes({
   category,

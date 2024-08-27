@@ -19,6 +19,7 @@ interface SelectProps {
   onCreateOption?: (inputValue: string) => void;
   initialState?: OptionType | null;
   isCreatable?: boolean;
+  "data-testid"?: string;
 }
 
 export const ReactSelect: React.FC<SelectProps> = ({
@@ -31,6 +32,7 @@ export const ReactSelect: React.FC<SelectProps> = ({
   onCreateOption,
   initialState = null,
   isCreatable = false,
+  "data-testid": dataTestId,
 }) => {
   const { t } = useTranslation(["dashboard"]);
   const [field, meta, helpers] = useField(name);
@@ -65,42 +67,44 @@ export const ReactSelect: React.FC<SelectProps> = ({
   const SelectComponent = isCreatable ? CreatableSelect : Select;
 
   return (
-    <SelectComponent
-      {...field}
-      id={id}
-      name={name}
-      value={selectedOption}
-      onChange={handleChangeSelect}
-      onCreateOption={handleCreateOption}
-      options={options}
-      placeholder={label}
-      isClearable
-      className="react-select-container"
-      classNamePrefix="react-select"
-      formatCreateLabel={formatCreateLabel}
-      noOptionsMessage={customNoOptionsMessage}
-      styles={{
-        control: (base, state) => ({
-          ...base,
-          borderColor: "transparent",
-          backgroundColor: "transparent",
-          borderRadius: "0.375rem",
-          width: "100%",
-          height: "40px",
-          boxShadow: state.isFocused ? "0 0 0 2px rgba(0, 0, 0, 1)" : "none",
-          "&:hover": {
+    <div data-testid={dataTestId}>
+      <SelectComponent
+        {...field}
+        id={id}
+        name={name}
+        value={selectedOption}
+        onChange={handleChangeSelect}
+        onCreateOption={handleCreateOption}
+        options={options}
+        placeholder={label}
+        isClearable
+        className="react-select-container"
+        classNamePrefix="react-select"
+        formatCreateLabel={formatCreateLabel}
+        noOptionsMessage={customNoOptionsMessage}
+        styles={{
+          control: (base, state) => ({
+            ...base,
             borderColor: "transparent",
-          },
-        }),
-        option: (provided, state) => ({
-          ...provided,
-          backgroundColor: state.isSelected
-            ? "#8baa36"
-            : state.isFocused
-            ? "#8baa36"
-            : "transparent",
-        }),
-      }}
-    />
+            backgroundColor: "transparent",
+            borderRadius: "0.375rem",
+            width: "100%",
+            height: "40px",
+            boxShadow: state.isFocused ? "0 0 0 2px rgba(0, 0, 0, 1)" : "none",
+            "&:hover": {
+              borderColor: "transparent",
+            },
+          }),
+          option: (provided, state) => ({
+            ...provided,
+            backgroundColor: state.isSelected
+              ? "#8baa36"
+              : state.isFocused
+              ? "#8baa36"
+              : "transparent",
+          }),
+        }}
+      />
+    </div>
   );
 };

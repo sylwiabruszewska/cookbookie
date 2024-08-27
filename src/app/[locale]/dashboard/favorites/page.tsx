@@ -2,13 +2,13 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-import initTranslations from "@utils/i18n";
-import { fetchUserFavorites } from "@lib/data";
+import initTranslations from "@/utils/i18n";
+import { fetchUserFavorites } from "@/lib/data";
 
-import { Loader } from "@ui/components/common/loader";
-import { Button } from "@ui/components/common/button";
-import { MyFavorites } from "@ui/components/pages/favorites";
-import { Pagination } from "@ui/components/dashboard/pagination";
+import { Loader } from "@/ui/components/common/loader";
+import { Button } from "@/ui/components/common/button";
+import { MyFavorites } from "@/ui/components/pages/favorites";
+import { Pagination } from "@/ui/components/dashboard/pagination";
 
 type PageProps = {
   params: { locale: string };

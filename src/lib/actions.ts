@@ -9,8 +9,8 @@ import {
   newsletterValidationSchemaBackend,
   recipeValidationSchemaBackend,
   shoppingListValidationSchemaBackend,
-} from "@utils/validationSchemas";
-import { getUserId } from "@utils/getUser";
+} from "@/utils/validationSchemas";
+import { getUserId } from "@/utils/getUser";
 import { Ingredient, IngredientDb, RecipeFormProps } from "@/lib/definitions";
 
 // ***** ADD RECIPE *****

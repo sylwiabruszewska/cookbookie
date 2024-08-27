@@ -24,6 +24,7 @@ const LoginForm = () => {
 
   const router = useRouter();
   const [globalError, setGlobalError] = useState<string | null>(null);
+  const [isSubmittingTest, setIsSubmittingTest] = useState(false);
 
   const initialValues = {
     email: "",
@@ -53,11 +54,15 @@ const LoginForm = () => {
     await performSignIn(email, password);
   };
 
-  const handleSubmitTest = async () => {
+  const handleLoginTest = async () => {
+    setIsSubmittingTest(true);
+
     const email = process.env.NEXT_PUBLIC_TEST_EMAIL as string;
     const password = process.env.NEXT_PUBLIC_TEST_PASSWORD as string;
 
     await performSignIn(email, password);
+
+    setIsSubmittingTest(false);
   };
 
   return (
@@ -124,11 +129,12 @@ const LoginForm = () => {
 
       <Button
         data-testid="login-test-button"
-        type="submit"
-        onClick={() => handleSubmitTest()}
+        onClick={() => handleLoginTest()}
         className="btn-green px-6 mt-6"
       >
-        {t("action_login_test")}
+        {isSubmittingTest
+          ? t("action_in_progress_login")
+          : t("action_login_test")}
       </Button>
 
       <div className="mt-10">

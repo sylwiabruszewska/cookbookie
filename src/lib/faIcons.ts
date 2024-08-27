@@ -19,6 +19,7 @@ import {
   faTrash,
   faPencil,
   faEllipsisH,
+  faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -37,5 +38,6 @@ library.add(
   faSolidHeart,
   faTrash,
   faPencil,
-  faEllipsisH
+  faEllipsisH,
+  faArrowUpRightFromSquare
 );

@@ -10,6 +10,7 @@ import { AuthProvider } from "@ui/components/providers/provider";
 import { EdgeStoreProvider } from "@ui/components/providers/edgestore";
 import { ThemeProvider } from "@ui/components/providers/theme-provider";
 import { TranslationsProvider } from "@ui/components/providers/translation-provider";
+import { ClientCookieConsent } from "@ui/components/common/cookie-consent";
 
 type PageProps = {
   params: { locale: string };
@@ -52,6 +53,7 @@ export default async function Page({ params, children }: PageProps) {
             <ThemeProvider>
               <EdgeStoreProvider>{children}</EdgeStoreProvider>
               <Toaster {...toasterConfig} />
+              <ClientCookieConsent />
             </ThemeProvider>
           </TranslationsProvider>
         </AuthProvider>

@@ -157,7 +157,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
         <Modal onClose={closeModal} modalRef={modalRef}>
           <div className="flex flex-col gap-8 justify-center items-center">
             <span className="text-center">
-              Are you sure you want to delete{" "}
+              {t("modal_text")}
               <span className="font-semibold">{title}</span>?
             </span>
             <div className="flex gap-8">
@@ -166,7 +166,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
                 className="btn-green bg-[--gray-medium]"
                 ariaLabel={t("close")}
               >
-                Cancel
+                {t("cancel")}
               </Button>
 
               <Button
@@ -174,7 +174,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
                 onClick={handleDeleteRecipe}
                 ariaLabel={t("delete_recipe")}
               >
-                Delete
+                {t("delete")}
               </Button>
             </div>
           </div>

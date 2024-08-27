@@ -1,9 +1,9 @@
-import getLocale from "@utils/getLocale";
-import initTranslations from "@utils/i18n";
+import getLocale from "@/utils/getLocale";
+import initTranslations from "@/utils/i18n";
 import translateCategories from "@/utils/translateData";
-import { fetchRecentRecipes, fetchCategories } from "@lib/data";
+import { fetchRecentRecipes, fetchCategories } from "@/lib/data";
 
-import { CategoryCard } from "@ui/components/cards/category-card";
+import { CategoryCard } from "@/ui/components/cards/category-card";
 
 export async function DashboardContent() {
   const locale = getLocale();

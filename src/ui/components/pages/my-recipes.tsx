@@ -1,5 +1,5 @@
 import { Recipe } from "@/lib/definitions";
-import { RecipeCardMedium } from "@ui/components/cards/recipe-card-medium";
+import { RecipeCardMedium } from "@/ui/components/cards/recipe-card-medium";
 
 interface MyRecipesComponentProps {
   recipes: Recipe[];

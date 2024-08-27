@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-import initTranslations from "@utils/i18n";
-import { fetchRecipesPages } from "@lib/data";
+import initTranslations from "@/utils/i18n";
+import { fetchRecipesPages } from "@/lib/data";
 
-import { Loader } from "@ui/components/common/loader";
-import { SearchTable } from "@ui/components/pages/search";
-import { Pagination } from "@ui/components/dashboard/pagination";
+import { Loader } from "@/ui/components/common/loader";
+import { SearchTable } from "@/ui/components/pages/search";
+import { Pagination } from "@/ui/components/dashboard/pagination";
 import { SearchForm } from "@/ui/components/dashboard/search-form";
 
 type PageProps = {

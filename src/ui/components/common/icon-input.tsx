@@ -14,6 +14,7 @@ interface TextInputProps {
   label: string;
   autocomplete?: "on" | "off";
   className?: string;
+  "data-testid"?: string;
 }
 
 export const IconInput: React.FC<TextInputProps> = ({
@@ -23,26 +24,32 @@ export const IconInput: React.FC<TextInputProps> = ({
   label,
   autocomplete = "off",
   className,
+  "data-testid": dataTestId,
 }) => {
   const { t } = useTranslation(["dashboard"]);
 
   const [field, meta] = useField({ name, type });
-  const [showPassword, setShowPassword] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const valid = meta.touched && !meta.error;
   const invalid = meta.touched && meta.error;
 
   const stateColor = valid ? "#3CBC81" : invalid ? "#E74A3B" : "#5d5d5d";
 
-  const inputType = showPassword ? "text" : type;
+  const inputType = passwordVisible ? "text" : type;
 
   const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
+    setPasswordVisible((prev) => !prev);
   };
 
   return (
-    <label className={clsx("w-full", className)}>
-      <span className="sr-only">{label}</span>
+    <label
+      className={clsx("w-full", className)}
+      data-testid="icon-input-component"
+    >
+      <span className="sr-only" data-testid="icon-input-label">
+        {label}
+      </span>
       <div className="relative w-full">
         <input
           id={name}
@@ -52,6 +59,7 @@ export const IconInput: React.FC<TextInputProps> = ({
           type={inputType}
           autoComplete={autocomplete}
           aria-describedby={`${name}-error`}
+          data-testid={dataTestId}
         />
         <div className="absolute inset-y-0 left-0 flex items-center pl-3">
           <svg
@@ -59,6 +67,7 @@ export const IconInput: React.FC<TextInputProps> = ({
             stroke={stateColor}
             fill="transparent"
             viewBox="0 0 20 20"
+            data-testid="icon-input-icon"
           >
             <use href={`/icons/icons.svg#${iconID}`}></use>
           </svg>
@@ -68,18 +77,21 @@ export const IconInput: React.FC<TextInputProps> = ({
           <div
             className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
             onClick={togglePasswordVisibility}
+            data-testid="icon-input-toggler"
           >
-            {showPassword ? (
+            {passwordVisible ? (
               <FontAwesomeIcon
                 icon="eye-slash"
                 aria-label={t("hide")}
                 className="h-4 w-4 text-[--gray-medium]"
+                data-testid="font-awesome-icon-eye-slash"
               />
             ) : (
               <FontAwesomeIcon
                 icon="eye"
                 aria-label={t("show")}
                 className="h-4 w-4 text-[--gray-medium]"
+                data-testid="font-awesome-icon-eye"
               />
             )}
           </div>

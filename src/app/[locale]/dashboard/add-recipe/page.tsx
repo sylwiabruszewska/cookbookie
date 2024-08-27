@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-import initTranslations from "@utils/i18n";
+import initTranslations from "@/utils/i18n";
 import translateCategories from "@/utils/translateData";
 import { fetchCategories, fetchIngredients } from "@/lib/data";
 
-import { Loader } from "@ui/components/common/loader";
-import { AddRecipeForm } from "@ui/components/recipe-forms/add-recipe-form";
+import { Loader } from "@/ui/components/common/loader";
+import { AddRecipeForm } from "@/ui/components/recipe-forms/add-recipe-form";
 
 type PageProps = {
   params: { locale: string };

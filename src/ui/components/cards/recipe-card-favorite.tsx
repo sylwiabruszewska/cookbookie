@@ -8,11 +8,11 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { removeFromFavorites } from "@lib/actions";
-import truncateDescription from "@utils/truncateDescription";
-import { generateRecipeUrl } from "@utils/generateRecipeUrl";
+import { removeFromFavorites } from "@/lib/actions";
+import truncateDescription from "@/utils/truncateDescription";
+import { generateRecipeUrl } from "@/utils/generateRecipeUrl";
 
-import { Button } from "@ui/components/common/button";
+import { Button } from "@/ui/components/common/button";
 
 interface RecipeCardMediumProps {
   id: string;

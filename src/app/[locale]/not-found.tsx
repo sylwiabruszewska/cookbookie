@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import getLocale from "@utils/getLocale";
-import initTranslations from "@utils/i18n";
+import getLocale from "@/utils/getLocale";
+import initTranslations from "@/utils/i18n";
 
-import { Button } from "@ui/components/common/button";
+import { Button } from "@/ui/components/common/button";
 
 export default async function NotFound() {
   const locale = getLocale();

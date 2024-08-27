@@ -15,8 +15,10 @@ export const CustomErrorMessage: React.FC<CustomErrorProps> = ({
     <div
       className={className}
       id={errorId}
+      role="alert"
       aria-live="polite"
       aria-atomic="true"
+      data-testid="custom-error"
     >
       <ErrorMessage name={name} component="div" className="error-text w-full" />
     </div>

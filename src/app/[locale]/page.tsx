@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import initTranslations from "@utils/i18n";
+import initTranslations from "@/utils/i18n";
 
 import { poppins } from "@/ui/fonts";
-import { Button } from "@ui/components/common/button";
+import { Button } from "@/ui/components/common/button";
 import { HomepageLayout } from "@/ui/layouts/homepage";
 
 interface HomeProps {
@@ -39,7 +39,10 @@ export default async function Home({ params: { locale } }: HomeProps) {
         </p>
         <div className="flex gap-4 flex-row items-center justify-center">
           <Link href="/register">
-            <Button className="group btn-home px-5 h-14">
+            <Button
+              data-testid="register-button"
+              className="group btn-home px-5 h-14"
+            >
               {t("register")}
               <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 &gt;
@@ -47,7 +50,10 @@ export default async function Home({ params: { locale } }: HomeProps) {
             </Button>
           </Link>
           <Link href="/login">
-            <Button className="group btn-home px-5 h-14">
+            <Button
+              data-testid="login-button"
+              className="group btn-home px-5 h-14"
+            >
               {t("login")}
               <span className="ml-2 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 &gt;

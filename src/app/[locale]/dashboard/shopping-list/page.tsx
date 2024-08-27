@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-import initTranslations from "@utils/i18n";
-import { fetchUserShoppingList } from "@lib/data";
+import initTranslations from "@/utils/i18n";
+import { fetchUserShoppingList } from "@/lib/data";
 
-import { Loader } from "@ui/components/common/loader";
-import { ShoppingList } from "@ui/components/pages/shopping-list";
-import { ShoppingListForm } from "@ui/components/dashboard/shopping-list-form";
+import { Loader } from "@/ui/components/common/loader";
+import { ShoppingList } from "@/ui/components/pages/shopping-list";
+import { ShoppingListForm } from "@/ui/components/dashboard/shopping-list-form";
 
 type PageProps = {
   params: { locale: string };

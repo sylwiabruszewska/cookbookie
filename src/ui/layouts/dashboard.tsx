@@ -1,5 +1,5 @@
-import { NavBar } from "@ui/components/dashboard/navbar";
-import { Footer } from "@ui/components/dashboard/footer";
+import { NavBar } from "@/ui/components/dashboard/navbar";
+import { Footer } from "@/ui/components/dashboard/footer";
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (

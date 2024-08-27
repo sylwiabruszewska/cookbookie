@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@ui/components/common/button";
+import { Button } from "@/ui/components/common/button";
 
 export default function Error({
   error,

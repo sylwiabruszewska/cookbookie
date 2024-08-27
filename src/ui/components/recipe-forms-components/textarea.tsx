@@ -7,9 +7,15 @@ interface TextAreaProps {
   id: string;
   label: string;
   className?: string;
+  "data-testid"?: string;
 }
 
-export const TextArea: React.FC<TextAreaProps> = ({ id, label, className }) => {
+export const TextArea: React.FC<TextAreaProps> = ({
+  id,
+  label,
+  className,
+  "data-testid": dataTestId,
+}) => {
   const [field, meta, helpers] = useField({ name: id });
 
   const handleChange = (
@@ -31,6 +37,7 @@ export const TextArea: React.FC<TextAreaProps> = ({ id, label, className }) => {
         )}
         placeholder={label}
         onChange={handleChange}
+        data-testid={dataTestId}
       ></textarea>
     </label>
   );

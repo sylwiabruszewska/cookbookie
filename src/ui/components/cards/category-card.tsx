@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-import getLocale from "@utils/getLocale";
-import initTranslations from "@utils/i18n";
-import { RecipeWithFavoriteStatus } from "@lib/definitions";
+import getLocale from "@/utils/getLocale";
+import initTranslations from "@/utils/i18n";
+import { RecipeWithFavoriteStatus } from "@/lib/definitions";
 
-import { Button } from "@ui/components/common/button";
-import { RecipeCardSmall } from "@ui/components/cards/recipe-card-small";
+import { Button } from "@/ui/components/common/button";
+import { RecipeCardSmall } from "@/ui/components/cards/recipe-card-small";
 
 interface CategoryCardProps {
   name: string;

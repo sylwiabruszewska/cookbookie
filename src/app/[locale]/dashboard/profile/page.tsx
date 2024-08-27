@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
-import initTranslations from "@utils/i18n";
-import { UserProfile } from "@ui/components/pages/profile";
+import initTranslations from "@/utils/i18n";
+import { UserProfile } from "@/ui/components/pages/profile";
 
 type PageProps = {
   params: { locale: string };

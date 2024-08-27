@@ -10,9 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import useDropdown from "@/hooks/useDropdown";
 
-import { Button } from "@ui/components/common/button";
-import { Languages } from "@ui/components/common/languages";
-import { ModeToggle } from "@ui/components/dashboard/mode-toggle";
+import { Button } from "@/ui/components/common/button";
+import { Languages } from "@/ui/components/common/languages";
+import { ModeToggle } from "@/ui/components/dashboard/mode-toggle";
 import { MobileMenu } from "@/ui/components/dashboard/mobile-menu";
 
 export const NavBar = () => {
@@ -73,7 +73,9 @@ export const NavBar = () => {
             </li>
             <li>
               <Link href="/dashboard/add-recipe">
-                <Button className="btn-rounded">{t("add_recipe")}</Button>
+                <Button data-testid="add-recipe-btn" className="btn-rounded">
+                  {t("add_recipe")}
+                </Button>
               </Link>
             </li>
           </ul>

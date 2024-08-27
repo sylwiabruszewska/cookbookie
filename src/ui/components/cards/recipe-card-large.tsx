@@ -95,7 +95,8 @@ export function RecipeCardLarge({
           ingredient: ingredient.ingredient,
           quantity: ingredient.quantity,
         },
-        id
+        id,
+        title
       );
       toast.success(
         `${t("toast_add_shopping_list", {

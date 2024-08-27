@@ -4,6 +4,7 @@
   "action_in_progress_login": "Logowanie...",
   "action_in_progress_register": "Tworzenie konta...",
   "action_login": "Zaloguj się",
+  "action_login_test": "Zaloguj się przy użyciu konta testowego",
   "action_register": "Zarejestruj się",
   "description": "Ta aplikacja oferuje więcej niż tylko zbiór przepisów — została zaprojektowana jako Twoja własna cyfrowa książka kucharska. Możesz łatwo zapisywać i odtwarzać własne przepisy w dowolnym momencie.",
   "header": "Witamy w aplikacji CookBookie",
@@ -35,5 +36,8 @@
   "vs_auth_confirm_required": "Potwierdzenie hasła jest wymagane",
   "continue_with_google": "Kontynuuj z Google",
   "page_title": "CookBookie - Twoja własna cyfrowa książka kucharska",
-  "page_description": " CookBookie to Twoja osobista książka kucharska w wersji cyfrowej. Przechowuj i porządkuj ulubione przepisy, odkrywaj nowe smaki i dziel się kulinarnymi inspiracjami. Gotowanie nigdy nie było łatwiejsze i przyjemniejsze."
+  "page_description": " CookBookie to Twoja osobista książka kucharska w wersji cyfrowej. Przechowuj i porządkuj ulubione przepisy, odkrywaj nowe smaki i dziel się kulinarnymi inspiracjami. Gotowanie nigdy nie było łatwiejsze i przyjemniejsze.",
+  "privacy_policy_text": "Potwierdzam, że zapoznałem/am się i akceptuję ",
+  "privacy_policy": "Politykę Prywatności",
+  "privacy_policy_required": "Musisz wyrazić zgodę na naszą Politykę Prywatności przed kontynuowaniem."
 }

@@ -30,11 +30,7 @@ const LoginForm = () => {
     password: "",
   };
 
-  const handleSubmit = async (
-    values: FormValues,
-    actions: FormikHelpers<FormValues>
-  ) => {
-    const { email, password } = values;
+  const performSignIn = async (email: string, password: string) => {
     try {
       const res = await signIn("credentials", {
         email,
@@ -49,9 +45,19 @@ const LoginForm = () => {
       }
     } catch (error: any) {
       console.log(error);
-    } finally {
-      actions.setSubmitting(false);
     }
+  };
+
+  const handleSubmit = async (values: FormValues) => {
+    const { email, password } = values;
+    await performSignIn(email, password);
+  };
+
+  const handleSubmitTest = async () => {
+    const email = process.env.NEXT_PUBLIC_TEST_EMAIL as string;
+    const password = process.env.NEXT_PUBLIC_TEST_PASSWORD as string;
+
+    await performSignIn(email, password);
   };
 
   return (
@@ -115,6 +121,15 @@ const LoginForm = () => {
       </div>
 
       <GoogleButton onClick={() => signIn("google")} />
+
+      <Button
+        data-testid="login-test-button"
+        type="submit"
+        onClick={() => handleSubmitTest()}
+        className="btn-green px-6 mt-6"
+      >
+        {t("action_login_test")}
+      </Button>
 
       <div className="mt-10">
         <span>{t("account_not_exists")} </span>

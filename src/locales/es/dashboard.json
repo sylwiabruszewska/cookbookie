@@ -14,6 +14,7 @@
   "p_search": "Buscar recetas",
   "quantity": "Cantidad",
   "remove": "Eliminar",
+  "go_to_recipe": "Ir a la receta",
   "search": "Buscar",
   "see_all": "Ver todo",
   "shopping_list": "Lista de la compra",
@@ -21,6 +22,7 @@
   "subscribe_h": "Suscríbete a nuestro boletín",
   "subscribe_p": "Suscríbete a nuestra newsletter. Estar en contacto con las últimas novedades y ofertas especiales, etc.",
   "terms": "Términos de servicio",
+  "privacy_policy": "Política de Privacidad",
   "add_to_favorites": "Agregar a los favoritos",
   "category": "Categoría",
   "close": "Cerca",
@@ -84,7 +86,7 @@
   "no_categories_found": "No se encontraron categorías.",
   "add_some_recipes": "¡Vacío! Agrega tu primera receta.",
   "add_some_recipes_to_favorites": "¿Nada por aquí? ¡Explora y descubre deliciosas recetas en nuestra base de datos!",
-  "no_shopping_list": "Añade ingredientes a tu lista de compras.",
+  "no_shopping_list": "Añade ingredientes a tu lista de compras en la tarjeta de la receta o usando el formulario a continuación.",
   "no_options": "No hay opciones disponibles",
   "add": "Añadir",
   "try_again": "Inténtalo de nuevo",
@@ -113,5 +115,10 @@
   "vs_recipe_step_max": "El paso debe tener como máximo 300 caracteres",
   "vs_recipe_step_count": "Se requiere al menos un paso",
   "vs_email_type": "Dirección de correo electrónico no válida",
-  "vs_email_required": "El correo electrónico es obligatorio"
+  "vs_email_required": "El correo electrónico es obligatorio",
+  "cookies_text": "Este sitio web utiliza cookies esenciales que son necesarias para el funcionamiento adecuado del sitio. Al continuar usando el sitio, aceptas nuestro uso de estas cookies. Para más detalles, por favor consulta nuestra ",
+  "accept": "Acepto",
+  "modal_text": "¿Estás seguro de que deseas eliminar ",
+  "delete": "Eliminar",
+  "cancel": "Cancelar"
 }

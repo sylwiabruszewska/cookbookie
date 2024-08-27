@@ -19,6 +19,7 @@ interface FormValues {
   email: string;
   password: string;
   confirmPassword: string;
+  privacyPolicyAccepted: boolean;
 }
 
 const RegistrationForm = () => {
@@ -26,18 +27,26 @@ const RegistrationForm = () => {
 
   const router = useRouter();
   const [globalError, setGlobalError] = useState<string | null>(null);
+  const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false);
 
   const initialValues = {
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
+    privacyPolicyAccepted: false,
   };
 
   const handleSubmit = async (
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
+    if (!privacyPolicyAccepted) {
+      setGlobalError(t("privacy_policy_required"));
+      actions.setSubmitting(false);
+      return;
+    }
+
     try {
       await axios.post("/api/register", values);
 
@@ -53,6 +62,14 @@ const RegistrationForm = () => {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    if (!privacyPolicyAccepted) {
+      setGlobalError(t("privacy_policy_required"));
+      return;
+    }
+    signIn("google");
+  };
+
   return (
     <div className="z-10 max-w-md w-[90vw] mx-auto p-6 bg-[--background] rounded-lg shadow-md flex flex-col items-center">
       <Formik
@@ -60,9 +77,9 @@ const RegistrationForm = () => {
         validationSchema={registrationValidationSchema(t)}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, values, setFieldValue }) => (
           <Form
-            className="flex flex-col items-center gap-8 w-full py-4 px-4 md:px-8"
+            className="flex flex-col items-center gap-4 w-full py-4 px-4 md:px-8"
             autoComplete="off"
           >
             <h2 className="text-2xl font-semibold">{t("register")}</h2>
@@ -75,7 +92,7 @@ const RegistrationForm = () => {
                 label={t("name")}
                 data-testid="register-username-input"
               />
-              <CustomErrorMessage name="name" className="absolute" />
+              <CustomErrorMessage name="name" />
             </div>
 
             <div className="relative w-full">
@@ -86,7 +103,7 @@ const RegistrationForm = () => {
                 label="Email"
                 data-testid="register-email-input"
               />
-              <CustomErrorMessage name="email" className="absolute" />
+              <CustomErrorMessage name="email" />
             </div>
 
             <div className="relative w-full">
@@ -97,7 +114,7 @@ const RegistrationForm = () => {
                 label={t("password")}
                 data-testid="register-password-input"
               />
-              <CustomErrorMessage name="password" className="absolute" />
+              <CustomErrorMessage name="password" />
             </div>
 
             <div className="relative w-full">
@@ -108,7 +125,34 @@ const RegistrationForm = () => {
                 label={t("confirm_password")}
                 data-testid="register-confirmpassword-input"
               />
-              <CustomErrorMessage name="confirmPassword" className="absolute" />
+              <CustomErrorMessage name="confirmPassword" />
+            </div>
+
+            <div className="relative w-full">
+              <input
+                type="checkbox"
+                id="privacyPolicyAccepted"
+                name="privacyPolicyAccepted"
+                checked={values.privacyPolicyAccepted}
+                onChange={(e) => {
+                  setFieldValue("privacyPolicyAccepted", e.target.checked);
+                  setPrivacyPolicyAccepted(e.target.checked);
+                }}
+                className="mr-2"
+              />
+              <label htmlFor="privacyPolicyAccepted">
+                {t("privacy_policy_text")}
+                <Link
+                  className="underline hover-green"
+                  href="/privacy-policy.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t("privacy_policy")}
+                </Link>
+              </label>
+
+              <CustomErrorMessage name="privacyPolicyAccepted" />
             </div>
 
             {globalError && <div className="error-text">{globalError}</div>}
@@ -116,7 +160,7 @@ const RegistrationForm = () => {
             <Button
               data-testid="register-submit-button"
               type="submit"
-              className="btn-green px-6"
+              className="btn-green px-6 mt-4"
             >
               {isSubmitting
                 ? t("action_in_progress_register")
@@ -132,7 +176,7 @@ const RegistrationForm = () => {
         <div className="border-b border-[--gray] w-full" />
       </div>
 
-      <GoogleButton onClick={() => signIn("google")} />
+      <GoogleButton onClick={handleGoogleSignIn} />
 
       <div className="mt-10">
         <span>{t("account_exists")} </span>

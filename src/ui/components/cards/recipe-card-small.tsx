@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { RecipeWithFavoriteStatus } from "@/lib/definitions";
+import { generateRecipeUrl } from "@/utils/generateRecipeUrl";
 import { addToFavorites, removeFromFavorites } from "@/lib/actions";
 
 import { Button } from "@/ui/components/common/button";
@@ -21,6 +22,8 @@ export function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
   const { id, title, is_favorite, images } = recipe;
   const [isFavorite, setIsFavorite] = useState(is_favorite);
   const { t } = useTranslation(["dashboard"]);
+
+  const recipeUrl = generateRecipeUrl(recipe.title, id);
 
   useEffect(() => {
     setIsFavorite(is_favorite);
@@ -49,7 +52,7 @@ export function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
 
   return (
     <div className="relative w-full h-[340px] rounded-lg overflow-hidden">
-      <Link href={`/dashboard/recipes/${id}`} className="group">
+      <Link href={`/dashboard/recipes/${recipeUrl}`} className="group">
         <div className="relative w-full h-[340px]">
           <Image
             src={images[0] || "/placeholder.png"}

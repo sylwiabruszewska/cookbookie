@@ -44,12 +44,9 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
       </div>
       <ul className="px-2">
         {userShoppingList.map(async (ingredient: IngredientInShoppingList) => {
-          let recipeUrl: string = "";
+          let recipeTitle: string = "";
           if (ingredient.recipe_id) {
-            recipeUrl = generateRecipeUrl(
-              ingredient.recipe_title!,
-              ingredient.recipe_id!
-            );
+            recipeTitle = generateRecipeUrl(ingredient.recipe_title!);
           }
 
           return (
@@ -61,7 +58,9 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({
               <div className="w-1/4 flex justify-center text-center">{`${ingredient.quantity}`}</div>
               <div className="w-1/4 flex justify-end">
                 {ingredient.recipe_id ? (
-                  <Link href={`/dashboard/recipes/${recipeUrl}`}>
+                  <Link
+                    href={`/dashboard/recipes/${recipeTitle}/${ingredient.recipe_id}`}
+                  >
                     <Button className="btn-icon" ariaLabel={t("go_to_recipe")}>
                       <FontAwesomeIcon
                         icon="arrow-up-right-from-square"

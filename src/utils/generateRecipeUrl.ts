@@ -1,9 +1,9 @@
 import slugify from "slugify";
 
-export function generateRecipeUrl(title: string, id: string): string {
+export function generateRecipeUrl(title: string): string {
   const sanitizedTitle = slugify(title, { lower: true, strict: true });
 
-  const url = `${sanitizedTitle}-${id}`;
+  const url = `${sanitizedTitle}`;
 
   return url;
 }

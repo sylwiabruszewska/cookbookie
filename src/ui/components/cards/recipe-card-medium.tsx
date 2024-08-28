@@ -40,7 +40,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
   const { edgestore } = useEdgeStore();
   const { t } = useTranslation(["dashboard"]);
 
-  const recipeUrl = generateRecipeUrl(title, id);
+  const recipeTitle = generateRecipeUrl(title);
 
   useEffect(() => {
     const updateScreenSize = () => {
@@ -80,7 +80,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
     <div>
       <div className="flex justify-between gap-2 lg:gap-6 h-30">
         <Link
-          href={`/dashboard/recipes/${recipeUrl}`}
+          href={`/dashboard/recipes/${recipeTitle}/${id}`}
           className="group flex flex-grow"
         >
           <div className="flex gap-4 flex-grow">
@@ -135,7 +135,7 @@ export const RecipeCardMedium: React.FC<RecipeCardMediumProps> = ({
               transition={{ duration: 0.3 }}
             >
               <div className="flex flex-col items-start justify-center gap-4">
-                <Link href={`/dashboard/recipes/${recipeUrl}/edit`}>
+                <Link href={`/dashboard/recipes/${recipeTitle}/${id}/edit`}>
                   <Button className="btn-icon h-6 w-6" ariaLabel={t("edit")}>
                     <FontAwesomeIcon icon="pencil" className="h-4 w-4" />
                   </Button>

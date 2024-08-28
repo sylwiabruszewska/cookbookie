@@ -23,7 +23,7 @@ export function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
   const [isFavorite, setIsFavorite] = useState(is_favorite);
   const { t } = useTranslation(["dashboard"]);
 
-  const recipeUrl = generateRecipeUrl(recipe.title, id);
+  const recipeTitle = generateRecipeUrl(recipe.title);
 
   useEffect(() => {
     setIsFavorite(is_favorite);
@@ -52,7 +52,7 @@ export function RecipeCardSmall({ recipe }: RecipeCardSmallProps) {
 
   return (
     <div className="relative w-full h-[340px] rounded-lg overflow-hidden">
-      <Link href={`/dashboard/recipes/${recipeUrl}`} className="group">
+      <Link href={`/dashboard/recipes/${recipeTitle}/${id}`} className="group">
         <div className="relative w-full h-[340px]">
           <Image
             src={images[0] || "/placeholder.png"}

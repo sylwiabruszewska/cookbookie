@@ -32,7 +32,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
   const [isLgScreen, setIsLgScreen] = useState(false);
   const { t } = useTranslation(["dashboard"]);
 
-  const recipeUrl = generateRecipeUrl(title, id);
+  const recipeTitle = generateRecipeUrl(title);
 
   useEffect(() => {
     const updateScreenSize = () => {
@@ -61,7 +61,7 @@ export const RecipeCardFavorite: React.FC<RecipeCardMediumProps> = ({
   return (
     <div className="flex justify-between gap-2 lg:gap-6 h-30">
       <Link
-        href={`/dashboard/recipes/${recipeUrl}`}
+        href={`/dashboard/recipes/${recipeTitle}/${id}`}
         className="group flex flex-grow"
       >
         <div className="flex gap-4 flex-grow">

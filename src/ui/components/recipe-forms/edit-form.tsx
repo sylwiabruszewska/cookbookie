@@ -147,7 +147,7 @@ export function EditForm({
       await updateRecipe(recipeId, recipe);
 
       toast.success(t("toast_update_recipe"));
-      router.push(`/dashboard/recipes/${recipeId}`);
+      router.push(`/dashboard/recipes/${values.title}/${recipeId}`);
     } catch (error) {
       toast.error(t("toast_error"));
     } finally {
